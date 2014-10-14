@@ -28,64 +28,12 @@ public class IndexController {
 	private static final Logger LOG = Logger.getLogger(IndexController.class);
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("================");
 		Map<String, Object> models = new HashMap<String, Object>();
 		List<Ticket> tickets = ticketService.getTickets();
 		models.put("tickets", tickets);
 		LOG.debug("This is a log test");
 		return new ModelAndView("index", models);
-	}
-
-	@RequestMapping(value = "search", method = RequestMethod.POST)
-	public ModelAndView search(SearchCondition condition, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("================");
-		System.out.println(condition.isSingle());
-		System.out.println(condition.isReturn());
-		System.out.println(condition.isConnect());
-		System.out.println(condition.getFrom());
-		System.out.println(condition.getTo());
-		System.out.println(condition.getStartDate());
-		System.out.println(condition.getEndDate());
-		System.out.println("================");
-		System.out.println(request.getParameter("from"));
-		System.out.println("================");
-
-		Map<String, Object> models = new HashMap<String, Object>();
-		List<LineInfo> lines = ticketService.getLines();
-		models.put("lines", lines);
-		models.put("condition", condition);
-
-		return new ModelAndView("list", models);
-	}
-
-	@RequestMapping(value = "booking", method = RequestMethod.POST)
-	public ModelAndView booking(SearchCondition condition, HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> models = new HashMap<String, Object>();
-		List<LineInfo> lines = ticketService.getLines();
-		models.put("line", lines.get(0));
-		models.put("condition", condition);
-
-		return new ModelAndView("booking", models);
-	}
-
-	@RequestMapping(value = "payment", method = RequestMethod.POST)
-	public ModelAndView payment(SearchCondition condition, HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> models = new HashMap<String, Object>();
-		List<LineInfo> lines = ticketService.getLines();
-		models.put("line", lines.get(0));
-		models.put("condition", condition);
-
-		return new ModelAndView("payment", models);
-	}
-
-	@RequestMapping(value = "confirmation", method = RequestMethod.POST)
-	public ModelAndView confirmation(SearchCondition condition, HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> models = new HashMap<String, Object>();
-		List<LineInfo> lines = ticketService.getLines();
-		models.put("line", lines.get(0));
-		models.put("condition", condition);
-
-		return new ModelAndView("confirmation", models);
 	}
 }

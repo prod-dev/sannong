@@ -17,7 +17,7 @@ public class HomeController {
 	private static final String HOME_PAGE = "home";
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
-	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
 
 		Map<String, Object> models = new HashMap<String, Object>();
 		models.put("home", new Object());
