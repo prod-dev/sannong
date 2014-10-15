@@ -1,19 +1,17 @@
-package sannongtest;
+package com.sannong.util;
 
 import static org.junit.Assert.*;
 
 import java.io.UnsupportedEncodingException;
 
-import com.sannong.sms.*;
-
 import org.junit.Test;
 
-public class smstest {
+public class SmsUtilTest {
 
 	@Test
 	public void testSms() throws UnsupportedEncodingException {
 		
-		String ret=SmsUtil.SendSms("13128818478", "welcome you register our website, ÄãµÄÑéÖ¤ÂëÊÇ123456");
+		String ret=SmsUtil.SendSms("13128818478", "welcome you register our website, ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½ï¿½ï¿½123456");
 	    Integer result=new Integer(ret);
     	assertTrue("test success", result>0);
 	}

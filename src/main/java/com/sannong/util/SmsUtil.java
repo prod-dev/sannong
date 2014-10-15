@@ -1,4 +1,4 @@
-package com.sannong.sms;
+package com.sannong.util;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,7 +15,7 @@ public class SmsUtil {
 	private static Integer x_gate_id=300;
 
 	public static String SendSms(String mobile,String content) throws UnsupportedEncodingException{
-	Integer x_ac=10;//·¢ËÍÐÅÏ¢
+	Integer x_ac=10;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	HttpURLConnection httpconn = null;
 	String result="-20";
 	String memo = content.length()<70?content.trim():content.trim().substring(0, 70);
