@@ -43,16 +43,16 @@
         </form>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="\signin">Sign in</a>
+                <a href="signin">Sign in</a>
             </li>
             <li>
-                <a href="\myinfo">My Info</a>
+                <a href="myinfo">My Info</a>
             </li>
             <li>
-                <a href="\mypassword">My Password</a>
+                <a href="mypassword">My Password</a>
             </li>
             <li>
-                <a href="\assessment-list">Assessments</a>
+                <a href="assessment-list">Assessments</a>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
