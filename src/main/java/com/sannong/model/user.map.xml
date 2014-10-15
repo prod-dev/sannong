@@ -1,0 +1,25 @@
+<mapper namespace="com.sannong.model.User">
+  
+     <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
+
+     <resultMap type="User" id="userMap">
+        <id property="userId" column="id" />
+        <result property="userName" column="name" />
+        <result property="address" column="address" />
+        <result property="birthday" column="birthday" />
+        <result property="gender" column="gender" />
+        <result property="jobTitle" column="jobTitle" />
+        <result property="password" column="password" />
+        <result property="phoneNumber" column="phoneNumber" />
+        <result property="smsAuthCode" column="smsAuthCode" />
+        <result property="orgnization" column="orgnization" />
+        <result property="updateTime" column="updateTime" />
+     </resultMap>
+     
+     <select id=getUserByAuditorId parameterType="User" resultMap="userMap">
+     	<![CDATA[
+        	select * from user where id = #{id}
+        ]]>
+     </select>
+<mapper/>
+

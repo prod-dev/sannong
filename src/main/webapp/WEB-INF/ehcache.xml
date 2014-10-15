@@ -1,0 +1,15 @@
+<ehcache>
+    <!-- 缓存文件生成之后所放置的路径 -->
+    <diskStore path="" />
+
+    <!-- maxElementsInMemory 缓存最大数目
+         eternal 缓存是否持久 
+         overflowToDisk 是否保存到磁盘，当系统宕机时
+         timeToIdleSeconds 当缓存闲置n秒后销毁
+         timeToLiveSeconds 当缓存存活n秒后销毁
+         diskPersistent 是否在磁盘上持久化
+         diskExpiryThreadIntervalSeconds 对象检测线程运行时间间隔 -->
+    <defaultCache maxElementsInMemory="10000" eternal="false"
+        overflowToDisk="true" timeToIdleSeconds="120" timeToLiveSeconds="120"
+        diskPersistent="false" diskExpiryThreadIntervalSeconds="120" />
+</ehcache>
