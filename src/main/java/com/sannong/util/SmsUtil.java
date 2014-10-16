@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.Random;
 
 public class SmsUtil {
 	private static Integer x_eid=11996;
@@ -14,7 +15,7 @@ public class SmsUtil {
 	private static String x_pwd_md5="e10adc3949ba59abbe56e057f20f883e";
 	private static Integer x_gate_id=300;
 
-	public static String SendSms(String mobile,String content) throws UnsupportedEncodingException{
+	public static String sendSms(String mobile,String content) throws UnsupportedEncodingException{
 	Integer x_ac=10;//������Ϣ
 	HttpURLConnection httpconn = null;
 	String result="-20";
@@ -50,5 +51,21 @@ public class SmsUtil {
 	return result;
 	}
 
+    private static String    chars     = "0123456789";
+    private static Random    rnd         = new Random();	
+	// auto generate register code
+	public static String generateCode(int length)
+	{
+			if(length==0)return "";
+	        char[] buf = new char[length];	 
+	        for (int i = 0; i < buf.length; i++) {
+	            buf[i] = chars.charAt(rnd.nextInt(chars.length()));
+	        }	 
+	        return new String(buf);
+	 }
 
+		
+	
+	
 }
+
