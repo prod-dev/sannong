@@ -94,6 +94,11 @@
             <artifactId>spring-jdbc</artifactId>  
             <version>${springframework.version}</version>  
         </dependency>
+        <dependency>  
+            <groupId>org.springframework</groupId>  
+            <artifactId>spring-support</artifactId>  
+            <version>2.0.8</version>  
+        </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
@@ -165,7 +170,22 @@
             <groupId>org.mybatis.caches</groupId>  
             <artifactId>mybatis-ehcache</artifactId>  
             <version>1.0.0-RC1</version>  
-        </dependency>  
+        </dependency>
+        <dependency>  
+            <groupId>org.mybatis.caches</groupId>  
+            <artifactId>mybatis-ehcache</artifactId>  
+            <version>1.0.0-RC1</version>  
+        </dependency>
+        <dependency>  
+            <groupId>mysql</groupId>  
+            <artifactId>mysql-connector-java</artifactId>  
+            <version>5.1.33</version>  
+        </dependency>
+        <dependency>  
+            <groupId>org.mybatis</groupId>  
+            <artifactId>mybatis-spring</artifactId>  
+            <version>1.2.2</version>  
+        </dependency>
 
     </dependencies>
     

@@ -9,22 +9,19 @@
                            http://www.springframework.org/schema/mvc
                            http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
                            
-   <context:property-placeholder location="classpath:mysql.properties" /> 
+   <context:property-placeholder location="/WEB-INF/mysql.properties" /> 
    
-   <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-	   <property name="driverClassName" value="${jdbc.driverClassName}"/>
+   <!-- bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" destroy-method="close"-->
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+	   <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 	   <property name="url" value="${jdbc.url}"/>
 	   <property name="username" value="${jdbc.username}"/>
 	   <property name="password" value="${jdbc.password}"/>
-	   <property name="initialSize" value="${jdbc.initialSize}"/>
-	   <property name="maxActive" value="${jdbc.maxActive}"/>
-	   <property name="maxIdle" value="${jdbc.maxIdle}"/>
-	   <property name="minIdle" value="${jdbc.minIdle}"/>
    </bean> 
    
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
        <property name="dataSource" ref="dataSource" /> 
-       <property  name="configLocation"  value="classpath:mybatis-config.xml"/>
+       <property  name="configLocation"  value="/WEB-INF/mybatis-config.xml"/>
        <property  name="mapperLocations"  value="classpath*:com/sannong/model/*.xml"/>
    </bean>
    
@@ -39,9 +36,6 @@
    </bean>
    
    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">  
-       <property name="configLocation">  
-       <value>classpath:ehcache.xml</value>  
-       </property>  
+       <property name="configLocation" value="/WEB-INF/ehcache.xml" />  
    </bean>  
-
 </beans>

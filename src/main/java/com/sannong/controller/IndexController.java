@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sannong.model.LineInfo;
-import com.sannong.model.SearchCondition;
 import com.sannong.model.Ticket;
 import com.sannong.service.ITicketService;
 
