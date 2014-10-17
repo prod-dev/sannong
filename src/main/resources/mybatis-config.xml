@@ -8,4 +8,8 @@
 	<typeAliases>
     	<typeAlias type="com.sannong.model.User" alias="User" />
     </typeAliases>
+    
+    <mappers>
+    	<mapper resource="user.map.xml"/>
+    </mappers>
 </configuration>
