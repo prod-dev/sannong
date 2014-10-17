@@ -2,10 +2,12 @@ package com.sannong.util;
 
 import static org.junit.Assert.*;
 
-
 import org.junit.Test;
 
+
 public class EmailUtilTest {
+	
+
 
 	@Test
 	public void testSendMail() {
@@ -16,5 +18,7 @@ public class EmailUtilTest {
 		EmailUtil.sendMail("techmio@qq.com", "mail test",sb.toString() , false);
 		
 	}
+	
+	
 
 }
