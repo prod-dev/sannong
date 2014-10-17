@@ -1,8 +1,7 @@
-package com.sannong.util;
-import jodd.core.*;
+package com.sannong.infrastructure.mail;
 import jodd.mail.*;
 
-public class EmailUtil {
+public class EmailSender {
 	
 	public static boolean sendMail(String receiver,String subject,String content, boolean isHtml)
 	{

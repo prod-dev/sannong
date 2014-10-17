@@ -71,7 +71,7 @@
     
     <filter>
         <filter-name>LogFilter</filter-name>
-        <filter-class>com.sannong.filter.LogFilter</filter-class>
+        <filter-class>com.sannong.presentation.filter.LogFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>LogFilter</filter-name>

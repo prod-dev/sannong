@@ -7,8 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sannong.dao.UserMapper;
-import com.sannong.model.User;
+import com.sannong.infrastructure.persistance.mapper.UserMapper;
+import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.service.IUserService;
 
 @Service

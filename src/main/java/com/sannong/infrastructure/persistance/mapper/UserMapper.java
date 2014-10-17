@@ -1,4 +1,4 @@
-package com.sannong.dao;
+package com.sannong.infrastructure.persistance.mapper;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sannong.model.User;
+import com.sannong.infrastructure.persistance.entity.User;
 
 @Repository
 @Transactional

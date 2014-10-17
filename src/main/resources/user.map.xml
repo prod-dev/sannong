@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 
-<mapper namespace="com.sannong.dao.UserMapper">
+<mapper namespace="com.sannong.infrastructure.persistance.mapper.UserMapper">
      <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
 
      <resultMap type="User" id="userMap">

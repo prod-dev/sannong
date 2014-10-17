@@ -1,4 +1,4 @@
-package com.sannong.controller;
+package com.sannong.presentation.controller;
 
 
 import java.util.HashMap;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sannong.domain.DTO;
-import com.sannong.model.User;
+import com.sannong.presentation.model.DTO;
+import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.service.IUserService;
 
 /**

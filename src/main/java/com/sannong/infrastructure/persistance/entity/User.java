@@ -1,4 +1,4 @@
-package com.sannong.model;
+package com.sannong.infrastructure.persistance.entity;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.sannong.util;
+package com.sannong.infrastructure.sms;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Random;
 
-public class SmsUtil {
+public class SmsSender {
     private static Integer x_eid = 11996;
     private static String x_uid = "techmio";
     private static String x_pwd_md5 = "e10adc3949ba59abbe56e057f20f883e";

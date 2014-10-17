@@ -22,7 +22,7 @@
     <div class="row clearfix">
         <div class="col-md-12 column">
             <form role="form" action="bidding/apply" method="post">
-                <div>
+                <div class="btn-group" data-toggle="buttons">
                     <label>问题1:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
@@ -40,7 +40,7 @@
                 </div>
                 <br>
 
-                <div>
+                <div class="btn-group" data-toggle="buttons">
                     <label>问题2:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
@@ -58,7 +58,7 @@
                 </div>
                 <br>
 
-                <div>
+                <div class="btn-group" data-toggle="buttons">
                     <label>问题3:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
@@ -76,7 +76,7 @@
                 </div>
                 <br>
 
-                <div>
+                <div class="btn-group" data-toggle="buttons">
                     <label>问题4:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
@@ -94,7 +94,7 @@
                 </div>
                 <br>
 
-                <div>
+                <div class="btn-group" data-toggle="buttons">
                     <label>问题5:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">

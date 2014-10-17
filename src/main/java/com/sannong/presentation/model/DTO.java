@@ -1,10 +1,11 @@
-package com.sannong.domain;
+package com.sannong.presentation.model;
 
 import java.util.List;
 
 public class DTO {
 
 	private boolean responseResult;
+
 	List<Object> dto;
 
 	public boolean getResult() {
