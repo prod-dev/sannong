@@ -4,6 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
+    <link href="content/static/css/sannong/footer.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -12,49 +13,28 @@
             <jsp:include page='navbar.jsp'/>
             <div class="jumbotron">
                 <h1>
-                    Hello!
+                    项目简介
                 </h1>
                 <p>
-                    This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
+                    现在有些地方盲目推进农村城镇化，再次使农民失去了土地，也失去了家园，不但浪费了地方的财力，也加重了农民的负担，这种做法是与科学发展观及可持续发展观的理念相悖的！
+                    要根本解决好中国的‘三农’问题，必须以可持续发展的视点从宏观上把握，从国家的整体观上来看待，惠泽“三农”的可持续发展项目将从基础设施、
+                    网络信息、人力资源、产业优化等方面建立十大模块.三农项目为农村提供一个专业的信息化平台，
+                    它将是农村的致富工具，在上面可以得到各种帮助如：资金、知识、专家支持等，为农村的发展提供一切可利用的手段。
                 </p>
                 <p>
-                    <a class="btn btn-primary btn-large" href="#">Learn more</a>
+                    <a class="btn btn-lg btn-success" href="questionnaire">申报项目 »</a>
                 </p>
             </div>
         </div>
     </div>
     <div class="row clearfix">
         <div class="col-md-4 column">
-            <h2>
-                项目A
-            </h2>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-                <a class="btn" href="bidding">申请 »</a>
-            </p>
         </div>
         <div class="col-md-4 column">
-            <h2>
-                项目B
-            </h2>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-                <a class="btn" href="bidding">申请 »</a>
-            </p>
         </div>
         <div class="col-md-4 column">
-            <h2>
-                项目C
-            </h2>
             <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-                <a class="btn" href="bidding">申请 »</a>
+                有更多的问题? 请查看<a href="faq">常见问题 »</a>
             </p>
         </div>
     </div>

@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="active">
-                <a href="\home">Home</a>
+                <a href="home">Home</a>
             </li>
             <li>
                 <a href="#">Link</a>
@@ -36,14 +36,9 @@
                 </ul>
             </li>
         </ul>
-        <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-                <input type="text" class="form-control" />
-            </div> <button type="submit" class="btn btn-default">Submit</button>
-        </form>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="signin">Sign in</a>
+                <a href="questionnaire">Questionnaire</a>
             </li>
             <li>
                 <a href="myinfo">My Info</a>
@@ -52,10 +47,13 @@
                 <a href="mypassword">My Password</a>
             </li>
             <li>
-                <a href="assessment-list">Assessments</a>
+                <a href="applicants">Applicants</a>
+            </li>
+            <li>
+                <a href="signin">Sign in</a>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong class="caret"></strong></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Personal Center<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="#">Action</a>

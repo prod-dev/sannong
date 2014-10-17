@@ -15,6 +15,7 @@ public class PersonalCenterController {
     private static final String MY_APPLICATION_PAGE = "myapplication";
     private static final String MY_INFO_PAGE = "myinfo";
     private static final String MY_PASSWORD_PAGE = "mypassword";
+    private static final String APPLICANTS_PAGE = "applicants";
 
 
     @RequestMapping(value = "myapplication", method = RequestMethod.GET)
@@ -42,5 +43,13 @@ public class PersonalCenterController {
         models.put("mypassword", new Object());
 
         return new ModelAndView(MY_PASSWORD_PAGE, models);
+    }
+
+    @RequestMapping(value = "applicants", method = RequestMethod.GET)
+    public ModelAndView showList(HttpServletRequest request, HttpServletResponse response) {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("applicants", new Object());
+        return new ModelAndView(APPLICANTS_PAGE, models);
     }
 }

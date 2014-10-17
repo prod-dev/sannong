@@ -248,11 +248,25 @@
             <version>1.7.7</version>
         </dependency>
 
+
         <dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.8</version>
 		</dependency>
+        
+         <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-core</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-mail</artifactId>
+            <version>3.6.1</version>
+        </dependency>
+
     </dependencies>
     
     <repositories>

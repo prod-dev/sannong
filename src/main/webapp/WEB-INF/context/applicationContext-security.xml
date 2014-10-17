@@ -1,0 +1,185 @@
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:tx="http://www.springframework.org/schema/tx"
+         xmlns:context="http://www.springframework.org/schema/context"
+         xmlns="http://www.springframework.org/schema/security" xmlns:sec="http://www.springframework.org/schema/security"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.2.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <tx:annotation-driven/>
+
+    <!-- 不要过滤图片等静态资源，其中**代表可以跨越目录，*不可以跨越目录。 -->
+    <sec:http pattern="/**/*.jsp" security="none"/>
+    <sec:http pattern="/**/*.png" security="none"/>
+    <sec:http pattern="/**/*.gif" security="none"/>
+    <sec:http pattern="/**/*.css" security="none"/>
+    <sec:http pattern="/**/*.js" security="none"/>
+
+    <sec:http pattern="/**/*.eot" security="none"/>
+    <sec:http pattern="/**/*.woff" security="none"/>
+    <sec:http pattern="/**/*.svg" security="none"/>
+    <sec:http pattern="/**/*.ttf" security="none"/>
+
+    <sec:http pattern="/login.jsp" security="none"/>
+    <sec:http pattern="/jsp/forgotpassword.jsp" security="none"/>
+
+    <sec:http auto-config="true" access-denied-page="/accessDenied.jsp">
+        <!-- anonymous enabled="false"></anonymous -->
+        <sec:intercept-url pattern="/unitsManager" access="ROLE_PLATFORMADMIN"/>
+        <sec:intercept-url pattern="/usersManager" access="ROLE_PLATFORMADMIN"/>
+        <sec:intercept-url pattern="/horizontalQuery" access="ROLE_PLATFORMADMIN"/>
+
+        <!--intercept-url pattern="/signin" access="ROLE_USER, ROLE_ANONYMOUS"/-->
+        <sec:intercept-url pattern="/signup" access="ROLE_ANONYMOUS, ROLE_USER"/>
+        <!--
+        <sec:intercept-url pattern="/login" access="ROLE_USER"/>
+        <sec:intercept-url pattern="/home" access="ROLE_USER, ROLE_MANAGER, ROLE_ADMIN"/>
+        -->
+        <sec:intercept-url pattern="/admin" access="ROLE_ADMIN"/>
+
+        <sec:form-login login-page="/login"
+                    authentication-failure-url="/authentication-failure"
+                    default-target-url="/home"/>
+
+        <!---->
+        <sec:logout invalidate-session="true"
+                    logout-url="/logout" logout-success-url="/login"/>
+
+        <!--remember-me data-source-ref="mySQLDataSource" /-->
+        <sec:session-management invalid-session-url="/login"/>
+
+    </sec:http>
+
+
+    <!--
+     <b:bean id="myUserDetailsService"
+             class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+         <b:property name="dataSource" ref="mySQLDataSource" />
+     </b:bean>
+
+     <b:bean id="daoAuthenticationProvider"
+             class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+         <b:property name="userDetailsService" ref="myUserDetailsService"/>
+         <b:property name="passwordEncoder" ref="passwordEncoder"/>
+     </b:bean>
+
+     <sec:authentication-manager alias="authenticationManager">
+         <sec:authentication-provider ref="daoAuthenticationProvider"/>
+     </sec:authentication-manager>
+     -->
+
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider user-service-ref="userDetailsManager">
+            <sec:password-encoder ref="passwordEncoder">
+                <sec:salt-source user-property="username"/>
+            </sec:password-encoder>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <b:bean id="userDetailsManager"
+            class="org.springframework.security.provisioning.JdbcUserDetailsManager">
+        <b:property name="dataSource" ref="dataSource"/>
+    </b:bean>
+
+    <!--
+    <b:bean id="anonymousAuthFilter"
+            class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
+        <b:property name="key" value="foobar"/>
+        <b:property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
+    </b:bean>
+
+    <b:bean id="anonymousAuthenticationProvider"
+            class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
+        <b:property name="key" value="foobar"/>
+    </b:bean>
+
+    <b:bean id="anonymousAuthenticationProvider"
+            class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
+    </b:bean>
+
+    <b:bean id="authenticationManager"
+          class="org.springframework.security.authentication.ProviderManager">
+        <b:property name="providers">
+            <b:list>
+                <b:ref local="daoAuthenticationProvider"/>
+                <b:ref local="anonymousAuthenticationProvider"/>
+            </b:list>
+        </b:property>
+    </b:bean>
+    -->
+
+    <!--
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider user-service-ref="userDetailsManager">
+            <sec:password-encoder ref="passwordEncoder">
+                <sec:salt-source user-property="username"/>
+            </sec:password-encoder>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+
+    <b:bean id="userDetailsManager"
+          class="org.springframework.security.provisioning.JdbcUserDetailsManager">
+        <b:property name="dataSource" ref="mySQLDataSource"/>
+    </b:bean>
+    -->
+
+    <!-- 定义上下文返回的消息的国际化。 -->
+    <!--
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename"
+                  value="classpath:org/springframework/security/messages_zh_CN"/>
+    </bean>
+    -->
+
+    <!--   事件监听:实现了 ApplicationListener监听接口，包括AuthenticationCredentialsNotFoundEvent 事件，
+     AuthorizationFailureEvent事件，AuthorizedEvent事件， PublicInvocationEvent事件 -->
+    <b:bean class="org.springframework.security.authentication.event.LoggerListener"/>
+
+    <!-- 用户的密码加密或解密 -->
+    <b:bean id="passwordEncoder"
+          class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
+
+
+    <!-- 用户详细信息管理 : 数据源、用户缓存、启用用户组功能。  -->
+    <!--
+    <bean id="userCache"
+          class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
+        <property name="cache" ref="userEhCache"/>
+    </bean>
+
+    <bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheName" value="userCache"/>
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+    <bean id="cacheManager"
+          class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+    -->
+
+    <!-- spring security自带的与权限有关的数据读写Jdbc模板 -->
+    <!--bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="mySQLDataSource"/>
+    </bean-->
+
+    <!--
+    <bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <property name="dataSource" ref="mySQLDataSource"/>
+    </bean>
+
+    <bean id="userDetailsService"
+          class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <property name="dataSource" ref="mySQLDataSource" />
+    </bean>
+    -->
+</b:beans>
+
+
+

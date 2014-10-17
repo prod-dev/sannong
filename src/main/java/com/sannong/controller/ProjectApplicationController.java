@@ -14,19 +14,18 @@ import java.util.Map;
  * Created by Bright Huang on 10/14/14.
  */
 @Controller
-@RequestMapping(value = "bidding")
-public class BiddingController {
+public class ProjectApplicationController {
 
-    private static final String PROJECT_APPLICATION_PAGE = "bidding";
+    private static final String QUESTIONNAIRE_PAGE = "questionnaire";
     private static final String COMPLETION_PAGE = "completion";
 
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "questionnaire", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("project-application", new Object());
-        return new ModelAndView(PROJECT_APPLICATION_PAGE, models);
+        models.put("questionnaire", new Object());
+        return new ModelAndView(QUESTIONNAIRE_PAGE, models);
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
