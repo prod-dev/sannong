@@ -1,4 +1,4 @@
-package com.sannong.infrastructure.persistance.mapper;
+package com.sannong.infrastructure.persistance.repository;
 
 import java.util.List;
 import java.util.Map;
@@ -10,7 +10,7 @@ import com.sannong.infrastructure.persistance.entity.User;
 
 @Repository
 @Transactional
-public interface UserMapper {
+public interface UserRepository {
 	
 	List<User> getUserByAuditorId();
 	

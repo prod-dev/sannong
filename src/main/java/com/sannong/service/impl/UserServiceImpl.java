@@ -7,7 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sannong.infrastructure.persistance.mapper.UserMapper;
+import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.service.IUserService;
 
@@ -15,7 +15,7 @@ import com.sannong.service.IUserService;
 public class UserServiceImpl implements IUserService{
 
 	@Autowired
-	private UserMapper userMapper;
+	private UserRepository userRepository;
 	
 	@Override
 	public boolean loginValidation(String phoneNumber, String password) {
@@ -25,7 +25,7 @@ public class UserServiceImpl implements IUserService{
 		mapObject.put("phoneNumber", phoneNumber);
 		mapObject.put("password", password);
 		
-		User user = userMapper.loginValidation(mapObject);
+		User user = userRepository.loginValidation(mapObject);
 		
 		if (user != null) {
 			result = true;
@@ -39,7 +39,7 @@ public class UserServiceImpl implements IUserService{
 		boolean result = false;
 		
 		try {
-			userMapper.addUserInfo(user);
+            userRepository.addUserInfo(user);
 			result = true;
 		}
 		catch(Exception e) {
@@ -52,7 +52,7 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public List<User> getUserByAuditorId() {
 		
-		return userMapper.getUserByAuditorId();
+		return userRepository.getUserByAuditorId();
 	}
 
 }
