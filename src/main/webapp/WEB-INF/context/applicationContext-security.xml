@@ -27,7 +27,7 @@
     <sec:http pattern="/**/*.svg" security="none"/>
     <sec:http pattern="/**/*.ttf" security="none"/>
 
-    <sec:http pattern="/login.jsp" security="none"/>
+    <sec:http pattern="/signin.jsp" security="none"/>
     <sec:http pattern="/jsp/forgotpassword.jsp" security="none"/>
 
     <sec:http auto-config="true" access-denied-page="/accessDenied.jsp">
@@ -44,16 +44,16 @@
         -->
         <sec:intercept-url pattern="/admin" access="ROLE_ADMIN"/>
 
-        <sec:form-login login-page="/login"
+        <sec:form-login login-page="/signin"
                     authentication-failure-url="/authentication-failure"
                     default-target-url="/home"/>
 
         <!---->
         <sec:logout invalidate-session="true"
-                    logout-url="/logout" logout-success-url="/login"/>
+                    logout-url="/logout" logout-success-url="/signin"/>
 
         <!--remember-me data-source-ref="mySQLDataSource" /-->
-        <sec:session-management invalid-session-url="/login"/>
+        <sec:session-management invalid-session-url="/signin"/>
 
     </sec:http>
 

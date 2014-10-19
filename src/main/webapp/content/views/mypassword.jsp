@@ -31,35 +31,22 @@
             </div>
         </div>
         <div class="col-md-7 column">
-            <h2>
-                Heading
-            </h2>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-                <a class="btn" href="#">View details »</a>
-            </p>
             <form role="form">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                <div>
+                    <div class="form-group">
+                        <label for="oldPassword">旧密码</label>
+                        <input type="password" class="form-control" id="oldPassword" placeholder="旧密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">新密码</label>
+                        <input type="password" class="form-control" id="newPassword" placeholder="新密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordConfirm">确认新密码</label>
+                        <input type="password" class="form-control" id="passwordConfirm" placeholder="确认新密码">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <input type="file" id="exampleInputFile">
-                    <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Check me out
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>

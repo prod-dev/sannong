@@ -15,11 +15,9 @@
 	<div class="container">
 		<form id="form" class="form-signin" role="form">
 			<h2 class="form-signin-heading">Please sign in</h2>
-			<input type="email" class="form-control" placeholder="Email address"
-				required autofocus> <input type="password"
-				class="form-control" placeholder="Password" required> <label
-				class="checkbox"> <input type="checkbox" value="remember-me">
-				Remember me </label>
+			<input type="email" class="form-control" placeholder="Email address" required autofocus>
+            <span><input type="password" class="form-control" placeholder="Password" required><a href="forgotpassword">Forgot password?</a></span>
+            <label class="checkbox"><input type="checkbox" value="remember-me">Remember me </label>
 			<button id="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
 		</form>
 	</div>

@@ -31,35 +31,43 @@
             </div>
         </div>
         <div class="col-md-7 column">
-            <h2>
-                Heading
-            </h2>
-            <p>
-                Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-                <a class="btn" href="#">View details »</a>
-            </p>
             <form role="form">
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                <div>
+                    <div class="form-group">
+                        <label for="userName">姓名</label>
+                        <input type="text" class="form-control" id="userName" placeholder="姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobTitle">职务</label>
+                        <input type="input" class="form-control" id="jobTitle" placeholder="职务">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobCompany">工作单位</label>
+                        <input type="input" class="form-control" id="jobCompany" placeholder="工作单位">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobAddress">单位地址</label>
+                        <input type="input" class="form-control" id="jobAddress" placeholder="单位地址">
+                    </div>
+                    <div class="form-group">
+                        <label for="deskPhone">工作电话</label>
+                        <input type="input" class="form-control" id="deskPhone" placeholder="工作电话">
+                    </div>
+                    <div class="form-group">
+                        <label for="mailBox">电子邮箱</label>
+                        <input type="input" class="form-control" id="mailBox" placeholder="电子邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label for="cellPhone">手机号码</label>
+                        <input type="input" class="form-control" id="cellPhone" placeholder="手机号码">
+                        <button type="button" class="btn btn-default">发送验证码</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="validationCode">验证码</label>
+                        <input type="input" class="form-control" id="validationCode" placeholder="验证码">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputFile">File input</label>
-                    <input type="file" id="exampleInputFile">
-                    <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox"> Check me out
-                    </label>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
     </div>

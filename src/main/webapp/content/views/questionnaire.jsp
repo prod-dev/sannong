@@ -20,127 +20,164 @@
         </div>
     </div>
     <div class="row clearfix">
-        <div class="col-md-12 column">
-            <form role="form" action="bidding/apply" method="post">
-                <div class="btn-group" data-toggle="buttons">
+        <div class="col-md-8 column">
+           <form role="form" action="apply" method="post">
+
+                <div>
                     <label>问题1:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio11" value="option1"> a
+                        <input type="radio" name="inlineRadioOptions1" id="inlineRadio11" value="option1"> a
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio12" value="option2"> b
+                        <input type="radio" name="inlineRadioOptions1" id="inlineRadio12" value="option2"> b
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio13" value="option3"> c
+                        <input type="radio" name="inlineRadioOptions1" id="inlineRadio13" value="option3"> c
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio14" value="option1"> d
+                        <input type="radio" name="inlineRadioOptions1" id="inlineRadio14" value="option1"> d
                     </label>
                 </div>
                 <br>
 
-                <div class="btn-group" data-toggle="buttons">
+                <div>
                     <label>问题2:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio21" value="option2"> 差
+                        <input type="radio" name="inlineRadioOptions2" id="inlineRadio21" value="option2"> 差
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio22" value="option3"> 一般
+                        <input type="radio" name="inlineRadioOptions2" id="inlineRadio22" value="option3"> 一般
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio23" value="option1"> 好
+                        <input type="radio" name="inlineRadioOptions2" id="inlineRadio23" value="option1"> 好
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio24" value="option2"> 很好
+                        <input type="radio" name="inlineRadioOptions2" id="inlineRadio24" value="option2"> 很好
                     </label>
                 </div>
                 <br>
 
-                <div class="btn-group" data-toggle="buttons">
+                <div>
                     <label>问题3:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio31" value="option2"> a
+                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio31" value="option2"> a
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio32" value="option3"> b
+                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio32" value="option3"> b
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio33" value="option1"> c
+                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio33" value="option1"> c
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio34" value="option2"> d
+                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio34" value="option2"> d
                     </label>
                 </div>
                 <br>
 
-                <div class="btn-group" data-toggle="buttons">
+                <div>
                     <label>问题4:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio41" value="option2"> a
+                        <input type="radio" name="inlineRadioOptions4" id="inlineRadio41" value="option2"> a
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio42" value="option3"> b
+                        <input type="radio" name="inlineRadioOptions4" id="inlineRadio42" value="option3"> b
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio43" value="option1"> c
+                        <input type="radio" name="inlineRadioOptions4" id="inlineRadio43" value="option1"> c
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio44" value="option2"> d
+                        <input type="radio" name="inlineRadioOptions4" id="inlineRadio44" value="option2"> d
                     </label>
                 </div>
                 <br>
 
-                <div class="btn-group" data-toggle="buttons">
+                <div>
                     <label>问题5:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio51" value="option2"> a
+                        <input type="radio" name="inlineRadioOptions5" id="inlineRadio51" value="option2"> a
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio52" value="option3"> b
+                        <input type="radio" name="inlineRadioOptions5" id="inlineRadio52" value="option3"> b
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio53" value="option1"> c
+                        <input type="radio" name="inlineRadioOptions5" id="inlineRadio53" value="option1"> c
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inlineRadio54" value="option2"> d
+                        <input type="radio" name="inlineRadioOptions5" id="inlineRadio54" value="option2"> d
                     </label>
                 </div>
                 <br>
-
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputFile">File input</label>
-                        <input type="file" id="exampleInputFile">
-                        <p class="help-block">Example block-level help text here.</p>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> Check me out
-                        </label>
-                    </div>
 
                 <div>
-                    <p>如果需要修改问卷调查的答案, 请致电免费电话400-XXXX-XXXX联系我们的工作人员.</p>
+                    <div class="form-group">
+                        <label for="userName">姓名</label>
+                        <input type="text" class="form-control" id="userName" placeholder="姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobTitle">职务</label>
+                        <input type="input" class="form-control" id="jobTitle" placeholder="职务">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobCompany">工作单位</label>
+                        <input type="input" class="form-control" id="jobCompany" placeholder="工作单位">
+                    </div>
+                    <div class="form-group">
+                        <label for="jobAddress">单位地址</label>
+                        <input type="input" class="form-control" id="jobAddress" placeholder="单位地址">
+                    </div>
+                    <div class="form-group">
+                        <label for="deskPhone">工作电话</label>
+                        <input type="input" class="form-control" id="deskPhone" placeholder="工作电话">
+                    </div>
+                    <div class="form-group">
+                        <label for="mailBox">电子邮箱</label>
+                        <input type="input" class="form-control" id="mailBox" placeholder="电子邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label for="cellPhone">手机号码</label>
+                        <input type="input" class="form-control" id="cellPhone" placeholder="手机号码">
+                        <button type="button" class="btn btn-default">发送验证码</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="validationCode">验证码</label>
+                        <input type="input" class="form-control" id="validationCode" placeholder="验证码">
+                    </div>
                 </div>
-                <br>
-
-                <button type="submit" class="btn btn-default">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
             </form>
+            <div>
+                <p>如果需要修改问卷调查的答案, 请致电免费电话400-XXXX-XXXX联系我们的工作人员.</p>
+            </div>
+            <br>
+        </div>
+        <div class="col-md-4 column">
+            <dl>
+                <dt>1.这个网站我们都可以上吗</dt>
+                <dd>答：可以我们的网站是对公网开放的，任何人都可以通过个人身份证来进行注册，然后享受上面的服务。</dd>
+
+                <dt>2.每个村都可以建立这样的车站吗？</dt>
+                <dd>答：不是，要以10个村为一个点建立一个基点设施，对基点设施的选择也有一定要求。</dd>
+
+                <dt>3.车站建立需要什么样的要求？</dt>
+                <dd>答：通过填写调查问卷，让我们了解你们村的情况，符合我们的要求就可以建立车站设施。</dd>
+
+                <dt>4.建立这样的平台对我们有什么好处？</dt>
+                <dd>答：帮助农村发展，帮助农村提高文化，娱乐，休闲等生活水平，帮助解决留守儿童和老人的问题，提供大量就业机会，帮助农村提升经济水平。</dd>
+
+                <dt>5.平台上什么都有吗？</dt>
+                <dd>答：只要是对农村有利的服务，我们里面都会有，杜绝不健康的资料出现在平台上，我们会严格审核。</dd>
+            </dl>
+            <a href="faq">更多问题 >></a>
         </div>
     </div>
+
+
+
 </div>
 </body>
 </html>

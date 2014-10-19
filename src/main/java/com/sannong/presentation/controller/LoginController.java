@@ -29,6 +29,7 @@ public class LoginController {
     private IUserService userService;
 	
     private static final String SIGNIN_PAGE = "signin";
+    private static final String FORGOT_PASSWORD_PAGE = "forgotpassword";
     
     @RequestMapping(value = "signin", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
@@ -37,18 +38,14 @@ public class LoginController {
         models.put("signin", new Object());
         return new ModelAndView(SIGNIN_PAGE, models);
     }
-    
-   /* @RequestMapping(value = "login", method = RequestMethod.POST,
-    		headers = {"content-type=application/json","content-type=application/xml"})
-    public @ResponseBody DTO loginValidation(@RequestBody User user) 
-    {
-        Boolean result = userService.loginValidation(user.getPhoneNumber(), user.getPassword());
-        
-        DTO dto = new DTO();
-        dto.setResult(result);
-        
-        return dto;
-    }*/
+
+    @RequestMapping(value = "forgotpassword", method = RequestMethod.GET)
+    public ModelAndView forgotPassword(HttpServletRequest request, HttpServletResponse response) {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("forgotpassword", new Object());
+        return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
+    }
     
     @RequestMapping(value = "login", method = RequestMethod.POST,
     		headers = {"content-type=application/json","content-type=application/xml"})
