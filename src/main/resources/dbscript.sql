@@ -130,9 +130,9 @@ CREATE TABLE `sms` (
   `user_id` bigint(20) DEFAULT NULL,
   `sms_validation_code` varchar(45) DEFAULT NULL,
   `send_time` datetime DEFAULT NULL,
-   'cellphone' varchar(45) DEFAULT NULL,
-   'sms_content' varchar(45) DEFAULT NULL,
-   'sms_status'  bigint(20)
+  `cellphone` varchar(45) DEFAULT NULL,
+  `sms_content` varchar(45) DEFAULT NULL,
+  `sms_status`  bigint(20) DEFAULT NULL,
   PRIMARY KEY (`sms_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
