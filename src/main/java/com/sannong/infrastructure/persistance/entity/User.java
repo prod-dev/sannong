@@ -2,21 +2,26 @@ package com.sannong.infrastructure.persistance.entity;
 
 import java.io.Serializable;
 
+/**
+ * @author william zhang
+ * create user class
+ */
 public class User implements Serializable{
-
+	
 	private static final long serialVersionUID = 4891642085331481252L;
 	
 	private Long userId;
 	private String userName;
-	private String address;
-	private String birthday;
-	private int gender;
-	private String jobTitle;
+	private String cellphone;
 	private String password;
-	private String phoneNumber;
-	private String smsAuthCode;
-	private String userType;
-	private String orgnization;
+	private String mailbox;
+	private String company;
+	private String companyAddress;
+	private String deskPhone;
+	private String jobTitle;
+	private String salt;
+	private int enabled;
+	private Long roleId;
 	private String updateTime;
 	
 	public Long getUserId() {
@@ -31,29 +36,11 @@ public class User implements Serializable{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getAddress() {
-		return address;
+	public String getCellphone() {
+		return cellphone;
 	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
-	public int getGender() {
-		return gender;
-	}
-	public void setGender(int gender) {
-		this.gender = gender;
-	}
-	public String getJobTitle() {
-		return jobTitle;
-	}
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
+	public void setCellphone(String cellphone) {
+		this.cellphone = cellphone;
 	}
 	public String getPassword() {
 		return password;
@@ -61,29 +48,53 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public String getMailbox() {
+		return mailbox;
 	}
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setMailbox(String mailbox) {
+		this.mailbox = mailbox;
 	}
-	public String getSmsAuthCode() {
-		return smsAuthCode;
+	public String getCompany() {
+		return company;
 	}
-	public void setSmsAuthCode(String smsAuthCode) {
-		this.smsAuthCode = smsAuthCode;
+	public void setCompany(String company) {
+		this.company = company;
 	}
-	public String getUserType() {
-		return userType;
+	public String getCompanyAddress() {
+		return companyAddress;
 	}
-	public void setUserType(String userType) {
-		this.userType = userType;
+	public void setCompanyAddress(String companyAddress) {
+		this.companyAddress = companyAddress;
 	}
-	public String getOrgnization() {
-		return orgnization;
+	public String getDeskPhone() {
+		return deskPhone;
 	}
-	public void setOrgnization(String orgnization) {
-		this.orgnization = orgnization;
+	public void setDeskPhone(String deskPhone) {
+		this.deskPhone = deskPhone;
+	}
+	public String getJobTitle() {
+		return jobTitle;
+	}
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
+	}
+	public String getSalt() {
+		return salt;
+	}
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+	public int getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+	public Long getRoleId() {
+		return roleId;
+	}
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
 	public String getUpdateTime() {
 		return updateTime;
@@ -91,5 +102,4 @@ public class User implements Serializable{
 	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
-	
 }
