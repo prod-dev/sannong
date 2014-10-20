@@ -1,12 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
+    <link href="content/static/css/sannong/footer.css" rel="stylesheet">
+</head>
+<body>
 <nav class="navbar navbar-default" role="navigation">
     <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="#">Brand</a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button> <a class="navbar-brand" href="#">三农</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
             <li class="active">
-                <a href="home">Home</a>
+                <a href="home">主页</a>
             </li>
             <li>
                 <a href="#">Link</a>
@@ -38,22 +52,25 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="questionnaire">Questionnaire</a>
+                <a href="questionnaire">项目申请</a>
             </li>
             <li>
-                <a href="myinfo">My Info</a>
+                <a href="myinfo">我的信息</a>
             </li>
             <li>
-                <a href="mypassword">My Password</a>
+                <a href="mypassword">我的密码</a>
             </li>
             <li>
-                <a href="applicants">Applicants</a>
+                <a href="applicants">用户管理</a>
             </li>
             <li>
-                <a href="signin">Sign in</a>
+                <a href="signin">登录</a>
+            </li>
+            <li>
+                <a href="j_spring_security_logout">登出</a>
             </li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Personal Center<strong class="caret"></strong></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人中心<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
                         <a href="#">Action</a>
@@ -74,3 +91,5 @@
         </ul>
     </div>
 </nav>
+</body>
+</html>

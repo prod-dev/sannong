@@ -38,6 +38,9 @@
 
         <!--intercept-url pattern="/signin" access="ROLE_USER, ROLE_ANONYMOUS"/-->
         <sec:intercept-url pattern="/signup" access="ROLE_ANONYMOUS, ROLE_USER"/>
+        <sec:intercept-url pattern="/myinfo" access="ROLE_USER"/>
+        <sec:intercept-url pattern="/myapplication" access="ROLE_USER"/>
+        <sec:intercept-url pattern="/myinfo" access="ROLE_ADMIN"/>
         <!--
         <sec:intercept-url pattern="/login" access="ROLE_USER"/>
         <sec:intercept-url pattern="/home" access="ROLE_USER, ROLE_MANAGER, ROLE_ADMIN"/>
@@ -46,34 +49,19 @@
 
         <sec:form-login login-page="/signin"
                     authentication-failure-url="/authentication-failure"
-                    default-target-url="/home"/>
+                    default-target-url="/authentication-success"/>
 
-        <!---->
+        <!-- -->
         <sec:logout invalidate-session="true"
-                    logout-url="/logout" logout-success-url="/signin"/>
+                    logout-url="/j_spring_security_logout" logout-success-url="/signin"/>
 
-        <!--remember-me data-source-ref="mySQLDataSource" /-->
+        <sec:remember-me data-source-ref="dataSource" user-service-ref="userDetailsManager"/>
+        <!--
+        <sec:remember-me data-source-ref="dataSource" />
+        -->
         <sec:session-management invalid-session-url="/signin"/>
 
     </sec:http>
-
-
-    <!--
-     <b:bean id="myUserDetailsService"
-             class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-         <b:property name="dataSource" ref="mySQLDataSource" />
-     </b:bean>
-
-     <b:bean id="daoAuthenticationProvider"
-             class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-         <b:property name="userDetailsService" ref="myUserDetailsService"/>
-         <b:property name="passwordEncoder" ref="passwordEncoder"/>
-     </b:bean>
-
-     <sec:authentication-manager alias="authenticationManager">
-         <sec:authentication-provider ref="daoAuthenticationProvider"/>
-     </sec:authentication-manager>
-     -->
 
     <sec:authentication-manager alias="authenticationManager">
         <sec:authentication-provider user-service-ref="userDetailsManager">
@@ -88,96 +76,18 @@
         <b:property name="dataSource" ref="dataSource"/>
     </b:bean>
 
-    <!--
-    <b:bean id="anonymousAuthFilter"
-            class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
-        <b:property name="key" value="foobar"/>
-        <b:property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
-    </b:bean>
-
-    <b:bean id="anonymousAuthenticationProvider"
-            class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
-        <b:property name="key" value="foobar"/>
-    </b:bean>
-
-    <b:bean id="anonymousAuthenticationProvider"
-            class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
-    </b:bean>
-
-    <b:bean id="authenticationManager"
-          class="org.springframework.security.authentication.ProviderManager">
-        <b:property name="providers">
-            <b:list>
-                <b:ref local="daoAuthenticationProvider"/>
-                <b:ref local="anonymousAuthenticationProvider"/>
-            </b:list>
-        </b:property>
-    </b:bean>
-    -->
-
-    <!--
-    <sec:authentication-manager alias="authenticationManager">
-        <sec:authentication-provider user-service-ref="userDetailsManager">
-            <sec:password-encoder ref="passwordEncoder">
-                <sec:salt-source user-property="username"/>
-            </sec:password-encoder>
-        </sec:authentication-provider>
-    </sec:authentication-manager>
-
-    <b:bean id="userDetailsManager"
-          class="org.springframework.security.provisioning.JdbcUserDetailsManager">
-        <b:property name="dataSource" ref="mySQLDataSource"/>
-    </b:bean>
-    -->
-
-    <!-- 定义上下文返回的消息的国际化。 -->
-    <!--
-    <bean id="messageSource"
-          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename"
-                  value="classpath:org/springframework/security/messages_zh_CN"/>
-    </bean>
-    -->
-
     <!--   事件监听:实现了 ApplicationListener监听接口，包括AuthenticationCredentialsNotFoundEvent 事件，
-     AuthorizationFailureEvent事件，AuthorizedEvent事件， PublicInvocationEvent事件 -->
+   AuthorizationFailureEvent事件，AuthorizedEvent事件， PublicInvocationEvent事件 -->
     <b:bean class="org.springframework.security.authentication.event.LoggerListener"/>
 
     <!-- 用户的密码加密或解密 -->
     <b:bean id="passwordEncoder"
-          class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
-
-
-    <!-- 用户详细信息管理 : 数据源、用户缓存、启用用户组功能。  -->
-    <!--
-    <bean id="userCache"
-          class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
-        <property name="cache" ref="userEhCache"/>
-    </bean>
-
-    <bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-        <property name="cacheName" value="userCache"/>
-        <property name="cacheManager" ref="cacheManager"/>
-    </bean>
-
-    <bean id="cacheManager"
-          class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
-    -->
-
-    <!-- spring security自带的与权限有关的数据读写Jdbc模板 -->
-    <!--bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="mySQLDataSource"/>
-    </bean-->
+            class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
 
     <!--
-    <bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-        <property name="dataSource" ref="mySQLDataSource"/>
-    </bean>
-
-    <bean id="userDetailsService"
-          class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-        <property name="dataSource" ref="mySQLDataSource" />
-    </bean>
+    <b:bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <b:property name="dataSource" ref="dataSource"/>
+    </b:bean>
     -->
 </b:beans>
 
