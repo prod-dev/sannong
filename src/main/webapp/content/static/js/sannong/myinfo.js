@@ -1,4 +1,4 @@
-;;(function($) {
+;(function($) {
 
      $(function() {
          var emailRegEx = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i,
@@ -10,10 +10,10 @@
          var username_hash = {};
          var store = {};
          //解决firefox下刷新不了用户名的问题
-         $('#userName').val('');
+         //$('#userName').val('');
          var username_valid = function(ev) {
              var showError = function($obj, txt) {
-                 var $td = $obj.closest("td");
+                 var $td = $obj.parent();
                  $td.find(".errorDiv").html(txt);
                  $td.find("i").css("display", "inline-block").removeClass("icon_yes");
              };
@@ -47,51 +47,7 @@
                 $user.get(0).setAttribute("msg", msg);
                 return false;
             }
-            var url = "/user/userExist";
-
-            $.ajax({
-                type: "get",
-                async: false,
-                data: {"username": userName},
-                beforeSend: function() {
-                    msg = '验证中...';
-                    showError($user, msg);
-                },
-                url: url,
-                success: function(data) {
-                    try {
-                        data = $.parseJSON(data);
-                    } catch(e) {
-                        data = null;
-                    }
-                    if (data && data.code != '0') {
-                        if(data.code == '-1')
-                        {
-                                //本地存储
-                                username_hash[userName] = true;
-                                msg = '该用户名已被使用';
-                                showError($user, msg);
-                                isErr = 1; 
-                        }
-                        else
-                        {
-                                msg = data.msg;
-                                showError($user, msg);
-                                isErr = 1;
-                        }
-                       
-                    } else if (data == null) {
-                            msg = '系统发生错误';
-                            showError($user, msg);
-                            isErr = 1; 
-                    } else {
-                            showTrue($user);
-                    }
-                },
-                error: function(e) {
-                    console.log('error', e);
-                }
-            });
+ 
             $user.attr("iserr", isErr);
             $user.attr("msg", msg);
          };

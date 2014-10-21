@@ -12,9 +12,12 @@ import com.sannong.infrastructure.persistance.entity.User;
 @Transactional
 public interface UserRepository {
 	
-	List<User> getUserByAuditorId();
+	List<User> getUserByUserId();
+	
+	List<User> getUserByUserNameOrCellphone(Map<String,String> map);
 	
 	User loginValidation(Map<String,Object> mapObject);
 	
 	void addUserInfo(User user);
+	void updateUserInfo(User user);
 }

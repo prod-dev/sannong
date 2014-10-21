@@ -12,4 +12,5 @@ public interface SmsRepository {
 	
 	List<SMS> getNewSMS();
 	void addNewSMS(SMS sms);
+	void updateSMS(SMS sms);
 }

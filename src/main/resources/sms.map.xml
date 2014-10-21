@@ -29,5 +29,11 @@
         ]]>
      </insert>
      
+     <update id="updateSMS"  parameterType="SMS">
+       	<![CDATA[
+        	update sms set send_time=#{sendTime} ,sms_status=#{smsStatus}  where sms_id=#{smsId}
+        ]]>
+     </update>
+     
      </mapper>
      

@@ -27,33 +27,39 @@
                 <div>
                     <div class="form-group">
                         <label for="userName">姓名</label>
-                        <input type="text" class="form-control" id="userName" placeholder="姓名">
+                        <input type="text"  class="form-control" id="userName" placeholder="姓名" value="${myinfo.userName}" >
+                        <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
                         <label for="jobTitle">职务</label>
-                        <input type="input" class="form-control" id="jobTitle" placeholder="职务">
+                        <input type="input" class="form-control" id="jobTitle" placeholder="职务"  value="${myinfo.jobTitle}">
+                        <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
                         <label for="jobCompany">工作单位</label>
-                        <input type="input" class="form-control" id="jobCompany" placeholder="工作单位">
+                        <input type="input" class="form-control" id="jobCompany" placeholder="工作单位"  value="${myinfo.company}">
+                        <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
                         <label for="jobAddress">单位地址</label>
-                        <input type="input" class="form-control" id="jobAddress" placeholder="单位地址">
+                        <input type="input" class="form-control" id="jobAddress" placeholder="单位地址"  value="${myinfo.companyAddress}">
+                        <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
                         <label for="deskPhone">工作电话</label>
-                        <input type="input" class="form-control" id="deskPhone" placeholder="工作电话">
+                        <input type="input" class="form-control" id="deskPhone" placeholder="工作电话"  value="${myinfo.deskPhone}">
+                        <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
                         <label for="mailBox">电子邮箱</label>
-                        <input type="input" class="form-control" id="mailBox" placeholder="电子邮箱">
+                        <input type="input" class="form-control" id="mailBox" placeholder="电子邮箱"  value="${myinfo.mailbox}">
+                        <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
                         <label for="cellPhone">手机号码</label>
                         <input type="hidden" id="token_id" name="token_id" value="10">
                         <input type="hidden" id="token" name="token" value="2379839e12f6f183bf0737ba4f6d1b75">
-                        <input type="input" class="input-short" id="cellphone" placeholder="手机号码">
+                        <input type="input" class="input-short" id="cellphone" placeholder="手机号码" value="${myinfo.cellphone}">
                         <input type="button" id="action-send-code" data-url="regcode" class="btn btn-default"  value="发送验证码">
                         <div class="errorDiv"></div>
                     </div>

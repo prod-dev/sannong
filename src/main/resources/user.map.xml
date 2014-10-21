@@ -7,35 +7,54 @@
      <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
 
      <resultMap type="User" id="userMap">
-        <id property="userId" column="id" />
-        <result property="userName" column="name" />
-        <result property="address" column="address" />
-        <result property="birthday" column="birthday" />
-        <result property="gender" column="gender" />
-        <result property="jobTitle" column="jobTitle" />
+        <id property="userId" column="user_Id" />
+        <result property="userName" column="username" />
+        <result property="mailbox" column="mail_box" />
+        <result property="companyAddress" column="company_address" />
+        <result property="jobTitle" column="job_title" />
         <result property="password" column="password" />
-        <result property="phoneNumber" column="phoneNumber" />
-        <result property="smsAuthCode" column="smsAuthCode" />
-        <result property="orgnization" column="orgnization" />
+        <result property="deskPhone" column="desk_phone" />
+        <result property="cellphone" column="cellphone" />
         <result property="updateTime" column="updateTime" />
      </resultMap>
      
-     <select id="getUserByAuditorId" parameterType="User" resultMap="userMap">
+     <select id="getUserByUserId" parameterType="User" resultMap="userMap">
      	<![CDATA[
-        	select * from user where id = #{id}
+        	select * from users where user_id = #{userId}
+        ]]>
+     </select>
+     
+     <select id="getUserByUserNameOrCellphone"  parameterType="Map"  resultMap="userMap">
+     	<![CDATA[
+        	select * from users where username=#{username} or cellphone=#{cellphone}
         ]]>
      </select>
      
      <select id="loginValidation" parameterType="Map" resultMap="userMap">
      	<![CDATA[
-        	select * from user where phone_number = #{phoneNumber} and password = #{password}
+        	select * from users where phone_number = #{phoneNumber} and password = #{password}
         ]]>
      </select>
      
      <insert id="addUserInfo" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
      	<![CDATA[
-        	insert into user(password,phone_number) values(#{phoneNumber} ,#{password})
+        	insert into users (password,phone_number) values(#{phoneNumber} ,#{password})
         ]]>
      </insert>
+     
+          <update  id="updateUserInfo" parameterType="User" >
+     	<![CDATA[
+        	update users 
+        	set cellphone=#{cellphone},
+        	username=#{userName},
+        	company=#{company},
+        	company_address=#{companyAddress},
+        	mail_box=#{mailbox},
+        	desk_phone=#{deskPhone},
+        	job_title=#{jobTitle},
+        	update_time=#{updateTime}
+        	where user_id=#{userId}
+        ]]>
+     </update>
 </mapper>
 
