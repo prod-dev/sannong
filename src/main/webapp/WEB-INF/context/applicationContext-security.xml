@@ -42,7 +42,9 @@
         <sec:intercept-url pattern="/mypassword" access="ROLE_USER, ROLE_ADMIN"/>
         <sec:intercept-url pattern="/forgotpassword" access="ROLE_USER, ROLE_ADMIN"/>
         <sec:intercept-url pattern="/faq" access="ROLE_USER, ROLE_ADMIN"/>
+        <!--
         <sec:intercept-url pattern="/questionnaire" access="ROLE_USER, ROLE_ADMIN"/>
+        -->
 
         <!-- user enabled="true"></user -->
         <sec:intercept-url pattern="/myapplication" access="ROLE_USER"/>

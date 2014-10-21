@@ -9,26 +9,42 @@
 </head>
 
 <body>
-<div class="container">
-    <form class="form-signin" role="form" action="j_spring_security_check" method="POST">
-        <h2 class="form-signin-heading">请登录</h2>
-        <input type="text" name='j_username' class="form-control" placeholder="电话号码" required autofocus>
-        <label></label>
-        <span>
-        <input type="password" name='j_password' class="form-control" placeholder="密码" required>
-        <a href="forgotpassword">忘记密码?</a>
-        </span>
-        <label class="checkbox">
-            <input type="checkbox" name='_spring_security_remember_me' > 记住我
+    <div class="container">
+        <!--
+        <form class="form-signin" role="form">
+            <h2 class="form-signin-heading">请登录</h2>
+            <input type="text" name='j_username' class="form-control" placeholder="电话号码" required autofocus>
+            <label></label>
+            <span>
+                <div id="authentication-failure" style="color:red;display:none">验证失败, 请重新输入.</div>
+                <input type="password" name='j_password' class="form-control" placeholder="密码" required>
+                <a href="forgotpassword">忘记密码?</a>
+            </span>
+            <label class="checkbox">
+                <input type="checkbox" name='_spring_security_remember_me' > 记住我
+            </label>
+            <input id="submit" class="btn btn-lg btn-primary btn-block" type="button" value="登录">
+        </form>
+        -->
 
-        </label>
+        <form class="form-signin" role="form" action="j_spring_security_check" method="POST">
+            <h2 class="form-signin-heading">请登录</h2>
+            <input type="text" name='j_username' class="form-control" placeholder="电话号码" required autofocus>
+            <label></label>
+            <span>
+            <div id="auth-msg" style="color:red;display:none">验证失败, 请重新输入.</div>
+            <input type="password" name='j_password' class="form-control" placeholder="密码" required>
+            <a href="forgotpassword">忘记密码?</a>
+            </span>
+            <label class="checkbox">
+                <input type="checkbox" name='_spring_security_remember_me' > 记住我
+            </label>
+            <input id="submit" class="btn btn-lg btn-primary btn-block" type="submit" value="登录">
+        </form>
+        <div id="auth" status="${authentication}" style="display:none">
 
-        <input class="btn btn-lg btn-primary btn-block" type="submit" value="登录">
-    </form>
-</div>
-
+        </div>
+    </div>
 </body>
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.4.1.js"></script>
+<script src="content/static/js/lib/require-2.1.15.js" data-main="content/static/js/sannong/main"></script>
 </html>
