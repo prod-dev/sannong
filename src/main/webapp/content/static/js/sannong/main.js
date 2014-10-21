@@ -7,8 +7,9 @@ requirejs.config({
         "jquery" : "lib/jquery-2.1.1.min",
         "bootstrap" : "lib/bootstrap-3.0.3.min",
         "bootstrap-datepicker" : "lib/bootstrap-datepicker-1.3.0",
-        "travel" : "travel/travel",
-        "home" : "travel/home/home"
+        "sannong" : "sannong/sannong",
+        "home" : "sannong/home/home",
+        "login" : "sannong/login/login"
     },
     shim: {
         'bootstrap' : {
@@ -23,7 +24,7 @@ requirejs.config({
 });
 
 
-requirejs(["jquery", "bootstrap", "bootstrap-datepicker", "home"], function($, Bootstrap, BootstrapDatePicker, Home){
+requirejs(["jquery", "bootstrap",  "home", "login"], function($, Bootstrap,  Home, Login){
 
 });
 

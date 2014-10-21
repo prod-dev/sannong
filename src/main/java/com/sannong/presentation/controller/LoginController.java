@@ -1,7 +1,9 @@
 package com.sannong.presentation.controller;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -69,7 +71,6 @@ public class LoginController {
         return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
     }
 
-    /*
     @RequestMapping(value = "login", method = RequestMethod.POST,
     		headers = {"content-type=application/json","content-type=application/xml"})
     public @ResponseBody DTO loginValidation(@RequestBody User user)
@@ -80,6 +81,19 @@ public class LoginController {
         dto.setResult(result);
 
         return dto;
+    }
+
+    /*
+    @RequestMapping(value = "authentication-success", method = RequestMethod.GET)
+    public @ResponseBody String securityCheck(HttpServletRequest request, HttpServletResponse response) {
+        String redirect = "home";
+        return redirect;
+    }
+
+    @RequestMapping(value = "authentication-failure", method = RequestMethod.GET)
+    public @ResponseBody String  authenticate(HttpServletRequest request, HttpServletResponse response) {
+
+        return "authentication-failure";
     }
     */
 
@@ -93,16 +107,17 @@ public class LoginController {
     public ModelAndView authenticate(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("authentication-failure", new Object());
-        return new ModelAndView(AUTHENTICATION_FAILURE_PAGE, models);
+        models.put("authentication", "authentication-failure");
+        return new ModelAndView(SIGNIN_PAGE, models);
     }
+
 
     @RequestMapping(value = "access-denied", method = RequestMethod.GET)
     public ModelAndView accessDeny(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("access-denied", new Object());
-        return new ModelAndView(ACCESS_DENIED_PAGE, models);
+        models.put("access-denied", "access-denied");
+        return new ModelAndView(SIGNIN_PAGE, models);
     }
 }
 
