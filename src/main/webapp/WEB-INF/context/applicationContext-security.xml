@@ -28,37 +28,38 @@
     <sec:http pattern="/**/*.ttf" security="none"/>
 
     <sec:http pattern="/signin.jsp" security="none"/>
-    <sec:http pattern="/jsp/forgotpassword.jsp" security="none"/>
+    <sec:http pattern="/home.jsp" security="none"/>
 
-    <sec:http auto-config="true" access-denied-page="/accessDenied.jsp">
+
+    <sec:http auto-config="true" access-denied-page="/access-denied">
         <!-- anonymous enabled="false"></anonymous -->
         <sec:intercept-url pattern="/unitsManager" access="ROLE_PLATFORMADMIN"/>
         <sec:intercept-url pattern="/usersManager" access="ROLE_PLATFORMADMIN"/>
         <sec:intercept-url pattern="/horizontalQuery" access="ROLE_PLATFORMADMIN"/>
 
         <!--intercept-url pattern="/signin" access="ROLE_USER, ROLE_ANONYMOUS"/-->
-        <sec:intercept-url pattern="/signup" access="ROLE_ANONYMOUS, ROLE_USER"/>
-        <sec:intercept-url pattern="/myinfo" access="ROLE_USER"/>
+        <sec:intercept-url pattern="/myinfo" access="ROLE_USER, ROLE_ADMIN"/>
+        <sec:intercept-url pattern="/mypassword" access="ROLE_USER, ROLE_ADMIN"/>
+        <sec:intercept-url pattern="/forgotpassword" access="ROLE_USER, ROLE_ADMIN"/>
+        <sec:intercept-url pattern="/faq" access="ROLE_USER, ROLE_ADMIN"/>
+        <sec:intercept-url pattern="/questionnaire" access="ROLE_USER, ROLE_ADMIN"/>
+
+        <!-- user enabled="true"></user -->
         <sec:intercept-url pattern="/myapplication" access="ROLE_USER"/>
-        <sec:intercept-url pattern="/myinfo" access="ROLE_ADMIN"/>
-        <!--
-        <sec:intercept-url pattern="/login" access="ROLE_USER"/>
-        <sec:intercept-url pattern="/home" access="ROLE_USER, ROLE_MANAGER, ROLE_ADMIN"/>
-        -->
-        <sec:intercept-url pattern="/admin" access="ROLE_ADMIN"/>
+
+        <!-- admin enabled="true"></admin -->
+        <sec:intercept-url pattern="/applicants" access="ROLE_ADMIN"/>
+
 
         <sec:form-login login-page="/signin"
                     authentication-failure-url="/authentication-failure"
                     default-target-url="/authentication-success"/>
 
-        <!-- -->
         <sec:logout invalidate-session="true"
                     logout-url="/j_spring_security_logout" logout-success-url="/signin"/>
 
         <sec:remember-me data-source-ref="dataSource" user-service-ref="userDetailsManager"/>
-        <!--
-        <sec:remember-me data-source-ref="dataSource" />
-        -->
+
         <sec:session-management invalid-session-url="/signin"/>
 
     </sec:http>

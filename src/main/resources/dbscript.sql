@@ -157,8 +157,10 @@ CREATE TABLE `users` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 LOCK TABLES `users` WRITE;
-INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('user', '13510730468', '13510730468', '47a733d60998c719cf3526ae7d106d13', 'sannong.dev@outlook.com', 'company1', 'company_address1', 'CEO', 1);
-INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('admin', '18617071085', '18617071085', 'ceb4f32325eda6142bd65215f4c0f371', 'prod.dev@outlook.com', 'company2', 'company_address2', 'Developer', 1);
+INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('user', 'user', 'user', '47a733d60998c719cf3526ae7d106d13', 'sannong.dev@outlook.com', 'company1', 'company_address1', 'CEO', 1);
+INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('admin', 'admin', 'admin', 'ceb4f32325eda6142bd65215f4c0f371', 'prod.dev@outlook.com', 'company2', 'company_address2', 'Developer', 1);
+INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('user', '13510730468', '13510730468', '47a733d60998c719cf3526ae7d106d13', 'sannong.dev@outlook.com', 'company3', 'company_address3', 'CEO', 1);
+INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('admin', '18617071085', '18617071085', 'ceb4f32325eda6142bd65215f4c0f371', 'prod.dev@outlook.com', 'company4', 'company_address4', 'Developer', 1);
 UNLOCK TABLES;
 
 -- Dump completed on 2014-10-20 14:54:15
