@@ -1,10 +1,11 @@
 package com.sannong.infrastructure.persistance.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
- * @author william zhang
  * create user class
+ * @author william zhang
  */
 public class User implements Serializable{
 	
@@ -22,7 +23,7 @@ public class User implements Serializable{
 	private String salt;
 	private int enabled;
 	private Long roleId;
-	private String updateTime;
+	private Timestamp updateTime;
 	
 	public Long getUserId() {
 		return userId;
@@ -96,10 +97,10 @@ public class User implements Serializable{
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
-	public String getUpdateTime() {
+	public Timestamp getUpdateTime() {
 		return updateTime;
 	}
-	public void setUpdateTime(String updateTime) {
+	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
 }

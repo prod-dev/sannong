@@ -56,5 +56,19 @@
         	where user_id=#{userId}
         ]]>
      </update>
+     
+     <insert id="addUserInfo" parameterType="User">
+         <![CDATA[
+        	insert into users(user_name,cellphone,password,mailbox,company,company_address,desk_phone,job_title,update_time) 
+        	values(#{userName},#{cellphone},#{password},#{mailbox},#{company},#{companyAddress},#{deskPhone},#{jobTitle},#{updateTime})
+         ]]>
+     </insert>
+     
+     <select id="getIdByCellphone" parameterType="String" resultType="Long" >
+         <![CDATA[
+             select user_id from users where cellphone = #{cellphone}
+          ]]>
+     </select>
+     
 </mapper>
 

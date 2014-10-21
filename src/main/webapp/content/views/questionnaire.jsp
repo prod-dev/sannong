@@ -21,7 +21,7 @@
     </div>
     <div class="row clearfix">
         <div class="col-md-8 column">
-           <form role="form" action="apply" method="post">
+           <form id="applicationForm" role="form" action="apply" method="post">
 
                 <div>
                     <label>问题1:</label>
@@ -116,11 +116,11 @@
                 <div>
                     <div class="form-group">
                         <label for="userName">姓名</label>
-                        <input type="text" class="form-control" id="userName" placeholder="姓名">
+                        <input type="text" class="form-control" id="userName" name="applicant.userName" placeholder="姓名">
                     </div>
                     <div class="form-group">
                         <label for="jobTitle">职务</label>
-                        <input type="input" class="form-control" id="jobTitle" placeholder="职务">
+                        <input type="input" class="form-control" id="jobTitle" name="applicant.jobTitle" placeholder="职务">
                     </div>
                     <div class="form-group">
                         <label for="jobCompany">工作单位</label>

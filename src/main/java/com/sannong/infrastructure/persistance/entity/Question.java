@@ -1,10 +1,11 @@
 package com.sannong.infrastructure.persistance.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
- * @author william zhang
  * create question class
+ * @author william zhang
  */
 public class Question implements Serializable{
 
@@ -16,7 +17,7 @@ public class Question implements Serializable{
 	private String option3;
 	private String option4;
 	private String questionContent;
-	private Long applicationId;
+	private List<Application> applications;
 	
 	public Long getQuestionId() {
 		return questionId;
@@ -54,10 +55,11 @@ public class Question implements Serializable{
 	public void setQuestionContent(String questionContent) {
 		this.questionContent = questionContent;
 	}
-	public Long getApplicationId() {
-		return applicationId;
+	public List<Application> getApplications() {
+		return applications;
 	}
-	public void setApplicationId(Long applicationId) {
-		this.applicationId = applicationId;
+	public void setApplications(List<Application> applications) {
+		this.applications = applications;
 	}
+
 }

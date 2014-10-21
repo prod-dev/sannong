@@ -17,7 +17,6 @@ public class UserServiceImpl implements IUserService{
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Override
 	public boolean loginValidation(String phoneNumber, String password) {
 		boolean result = false;
 		
@@ -34,7 +33,6 @@ public class UserServiceImpl implements IUserService{
 		return result;
 	}
 
-	@Override
 	public boolean addUserInfo(User user) {
 		boolean result = false;
 		
@@ -49,10 +47,9 @@ public class UserServiceImpl implements IUserService{
 		return result;
 	}
 
-	@Override
-	public List<User> getUserByAuditorId() {
+	public List<User> getUserByUserId() {
 		
-		return userRepository.getUserByAuditorId();
+		return userRepository.getUserByUserId();
 	}
 
 }

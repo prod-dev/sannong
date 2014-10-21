@@ -1,6 +1,7 @@
 package com.sannong.infrastructure.persistance.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author william zhang
@@ -12,8 +13,8 @@ public class Questionnaire implements Serializable {
 	
 	private Long questionnaireId;
 	private int questionnaireCategory;
-	private Long questionId;
-	private Long projectId;
+	private List<Question> questions;
+	private List<Project> projects;
 	
 	public Long getQuestionnaireId() {
 		return questionnaireId;
@@ -27,16 +28,17 @@ public class Questionnaire implements Serializable {
 	public void setQuestionnaireCategory(int questionnaireCategory) {
 		this.questionnaireCategory = questionnaireCategory;
 	}
-	public Long getQuestionId() {
-		return questionId;
+	public List<Question> getQuestions() {
+		return questions;
 	}
-	public void setQuestionId(Long questionId) {
-		this.questionId = questionId;
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
 	}
-	public Long getProjectId() {
-		return projectId;
+	public List<Project> getProjects() {
+		return projects;
 	}
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
 	}
+	
 }

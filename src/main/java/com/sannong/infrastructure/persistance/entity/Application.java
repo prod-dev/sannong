@@ -1,6 +1,8 @@
 package com.sannong.infrastructure.persistance.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author william zhang
@@ -11,46 +13,67 @@ public class Application implements Serializable{
 	private static final long serialVersionUID = 4282850771969955235L;
 	
 	private Long applicationId;
-	private Long applicantId;
-	private Long auditorId;
-	private Long projectId;
-	private Long questionnaireId;
-	private String applicationDate;
+	private User applicant;
+	private User auditor;
+	private Project project;
+	private List<String> answers;
+	private Questionnaire questionnaire;
+	private Timestamp applicationDate;
+	private SMS sms;
+	private String questionnaireAnswer;
 	
+	public String getQuestionnaireAnswer() {
+		return questionnaireAnswer;
+	}
+	public void setQuestionnaireAnswer(String questionnaireAnswer) {
+		this.questionnaireAnswer = questionnaireAnswer;
+	}
+	public Questionnaire getQuestionnaire() {
+		return questionnaire;
+	}
+	public void setQuestionnaire(Questionnaire questionnaire) {
+		this.questionnaire = questionnaire;
+	}
+	public SMS getSms() {
+		return sms;
+	}
+	public List<String> getAnswers() {
+		return answers;
+	}
+	public void setAnswers(List<String> answers) {
+		this.answers = answers;
+	}
+	public void setSms(SMS sms) {
+		this.sms = sms;
+	}
 	public Long getApplicationId() {
 		return applicationId;
 	}
 	public void setApplicationId(Long applicationId) {
 		this.applicationId = applicationId;
 	}
-	public Long getApplicantId() {
-		return applicantId;
+	public User getApplicant() {
+		return applicant;
 	}
-	public void setApplicantId(Long applicantId) {
-		this.applicantId = applicantId;
+	public void setApplicant(User applicant) {
+		this.applicant = applicant;
 	}
-	public Long getAuditorId() {
-		return auditorId;
+	public User getAuditor() {
+		return auditor;
 	}
-	public void setAuditorId(Long auditorId) {
-		this.auditorId = auditorId;
+	public void setAuditor(User auditor) {
+		this.auditor = auditor;
 	}
-	public Long getProjectId() {
-		return projectId;
+	public Project getProject() {
+		return project;
 	}
-	public void setProjectId(Long projectId) {
-		this.projectId = projectId;
+	public void setProject(Project project) {
+		this.project = project;
 	}
-	public Long getQuestionnaireId() {
-		return questionnaireId;
-	}
-	public void setQuestionnaireId(Long questionnaireId) {
-		this.questionnaireId = questionnaireId;
-	}
-	public String getApplicationDate() {
+	public Timestamp getApplicationDate() {
 		return applicationDate;
 	}
-	public void setApplicationDate(String applicationDate) {
+	public void setApplicationDate(Timestamp applicationDate) {
 		this.applicationDate = applicationDate;
 	}
 }

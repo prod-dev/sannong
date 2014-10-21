@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sannong.infrastructure.persistance.repository.ApplicationRepository">
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
+
+	<!-- <resultMap type="Application" id="applicationResultMap">
+		<id property="applicationId" column="application_id" />
+		<association property="applicant" column="user_id" resultMap="userResultMap" select="selectApplicantId" />
+		<association property="auditor" column="user_id" resultMap="userResultMap" select="" />
+		<association property="project" column="project_id" resultMap="projectResultMap" select="" />
+		<association property="answer" column="answer_id" resultMap="answerResultMap" select="" />
+		<association property="questionnaire" column="questionnaire_id" resultMap="questionnaireResultMap" select="" />
+		<association property="sms" column="sms" resultMap="smsResultMap" select="" />
+		<result property="applicationDate" column="application_date" />
+	</resultMap> -->
+
+	<insert id="addProjectApplicationInfo" parameterType="Application">
+     	<![CDATA[
+     		insert into applications(applicant_id,questionnaire_answer,application_date) values(#{applicant.userId},#{questionnaireAnswer},#{applicationDate})
+     	]]>
+	</insert>
+</mapper>
+

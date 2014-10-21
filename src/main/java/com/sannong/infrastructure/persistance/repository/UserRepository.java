@@ -14,10 +14,14 @@ public interface UserRepository {
 	
 	List<User> getUserByUserId();
 	
-	List<User> getUserByUserNameOrCellphone(Map<String,String> map);
-	
 	User loginValidation(Map<String,Object> mapObject);
 	
 	void addUserInfo(User user);
+	
+	Long getIdByCellphone(String cellphone);
+	
+	List<User> getUserByUserNameOrCellphone(Map<String,String> map);
+	
 	void updateUserInfo(User user);
+	
 }
