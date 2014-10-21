@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.sannong.infrastructure.persistance.repository.SmsRepository">
+     <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
+     
+     
+     <resultMap type="SMS" id="smsMap">
+        <id property="smsId" column="sms_id" />
+        <result property="userid" column="user_id" />
+        <result property="smsValidationCode" column="sms_validation_code" />
+        <result property="sendTime" column="send_time" />
+        <result property="cellphone" column="cellphone" />
+        <result property="smsContent" column="sms_content" />
+        <result property="smsStatus" column="sms_status" />
+     </resultMap>
+     
+      <select id="getNewSMS" parameterType="Sms" resultMap="smsMap">
+     	<![CDATA[
+        	select * from sms where sms_status=0
+        ]]>
+     </select>
+     
+       <insert id="addNewSMS" parameterType="SMS" useGeneratedKeys="true"  keyProperty="sms_Id">
+     	<![CDATA[
+        	insert into sms(sms_validation_code,cellphone,sms_content,sms_status) values(#{smsValidationCode} ,#{cellphone},#{smsContent},0)
+        ]]>
+     </insert>
+     
+     </mapper>
+     

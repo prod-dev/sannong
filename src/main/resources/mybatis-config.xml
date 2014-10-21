@@ -7,9 +7,13 @@
 
 	<typeAliases>
     	<typeAlias type="com.sannong.infrastructure.persistance.entity.User" alias="User" />
+    	<typeAlias type="com.sannong.infrastructure.persistance.entity.SMS" alias="SMS" />
     </typeAliases>
+
     
     <mappers>
     	<mapper resource="user.map.xml"/>
+    	 <mapper resource="sms.map.xml"/>
     </mappers>
+
 </configuration>

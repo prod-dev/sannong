@@ -9,7 +9,9 @@
 <html>
 <head>
     <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
-    <title></title>
+     <link href="content/static/css/sannong/myinfo.css" rel="stylesheet">
+   <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+	<script src="content/static/js/sannong/myinfo.js?v=201410201404"> </script>
 </head>
 <body>
 <div class="container">
@@ -19,19 +21,9 @@
         </div>
     </div>
     <div class="row clearfix">
-        <div class="col-md-3 column">
-            <div class="list-group">
-                <a href="#" class="list-group-item disabled">
-                    Cras justo odio
-                </a>
-                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
-                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item">Vestibulum at eros</a>
-            </div>
-        </div>
+
         <div class="col-md-7 column">
-            <form role="form">
+            <form role="form" id="register-form">
                 <div>
                     <div class="form-group">
                         <label for="userName">姓名</label>
@@ -59,12 +51,15 @@
                     </div>
                     <div class="form-group">
                         <label for="cellPhone">手机号码</label>
-                        <input type="input" class="form-control" id="cellPhone" placeholder="手机号码">
-                        <button type="button" class="btn btn-default">发送验证码</button>
+                        <input type="hidden" id="token_id" name="token_id" value="10">
+                        <input type="hidden" id="token" name="token" value="2379839e12f6f183bf0737ba4f6d1b75">
+                        <input type="input" class="input-short" id="cellphone" placeholder="手机号码">
+                        <input type="button" id="action-send-code" data-url="regcode" class="btn btn-default"  value="发送验证码">
+                        <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
                         <label for="validationCode">验证码</label>
-                        <input type="input" class="form-control" id="validationCode" placeholder="验证码">
+                        <input type="input" class="input-short" id="validationCode" placeholder="验证码">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>
