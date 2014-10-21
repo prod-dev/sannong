@@ -61,6 +61,9 @@
                 <a href="mypassword">我的密码</a>
             </li>
             <li>
+                <a href="myapplication">我的申请</a>
+            </li>
+            <li>
                 <a href="applicants">用户管理</a>
             </li>
             <li>

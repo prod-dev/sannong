@@ -34,6 +34,7 @@ public class LoginController {
     private static final String HOME_PAGE = "home";
     private static final String FORGOT_PASSWORD_PAGE = "forgotpassword";
     private static final String AUTHENTICATION_FAILURE_PAGE = "authentication-failure";
+    private static final String ACCESS_DENIED_PAGE = "access-denied";
     
     @RequestMapping(value = "signin", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
@@ -60,15 +61,6 @@ public class LoginController {
         return new ModelAndView(HOME_PAGE, models);
     }
 
-    @RequestMapping(value = "signout", method = RequestMethod.GET)
-    public ModelAndView signout(HttpServletRequest request, HttpServletResponse response) {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("signout", new Object());
-        return new ModelAndView(SIGNIN_PAGE, models);
-    }
-
-
     @RequestMapping(value = "forgotpassword", method = RequestMethod.GET)
     public ModelAndView forgotPassword(HttpServletRequest request, HttpServletResponse response) {
 
@@ -76,18 +68,20 @@ public class LoginController {
         models.put("forgotpassword", new Object());
         return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
     }
-    
+
+    /*
     @RequestMapping(value = "login", method = RequestMethod.POST,
     		headers = {"content-type=application/json","content-type=application/xml"})
-    public @ResponseBody DTO loginValidation(@RequestBody User user) 
+    public @ResponseBody DTO loginValidation(@RequestBody User user)
     {
         Boolean result = userService.addUserInfo(user);
-        
+
         DTO dto = new DTO();
         dto.setResult(result);
-        
+
         return dto;
     }
+    */
 
     @RequestMapping(value = "authentication-success", method = RequestMethod.GET)
     public ModelAndView securityCheck(HttpServletRequest request, HttpServletResponse response) {
@@ -101,6 +95,14 @@ public class LoginController {
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("authentication-failure", new Object());
         return new ModelAndView(AUTHENTICATION_FAILURE_PAGE, models);
+    }
+
+    @RequestMapping(value = "access-denied", method = RequestMethod.GET)
+    public ModelAndView accessDeny(HttpServletRequest request, HttpServletResponse response) {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("access-denied", new Object());
+        return new ModelAndView(ACCESS_DENIED_PAGE, models);
     }
 }
 

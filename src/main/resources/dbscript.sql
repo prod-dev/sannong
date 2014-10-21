@@ -102,21 +102,6 @@ CREATE TABLE `questions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `roles`
---
-
-DROP TABLE IF EXISTS `roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `roles` (
-  `role_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
-  `role_type` varchar(45) DEFAULT NULL,
-  `user_name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `sms`
@@ -146,17 +131,17 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(45) DEFAULT NULL,
-  `cellphone` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `user_name` varchar(45) NOT NULL,
+  `cellphone` varchar(45) NOT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
   `mail_box` varchar(45) DEFAULT NULL,
   `company` varchar(45) DEFAULT NULL,
   `company_address` varchar(45) DEFAULT NULL,
   `desk_phone` varchar(45) DEFAULT NULL,
   `job_title` varchar(45) DEFAULT NULL,
   `salt` varchar(45) DEFAULT NULL,
-  `enabled` char(1) DEFAULT NULL,
-  `role_id` bigint(20) DEFAULT NULL,
+  `enabled` char(1) NOT NULL,
   `updateTime` datetime DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
@@ -171,4 +156,33 @@ CREATE TABLE `users` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+LOCK TABLES `users` WRITE;
+INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('user', 'user', 'user', '47a733d60998c719cf3526ae7d106d13', 'sannong.dev@outlook.com', 'company1', 'company_address1', 'CEO', 1);
+INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('admin', 'admin', 'admin', 'ceb4f32325eda6142bd65215f4c0f371', 'prod.dev@outlook.com', 'company2', 'company_address2', 'Developer', 1);
+INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('user', '13510730468', '13510730468', '47a733d60998c719cf3526ae7d106d13', 'sannong.dev@outlook.com', 'company3', 'company_address3', 'CEO', 1);
+INSERT INTO `users`(user_name, cellphone, username, password, mail_box, company, company_address, job_title, enabled) VALUES ('admin', '18617071085', '18617071085', 'ceb4f32325eda6142bd65215f4c0f371', 'prod.dev@outlook.com', 'company4', 'company_address4', 'Developer', 1);
+UNLOCK TABLES;
+
 -- Dump completed on 2014-10-20 14:54:15
+
+DROP TABLE IF EXISTS `authorities`;
+create table authorities (
+  username varchar(50) not null,
+  authority varchar(50) not null
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `authorities` WRITE;
+INSERT INTO `authorities` VALUES ('user','ROLE_USER');
+INSERT INTO `authorities` VALUES ('admin','ROLE_ADMIN');
+INSERT INTO `authorities` VALUES ('13510730468','ROLE_USER');
+INSERT INTO `authorities` VALUES ('18617071085','ROLE_ADMIN');
+UNLOCK TABLES;
+
+
+DROP TABLE IF EXISTS `persistent_logins`;
+create table persistent_logins (
+  username varchar(64) not null,
+  series varchar(64) primary key,
+  token varchar(64) not null,
+  last_used timestamp not null
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
