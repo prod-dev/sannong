@@ -18,6 +18,8 @@ public interface IUserService {
     public User getUserByName(String userName);
 
     public User getUserById(Long userId);
+    
+    public boolean updateUser(User user) throws Exception;
 
     public boolean updatePassword(User user) throws Exception;
 }

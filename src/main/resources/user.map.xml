@@ -43,7 +43,7 @@
         	username=#{userName},
         	company=#{company},
         	company_address=#{companyAddress},
-        	mail_box=#{mailbox},
+        	mailbox=#{mailbox},
         	desk_phone=#{deskPhone},
         	job_title=#{jobTitle},
         	update_time=#{updateTime}
@@ -55,7 +55,7 @@
         <![CDATA[
         	update users
         	set password=#{password},
-        	updateTime=#{updateTime}
+        	update_time=#{updateTime}
         	where username=#{userName}
         ]]>
     </update>

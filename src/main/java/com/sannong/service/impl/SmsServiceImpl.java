@@ -21,7 +21,7 @@ public class SmsServiceImpl implements ISmsService{
     @Autowired
     private SmsRepository smsRepository;
 
-    @Override
+
     public boolean updateSMS(HttpServletRequest request) {
         SMS sms = new SMS();
         String id = request.getParameter("smsid");
@@ -47,17 +47,27 @@ public class SmsServiceImpl implements ISmsService{
     }
 
     public boolean generateCode(HttpServletRequest request) {
-        String mobile = request.getParameter("mobile");
-        String regcode = SmsSender.generateCode(6);
-        if (mobile.length() < 11)
-            return false;
-        else {
-            SMS sms = new SMS();
-            sms.setCellphone(mobile);
-            sms.setSmsValidationCode(regcode);
-            sms.setSmsContent("welcome you register our website, your register code is" + regcode);
-            smsRepository.addNewSMS(sms);
-            return true;
-        }
+    	String mobile=request.getParameter("mobile").toString();
+    	String smstype=request.getParameter("smstype").toString();
+    	String regcode=SmsSender.generateCode(6);
+    	if(mobile.length()<11)
+    		return false;
+    	else    	
+    	{
+    		SMS sms=new SMS();    		
+    		 sms.setCellphone(mobile);
+    		 sms.setSmsValidationCode(regcode);
+    		 request.getSession().setAttribute("regcode", regcode);   
+    		 String content="验证码为:"+regcode;
+    		 if(smstype.equals("1"))
+    			 content="if you want to change your mobile, confirm code is:"+regcode;   	
+    			 //content="改变你在三农网上的注册手机号码，验证码为:"+regcode;   	
+    		 if(smstype.equals("2"))
+    			 content="your new sannong password is :"+regcode+",confirm to change it.";
+    			//content="你在三农网上新密码为:"+regcode; 
+    		 sms.setSmsContent(content);
+    		 smsRepository.addNewSMS(sms);
+    		return true;
+    	}
     }
 }
