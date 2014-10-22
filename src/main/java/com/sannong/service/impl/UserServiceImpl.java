@@ -49,11 +49,18 @@ public class UserServiceImpl implements IUserService{
 		return result;
 	}
 
-
-
-	public List<User> getUserByUserId() {
+    public List<User> getUserByUserId() {
 
 		return userRepository.getUserByUserId();
 	}
 
+    @Override
+    public boolean updatePassword(User user) {
+        return false;
+    }
+
+    @Override
+    public List<User> getUserByUserNameOrCellphone(Map<String, String> map) {
+        return userRepository.getUserByUserNameOrCellphone(map);
+    }
 }

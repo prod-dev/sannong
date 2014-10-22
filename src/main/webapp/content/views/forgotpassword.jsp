@@ -26,8 +26,11 @@
             <form class="form-form-horizontal" role="form">
                 <div>
                     <div class="form-group  form-inline">
+                        <label id="userName">用户名: 张杨波</label>
+                        <!--
                         <label for="userName">用户名: 的法尔</label>
-                        <!--<input type="text" class="form-control" id="userName" placeholder="用户名"> -->
+                        <input type="text" class="form-control" id="userName" placeholder="用户名">
+                        -->
                     </div>
                     <div class="form-group form-inline">
                         <label for="cellPhone">手机号</label>

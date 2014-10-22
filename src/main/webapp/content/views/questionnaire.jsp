@@ -141,7 +141,7 @@
                     <div class="form-group">
                         <label for="cellPhone">手机号码</label>
                         <input type="input" class="form-control" id="cellPhone" placeholder="手机号码">
-                        <button type="button" class="btn btn-default">发送验证码</button>
+                        <button type="button" class="btn btn-sm btn-warning">发送验证码</button>
                     </div>
                     <div class="form-group">
                         <label for="validationCode">验证码</label>
