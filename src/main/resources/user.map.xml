@@ -15,7 +15,7 @@
         <result property="password" column="password" />
         <result property="deskPhone" column="desk_phone" />
         <result property="cellphone" column="cellphone" />
-        <result property="updateTime" column="updateTime" />
+        <result property="updateTime" column="update_time" />
      </resultMap>
      
      <select id="getUserByUserId" parameterType="User" resultMap="userResultMap">
@@ -55,7 +55,7 @@
         <![CDATA[
         	update users
         	set password=#{password},
-        	updateTime=#{updateTime}
+        	update_time=#{updateTime}
         	where username=#{userName}
         ]]>
     </update>
