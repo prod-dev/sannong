@@ -63,18 +63,18 @@ public class PersonalCenterController {
 
         Map<String, Object> models = new HashMap<String, Object>();
 
-        String username;
+        String userName;
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
+            userName = ((UserDetails) principal).getUsername();
         } else {
-            username = principal.toString();
+            userName = principal.toString();
         }
 
         Map<String, String> map = new HashMap<String, String>();
-        map.put("username", username);
-        map.put("cellphone", username);
+        map.put("userName", userName);
+        map.put("cellphone", userName);
 
         List<User> users = userService.getUserByUserNameOrCellphone(map);
 
