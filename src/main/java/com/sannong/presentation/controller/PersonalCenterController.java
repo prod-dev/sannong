@@ -74,7 +74,7 @@ public class PersonalCenterController {
 
         Map<String, String> map = new HashMap<String, String>();
         map.put("userName", userName);
-        map.put("cellphone", userName);
+        //map.put("cellphone", cellphone);
 
         List<User> users = userService.getUserByUserNameOrCellphone(map);
 
