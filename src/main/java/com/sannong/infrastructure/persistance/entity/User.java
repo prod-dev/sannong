@@ -24,7 +24,14 @@ public class User implements Serializable{
 	private int enabled;
 	private Long roleId;
 	private Timestamp updateTime;
+	private String realName;
 	
+	public String getRealName() {
+		return realName;
+	}
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
 	public Long getUserId() {
 		return userId;
 	}

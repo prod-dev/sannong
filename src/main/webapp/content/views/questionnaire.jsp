@@ -27,16 +27,16 @@
                     <label>问题1:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions1" id="inlineRadio11" value="option1"> a
+                        <input type="radio" name="answers[0]" id="inlineRadio11" value="a"> a
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions1" id="inlineRadio12" value="option2"> b
+                        <input type="radio" name="answers[0]" id="inlineRadio12" value="b"> b
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions1" id="inlineRadio13" value="option3"> c
+                        <input type="radio" name="answers[0]" id="inlineRadio13" value="c"> c
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions1" id="inlineRadio14" value="option1"> d
+                        <input type="radio" name="answers[0]" id="inlineRadio14" value="d"> d
                     </label>
                 </div>
                 <br>
@@ -45,16 +45,16 @@
                     <label>问题2:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions2" id="inlineRadio21" value="option2"> 差
+                        <input type="radio" name="answers[1]" id="inlineRadio21" value="差"> 差
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions2" id="inlineRadio22" value="option3"> 一般
+                        <input type="radio" name="answers[1]" id="inlineRadio22" value="一般"> 一般
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions2" id="inlineRadio23" value="option1"> 好
+                        <input type="radio" name="answers[1]" id="inlineRadio23" value="好"> 好
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions2" id="inlineRadio24" value="option2"> 很好
+                        <input type="radio" name="answers[1]" id="inlineRadio24" value="很好"> 很好
                     </label>
                 </div>
                 <br>
@@ -63,16 +63,16 @@
                     <label>问题3:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio31" value="option2"> a
+                        <input type="radio" name="answers[2]" id="inlineRadio31" value="a"> a
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio32" value="option3"> b
+                        <input type="radio" name="answers[2]" id="inlineRadio32" value="b"> b
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio33" value="option1"> c
+                        <input type="radio" name="answers[2]" id="inlineRadio33" value="c"> c
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions3" id="inlineRadio34" value="option2"> d
+                        <input type="radio" name="answers[2]" id="inlineRadio34" value="d"> d
                     </label>
                 </div>
                 <br>
@@ -81,16 +81,16 @@
                     <label>问题4:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions4" id="inlineRadio41" value="option2"> a
+                        <input type="radio" name="answers[3]" id="inlineRadio41" value="a"> a
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions4" id="inlineRadio42" value="option3"> b
+                        <input type="radio" name="answers[3]" id="inlineRadio42" value="b"> b
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions4" id="inlineRadio43" value="option1"> c
+                        <input type="radio" name="answers[3]" id="inlineRadio43" value="c"> c
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions4" id="inlineRadio44" value="option2"> d
+                        <input type="radio" name="answers[3]" id="inlineRadio44" value="d"> d
                     </label>
                 </div>
                 <br>
@@ -99,24 +99,28 @@
                     <label>问题5:</label>
                     <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio </p>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions5" id="inlineRadio51" value="option2"> a
+                        <input type="radio" name="answers[4]" id="inlineRadio51" value="a"> a
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions5" id="inlineRadio52" value="option3"> b
+                        <input type="radio" name="answers[4]" id="inlineRadio52" value="b"> b
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions5" id="inlineRadio53" value="option1"> c
+                        <input type="radio" name="answers[4]" id="inlineRadio53" value="c"> c
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions5" id="inlineRadio54" value="option2"> d
+                        <input type="radio" name="answers[4]" id="inlineRadio54" value="d"> d
                     </label>
                 </div>
                 <br>
 
                 <div>
                     <div class="form-group">
+                        <label for="userName">用户名</label>
+                        <input type="text" class="form-control" id="userName" name="applicant.userName" placeholder="用户名">
+                    </div>
+                    <div class="form-group">
                         <label for="userName">姓名</label>
-                        <input type="text" class="form-control" id="userName" name="applicant.userName" placeholder="姓名">
+                        <input type="text" class="form-control" id="userName" name="applicant.realName" placeholder="姓名">
                     </div>
                     <div class="form-group">
                         <label for="jobTitle">职务</label>
@@ -124,28 +128,28 @@
                     </div>
                     <div class="form-group">
                         <label for="jobCompany">工作单位</label>
-                        <input type="input" class="form-control" id="jobCompany" placeholder="工作单位">
+                        <input type="input" class="form-control" id="company" name="applicant.company" placeholder="工作单位">
                     </div>
                     <div class="form-group">
                         <label for="jobAddress">单位地址</label>
-                        <input type="input" class="form-control" id="jobAddress" placeholder="单位地址">
+                        <input type="input" class="form-control" id="companyAddress" name="applicant.companyAddress" placeholder="单位地址">
                     </div>
                     <div class="form-group">
                         <label for="deskPhone">工作电话</label>
-                        <input type="input" class="form-control" id="deskPhone" placeholder="工作电话">
+                        <input type="input" class="form-control" id="deskPhone" name="applicant.deskPhone" placeholder="工作电话">
                     </div>
                     <div class="form-group">
                         <label for="mailBox">电子邮箱</label>
-                        <input type="input" class="form-control" id="mailBox" placeholder="电子邮箱">
+                        <input type="input" class="form-control" id="mailbox" name="applicant.mailbox" placeholder="电子邮箱">
                     </div>
                     <div class="form-group">
                         <label for="cellPhone">手机号码</label>
-                        <input type="input" class="form-control" id="cellPhone" placeholder="手机号码">
-                        <button type="button" class="btn btn-default">发送验证码</button>
+                        <input type="input" class="form-control" id="cellphone" name="applicant.cellphone" placeholder="手机号码">
+                        <button type="button" class="btn btn-sm btn-warning">发送验证码</button>
                     </div>
                     <div class="form-group">
                         <label for="validationCode">验证码</label>
-                        <input type="input" class="form-control" id="validationCode" placeholder="验证码">
+                        <input type="input" class="form-control" id="smsValidationCode" name="sms.smsValidationCode" placeholder="验证码">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">Submit</button>

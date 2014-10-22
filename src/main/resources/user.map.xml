@@ -57,11 +57,20 @@
         	where user_id=#{userId}
         ]]>
      </update>
+
+    <update  id="updatePassword" parameterType="User" >
+        <![CDATA[
+        	update users
+        	set password=#{password}
+        	update_time=#{updateTime}
+        	where user_id=#{userId}
+        ]]>
+    </update>
      
      <insert id="addUserInfo" parameterType="User">
          <![CDATA[
-        	insert into users(user_name,cellphone,password,mailbox,company,company_address,desk_phone,job_title,update_time) 
-        	values(#{userName},#{cellphone},#{password},#{mailbox},#{company},#{companyAddress},#{deskPhone},#{jobTitle},#{updateTime})
+        	insert into users(username,user_name,cellphone,password,mailbox,company,company_address,desk_phone,job_title,update_time) 
+        	values(#{userName},#{realName},#{cellphone},'123456',#{mailbox},#{company},#{companyAddress},#{deskPhone},#{jobTitle},#{updateTime})
          ]]>
      </insert>
      

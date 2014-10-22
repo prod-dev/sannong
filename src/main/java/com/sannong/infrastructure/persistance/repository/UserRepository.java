@@ -23,5 +23,9 @@ public interface UserRepository {
 	List<User> getUserByUserNameOrCellphone(Map<String,String> map);
 	
 	void updateUserInfo(User user);
+
+    void updatePassword(User user);
+	
+	void updatePassword(User user);
 	
 }

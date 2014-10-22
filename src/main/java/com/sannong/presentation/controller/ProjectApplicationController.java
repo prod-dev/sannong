@@ -23,16 +23,11 @@ import com.sannong.service.IUserService;
  */
 @Controller
 public class ProjectApplicationController {
-	
-	@Resource
-    private IUserService userService;
-	
-	@Resource
-	private IProjectService projectService;
-
     private static final String QUESTIONNAIRE_PAGE = "questionnaire";
     private static final String COMPLETION_PAGE = "completion";
 
+    @Resource
+    private IProjectService projectService;
 
     @RequestMapping(value = "questionnaire", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
