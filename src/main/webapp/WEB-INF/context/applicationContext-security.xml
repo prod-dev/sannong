@@ -29,6 +29,7 @@
 
     <sec:http pattern="/signin.jsp" security="none"/>
     <sec:http pattern="/home.jsp" security="none"/>
+    <sec:http pattern="/forgotpassword" security="none"/>
 
 
     <sec:http auto-config="true" access-denied-page="/access-denied">
@@ -40,7 +41,7 @@
         <!--intercept-url pattern="/signin" access="ROLE_USER, ROLE_ANONYMOUS"/-->
         <sec:intercept-url pattern="/myinfo" access="ROLE_USER, ROLE_ADMIN"/>
         <sec:intercept-url pattern="/mypassword" access="ROLE_USER, ROLE_ADMIN"/>
-        <sec:intercept-url pattern="/forgotpassword" access="ROLE_USER, ROLE_ADMIN"/>
+
         <sec:intercept-url pattern="/faq" access="ROLE_USER, ROLE_ADMIN"/>
         <!--
         <sec:intercept-url pattern="/questionnaire" access="ROLE_USER, ROLE_ADMIN"/>
