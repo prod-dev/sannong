@@ -29,7 +29,7 @@
 
         <form class="form-signin" role="form" action="j_spring_security_check" method="POST">
             <h2 class="form-signin-heading">请登录</h2>
-            <input type="text" name='j_username' class="form-control" placeholder="电话号码" required autofocus>
+            <input type="text" name='j_username' class="form-control" placeholder="用户名" required autofocus>
             <label></label>
             <span>
             <div id="auth-msg" style="color:red;display:none">验证失败, 请重新输入.</div>
