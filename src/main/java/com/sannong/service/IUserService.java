@@ -6,7 +6,7 @@ import com.sannong.infrastructure.persistance.entity.User;
 
 public interface IUserService {
 	
-	List<User> getUserByAuditorId();
+	List<User> getUserByUserId();
 	
 	boolean loginValidation(String phoneNumber, String password);
 	
