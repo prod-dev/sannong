@@ -93,10 +93,20 @@ public class PersonalCenterController {
     }
 
     @RequestMapping(value = "applicants", method = RequestMethod.GET)
-    public ModelAndView showList() {
+    public ModelAndView showList(HttpServletRequest request, HttpServletResponse response) {
+    	
+    	Map<String,String> requestParaMap = new HashMap<String,String>();
+    	
+    	String cellphone = request.getParameter("cellphone");
+    	String userName = request.getParameter("userName");
+        
+    	requestParaMap.put("cellphone", cellphone);
+    	requestParaMap.put("userName", userName);
+    	
+    	List<User> applicants = userService.getUserByUserNameOrCellphone(requestParaMap);
 
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("applicants", new Object());
+        models.put("applicants", applicants);
         return new ModelAndView(APPLICANTS_PAGE, models);
     }
 
