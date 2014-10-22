@@ -54,11 +54,6 @@ public class UserServiceImpl implements IUserService{
 		return userRepository.getUserByUserId();
 	}
 
-	@Override
-	public List<User> getUserByUserNameOrCellphone(Map<String, String> map) {
-		return userRepository.getUserByUserNameOrCellphone(map);
-	}
-
     @Override
     public User getUserByName(String userName) {
         return userRepository.getUserByName(userName);
