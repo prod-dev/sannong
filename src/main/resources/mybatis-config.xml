@@ -15,6 +15,7 @@
     	<mapper resource="user.map.xml"/>
     	<mapper resource="application.map.xml"/>
     	<mapper resource="sms.map.xml"/>
+    	<mapper resource="authority.map.xml"/>
     </mappers>
     
 </configuration>

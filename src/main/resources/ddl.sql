@@ -10,3 +10,7 @@ ADD COLUMN `questionnaire_answer` VARCHAR(45) NULL AFTER `application_date`;
 
 ALTER TABLE `sannong`.`users` 
 CHANGE COLUMN `enabled` `enabled` CHAR(1) NOT NULL DEFAULT '1' ;
+
+ALTER TABLE `sannong`.`authorities` 
+ADD COLUMN `authorities_id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
+ADD PRIMARY KEY (`authorities_id`);
