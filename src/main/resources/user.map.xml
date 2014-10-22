@@ -35,13 +35,6 @@
         	select * from users where phone_number = #{phoneNumber} and password = #{password}
         ]]>
      </select>
-     <!--
-     <insert id="addUserInfo" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
-     	<![CDATA[
-        	insert into users (password,phone_number) values(#{phoneNumber} ,#{password})
-        ]]>
-     </insert>
-     -->
      
      <update  id="updateUserInfo" parameterType="User" >
      	<![CDATA[
@@ -81,4 +74,3 @@
      </select>
      
 </mapper>
-

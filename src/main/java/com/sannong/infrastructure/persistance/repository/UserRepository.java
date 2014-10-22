@@ -26,6 +26,4 @@ public interface UserRepository {
 
     void updatePassword(User user);
 	
-	void updatePassword(User user);
-	
 }
