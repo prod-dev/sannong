@@ -6,31 +6,39 @@
 <mapper namespace="com.sannong.infrastructure.persistance.repository.UserRepository">
      <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
 
-     <resultMap type="User" id="userMap">
+     <resultMap type="User" id="userResultMap">
         <id property="userId" column="user_Id" />
         <result property="userName" column="username" />
+        <result property="realName" column="user_name" />
         <result property="mailbox" column="mail_box" />
         <result property="companyAddress" column="company_address" />
         <result property="jobTitle" column="job_title" />
         <result property="password" column="password" />
         <result property="deskPhone" column="desk_phone" />
         <result property="cellphone" column="cellphone" />
-        <result property="updateTime" column="updateTime" />
+        <result property="updateTime" column="update_time" />
+        <result property="createTime" column="create_time" />
      </resultMap>
      
-     <select id="getUserByUserId" parameterType="User" resultMap="userMap">
+     <select id="getUserByUserId" parameterType="User" resultMap="userResultMap">
      	<![CDATA[
         	select * from users where user_id = #{userId}
         ]]>
      </select>
      
-     <select id="getUserByUserNameOrCellphone"  parameterType="Map"  resultMap="userMap">
-     	<![CDATA[
-        	select * from users where username=#{username} or cellphone=#{cellphone}
-        ]]>
+     <select id="getUserByUserNameOrCellphone"  parameterType="Map"  resultMap="userResultMap">
+         select username,create_time,cellphone,company_address,job_title from users
+         <where>  
+             <if test="userName != null">  
+                 username = #{userName}  
+             </if>  
+             <if test="cellphone != null">  
+                 and cellphone = #{cellphone}  
+             </if>  
+         </where>  
      </select>
      
-     <select id="loginValidation" parameterType="Map" resultMap="userMap">
+     <select id="loginValidation" parameterType="Map" resultMap="userResultMap">
      	<![CDATA[
         	select * from users where phone_number = #{phoneNumber} and password = #{password}
         ]]>
@@ -54,16 +62,16 @@
     <update  id="updatePassword" parameterType="User" >
         <![CDATA[
         	update users
-        	set password=#{password}
+        	set password=#{password},
         	update_time=#{updateTime}
-        	where user_id=#{userId}
+        	where username=#{userName}
         ]]>
     </update>
      
      <insert id="addUserInfo" parameterType="User">
          <![CDATA[
-        	insert into users(username,user_name,cellphone,password,mailbox,company,company_address,desk_phone,job_title,update_time) 
-        	values(#{userName},#{realName},#{cellphone},'123456',#{mailbox},#{company},#{companyAddress},#{deskPhone},#{jobTitle},#{updateTime})
+        	insert into users(username,user_name,cellphone,password,mailbox,company,company_address,desk_phone,job_title,update_time,create_time) 
+        	values(#{userName},#{realName},#{cellphone},'123456',#{mailbox},#{company},#{companyAddress},#{deskPhone},#{jobTitle},#{updateTime},#{createTime})
          ]]>
      </insert>
      
@@ -73,4 +81,15 @@
           ]]>
      </select>
      
+     <select id="getUserById" parameterType="Long" resultMap="userResultMap">
+        <![CDATA[
+             select * from users where user_id = #{userId}
+          ]]>
+    </select>
+
+    <select id="getUserByName" parameterType="String" resultMap="userResultMap">
+        <![CDATA[
+         select * from users where username = #{userName}
+      ]]>
+    </select>
 </mapper>

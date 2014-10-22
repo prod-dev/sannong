@@ -54,13 +54,28 @@ public class UserServiceImpl implements IUserService{
 		return userRepository.getUserByUserId();
 	}
 
+	@Override
+	public List<User> getUserByUserNameOrCellphone(Map<String, String> map) {
+		return userRepository.getUserByUserNameOrCellphone(map);
+	}
+
     @Override
-    public boolean updatePassword(User user) {
-        return false;
+    public User getUserByName(String userName) {
+        return userRepository.getUserByName(userName);
     }
 
     @Override
-    public List<User> getUserByUserNameOrCellphone(Map<String, String> map) {
-        return userRepository.getUserByUserNameOrCellphone(map);
+    public User getUserById(Long userId) {
+        return userRepository.getUserById(userId);
+    }
+
+    @Override
+    public boolean updatePassword(User user) throws Exception {
+        try{
+            userRepository.updatePassword(user);
+            return true;
+        }catch(Exception e){
+            throw e;
+        }
     }
 }
