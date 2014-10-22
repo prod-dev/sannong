@@ -132,7 +132,8 @@ public class PersonalCenterController {
         user.setPassword(encryptedNewPassword);
         userService.updatePassword(user);
 
-        return new ModelAndView("signin", models);
+        models.put("myPasswordAuth", "passwordChanged");
+        return new ModelAndView(MY_PASSWORD_PAGE, models);
     }
 
 }

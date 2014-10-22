@@ -51,6 +51,12 @@
                         新密码与确认密码不匹配, 请重新输入.
                     </div>
                 </c:when>
+                <c:when test="${myPasswordAuth == 'passwordChanged'}">
+                    <div id="authMsg2"  style="display: block;color: blue">
+                        密码修改成功.
+                    </div>
+                </c:when>
+
                 <c:otherwise>
                 </c:otherwise>
             </c:choose>
