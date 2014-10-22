@@ -4,6 +4,7 @@ import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.service.ISmsService;
 import com.sannong.service.IUserService;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -100,9 +101,38 @@ public class PersonalCenterController {
     }
 
     @RequestMapping(value = "updatepassword", method = RequestMethod.POST)
-    public boolean updatePassword() {
-        User user = new User();
-        return userService.updatePassword(user);
+    public ModelAndView updatePassword(HttpServletRequest request) throws Exception {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+
+        String username;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails) principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        String oldPassword = request.getParameter("oldPassword");
+        String newPassword = request.getParameter("newPassword");
+        String confirmedPassword = request.getParameter("confirmedPassword");
+
+        User user = userService.getUserByName(username);
+
+        if ( !user.getPassword().equals(md5.encodePassword(oldPassword, username)) ){
+            models.put("myPasswordAuth", "oldPasswordAuthFailure");
+            return new ModelAndView(MY_PASSWORD_PAGE, models);
+        }else if ( ! newPassword.equals(confirmedPassword) ){
+            models.put("myPasswordAuth", "newPasswordAuthFailure");
+            return new ModelAndView(MY_PASSWORD_PAGE, models);
+        }
+
+        String encryptedNewPassword = md5.encodePassword(newPassword, username);
+        user.setPassword(encryptedNewPassword);
+        userService.updatePassword(user);
+
+        return new ModelAndView("signin", models);
     }
 
 }

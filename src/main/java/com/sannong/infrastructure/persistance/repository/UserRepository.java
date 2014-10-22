@@ -1,3 +1,4 @@
+
 package com.sannong.infrastructure.persistance.repository;
 
 import java.util.List;
@@ -25,5 +26,10 @@ public interface UserRepository {
 	void updateUserInfo(User user);
 
     void updatePassword(User user);
+
+    User getUserById(Long userId);
+
+    User getUserByName(String userName);
 	
 }
+

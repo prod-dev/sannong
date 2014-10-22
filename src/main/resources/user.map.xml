@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>  
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper  
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
@@ -6,7 +6,7 @@
 <mapper namespace="com.sannong.infrastructure.persistance.repository.UserRepository">
      <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
 
-     <resultMap type="User" id="userMap">
+     <resultMap type="User" id="userResultMap">
         <id property="userId" column="user_Id" />
         <result property="userName" column="username" />
         <result property="mailbox" column="mail_box" />
@@ -18,19 +18,19 @@
         <result property="updateTime" column="updateTime" />
      </resultMap>
      
-     <select id="getUserByUserId" parameterType="User" resultMap="userMap">
+     <select id="getUserByUserId" parameterType="User" resultMap="userResultMap">
      	<![CDATA[
         	select * from users where user_id = #{userId}
         ]]>
      </select>
      
-     <select id="getUserByUserNameOrCellphone"  parameterType="Map"  resultMap="userMap">
+     <select id="getUserByUserNameOrCellphone"  parameterType="Map"  resultMap="userResultMap">
      	<![CDATA[
         	select * from users where username=#{username} or cellphone=#{cellphone}
         ]]>
      </select>
      
-     <select id="loginValidation" parameterType="Map" resultMap="userMap">
+     <select id="loginValidation" parameterType="Map" resultMap="userResultMap">
      	<![CDATA[
         	select * from users where phone_number = #{phoneNumber} and password = #{password}
         ]]>
@@ -54,9 +54,9 @@
     <update  id="updatePassword" parameterType="User" >
         <![CDATA[
         	update users
-        	set password=#{password}
-        	update_time=#{updateTime}
-        	where user_id=#{userId}
+        	set password=#{password},
+        	updateTime=#{updateTime}
+        	where username=#{userName}
         ]]>
     </update>
      
@@ -72,5 +72,17 @@
              select user_id from users where cellphone = #{cellphone}
           ]]>
      </select>
+
+    <select id="getUserById" parameterType="Long" resultMap="userResultMap">
+        <![CDATA[
+             select * from users where user_id = #{userId}
+          ]]>
+    </select>
+
+    <select id="getUserByName" parameterType="String" resultMap="userResultMap">
+        <![CDATA[
+         select * from users where username = #{userName}
+      ]]>
+    </select>
      
 </mapper>

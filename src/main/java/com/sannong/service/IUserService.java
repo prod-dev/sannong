@@ -8,12 +8,16 @@ import com.sannong.infrastructure.persistance.entity.User;
 public interface IUserService {
 	
 	public List<User> getUserByUserId();
-	
+
 	public boolean loginValidation(String phoneNumber, String password);
 	
 	public boolean addUserInfo(User user);
 
-    public boolean updatePassword(User user);
-
     public List<User> getUserByUserNameOrCellphone(Map<String, String> map);
+
+    public User getUserByName(String userName);
+
+    public User getUserById(Long userId);
+
+    public boolean updatePassword(User user) throws Exception;
 }
