@@ -22,8 +22,8 @@
         </div>
     </div>
     <div class="row clearfix">
-
-        <div class="col-md-7 column">
+        <div class="col-md-3 column"></div>
+        <div class="col-md-6 column">
             <form role="form" id="register-form" action="modifyMyinfo" method="post">
                 <div>
                     <div class="form-group">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label for="jobCompany">工作单位</label>
-                        <input type="input" class="form-control" id="company"  name="company" placeholder="工作单位"  value="${myinfo.company}">
+                        <input type="input" class="form-control" id="jobCompany"  name="company" placeholder="工作单位"  value="${myinfo.company}">
                         <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
@@ -58,21 +58,26 @@
                     </div>
                     <div class="form-group">
                         <label for="cellPhone">手机号码</label>
-                        <input type="hidden" id="token_id"   value="10">
-                        <input type="hidden" id="token"  value="2379839e12f6f183bf0737ba4f6d1b75">
-                        <input type="input" class="input-short" id="cellphone" name="cellphone" placeholder="手机号码" value="${myinfo.cellphone}">
-                        <input type="button" id="action-send-code" data-url="regcode" data-type="1" class="btn btn-default"  value="发送验证码">
-                        <div class="errorDiv"></div>
+                        <div>
+                            <input type="hidden" id="token_id"   value="10">
+                            <input type="hidden" id="token"  value="2379839e12f6f183bf0737ba4f6d1b75">
+                            <input type="input" class="input-short" id="cellphone" name="cellphone" placeholder="手机号码" value="${myinfo.cellphone}">
+                            <input type="button" id="action-send-code" data-url="regcode" data-type="1" class="btn btn-sm btn-warning"  value="发送验证码">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="validationCode">验证码</label>
-                        <input type="input" class="input-short" name="validationcode"  id="validationcode" placeholder="验证码">
+                        <div>
+                            <input type="input" class="input-short" name="validationcode"  id="validationcode" placeholder="验证码">
+                        </div>
                     </div>
-                </div>
+                        <div class="errorDiv"></div>
+                    </div>
                 <div class="errorDiv">${myinfomessage}</div>
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
+        <div class="col-md-3 column"></div>
     </div>
 </div>
 </body>

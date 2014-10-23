@@ -135,42 +135,44 @@
                    <div class="col-xs-1 col-sm-1"></div>
                    <div class="col-xs-10 col-sm-10">
                        <div>
-                           <div class="form-group">
-                               <label for="userName">用户名</label>
+                           <div class="form-group ">
+                               <!--<label for="userName">用户名</label>-->
                                <input type="text" class="form-control" id="userName" name="applicant.userName" placeholder="用户名">
                            </div>
                            <div class="form-group">
-                               <label for="userRealName">姓名</label>
+                               <!--<label for="userRealName">姓名</label>-->
                                <input type="text" class="form-control" id="userRealName" name="applicant.realName" placeholder="姓名">
                            </div>
                            <div class="form-group">
-                               <label for="jobTitle">职务</label>
+                               <!--<label for="jobTitle">职务</label>-->
                                <input type="input" class="form-control" id="jobTitle" name="applicant.jobTitle" placeholder="职务">
                            </div>
                            <div class="form-group">
-                               <label for="jobCompany">工作单位</label>
+                               <!--<label for="jobCompany">工作单位</label>-->
                                <input type="input" class="form-control" id="jobCompany" name="applicant.company" placeholder="工作单位">
                            </div>
                            <div class="form-group">
-                               <label for="jobAddress">单位地址</label>
+                               <!--<label for="jobAddress">单位地址</label>-->
                                <input type="input" class="form-control" id="jobAddress" name="applicant.companyAddress" placeholder="单位地址">
                            </div>
                            <div class="form-group">
-                               <label for="deskPhone">工作电话</label>
+                               <!--<label for="deskPhone">工作电话</label>-->
                                <input type="input" class="form-control" id="deskPhone" name="applicant.deskPhone" placeholder="工作电话">
                            </div>
                            <div class="form-group">
-                               <label for="mailBox">电子邮箱</label>
+                               <!--<label for="mailBox">电子邮箱</label>-->
                                <input type="input" class="form-control" id="mailbox" name="applicant.mailbox" placeholder="电子邮箱">
                            </div>
-                           <div class="form-group">
-                               <label for="cellPhone">手机号码</label>
+                           <div class="form-group form-inline">
+                               <!--<label for="cellPhone">手机号码</label>-->
                                <input type="input" class="form-control" id="cellphone" name="applicant.cellphone" placeholder="手机号码">
                                <button type="button" class="btn btn-sm btn-warning">发送验证码</button>
-                           </div>
-                           <div class="form-group">
-                               <label for="validationCode">验证码</label>
+                               <!--<label for="validationCode">验证码</label>-->
                                <input type="input" class="form-control" id="validationCode" name="sms.smsValidationCode" placeholder="验证码">
+
+                           </div>
+                           <div class="form-group form-inline">
+
                            </div>
                        </div>
                        <button type="submit" class="btn btn-success">Submit</button>
