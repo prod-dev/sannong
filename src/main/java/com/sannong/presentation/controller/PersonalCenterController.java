@@ -76,7 +76,8 @@ public class PersonalCenterController {
          } else {
              username = principal.toString();
          }
-
+         user.setUserName(username); //add by william
+         
          User dbuser = userService.getUserByName(username);
          if(!dbuser.getCellphone().toString().equals(user.getCellphone().toString()))
          {

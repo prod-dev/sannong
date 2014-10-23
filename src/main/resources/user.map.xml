@@ -47,14 +47,14 @@
      	<![CDATA[
         	update users 
         	set cellphone=#{cellphone},
-        	username=#{userName},
+        	user_name=#{realName},
         	company=#{company},
         	company_address=#{companyAddress},
         	mailbox=#{mailbox},
         	desk_phone=#{deskPhone},
         	job_title=#{jobTitle},
         	update_time=#{updateTime}
-        	where user_id=#{userId}
+        	where username=#{userName}
         ]]>
      </update>
 

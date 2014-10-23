@@ -28,7 +28,7 @@
                 <div>
                     <div class="form-group">
                         <label for="userName">姓名</label>
-                        <input type="text"  class="form-control" id="userName" name="userName" placeholder="姓名" value="${myinfo.userName}" >
+                        <input type="text"  class="form-control" id="userName" name="realName" placeholder="姓名" value="${myinfo.userName}" >
                         <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
