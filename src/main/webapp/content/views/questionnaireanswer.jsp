@@ -33,7 +33,6 @@
     $(function(){
     	var answerString = $("#answer").val();
     	var answer = answerString.split(";");
-    	alert(answerString);
     	for (var i = 0;i < answer.length;i++){
     		   var $_radios=$(".J_group_radio").eq(i).find("input");
     		   $_radios.each(function(){
