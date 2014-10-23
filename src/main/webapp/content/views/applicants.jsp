@@ -87,7 +87,7 @@
                     <td>
                         ${stauts.count}
                     </td>
-                    <td>
+                    <td id="userName${stauts.count}">
                         ${user.userName}
                     </td>
                     <td>
@@ -103,7 +103,7 @@
                         ${user.jobTitle}
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-success" href="questionnaire">问卷调查</a>
+                        <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="showQuestionnaire(${stauts.count})">问卷调查</a>
                     </td>
                 </tr>
                 </c:forEach>
@@ -153,5 +153,13 @@
 		}
 		location.href = url;
 	})
+	
+	function showQuestionnaire(id){
+		var id = "userName" + id;
+		var userName = $("#" + id).text().trim();
+
+		location.href = "questionnaireanswer?userName=" + userName;
+	}
+	
 </script>
 </html>

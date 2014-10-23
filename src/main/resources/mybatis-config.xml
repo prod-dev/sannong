@@ -16,6 +16,7 @@
     	<mapper resource="application.map.xml"/>
     	<mapper resource="sms.map.xml"/>
     	<mapper resource="authority.map.xml"/>
+    	<mapper resource="questionnaire.map.xml"/>
     </mappers>
     
 </configuration>

@@ -22,4 +22,6 @@ public interface IUserService {
     public boolean updateUser(User user) throws Exception;
 
     public boolean updatePassword(User user) throws Exception;
+    
+    public String getAnswerByUserName(String userName) throws Exception;
 }

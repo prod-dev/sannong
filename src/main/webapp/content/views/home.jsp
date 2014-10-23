@@ -22,7 +22,7 @@
                     它将是农村的致富工具，在上面可以得到各种帮助如：资金、知识、专家支持等，为农村的发展提供一切可利用的手段。
                 </p>
                 <p>
-                    <a class="btn btn-lg btn-success" href="questionnaire">申报项目 »</a>
+                    <a class="btn btn-lg btn-success" href="applicationpage">申报项目 »</a>
                 </p>
             </div>
         </div>

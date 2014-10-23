@@ -7,8 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.infrastructure.persistance.repository.QuestionnaireRepository;
+import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.service.IUserService;
 
 @Service
@@ -16,6 +17,9 @@ public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private QuestionnaireRepository questionnaireRepository;
 	
 
 	public boolean loginValidation(String phoneNumber, String password) {
@@ -85,4 +89,9 @@ public class UserServiceImpl implements IUserService{
 				throw e;
 			}		 
 	}
+
+	public String getAnswerByUserName(String userName) throws Exception {
+		return questionnaireRepository.getAnswerByUserName(userName);
+	}
+	
 }

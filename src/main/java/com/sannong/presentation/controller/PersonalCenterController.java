@@ -1,9 +1,13 @@
 package com.sannong.presentation.controller;
 
-import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.service.ISmsService;
-import com.sannong.service.IUserService;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,16 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.sannong.infrastructure.persistance.entity.SMS;
+import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.service.ISmsService;
+import com.sannong.service.IUserService;
 
 @Controller
 @SessionAttributes("myinfo")
@@ -192,4 +190,14 @@ public class PersonalCenterController {
         return new ModelAndView(MY_PASSWORD_PAGE, models);
     }
 
+   // @ResponseBody
+    @RequestMapping(value = "questionnaireanswer", method = RequestMethod.GET)
+    public ModelAndView getAnswerByUserName(HttpServletRequest request) throws Exception {
+    	
+    	String answer = userService.getAnswerByUserName(request.getParameter("userName"));
+    	
+    	Map<String, Object> models = new HashMap<String, Object>();
+    	models.put("answer", answer);
+        return new ModelAndView("questionnaireanswer", models);
+    }
 }

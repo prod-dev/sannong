@@ -16,25 +16,24 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sannong.infrastructure.persistance.entity.Application;
 import com.sannong.presentation.model.DTO;
 import com.sannong.service.IProjectService;
-import com.sannong.service.IUserService;
 
 /**
  * Created by Bright Huang on 10/14/14.
  */
 @Controller
 public class ProjectApplicationController {
-    private static final String QUESTIONNAIRE_PAGE = "questionnaire";
+    private static final String APPLICATION_PAGE = "projectapplication";
     private static final String COMPLETION_PAGE = "completion";
 
     @Resource
     private IProjectService projectService;
 
-    @RequestMapping(value = "questionnaire", method = RequestMethod.GET)
+    @RequestMapping(value = "applicationpage", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
 
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("questionnaire", new Object());
-        return new ModelAndView(QUESTIONNAIRE_PAGE, models);
+        models.put("projectapplication", new Object());
+        return new ModelAndView(APPLICATION_PAGE, models);
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
