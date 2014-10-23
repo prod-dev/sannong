@@ -14,3 +14,6 @@ CHANGE COLUMN `enabled` `enabled` CHAR(1) NOT NULL DEFAULT '1' ;
 ALTER TABLE `sannong`.`authorities` 
 ADD COLUMN `authorities_id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
 ADD PRIMARY KEY (`authorities_id`);
+
+ALTER TABLE `sannong`.`users` 
+ADD COLUMN `create_time` DATETIME NULL AFTER `update_time`;

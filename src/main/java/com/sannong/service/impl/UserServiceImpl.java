@@ -54,21 +54,18 @@ public class UserServiceImpl implements IUserService{
 		return userRepository.getUserByUserId();
 	}
 
-
+    @Override
     public List<User> getUserByUserNameOrCellphone(Map<String, String> map) {
         return userRepository.getUserByUserNameOrCellphone(map);
     }
-
 
     public User getUserByName(String userName) {
         return userRepository.getUserByName(userName);
     }
 
- 
     public User getUserById(Long userId) {
         return userRepository.getUserById(userId);
     }
-
 
     public boolean updatePassword(User user) throws Exception {
         try{
@@ -78,7 +75,6 @@ public class UserServiceImpl implements IUserService{
             throw e;
         }
     }
-
 
 	public boolean  updateUser(User user) throws Exception {
 			try
