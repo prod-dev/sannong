@@ -30,15 +30,18 @@
 </div></body>
 
 <script type="text/javascript">
-    
     $(function(){
     	var answerString = $("#answer").val();
     	var answer = answerString.split(";");
-    	
+    	alert(answerString);
     	for (var i = 0;i < answer.length;i++){
-    		alert(answer[i]);
+    		   var $_radios=$(".J_group_radio").eq(i).find("input");
+    		   $_radios.each(function(){
+    			    if($(this).val()===answer[i]){
+	    			    $(this).attr("checked","checked");
+    			    }
+    		   });
     	}
     })
-
 </script>
 </html>
