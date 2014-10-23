@@ -9,15 +9,13 @@
      <resultMap type="User" id="userResultMap">
         <id property="userId" column="user_Id" />
         <result property="userName" column="username" />
-        <result property="realName" column="user_name" />
         <result property="mailbox" column="mail_box" />
         <result property="companyAddress" column="company_address" />
         <result property="jobTitle" column="job_title" />
         <result property="password" column="password" />
         <result property="deskPhone" column="desk_phone" />
         <result property="cellphone" column="cellphone" />
-        <result property="updateTime" column="update_time" />
-        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="updateTime" />
      </resultMap>
      
      <select id="getUserByUserId" parameterType="User" resultMap="userResultMap">
@@ -27,15 +25,9 @@
      </select>
      
      <select id="getUserByUserNameOrCellphone"  parameterType="Map"  resultMap="userResultMap">
-         select username,create_time,cellphone,company_address,job_title from users
-         <where>  
-             <if test="userName != null">  
-                 username = #{userName}  
-             </if>  
-             <if test="cellphone != null">  
-                 and cellphone = #{cellphone}  
-             </if>  
-         </where>  
+     	<![CDATA[
+        	select * from users where username=#{username} or cellphone=#{cellphone}
+        ]]>
      </select>
      
      <select id="loginValidation" parameterType="Map" resultMap="userResultMap">
@@ -51,7 +43,7 @@
         	username=#{userName},
         	company=#{company},
         	company_address=#{companyAddress},
-        	mail_box=#{mailbox},
+        	mailbox=#{mailbox},
         	desk_phone=#{deskPhone},
         	job_title=#{jobTitle},
         	update_time=#{updateTime}
@@ -70,8 +62,8 @@
      
      <insert id="addUserInfo" parameterType="User">
          <![CDATA[
-        	insert into users(username,user_name,cellphone,password,mailbox,company,company_address,desk_phone,job_title,update_time,create_time) 
-        	values(#{userName},#{realName},#{cellphone},'123456',#{mailbox},#{company},#{companyAddress},#{deskPhone},#{jobTitle},#{updateTime},#{createTime})
+        	insert into users(username,user_name,cellphone,password,mailbox,company,company_address,desk_phone,job_title,update_time) 
+        	values(#{userName},#{realName},#{cellphone},'123456',#{mailbox},#{company},#{companyAddress},#{deskPhone},#{jobTitle},#{updateTime})
          ]]>
      </insert>
      
@@ -80,8 +72,8 @@
              select user_id from users where cellphone = #{cellphone}
           ]]>
      </select>
-     
-     <select id="getUserById" parameterType="Long" resultMap="userResultMap">
+
+    <select id="getUserById" parameterType="Long" resultMap="userResultMap">
         <![CDATA[
              select * from users where user_id = #{userId}
           ]]>
@@ -92,4 +84,5 @@
          select * from users where username = #{userName}
       ]]>
     </select>
+     
 </mapper>

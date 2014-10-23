@@ -299,13 +299,13 @@
                  }, 1000);
              }
              
-             var sendMsg = function(url,isrsms){
+             var sendMsg = function(url,smstype){
                    sendNum = 2;
                    $.ajax({
                        type: "get",
                        data: {
                           type : '1',
-                          isrsms : isrsms,
+                          smstype : smstype,
                           t : new Date().getTime(),
                           mobile : phone,
                           token : token,
@@ -328,10 +328,10 @@
              };
              //updateTimeLabel(180, 'action-send-code');
              if(sendNum == 1){
-                   sendMsg(button.data("url"),0);
+                   sendMsg(button.data("url"),button.data("type"));
              }else{
-                   $("#mobilephone").parent().find(".errorDiv").text('*如未收到验证码，我们将以18401558140~18401558149号段再次发送');
-                   sendMsg(button.data("url2"),1); 
+                   $("#cellphone").parent().find(".errorDiv").text('*如未收到验证码，再次发送');
+                   sendMsg(button.data("url2"),button.data("type")); 
              }
              
          });
@@ -340,5 +340,5 @@
  //用于未来扩展的提示正确错误的JS
 $.showErr = function(str,func,title)
 {
-    $.weeboxs.open(str, {boxid:'fanwe_error_box',contentType:'text',showButton:true, showCancel:false, showOk:true,title:title,width:250,type:'wee',onclose:func});
+    $.weeboxs.open(str, {boxid:'fanwe_error_box',contenpe:'text',showButton:true, showCancel:false, showOk:true,title:title,width:250,type:'wee',onclose:func});
 }; 

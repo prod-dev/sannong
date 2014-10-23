@@ -4,23 +4,32 @@ import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.service.ISmsService;
 import com.sannong.service.IUserService;
+
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
+@SessionAttributes("myinfo")
 public class PersonalCenterController {
     private static final String MY_APPLICATION_PAGE = "myapplication";
     private static final String MY_INFO_PAGE = "myinfo";
@@ -57,8 +66,42 @@ public class PersonalCenterController {
         return smsService.generateCode(request);
     }
 
+    @RequestMapping(value = "modifyMyinfo", method = RequestMethod.POST)
+	public ModelAndView updateUser(HttpServletRequest request,@ModelAttribute("myinfo")	User user, BindingResult result) {
+    	 Map<String, Object> models = new HashMap<String, Object>();
+    	 String username;
+         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+         if (principal instanceof UserDetails) {
+             username = ((UserDetails) principal).getUsername();
+         } else {
+             username = principal.toString();
+         }
 
-    @RequestMapping(value = "myinfo", method = RequestMethod.GET)
+         User dbuser = userService.getUserByName(username);
+         if(!dbuser.getCellphone().toString().equals(user.getCellphone().toString()))
+         {
+	    	 String code=request.getParameter("validationcode").toString();
+	    	 if(!request.getSession().getAttribute("regcode").equals(code))
+	    	 {
+	    		 models.put("myinfomessage", "mobile change need to set confirm code!");
+	    	 }
+	    	 return new ModelAndView(MY_INFO_PAGE, models);
+         }
+    	Timestamp ts  =new Timestamp(System.currentTimeMillis()); 
+		user.setUpdateTime(ts);
+		try {
+			userService.updateUser(user);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		models.put("myinfomessage", "save!");
+		
+		return new ModelAndView(MY_INFO_PAGE, models);
+	}
+
+    @RequestMapping(value = "myinfo")
     public ModelAndView myInfo() {
 
         Map<String, Object> models = new HashMap<String, Object>();
@@ -79,6 +122,8 @@ public class PersonalCenterController {
         List<User> users = userService.getUserByUserNameOrCellphone(map);
 
         models.put("myinfo", users.get(0));
+      
+       // models.addAttribute("myinfo",users.get(0));
 
         return new ModelAndView(MY_INFO_PAGE, models);
     }

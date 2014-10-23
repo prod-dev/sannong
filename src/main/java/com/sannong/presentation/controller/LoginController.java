@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -69,6 +70,37 @@ public class LoginController {
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("forgotpassword", new Object());
         return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
+    }
+    
+    @RequestMapping(value = "confirmpassword",method = RequestMethod.POST)
+    public ModelAndView confirmPassword(HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+        Map<String, Object> models = new HashMap<String, Object>();
+    	Map<String,String> map=new HashMap<String,String>();
+    	String mobile=request.getParameter("cellphone").toString();
+    	String password=request.getParameter("password").toString();
+    	map.put("username",mobile );
+    	map.put("cellphone", mobile);
+    	List<User> users = userService.getUserByUserNameOrCellphone(map);
+    	if(users.isEmpty())
+    	{
+    			models.put("forgetPassword", "no such user found!");
+    		   return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
+    	}
+    	else
+    	{
+    		if(!request.getSession().getAttribute("regcode").toString().equals(password))
+    		{
+    			   models.put("forgetPassword", "confirm code  not pass! please input code you got on your mobile ");
+    		}
+    		User user=users.get(0);
+    		 Md5PasswordEncoder md5 = new Md5PasswordEncoder();
+    		String encryptedNewPassword = md5.encodePassword(request.getSession().getAttribute("regcode").toString(), user.getUserName());
+            user.setPassword(encryptedNewPassword);
+            userService.updatePassword(user);
+            models.put("forgetPassword", "password changed!");
+            return new ModelAndView(FORGOT_PASSWORD_PAGE, models);	
+    	}
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST,
