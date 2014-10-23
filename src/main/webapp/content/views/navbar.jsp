@@ -52,42 +52,27 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="questionnaire">项目申请</a>
-            </li>
-            <li>
-                <a href="myinfo">我的信息</a>
-            </li>
-            <li>
-                <a href="mypassword">我的密码</a>
-            </li>
-            <li>
-                <a href="myapplication">我的申请</a>
-            </li>
-            <li>
-                <a href="applicants">用户管理</a>
-            </li>
-            <li>
                 <a href="signin">登录</a>
-            </li>
-            <li>
-                <a href="j_spring_security_logout">登出</a>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人中心<strong class="caret"></strong></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="#">Action</a>
+                        <a href="myinfo">我的信息</a>
                     </li>
                     <li>
-                        <a href="#">Another action</a>
+                        <a href="mypassword">我的密码</a>
                     </li>
                     <li>
-                        <a href="#">Something else here</a>
+                        <a href="myapplication">我的申请</a>
+                    </li>
+                    <li>
+                        <a href="applicants">用户管理</a>
                     </li>
                     <li class="divider">
                     </li>
                     <li>
-                        <a href="#">Separated link</a>
+                        <a href="j_spring_security_logout">登出</a>
                     </li>
                 </ul>
             </li>

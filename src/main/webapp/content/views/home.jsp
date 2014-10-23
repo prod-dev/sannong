@@ -43,5 +43,6 @@
     <div class="col-md-12 column">
         <jsp:include page='footer.jsp'/>
     </div>
-</div></body>
+</div>
+</body>
 </html>

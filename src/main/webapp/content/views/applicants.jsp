@@ -11,9 +11,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
-    <script src="content/static/js/lib/jquery-2.1.1.min.js"></script>
-    <script src="content/static/js/lib/bootstrap-3.0.3.min.js"></script>
-    <script src="content/static/js/lib/bootstrap-dropdown.js"></script>
     <title></title>
 </head>
 <body>
@@ -123,6 +120,11 @@
                 <li><a href="#">&raquo;</a></li>
             </ul>
         </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <jsp:include page='footer.jsp'/>
     </div>
 </div>
 </body>

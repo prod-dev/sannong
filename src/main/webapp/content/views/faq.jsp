@@ -53,7 +53,11 @@
     <dd>答：可以让农村的业余生活更加美好，留守儿童可以在三农广场玩耍，老人可以在广场休闲，我们有专门的保安负责安全警卫工作，让农村的信息更加发达，让农民更好的实现自身的价值，让农业现代化，
     农村信息化，农民国民化。</dd>
 </dl>
-
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <jsp:include page='footer.jsp'/>
+    </div>
+</div>
 </body>
 
 </html>

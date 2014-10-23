@@ -60,10 +60,10 @@
             </form>
         </div>
     </div>
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <jsp:include page='footer.jsp'/>
-        </div>
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <jsp:include page='footer.jsp'/>
     </div>
 </div>
 </body>

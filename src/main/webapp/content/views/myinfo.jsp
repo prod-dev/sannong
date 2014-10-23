@@ -80,5 +80,10 @@
         <div class="col-md-3 column"></div>
     </div>
 </div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <jsp:include page='footer.jsp'/>
+    </div>
+</div>
 </body>
 </html>

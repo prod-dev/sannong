@@ -205,9 +205,10 @@
             <a href="faq">更多问题 >></a>
         </div>
     </div>
-
-
-
 </div>
-</body>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <jsp:include page='footer.jsp'/>
+    </div>
+</div></body>
 </html>
