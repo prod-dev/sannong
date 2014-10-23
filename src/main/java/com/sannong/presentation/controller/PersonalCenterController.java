@@ -106,18 +106,18 @@ public class PersonalCenterController {
 
         Map<String, Object> models = new HashMap<String, Object>();
 
-        String username;
+        String userName;
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
+            userName = ((UserDetails) principal).getUsername();
         } else {
-            username = principal.toString();
+            userName = principal.toString();
         }
 
         Map<String, String> map = new HashMap<String, String>();
-        map.put("username", username);
-        map.put("cellphone", username);
+        map.put("userName", userName);
+        //map.put("cellphone", cellphone);
 
         List<User> users = userService.getUserByUserNameOrCellphone(map);
 
@@ -138,10 +138,20 @@ public class PersonalCenterController {
     }
 
     @RequestMapping(value = "applicants", method = RequestMethod.GET)
-    public ModelAndView showList() {
+    public ModelAndView showList(HttpServletRequest request, HttpServletResponse response) {
+    	
+    	Map<String,String> requestParaMap = new HashMap<String,String>();
+    	
+    	String cellphone = request.getParameter("cellphone");
+    	String userName = request.getParameter("userName");
+        
+    	requestParaMap.put("cellphone", cellphone);
+    	requestParaMap.put("userName", userName);
+    	
+    	List<User> applicants = userService.getUserByUserNameOrCellphone(requestParaMap);
 
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("applicants", new Object());
+        models.put("applicants", applicants);
         return new ModelAndView(APPLICANTS_PAGE, models);
     }
 
