@@ -117,7 +117,7 @@ public class PersonalCenterController {
             userName = principal.toString();
         }
 
-        Map<String, String> map = new HashMap<String, String>();
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("userName", userName);
         //map.put("cellphone", cellphone);
 
@@ -142,7 +142,7 @@ public class PersonalCenterController {
     @RequestMapping(value = "applicants", method = RequestMethod.GET)
     public ModelAndView showList(HttpServletRequest request, HttpServletResponse response) {
     	
-    	Map<String,String> requestParaMap = new HashMap<String,String>();
+    	Map<String,Object> requestParaMap = new HashMap<String,Object>();
     	
     	String cellphone = request.getParameter("cellphone");
     	String realName = request.getParameter("realName");

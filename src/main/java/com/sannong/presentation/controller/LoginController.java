@@ -1,7 +1,10 @@
 package com.sannong.presentation.controller;
 
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +22,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sannong.presentation.model.DTO;
 import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.presentation.model.DTO;
 import com.sannong.service.IUserService;
-import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Created by Bright Huang on 10/14/14.
@@ -79,12 +81,12 @@ public class LoginController {
     public ModelAndView confirmPassword(HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         Map<String, Object> models = new HashMap<String, Object>();
-    	Map<String,String> map=new HashMap<String,String>();
+    	Map<String,Object> map=new HashMap<String,Object>();
     	String mobile=request.getParameter("cellphone").toString();
     	String password=request.getParameter("password").toString();
     	map.put("username",mobile );
     	map.put("cellphone", mobile);
-    	List<User> users = userService.getUserByUserNameOrCellphone(map);
+    	List<User> users = userService.getUserByCondition(map);
     	if(users.isEmpty())
     	{
     			models.put("forgetPassword", "no such user found!");
