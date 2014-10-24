@@ -21,7 +21,7 @@ public interface UserRepository {
 	
 	Long getIdByCellphone(String cellphone);
 	
-	List<User> getUserByNameOrCellphone(Map<String,String> map);
+	List<User> getUserByCondition(Map<String,String> map);
 	
 	void updateUserInfo(User user);
 

@@ -59,8 +59,8 @@ public class UserServiceImpl implements IUserService{
 	}
 
     @Override
-    public List<User> getUserByNameOrCellphone(Map<String, String> map) {
-        return userRepository.getUserByNameOrCellphone(map);
+    public List<User> getUserByCondition(Map<String, String> map) {
+        return userRepository.getUserByCondition(map);
     }
 
     public User getUserByName(String userName) {
