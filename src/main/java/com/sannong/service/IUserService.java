@@ -13,7 +13,7 @@ public interface IUserService {
 	
 	public boolean addUserInfo(User user);
 
-    public List<User> getUserByCondition(Map<String, String> map);
+    public List<User> getUserByCondition(Map<String, Object> map);
 
     public User getUserByName(String userName);
 
