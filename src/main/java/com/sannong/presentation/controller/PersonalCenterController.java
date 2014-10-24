@@ -150,7 +150,7 @@ public class PersonalCenterController {
     	requestParaMap.put("cellphone", cellphone);
     	requestParaMap.put("realName", realName);
     	
-    	List<User> applicants = userService.getUserByCondition(requestParaMap);
+    	List<User> applicants = userService.getUserByNameOrCellphone(requestParaMap);
 
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("applicants", applicants);

@@ -30,6 +30,8 @@ public interface UserRepository {
     User getUserById(Long userId);
 
     User getUserByName(String userName);
+    
+    List<User> getUserByNameOrCellphone(Map<String,Object> map);
 	
 }
 

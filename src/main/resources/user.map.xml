@@ -41,6 +41,21 @@
        	</where>
      </select>
      
+     <select id="getUserByNameOrCellphone"  parameterType="Map"  resultMap="userResultMap">
+       	select user_name,username,create_time,cellphone,company,job_title from users 
+       	<where>
+	       	<if test="realName != null">  
+	            user_name like CONCAT('%',#{realName},'%')  
+	        </if>
+	        <if test="userName != null">  
+	            usename like CONCAT('%',#{userName},'%')  
+	        </if>
+	        <if test="cellphone != null">  
+            	cellphone like CONCAT('%',#{cellphone},'%') 
+            </if>  
+       	</where>
+     </select>
+     
      <select id="loginValidation" parameterType="Map" resultMap="userResultMap">
      	<![CDATA[
         	select * from users where phone_number = #{phoneNumber} and password = #{password}

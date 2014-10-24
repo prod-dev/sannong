@@ -97,4 +97,9 @@ public class UserServiceImpl implements IUserService{
 		return questionnaireRepository.getAnswerByCellphone(cellphone);
 	}
 	
+	@Override
+	public List<User> getUserByNameOrCellphone(Map<String, Object> map) {
+		return userRepository.getUserByNameOrCellphone(map);
+	}
+	
 }
