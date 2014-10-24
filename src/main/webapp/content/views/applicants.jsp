@@ -79,17 +79,17 @@
                     <td>
                         ${stauts.count}
                     </td>
-                    <td id="userName${stauts.count}">
-                        ${user.userName}
+                    <td>
+                        ${user.realName}
                     </td>
                     <td>
                         ${user.createTime}
                     </td>
-                    <td>
+                    <td id="cell${stauts.count}">
                         ${user.cellphone}
                     </td>
                     <td>
-                        ${user.companyAddress}
+                        ${user.company}
                     </td>
                     <td>
                         ${user.jobTitle}
@@ -141,16 +141,16 @@
 		}
 		else if (searchKey == "用户名")
 		{
-			url = "applicants?userName=" + searchValue;
+			url = "applicants?realName=" + searchValue;
 		}
 		location.href = url;
 	})
 	
 	function showQuestionnaire(id){
-		var id = "userName" + id;
-		var userName = $("#" + id).text().trim();
+		var id = "cell" + id;
+		var cellphone = $("#" + id).text().trim();
 
-		location.href = "questionnaireanswer?userName=" + userName;
+		location.href = "questionnaireanswer?cellphone=" + cellphone;
 	}
 	
 </script>

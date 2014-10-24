@@ -13,7 +13,7 @@ public interface IUserService {
 	
 	public boolean addUserInfo(User user);
 
-    public List<User> getUserByUserNameOrCellphone(Map<String, String> map);
+    public List<User> getUserByNameOrCellphone(Map<String, String> map);
 
     public User getUserByName(String userName);
 
@@ -23,5 +23,5 @@ public interface IUserService {
 
     public boolean updatePassword(User user) throws Exception;
     
-    public String getAnswerByUserName(String userName) throws Exception;
+    public String getAnswerByCellphone(String cellphone) throws Exception;
 }

@@ -7,6 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface QuestionnaireRepository {
 	
-	String getAnswerByUserName(String userName);
+	String getAnswerByCellphone(String cellphone);
 	
 }

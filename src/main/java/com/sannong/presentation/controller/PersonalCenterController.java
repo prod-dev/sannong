@@ -121,7 +121,7 @@ public class PersonalCenterController {
         map.put("userName", userName);
         //map.put("cellphone", cellphone);
 
-        List<User> users = userService.getUserByUserNameOrCellphone(map);
+        List<User> users = userService.getUserByNameOrCellphone(map);
 
         models.put("myinfo", users.get(0));
       
@@ -145,12 +145,12 @@ public class PersonalCenterController {
     	Map<String,String> requestParaMap = new HashMap<String,String>();
     	
     	String cellphone = request.getParameter("cellphone");
-    	String userName = request.getParameter("userName");
+    	String realName = request.getParameter("realName");
         
     	requestParaMap.put("cellphone", cellphone);
-    	requestParaMap.put("userName", userName);
+    	requestParaMap.put("realName", realName);
     	
-    	List<User> applicants = userService.getUserByUserNameOrCellphone(requestParaMap);
+    	List<User> applicants = userService.getUserByNameOrCellphone(requestParaMap);
 
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("applicants", applicants);
@@ -197,7 +197,7 @@ public class PersonalCenterController {
     @RequestMapping(value = "questionnaireanswer", method = RequestMethod.GET)
     public ModelAndView getAnswerByUserName(HttpServletRequest request) throws Exception {
     	
-    	String answer = userService.getAnswerByUserName(request.getParameter("userName"));
+    	String answer = userService.getAnswerByCellphone(request.getParameter("cellphone"));
     	
     	Map<String, Object> models = new HashMap<String, Object>();
     	models.put("answer", answer);

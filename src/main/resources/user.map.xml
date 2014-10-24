@@ -9,6 +9,7 @@
      <resultMap type="User" id="userResultMap">
         <id property="userId" column="user_Id" />
         <result property="userName" column="username" />
+        <result property="realName" column="user_name" />
         <result property="mailbox" column="mailbox" />
         <result property="companyAddress" column="company_address" />
         <result property="jobTitle" column="job_title" />
@@ -25,11 +26,14 @@
         ]]>
      </select>
      
-     <select id="getUserByUserNameOrCellphone"  parameterType="Map"  resultMap="userResultMap">
-       	select username,create_time,cellphone,company_address,job_title from users 
+     <select id="getUserByNameOrCellphone"  parameterType="Map"  resultMap="userResultMap">
+       	select user_name,username,create_time,cellphone,company,job_title from users 
        	<where>
-	       	<if test="userName != null">  
-	            username = #{userName}  
+	       	<if test="realName != null">  
+	            user_name = #{realName}  
+	        </if>
+	        <if test="userName != null">  
+	            usename = #{userName}  
 	        </if>
 	        <if test="cellphone != null">  
             	cellphone = #{cellphone}  

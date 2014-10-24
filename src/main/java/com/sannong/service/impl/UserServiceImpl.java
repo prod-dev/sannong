@@ -59,8 +59,8 @@ public class UserServiceImpl implements IUserService{
 	}
 
     @Override
-    public List<User> getUserByUserNameOrCellphone(Map<String, String> map) {
-        return userRepository.getUserByUserNameOrCellphone(map);
+    public List<User> getUserByNameOrCellphone(Map<String, String> map) {
+        return userRepository.getUserByNameOrCellphone(map);
     }
 
     public User getUserByName(String userName) {
@@ -90,8 +90,8 @@ public class UserServiceImpl implements IUserService{
 			}		 
 	}
 
-	public String getAnswerByUserName(String userName) throws Exception {
-		return questionnaireRepository.getAnswerByUserName(userName);
+	public String getAnswerByCellphone(String cellphone) throws Exception {
+		return questionnaireRepository.getAnswerByCellphone(cellphone);
 	}
 	
 }
