@@ -1,6 +1,7 @@
 package com.sannong.presentation.controller;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -200,4 +203,22 @@ public class PersonalCenterController {
     	models.put("answer", answer);
         return new ModelAndView("questionnaireanswer", models);
     }
+
+    @RequestMapping(value = "myaccount", method = RequestMethod.GET)
+    public ModelAndView loginMyAccount(HttpServletRequest request) throws Exception {
+        Collection<SimpleGrantedAuthority> authorities =
+                (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        String role;
+        for (GrantedAuthority authority : authorities){
+            role = authority.getAuthority();
+            if (role.equals("ROLE_USER")){
+                return new ModelAndView("redirect:" + "myapplication");
+            } else if(role.equals("ROLE_ADMIN")){
+                return new ModelAndView("redirect:" + "applicants");
+            }
+        }
+        return new ModelAndView("redirect:" + "signin");
+    }
+
 }

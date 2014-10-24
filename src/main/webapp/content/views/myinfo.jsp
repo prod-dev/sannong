@@ -22,7 +22,9 @@
         </div>
     </div>
     <div class="row clearfix">
-        <div class="col-md-3 column"></div>
+        <div class="col-md-2 column">
+            <jsp:include page='sidebar.jsp'/>
+        </div>
         <div class="col-md-6 column">
             <form role="form" id="register-form" action="modifyMyinfo" method="post">
                 <div>
@@ -77,7 +79,7 @@
                 <button type="submit" class="btn btn-success">Submit</button>
             </form>
         </div>
-        <div class="col-md-3 column"></div>
+        <div class="col-md-4 column"></div>
     </div>
 </div>
 <div class="row clearfix">

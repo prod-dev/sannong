@@ -1,16 +1,15 @@
 package com.sannong.presentation.controller;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -23,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sannong.presentation.model.DTO;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.service.IUserService;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Created by Bright Huang on 10/14/14.
@@ -38,7 +38,10 @@ public class LoginController {
     private static final String FORGOT_PASSWORD_PAGE = "forgotpassword";
     private static final String AUTHENTICATION_FAILURE_PAGE = "authentication-failure";
     private static final String ACCESS_DENIED_PAGE = "access-denied";
-    
+    private static final String MY_APPLICATION_PAGE = "myapplication";
+    private static final String APPLICANTS_PAGE = "applicants";
+
+
     @RequestMapping(value = "signin", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
 
@@ -115,23 +118,21 @@ public class LoginController {
         return dto;
     }
 
-    /*
-    @RequestMapping(value = "authentication-success", method = RequestMethod.GET)
-    public @ResponseBody String securityCheck(HttpServletRequest request, HttpServletResponse response) {
-        String redirect = "home";
-        return redirect;
-    }
-
-    @RequestMapping(value = "authentication-failure", method = RequestMethod.GET)
-    public @ResponseBody String  authenticate(HttpServletRequest request, HttpServletResponse response) {
-
-        return "authentication-failure";
-    }
-    */
-
     @RequestMapping(value = "authentication-success", method = RequestMethod.GET)
     public ModelAndView securityCheck(HttpServletRequest request, HttpServletResponse response) {
 
+        Collection<SimpleGrantedAuthority> authorities =
+                (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        String role;
+        for (GrantedAuthority authority : authorities){
+            role = authority.getAuthority();
+            if (role.equals("ROLE_USER")){
+                return new ModelAndView("redirect:" + "myapplication");
+            } else if(role.equals("ROLE_ADMIN")){
+                return new ModelAndView("redirect:" + "applicants");
+            }
+        }
         return signin(request, response);
     }
 

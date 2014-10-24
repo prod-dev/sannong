@@ -22,15 +22,7 @@
     </div>
     <div class="row clearfix">
         <div class="col-md-2 column">
-            <div class="list-group">
-                <a href="#" class="list-group-item disabled">
-                    个人中心
-                </a>
-                <a href="applicants" class="list-group-item">用户管理</a>
-                <a href="myinfo" class="list-group-item">我的信息</a>
-                <a href="mypassword" class="list-group-item">我的密码</a>
-
-            </div>
+            <jsp:include page='sidebar.jsp'/>
         </div>
         <div class="col-md-10 column">
             <div class="row">

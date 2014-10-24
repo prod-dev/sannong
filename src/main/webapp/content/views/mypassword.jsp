@@ -20,9 +20,10 @@
         </div>
     </div>
     <div class="row clearfix">
-        <div class="col-md-4 column">
+        <div class="col-md-2 column">
+            <jsp:include page='sidebar.jsp'/>
         </div>
-        <div class="col-md-4 column">
+        <div class="col-md-6 column">
             <form role="formPassword" action="updatepassword" method="post">
                 <div>
                     <div class="form-group">
