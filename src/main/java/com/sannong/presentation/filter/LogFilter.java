@@ -19,7 +19,9 @@ public class LogFilter implements Filter {
 	public void destroy() {
 	}
 
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+
 		HttpServletRequest req = (HttpServletRequest) request;
 		String queryString = req.getQueryString() == null ? "" : req.getQueryString();
 		LOG.debug("==" + req.getScheme() + "://" + req.getServerName() + req.getRequestURI() + queryString);
