@@ -38,6 +38,7 @@ public class ProjectServiceImpl implements IProjectService {
 			//insert user information begin
 			Timestamp createTime = new Timestamp(System.currentTimeMillis()); 
 			application.getApplicant().setUpdateTime(createTime);
+			application.getApplicant().setCreateTime(createTime);
 			userRepository.addUserInfo(application.getApplicant());
 			//insert user information end
 			

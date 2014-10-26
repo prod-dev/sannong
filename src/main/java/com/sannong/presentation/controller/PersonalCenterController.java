@@ -1,11 +1,18 @@
 package com.sannong.presentation.controller;
 
-import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.service.ISmsService;
-import com.sannong.service.IUserService;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -17,16 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.mysql.jdbc.StringUtils;
+import com.sannong.infrastructure.persistance.entity.SMS;
+import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.service.ISmsService;
+import com.sannong.service.IUserService;
 
 @Controller
 @SessionAttributes("myinfo")
@@ -76,7 +78,8 @@ public class PersonalCenterController {
          } else {
              username = principal.toString();
          }
-
+         user.setUserName(username); //add by william
+         
          User dbuser = userService.getUserByName(username);
          if(!dbuser.getCellphone().toString().equals(user.getCellphone().toString()))
          {
@@ -106,20 +109,20 @@ public class PersonalCenterController {
 
         Map<String, Object> models = new HashMap<String, Object>();
 
-        String username;
+        String userName;
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
+            userName = ((UserDetails) principal).getUsername();
         } else {
-            username = principal.toString();
+            userName = principal.toString();
         }
 
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("username", username);
-        map.put("cellphone", username);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userName", userName);
+        //map.put("cellphone", cellphone);
 
-        List<User> users = userService.getUserByUserNameOrCellphone(map);
+        List<User> users = userService.getUserByCondition(map);
 
         models.put("myinfo", users.get(0));
       
@@ -138,10 +141,20 @@ public class PersonalCenterController {
     }
 
     @RequestMapping(value = "applicants", method = RequestMethod.GET)
-    public ModelAndView showList() {
+    public ModelAndView showList(HttpServletRequest request, HttpServletResponse response) {
+    	
+    	Map<String,Object> requestParaMap = new HashMap<String,Object>();
+    	
+    	String cellphone = request.getParameter("cellphone");
+    	String realName = request.getParameter("realName");
+        
+    	requestParaMap.put("cellphone", cellphone);
+    	requestParaMap.put("realName", realName);
+    	
+    	List<User> applicants = userService.getUserByNameOrCellphone(requestParaMap);
 
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("applicants", new Object());
+        models.put("applicants", applicants);
         return new ModelAndView(APPLICANTS_PAGE, models);
     }
 
@@ -179,6 +192,50 @@ public class PersonalCenterController {
 
         models.put("myPasswordAuth", "passwordChanged");
         return new ModelAndView(MY_PASSWORD_PAGE, models);
+    }
+
+    @RequestMapping(value = "questionnaireanswer", method = RequestMethod.GET)
+    public ModelAndView getAnswerByUserName(HttpServletRequest request) throws Exception {
+    	
+    	Map<String,Object> map = new HashMap<String, Object>();
+    	
+    	String cellphone = request.getParameter("cellphone");
+    	
+    	if (StringUtils.isNullOrEmpty(cellphone)){
+    		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    		String userName = null;
+            if (principal instanceof UserDetails) {
+                userName = ((UserDetails) principal).getUsername();
+            } else {
+                userName = principal.toString();
+            }
+            map.put("userName", userName);
+    	}else{
+    		map.put("cellphone", cellphone);
+    	}
+    	
+    	String answer = userService.getAnswerByNameOrCellphone(map);
+    	
+    	Map<String, Object> models = new HashMap<String, Object>();
+    	models.put("answer", answer);
+        return new ModelAndView("questionnaireanswer", models);
+    }
+
+    @RequestMapping(value = "myaccount", method = RequestMethod.GET)
+    public ModelAndView loginMyAccount(HttpServletRequest request) throws Exception {
+        Collection<SimpleGrantedAuthority> authorities =
+                (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        String role;
+        for (GrantedAuthority authority : authorities){
+            role = authority.getAuthority();
+            if (role.equals("ROLE_USER")){
+                return new ModelAndView("redirect:" + "myapplication");
+            } else if(role.equals("ROLE_ADMIN")){
+                return new ModelAndView("redirect:" + "applicants");
+            }
+        }
+        return new ModelAndView("redirect:" + "signin");
     }
 
 }

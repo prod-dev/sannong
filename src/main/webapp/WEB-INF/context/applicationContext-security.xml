@@ -59,11 +59,11 @@
                     default-target-url="/authentication-success"/>
 
         <sec:logout invalidate-session="true"
-                    logout-url="/j_spring_security_logout" logout-success-url="/signin"/>
+                    logout-url="/j_spring_security_logout" logout-success-url="/home"/>
 
         <sec:remember-me data-source-ref="dataSource" user-service-ref="userDetailsManager"/>
 
-        <sec:session-management invalid-session-url="/signin"/>
+        <sec:session-management invalid-session-url="/home"/>
 
     </sec:http>
 
@@ -88,6 +88,8 @@
     <b:bean id="passwordEncoder"
             class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
 
+    <b:bean id="webexpressionHandler"
+            class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
     <!--
     <b:bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
         <b:property name="dataSource" ref="dataSource"/>

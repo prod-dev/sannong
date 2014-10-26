@@ -20,16 +20,8 @@
         </div>
     </div>
     <div class="row clearfix">
-        <div class="col-md-3 column">
-            <div class="list-group">
-                <a href="#" class="list-group-item disabled">
-                    Cras justo odio
-                </a>
-                <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                <a href="#" class="list-group-item">Morbi leo risus</a>
-                <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                <a href="#" class="list-group-item">Vestibulum at eros</a>
-            </div>
+        <div class="col-md-2 column">
+            <jsp:include page='sidebar.jsp'/>
         </div>
         <div class="col-md-7 column">
             <h2>
@@ -60,10 +52,10 @@
             </form>
         </div>
     </div>
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <jsp:include page='footer.jsp'/>
-        </div>
+</div>
+<div class="row clearfix">
+    <div class="col-md-12 column">
+        <jsp:include page='footer.jsp'/>
     </div>
 </div>
 </body>

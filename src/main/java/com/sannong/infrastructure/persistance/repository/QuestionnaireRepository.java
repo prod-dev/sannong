@@ -1,14 +1,14 @@
 package com.sannong.infrastructure.persistance.repository;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.sannong.infrastructure.persistance.entity.Application;
 
 @Repository
 @Transactional
 public interface QuestionnaireRepository {
 	
-	void addApplicationInformation(Application application);
+	String getAnswerByNameOrCellphone(Map<String,Object> map);
 	
 }

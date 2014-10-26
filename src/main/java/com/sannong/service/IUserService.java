@@ -13,7 +13,9 @@ public interface IUserService {
 	
 	public boolean addUserInfo(User user);
 
-    public List<User> getUserByUserNameOrCellphone(Map<String, String> map);
+    public List<User> getUserByCondition(Map<String, Object> map);
+    
+    public List<User> getUserByNameOrCellphone(Map<String, Object> map);
 
     public User getUserByName(String userName);
 
@@ -22,4 +24,6 @@ public interface IUserService {
     public boolean updateUser(User user) throws Exception;
 
     public boolean updatePassword(User user) throws Exception;
+    
+    public String getAnswerByNameOrCellphone(Map<String, Object> map) throws Exception;
 }

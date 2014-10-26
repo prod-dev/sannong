@@ -1,7 +1,7 @@
 package com.sannong.presentation.controller;
 
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -20,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sannong.presentation.model.DTO;
 import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.presentation.model.DTO;
 import com.sannong.service.IUserService;
 
 /**
@@ -38,7 +40,10 @@ public class LoginController {
     private static final String FORGOT_PASSWORD_PAGE = "forgotpassword";
     private static final String AUTHENTICATION_FAILURE_PAGE = "authentication-failure";
     private static final String ACCESS_DENIED_PAGE = "access-denied";
-    
+    private static final String MY_APPLICATION_PAGE = "myapplication";
+    private static final String APPLICANTS_PAGE = "applicants";
+
+
     @RequestMapping(value = "signin", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
 
@@ -76,12 +81,12 @@ public class LoginController {
     public ModelAndView confirmPassword(HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         Map<String, Object> models = new HashMap<String, Object>();
-    	Map<String,String> map=new HashMap<String,String>();
+    	Map<String,Object> map=new HashMap<String,Object>();
     	String mobile=request.getParameter("cellphone").toString();
     	String password=request.getParameter("password").toString();
     	map.put("username",mobile );
     	map.put("cellphone", mobile);
-    	List<User> users = userService.getUserByUserNameOrCellphone(map);
+    	List<User> users = userService.getUserByCondition(map);
     	if(users.isEmpty())
     	{
     			models.put("forgetPassword", "no such user found!");
@@ -115,23 +120,21 @@ public class LoginController {
         return dto;
     }
 
-    /*
-    @RequestMapping(value = "authentication-success", method = RequestMethod.GET)
-    public @ResponseBody String securityCheck(HttpServletRequest request, HttpServletResponse response) {
-        String redirect = "home";
-        return redirect;
-    }
-
-    @RequestMapping(value = "authentication-failure", method = RequestMethod.GET)
-    public @ResponseBody String  authenticate(HttpServletRequest request, HttpServletResponse response) {
-
-        return "authentication-failure";
-    }
-    */
-
     @RequestMapping(value = "authentication-success", method = RequestMethod.GET)
     public ModelAndView securityCheck(HttpServletRequest request, HttpServletResponse response) {
 
+        Collection<SimpleGrantedAuthority> authorities =
+                (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        String role;
+        for (GrantedAuthority authority : authorities){
+            role = authority.getAuthority();
+            if (role.equals("ROLE_USER")){
+                return new ModelAndView("redirect:" + "myapplication");
+            } else if(role.equals("ROLE_ADMIN")){
+                return new ModelAndView("redirect:" + "applicants");
+            }
+        }
         return signin(request, response);
     }
 
