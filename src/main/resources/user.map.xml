@@ -33,7 +33,7 @@
 	            user_name = #{realName}  
 	        </if>
 	        <if test="userName != null">  
-	            usename = #{userName}  
+	            username = #{userName}
 	        </if>
 	        <if test="cellphone != null">  
             	cellphone = #{cellphone}  
@@ -48,7 +48,7 @@
 	            user_name like CONCAT('%',#{realName},'%')  
 	        </if>
 	        <if test="userName != null">  
-	            usename like CONCAT('%',#{userName},'%')  
+	            username like CONCAT('%',#{userName},'%')
 	        </if>
 	        <if test="cellphone != null">  
             	cellphone like CONCAT('%',#{cellphone},'%') 
