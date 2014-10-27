@@ -28,8 +28,8 @@
                <hr>
 
                <div class="row">
-                   <div class="col-xs-1 col-sm-1"></div>
-                   <div class="col-xs-10 col-sm-10">
+
+                   <div class="col-sm-12">
                        <div>
                            <div class="form-group ">
                                <!--<label for="userName">用户名</label>-->
@@ -47,10 +47,20 @@
                                <!--<label for="jobCompany">工作单位</label>-->
                                <input type="input" class="form-control" id="jobCompany" name="applicant.company" placeholder="工作单位">
                            </div>
-                           <div class="form-group">
+                           <div class="form-group form-inline">
                                <!--<label for="jobAddress">单位地址</label>-->
-                               <input type="input" class="form-control" id="jobAddress" name="applicant.companyAddress" placeholder="单位地址">
+                               <select id="provinceSelect" class="form-control ">
+                                   <option></option>
+                               </select>
+                               <select id="citySelect" class="form-control">
+                                   <option></option>
+                               </select>
+                               <select id="districtSelect" class="form-control">
+                                   <option></option>
+                               </select>
+                               <input type="input" class="form-control " id="jobAddress" name="applicant.companyAddress" placeholder="单位地址">
                            </div>
+
                            <div class="form-group">
                                <!--<label for="deskPhone">工作电话</label>-->
                                <input type="input" class="form-control" id="deskPhone" name="applicant.deskPhone" placeholder="工作电话">
@@ -67,13 +77,9 @@
                                <input type="input" class="form-control" id="validationCode" name="sms.smsValidationCode" placeholder="验证码">
 
                            </div>
-                           <div class="form-group form-inline">
-
-                           </div>
                        </div>
                        <button type="submit" class="btn btn-success">Submit</button>
                    </div>
-                   <div class="col-xs-1 col-sm-1"></div>
                </div>
             </form>
             <br>
@@ -106,5 +112,7 @@
     <div class="col-md-12 column">
         <jsp:include page='footer.jsp'/>
     </div>
-</div></body>
+</div>
+<script src="content/static/js/sannong/projectapplication.js"></script>
+</body>
 </html>

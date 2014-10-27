@@ -30,6 +30,7 @@ public class ProjectServiceImpl implements IProjectService {
 	@Autowired
 	private AuthorityRepository authorityRepository;
 
+
 	public boolean projectApplication(Application application) {
 		
 		boolean result = true;

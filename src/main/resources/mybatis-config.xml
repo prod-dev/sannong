@@ -9,6 +9,9 @@
     	<typeAlias type="com.sannong.infrastructure.persistance.entity.User" alias="User" />
     	<typeAlias type="com.sannong.infrastructure.persistance.entity.Application" alias="Application" />
         <typeAlias type="com.sannong.infrastructure.persistance.entity.SMS" alias="SMS" />
+        <typeAlias type="com.sannong.infrastructure.persistance.entity.Province" alias="Province" />
+        <typeAlias type="com.sannong.infrastructure.persistance.entity.City" alias="City" />
+        <typeAlias type="com.sannong.infrastructure.persistance.entity.District" alias="District" />
     </typeAliases>
     
     <mappers>
@@ -17,6 +20,7 @@
     	<mapper resource="sms.map.xml"/>
     	<mapper resource="authority.map.xml"/>
     	<mapper resource="questionnaire.map.xml"/>
+        <mapper resource="region.map.xml"/>
     </mappers>
     
 </configuration>

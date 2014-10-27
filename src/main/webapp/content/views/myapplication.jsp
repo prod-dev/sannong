@@ -33,9 +33,12 @@
             <p>
                 <a class="btn" href="#">View details »</a>
             </p>
+
+            <script id="entry-template" type="text/x-handlebars-template">
+
             <form role="form">
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Email address</label><input type="email" class="form-control" id="exampleInputEmail1" />
+                    <label for="exampleInputEmail1">{{}}</label><input type="email" class="form-control" id="exampleInputEmail1" />
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label><input type="password" class="form-control" id="exampleInputPassword1" />
@@ -50,6 +53,9 @@
                     <label><input type="checkbox" /> Check me out</label>
                 </div> <button type="submit" class="btn btn-default">Submit</button>
             </form>
+            </script>
+
+
         </div>
     </div>
 </div>
@@ -58,5 +64,7 @@
         <jsp:include page='footer.jsp'/>
     </div>
 </div>
+
+
 </body>
 </html>
