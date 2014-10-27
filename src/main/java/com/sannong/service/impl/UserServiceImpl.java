@@ -60,7 +60,7 @@ public class UserServiceImpl implements IUserService{
 
    
 
-    @Override
+
 	public List<User> getUserByCondition(Map<String, Object> map) {
     	return userRepository.getUserByCondition(map);
 	}
@@ -97,7 +97,7 @@ public class UserServiceImpl implements IUserService{
 		return questionnaireRepository.getAnswerByNameOrCellphone(map);
 	}
 	
-	@Override
+
 	public List<User> getUserByNameOrCellphone(Map<String, Object> map) {
 		return userRepository.getUserByNameOrCellphone(map);
 	}
