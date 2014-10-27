@@ -49,14 +49,14 @@
                            </div>
                            <div class="form-group form-inline">
                                <!--<label for="jobAddress">单位地址</label>-->
-                               <select id="provinceSelect" class="form-control ">
-                                   <option></option>
+                               <select id="provinceSelect" class="form-control" name="applicant.companyProvince" >
+
                                </select>
-                               <select id="citySelect" class="form-control">
-                                   <option></option>
+                               <select id="citySelect" class="form-control" name="applicant.companyCity">
+
                                </select>
-                               <select id="districtSelect" class="form-control">
-                                   <option></option>
+                               <select id="districtSelect" class="form-control" name="applicant.companyDistrict">
+
                                </select>
                                <input type="input" class="form-control " id="jobAddress" name="applicant.companyAddress" placeholder="单位地址">
                            </div>

@@ -11,6 +11,9 @@
         <result property="userName" column="username" />
         <result property="realName" column="user_name" />
         <result property="mailbox" column="mailbox" />
+        <result property="companyProvince" column="company_province" />
+        <result property="companyCity" column="company_city" />
+        <result property="companyDistrict" column="company_district" />
         <result property="companyAddress" column="company_address" />
         <result property="jobTitle" column="job_title" />
         <result property="password" column="password" />
@@ -68,6 +71,9 @@
         	set cellphone=#{cellphone},
         	user_name=#{realName},
         	company=#{company},
+        	company_province=#{companyProvince},
+        	company_city=#{companyCity},
+        	company_district=#{companyDistrict},
         	company_address=#{companyAddress},
         	mailbox=#{mailbox},
         	desk_phone=#{deskPhone},
@@ -88,8 +94,8 @@
      
      <insert id="addUserInfo" parameterType="User">
          <![CDATA[
-        	insert into users(username,user_name,cellphone,password,mailbox,company,company_address,desk_phone,job_title,update_time,create_time) 
-        	values(#{userName},#{realName},#{cellphone},'123456',#{mailbox},#{company},#{companyAddress},#{deskPhone},#{jobTitle},#{updateTime},#{createTime})
+        	insert into users(username,user_name,cellphone,password,mailbox,company,company_province,company_city,company_district,company_address,desk_phone,job_title,update_time,create_time)
+        	values(#{userName},#{realName},#{cellphone},'123456',#{mailbox},#{company},#{companyProvince},#{companyCity},#{companyDistrict},#{companyAddress},#{deskPhone},#{jobTitle},#{updateTime},#{createTime})
          ]]>
      </insert>
      

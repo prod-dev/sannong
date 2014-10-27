@@ -50,3 +50,9 @@ CREATE TABLE `districts` (
   `city_index`  bigint(20)  NOT NULL,
   PRIMARY KEY (`district_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Add column province, city, and district for table users.
+ALTER TABLE `sannong`.`users`
+ADD COLUMN `company_province` bigint(20) NULL AFTER `company`,
+ADD COLUMN `company_city` bigint(20) NULL AFTER `company_province`,
+ADD COLUMN `company_district` bigint(20) NULL AFTER `company_city`;

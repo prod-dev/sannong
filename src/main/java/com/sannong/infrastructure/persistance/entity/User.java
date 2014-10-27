@@ -17,6 +17,9 @@ public class User implements Serializable{
 	private String password;
 	private String mailbox;
 	private String company;
+    private Long companyProvince;
+    private Long companyCity;
+    private Long companyDistrict;
 	private String companyAddress;
 	private String deskPhone;
 	private String jobTitle;
@@ -72,7 +75,32 @@ public class User implements Serializable{
 	public String getCompany() {
 		return company;
 	}
-	public void setCompany(String company) {
+
+    public Long getCompanyProvince() {
+        return companyProvince;
+    }
+
+    public void setCompanyProvince(Long companyProvince) {
+        this.companyProvince = companyProvince;
+    }
+
+    public Long getCompanyCity() {
+        return companyCity;
+    }
+
+    public void setCompanyCity(Long companyCity) {
+        this.companyCity = companyCity;
+    }
+
+    public Long getCompanyDistrict() {
+        return companyDistrict;
+    }
+
+    public void setCompanyDistrict(Long companyDistrict) {
+        this.companyDistrict = companyDistrict;
+    }
+
+    public void setCompany(String company) {
 		this.company = company;
 	}
 	public String getCompanyAddress() {
