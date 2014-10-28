@@ -27,6 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mysql.jdbc.StringUtils;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.infrastructure.util.MyConfig;
 import com.sannong.service.ISmsService;
 import com.sannong.service.IUserService;
 
@@ -86,7 +87,7 @@ public class PersonalCenterController {
 	    	 String code=request.getParameter("validationcode").toString();
 	    	 if(!request.getSession().getAttribute("regcode").equals(code))
 	    	 {
-	    		 models.put("myinfomessage", "mobile change need to set confirm code!");
+	    		 models.put("myinfomessage", MyConfig.getConfig("error-myinfo-invalidRegcode"));
 	    	 }
 	    	 return new ModelAndView(MY_INFO_PAGE, models);
          }
@@ -108,26 +109,17 @@ public class PersonalCenterController {
     public ModelAndView myInfo() {
 
         Map<String, Object> models = new HashMap<String, Object>();
-
         String userName;
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             userName = ((UserDetails) principal).getUsername();
         } else {
             userName = principal.toString();
         }
-
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userName", userName);
-        //map.put("cellphone", cellphone);
-
         List<User> users = userService.getUserByCondition(map);
-
         models.put("myinfo", users.get(0));
-      
-       // models.addAttribute("myinfo",users.get(0));
-
         return new ModelAndView(MY_INFO_PAGE, models);
     }
 

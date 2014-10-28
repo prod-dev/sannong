@@ -26,11 +26,11 @@
             <jsp:include page='sidebar.jsp'/>
         </div>
         <div class="col-md-6 column">
-            <form role="form" id="register-form" action="modifyMyinfo" method="post">
+            <form role="form" id="applicationForm" action="modifyMyinfo" method="post">
                 <div>
                     <div class="form-group">
                         <label for="userName">姓名</label>
-                        <input type="text"  class="form-control" id="userName" name="realName" placeholder="姓名" value="${myinfo.userName}" >
+                        <input type="text"  class="form-control" id="realName" name="realName" placeholder="姓名" value="${myinfo.realName}" >
                         <div class="errorDiv"></div>
                     </div>
                     <div class="form-group">
@@ -65,6 +65,7 @@
                             <input type="hidden" id="token"  value="2379839e12f6f183bf0737ba4f6d1b75">
                             <input type="input" class="input-short" id="cellphone" name="cellphone" placeholder="手机号码" value="${myinfo.cellphone}">
                             <input type="button" id="action-send-code" data-url="regcode" data-type="1" class="btn btn-sm btn-warning"  value="发送验证码">
+                             <div class="errorDiv"></div>
                         </div>
                     </div>
                     <div class="form-group">

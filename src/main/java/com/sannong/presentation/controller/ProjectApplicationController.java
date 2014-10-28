@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sannong.infrastructure.persistance.entity.Application;
@@ -34,6 +35,11 @@ public class ProjectApplicationController {
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("projectapplication", new Object());
         return new ModelAndView(APPLICATION_PAGE, models);
+    }
+    
+    @RequestMapping(value = "useravail", method = RequestMethod.GET)
+    public @ResponseBody boolean checkUsernameAvail(HttpServletRequest request) {
+    	return projectService.checkUserNameAvailable(request);
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)

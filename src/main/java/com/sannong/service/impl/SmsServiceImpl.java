@@ -3,11 +3,14 @@ package com.sannong.service.impl;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.repository.SmsRepository;
 import com.sannong.infrastructure.sms.SmsSender;
+import com.sannong.infrastructure.util.MyConfig;
 import com.sannong.service.ISmsService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,11 +63,13 @@ public class SmsServiceImpl implements ISmsService{
     		 sms.setSmsValidationCode(regcode);
     		 request.getSession().setAttribute("regcode", regcode);   
     		 String content="验证码为:"+regcode;
+    		 if(smstype.equals("0"))
+    			 content=MyConfig.getConfig("sms-welcome").replace("{0}", regcode); 
     		 if(smstype.equals("1"))
-    			 content="if you want to change your mobile, confirm code is:"+regcode;   	
+    			 content=MyConfig.getConfig("sms-changeMobile").replace("{0}", regcode); 
     			 //content="改变你在三农网上的注册手机号码，验证码为:"+regcode;   	
     		 if(smstype.equals("2"))
-    			 content="your new sannong password is :"+regcode+",confirm to change it.";
+    			 content=MyConfig.getConfig("sms-newPassword").replace("{0}", regcode);
     			//content="你在三农网上新密码为:"+regcode; 
     		 sms.setSmsContent(content);
     		 smsRepository.addNewSMS(sms);

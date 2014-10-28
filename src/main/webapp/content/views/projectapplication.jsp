@@ -11,6 +11,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
+         <link href="content/static/css/sannong/myinfo.css" rel="stylesheet">
+   <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+	<script src="content/static/js/sannong/myinfo.js?v=201410201404"> </script>
+	<script src="content/static/js/sannong/jquery.weebox.js?v=201410211946"></script
 </head>
 <body>
 <div class="container">
@@ -34,6 +38,7 @@
                            <div class="form-group ">
                                <!--<label for="userName">用户名</label>-->
                                <input type="text" class="form-control" id="userName" name="applicant.userName" placeholder="用户名">
+                               <div class="errorDiv"></div>
                            </div>
                            <div class="form-group">
                                <!--<label for="userRealName">姓名</label>-->
@@ -58,20 +63,20 @@
                            <div class="form-group">
                                <!--<label for="mailBox">电子邮箱</label>-->
                                <input type="input" class="form-control" id="mailbox" name="applicant.mailbox" placeholder="电子邮箱">
+                                <div class="errorDiv"></div>
                            </div>
                            <div class="form-group form-inline">
-                               <!--<label for="cellPhone">手机号码</label>-->
                                <input type="input" class="form-control" id="cellphone" name="applicant.cellphone" placeholder="手机号码">
-                               <button type="button" class="btn btn-sm btn-warning">发送验证码</button>
-                               <!--<label for="validationCode">验证码</label>-->
+                               <input type="button"  id="action-send-code" data-url="regcode" data-type="0" class="btn btn-sm btn-warning" value="发送验证码">
                                <input type="input" class="form-control" id="validationCode" name="sms.smsValidationCode" placeholder="验证码">
-
+                               <div class="errorDiv"></div>
                            </div>
+                          
                            <div class="form-group form-inline">
 
                            </div>
                        </div>
-                       <button type="submit" class="btn btn-success">Submit</button>
+                       <input type="button" id="register-btn"  class="btn btn-success" value="Submit">
                    </div>
                    <div class="col-xs-1 col-sm-1"></div>
                </div>
