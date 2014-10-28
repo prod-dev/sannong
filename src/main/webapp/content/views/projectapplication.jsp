@@ -11,10 +11,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
-         <link href="content/static/css/sannong/myinfo.css" rel="stylesheet">
-   <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
+    <link href="content/static/css/sannong/myinfo.css" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-2.1.1.js"></script>
 	<script src="content/static/js/sannong/myinfo.js?v=201410201404"> </script>
-	<script src="content/static/js/sannong/jquery.weebox.js?v=201410211946"></script
+	<script src="content/static/js/sannong/jquery.weebox.js?v=201410211946"></script>
 </head>
 <body>
 <div class="container">
@@ -80,12 +80,37 @@
                                <input type="input" class="form-control" id="validationCode" name="sms.smsValidationCode" placeholder="验证码">
                                <div class="errorDiv"></div>
                            </div>
-                          
-                           <div class="form-group form-inline">
+                       </div>
 
+                       <!--
+                       <input type="button" id="register-btn"  class="btn btn-success" value="Submit">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                        -->
+                       <!-- Button trigger modal -->
+                       <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                           提交
+                       </button>
+                       <!-- Modal -->
+                       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                           <div class="modal-dialog">
+                               <div class="modal-content">
+                                   <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                       <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                   </div>
+                                   <div class="modal-body">
+                                       ...
+                                   </div>
+                                   <div class="modal-footer">
+                                       <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                                       <button type="submit" id="register-btn" class="btn btn-success">提交</button>
+                                       <!--
+                                       <button type="button" class="btn btn-primary">Save changes</button>
+                                       -->
+                                   </div>
+                               </div>
                            </div>
                        </div>
-                       <input type="button" id="register-btn"  class="btn btn-success" value="Submit">
                    </div>
                    <div class="col-xs-1 col-sm-1"></div>
                </div>
