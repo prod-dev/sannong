@@ -8,3 +8,5 @@
 <script src="content/static/js/lib/jquery-2.1.1.min.js"></script>
 <script src="content/static/js/lib/bootstrap-3.0.3.min.js"></script>
 <script src="content/static/js/lib/bootstrap-dropdown.js"></script>
+<script src="content/static/js/lib/jquery-pagination.js"></script>
+<script src="content/static/js/lib/handlebars-v2.0.0.js"></script>

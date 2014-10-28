@@ -26,4 +26,6 @@ public interface IUserService {
     public boolean updatePassword(User user) throws Exception;
     
     public String getAnswerByCellphone(String cellphone) throws Exception;
+    
+    public String getUserTotalCount(Map<String,Object> map) throws Exception;
 }

@@ -58,9 +58,6 @@ public class UserServiceImpl implements IUserService{
 		return userRepository.getUserByUserId();
 	}
 
-   
-
-
 	public List<User> getUserByCondition(Map<String, Object> map) {
     	return userRepository.getUserByCondition(map);
 	}
@@ -97,9 +94,13 @@ public class UserServiceImpl implements IUserService{
 		return questionnaireRepository.getAnswerByCellphone(cellphone);
 	}
 	
-
 	public List<User> getUserByNameOrCellphone(Map<String, Object> map) {
 		return userRepository.getUserByNameOrCellphone(map);
+	}
+
+
+	public String getUserTotalCount(Map<String, Object> map) throws Exception {
+		return userRepository.getUserTotalCount(map);
 	}
 	
 }

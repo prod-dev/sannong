@@ -1,16 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: apple
-  Date: 10/14/14
-  Time: 10:08
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
+    <link href="content/static/css/jquery.pagination_2/pagination.css" rel="stylesheet">
     <title></title>
 </head>
 <body>
@@ -72,54 +66,38 @@
                     </th>
                 </tr>
                 </thead>
-                <tbody>
-                
-                <c:forEach items="${applicants}" var="user" varStatus="stauts">
-                <tr>
-                    <td>
-                        ${stauts.count}
-                    </td>
-                    <td>
-                        ${user.realName}
-                    </td>
-                    <td>
-                        ${user.createTime}
-                    </td>
-                    <td id="cell${stauts.count}">
-                        ${user.cellphone}
-                    </td>
-                    <td>
-                        ${user.company}
-                    </td>
-                    <td>
-                        ${user.jobTitle}
-                    </td>
-                    <td>
-                        <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="showQuestionnaire(${stauts.count})">问卷调查</a>
-                    </td>
-                </tr>
-                </c:forEach>
+                <tbody id="userList">
+                	
                 </tbody>
             </table>
-
-            <ul class="pagination">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>
+            <div id="pagination"></div>
+            <%--<ul class="pagination" id="pagination" />--%>
         </div>
     </div>
 </div>
+
 <div class="row clearfix">
     <div class="col-md-12 column">
         <jsp:include page='footer.jsp'/>
     </div>
 </div>
 </body>
+
+<script id="table-template" type="text/x-handlebars-template">
+    {{#each this}}
+        <tr>
+            <td>{{addOne @index}}</td>
+            <td>{{realName}}</td>
+            <td>{{createTime}}</td>
+            <td id="cell{{addOne @index}}">{{cellphone}}</td>
+            <td>{{company}}</td>
+            <td>{{jobTitle}}</td>
+            <td>
+                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="showQuestionnaire({{addOne @index}})">问卷调查</a>
+            </td>
+       </tr>
+    {{/each}}
+</script>
 
 <script type="text/javascript">
 	function changeContent(){
@@ -134,16 +112,26 @@
 		var searchKey = $("#searchKey").text().trim();
 		var searchValue = $("#searchValue").val();
 		
-		var url;
+		var parameter;
 		if (searchKey == "手机号")
 		{
-			url = "applicants?cellphone=" + searchValue;
+			parameter = "cellphone=" + searchValue;
 		}
 		else if (searchKey == "用户名")
 		{
-			url = "applicants?realName=" + searchValue;
+			parameter = "realName=" + searchValue;
 		}
-		location.href = url;
+		
+		$.ajax({
+	        type: "get",
+	        dataType: "text",
+	        url: "userTotalCount",
+	        data: parameter,
+	        success: function(totalCount){
+	        	//pageination and data list presentation
+	    	    pageinationHandle(totalCount,parameter);
+	        }
+	    });
 	})
 	
 	function showQuestionnaire(id){
@@ -152,6 +140,62 @@
 
 		location.href = "questionnaireanswer?cellphone=" + cellphone;
 	}
+	function show(currentPageIndex){
+		 var parameter = "pageIndex=" + currentPageIndex;
+		 
+		 $.ajax({
+		        type: "get",
+		        dataType: "text",
+		        url: "userTotalCount",
+		        success: function(totalCount,parameter){
+		        	//pageination presentation
+		    	    pageinationHandle(totalCount);
+		        }
+		 });
+	}
+	function pageinationHandle(totalCount,parameter){
+		var pageIndex = 0;     //页面索引初始值  
+	    var pageSize = 10;     //每页显示条数初始化，修改显示条数，修改这里即可  
+	    
+	    InitTable(0,parameter);    //Load事件，初始化表格数据，页面索引为0（第一页）  
+	    
+	    //分页，PageCount是总条目数，这是必选参数，其它参数都是可选  
+        $("#pagination").pagination(totalCount, {  
+            callback: PageCallback,  
+            prev_text: '上一页',       //上一页按钮里text  
+            next_text: '下一页',       //下一页按钮里text  
+            items_per_page: pageSize,  //显示条数  
+            num_display_entries: 6,    //连续分页主体部分分页条目数  
+            current_page: pageIndex,   //当前页索引  
+            num_edge_entries: 2        //两侧首尾分页条目数  
+        });
+	    
+       //翻页调用  
+        function PageCallback(index, jq) {             
+            InitTable(index);  
+        }  
+        //请求数据  
+        function InitTable(pageIndex,parameter) {                                  
+            $.ajax({   
+                type: "get",  
+                dataType: "json",  
+                url: 'showApplicants',      //提交到一般处理程序请求数据  
+                data: "pageIndex=" + (pageIndex + 1) + "&" + parameter,           
+                success: function(data) {                                   
+                	var handleHelper = Handlebars.registerHelper("addOne",function(index){
+                		return index+1;
+                	});
+                    var handle = Handlebars.compile($("#table-template").html());
+                	var html = handle(data);
+                	$("#userList").empty();
+                	$("#userList").append(html);
+                }  
+            });              
+        }  
+	}
 	
+	$(function(){  
+		show(1);
+	})
 </script>
 </html>

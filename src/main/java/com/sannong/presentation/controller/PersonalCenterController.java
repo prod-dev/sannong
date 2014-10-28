@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.jdbc.StringUtils;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.util.MyConfig;
@@ -108,7 +107,7 @@ public class PersonalCenterController {
     @RequestMapping(value = "myinfo")
     public ModelAndView myInfo() {
 
-        Map<String, Object> models = new HashMap<String, Object>();
+    	Map<String, Object> models = new HashMap<String, Object>();
         String userName;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -135,19 +134,43 @@ public class PersonalCenterController {
     @RequestMapping(value = "applicants", method = RequestMethod.GET)
     public ModelAndView showList(HttpServletRequest request, HttpServletResponse response) {
     	
-    	Map<String,Object> requestParaMap = new HashMap<String,Object>();
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("applicants", new Object());
+        return new ModelAndView(APPLICANTS_PAGE, models);
+    }
+    
+    @RequestMapping(value = "showApplicants", method = RequestMethod.GET)
+    public @ResponseBody List<User> showList(HttpServletRequest request) {
     	
+    	Map<String, Object> map = new HashMap<String,Object>();
+    	String pageIndex = request.getParameter("pageIndex");
     	String cellphone = request.getParameter("cellphone");
     	String realName = request.getParameter("realName");
-        
-    	requestParaMap.put("cellphone", cellphone);
-    	requestParaMap.put("realName", realName);
     	
-    	List<User> applicants = userService.getUserByNameOrCellphone(requestParaMap);
+        int pageStart = 0;
+    	
+    	if (null != pageIndex){
+    		pageStart =  (Integer.parseInt(pageIndex)- 1)  * 10;
+    	}
+    	map.put("pageStart", pageStart);
+    	map.put("cellphone", cellphone);
+    	map.put("realName", realName);
+    	
+    	List<User> applicants = userService.getUserByNameOrCellphone(map);
 
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("applicants", applicants);
-        return new ModelAndView(APPLICANTS_PAGE, models);
+       return applicants;
+    }
+    @RequestMapping(value = "userTotalCount", method = RequestMethod.GET)
+    public @ResponseBody String getUserTotalCount(HttpServletRequest request) throws Exception {
+
+    	Map<String, Object> map = new HashMap<String,Object>();
+    	String cellphone = request.getParameter("cellphone");
+    	String realName = request.getParameter("realName");
+    	
+    	map.put("cellphone", cellphone);
+    	map.put("realName", realName);
+    	
+    	return userService.getUserTotalCount(map);
     }
 
     @RequestMapping(value = "updatepassword", method = RequestMethod.POST)
@@ -186,7 +209,6 @@ public class PersonalCenterController {
         return new ModelAndView(MY_PASSWORD_PAGE, models);
     }
 
-    // @ResponseBody
     @RequestMapping(value = "questionnaireanswer", method = RequestMethod.GET)
     public ModelAndView getAnswerByUserName(HttpServletRequest request) throws Exception {
     	

@@ -32,6 +32,8 @@ public interface UserRepository {
     User getUserByName(String userName);
     
     List<User> getUserByNameOrCellphone(Map<String,Object> map);
+    
+    String getUserTotalCount(Map<String,Object> map);
 	
 }
 
