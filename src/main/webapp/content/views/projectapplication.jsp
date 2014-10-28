@@ -54,6 +54,15 @@
                            </div>
                            <div class="form-group">
                                <!--<label for="jobAddress">单位地址</label>-->
+                                <select id="provinceSelect" class="form-control" name="applicant.companyProvince" >
+                                <option></option>
+                               </select>
+                               <select id="citySelect" class="form-control" name="applicant.companyCity">
+                               <option></option>
+                               </select>
+                               <select id="districtSelect" class="form-control" name="applicant.companyDistrict">
+                               <option></option>
+                               </select>
                                <input type="input" class="form-control" id="jobAddress" name="applicant.companyAddress" placeholder="单位地址">
                            </div>
                            <div class="form-group">
@@ -111,5 +120,7 @@
     <div class="col-md-12 column">
         <jsp:include page='footer.jsp'/>
     </div>
-</div></body>
+</div>
+<script src="content/static/js/sannong/projectapplication.js"></script>
+</body>
 </html>

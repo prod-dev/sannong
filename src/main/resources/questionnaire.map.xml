@@ -4,10 +4,9 @@
 <mapper namespace="com.sannong.infrastructure.persistance.repository.QuestionnaireRepository">
 	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
 
-	<select id="getAnswerByNameOrCellphone" parameterType="Map" resultType="String">
+	<select id="getAnswerByCellphone" parameterType="String" resultType="String">
      	<![CDATA[
-     		select a.questionnaire_answer from applications a,users u 
-     		where a.applicant_id = u.user_id and (u.cellphone = #{cellphone} or u.username = #{userName})
+     		select a.questionnaire_answer from applications a,users u where a.applicant_id = u.user_id and u.cellphone = #{cellphone}
      	]]>
 	</select>
 </mapper>

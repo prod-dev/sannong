@@ -93,8 +93,8 @@ public class UserServiceImpl implements IUserService{
 			}		 
 	}
 
-	public String getAnswerByNameOrCellphone(Map<String,Object> map) throws Exception {
-		return questionnaireRepository.getAnswerByNameOrCellphone(map);
+	public String getAnswerByCellphone(String cellphone) throws Exception {
+		return questionnaireRepository.getAnswerByCellphone(cellphone);
 	}
 	
 

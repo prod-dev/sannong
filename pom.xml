@@ -11,12 +11,14 @@
 
     <properties>
         <springframework.version>4.0.1.RELEASE</springframework.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
         <finalName>sannong</finalName>
         <defaultGoal>clean install</defaultGoal>
         <plugins>
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -33,6 +35,7 @@
                     <path>/sannong</path>
                 </configuration>
             </plugin>
+            -->
         </plugins>
     </build>
 

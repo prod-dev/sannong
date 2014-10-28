@@ -27,15 +27,14 @@ public class SmsServiceImpl implements ISmsService{
 
     public boolean updateSMS(HttpServletRequest request) {
         SMS sms = new SMS();
-        String id = request.getParameter("smsid");      
+        String id = request.getParameter("smsid");
+        String time = request.getParameter("sendtime");
         if (id.length() < 0) return false;
         long smsId = new Integer(id);
         Date now = new Date();
-     	String time = "";     	
         try {
-        	time=request.getParameter("sendtime").toString();
             now = (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")).parse(time);
-        } catch (Exception e) {
+        } catch (ParseException e) {
             // TODO Auto-generated catch block
             time = (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")).format(now);
         }

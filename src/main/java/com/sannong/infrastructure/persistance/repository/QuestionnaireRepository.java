@@ -1,7 +1,5 @@
 package com.sannong.infrastructure.persistance.repository;
 
-import java.util.Map;
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,6 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface QuestionnaireRepository {
 	
-	String getAnswerByNameOrCellphone(Map<String,Object> map);
+	String getAnswerByCellphone(String cellphone);
 	
 }

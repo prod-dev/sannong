@@ -186,27 +186,11 @@ public class PersonalCenterController {
         return new ModelAndView(MY_PASSWORD_PAGE, models);
     }
 
+    // @ResponseBody
     @RequestMapping(value = "questionnaireanswer", method = RequestMethod.GET)
     public ModelAndView getAnswerByUserName(HttpServletRequest request) throws Exception {
     	
-    	Map<String,Object> map = new HashMap<String, Object>();
-    	
-    	String cellphone = request.getParameter("cellphone");
-    	
-    	if (StringUtils.isNullOrEmpty(cellphone)){
-    		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    		String userName = null;
-            if (principal instanceof UserDetails) {
-                userName = ((UserDetails) principal).getUsername();
-            } else {
-                userName = principal.toString();
-            }
-            map.put("userName", userName);
-    	}else{
-    		map.put("cellphone", cellphone);
-    	}
-    	
-    	String answer = userService.getAnswerByNameOrCellphone(map);
+    	String answer = userService.getAnswerByCellphone(request.getParameter("cellphone"));
     	
     	Map<String, Object> models = new HashMap<String, Object>();
     	models.put("answer", answer);
@@ -229,5 +213,4 @@ public class PersonalCenterController {
         }
         return new ModelAndView("redirect:" + "signin");
     }
-
 }
