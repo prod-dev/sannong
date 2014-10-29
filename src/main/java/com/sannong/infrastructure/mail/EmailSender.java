@@ -1,4 +1,6 @@
 package com.sannong.infrastructure.mail;
+import com.sannong.infrastructure.util.MyConfig;
+
 import jodd.mail.*;
 
 public class EmailSender {
@@ -8,7 +10,7 @@ public class EmailSender {
 		try
 		{
 			Email email = Email.create()
-			        .from("sannong system <pactera99@163.com>")
+			        .from(MyConfig.getConfig("smtp-sender"))
 			        .to(receiver)
 			        .subject(subject);
 			if(!isHtml)
@@ -16,8 +18,8 @@ public class EmailSender {
 			else
 				email.addHtml(content);
 			SmtpServer smtpServer =
-			        new SmtpServer("smtp.163.com",
-			            new SimpleAuthenticator("pactera99", "pact_123"));
+			        new SmtpServer(MyConfig.getConfig("smtp-server"),
+			            new SimpleAuthenticator(MyConfig.getConfig("smtp-account"), MyConfig.getConfig("smtp-password")));
 			    SendMailSession session = smtpServer.createSession();
 			    session.open();
 			    session.sendMail(email);
