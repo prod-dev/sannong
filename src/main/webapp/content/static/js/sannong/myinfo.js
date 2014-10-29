@@ -1,4 +1,104 @@
+
+   
 ;(function($) {
+		
+ 
+     $(document).ready(function(){
+          $province= $("#provinceSelect");  
+          $city=$("#citySelect");
+          $district=$("#districtSelect");
+          	var initProvince=function()
+	   {
+		    $.ajax({
+			type: "get",
+			async: false,
+			url: 'getProvinces',
+			success:   function(data) {
+				 for(var i=0;i<data.length;i=i+1)
+				 {
+				      if($("#provinceValue").val()==data[i].provinceIndex)
+				      	$province.append("<option value='"+data[i].provinceIndex+"' selected>"+data[i].provinceName+"</option>");
+			                        else
+			                        	$province.append("<option value='"+data[i].provinceIndex+"' >"+data[i].provinceName+"</option>");
+				 }
+				
+			}
+		    });
+	   };
+         initProvince();
+           $province.change(function(){
+  
+                       var index=$(this).children('option:selected').val();
+                        if($city.find('option')!=undefined)
+                       	    $city
+		    .find('option')
+		    .remove()
+		    .end()
+		    .append('<option></option>');
+	if($district.find('option')!=undefined)	    
+		     $district
+		    .find('option')
+		    .remove()
+		    .end()
+		    .append('<option></option>');
+
+                       $.ajax({
+			type: "get",
+			async: false,
+			url: 'getCities',
+			 data: {"provinceIndex": index},
+			success:   function(data) {
+				 for(var i=0;i<data.length;i=i+1)
+				 {
+				 	 if($("#cityValue").val()==data[i].cityIndex)
+				 	 {
+				                    	$city.append("<option value='"+data[i].cityIndex+"' selected>"+data[i].cityName+"</option>");
+				                    	$city.change();
+				         	}
+				                    else
+				                    	 $city.append("<option value='"+data[i].cityIndex+"' >"+data[i].cityName+"</option>");    
+				 }				
+			}
+	     });
+               });
+              $city.change(function(){
+              	   var index=$(this).children('option:selected').val();
+              	   if($district.find('optioin')!=undefined)
+                       	     $district
+		    .find('option')
+		    .remove()
+		    .end()
+		    .append('<option></option>');
+                        $.ajax({
+			type: "get",
+			async: false,
+			url: 'getDistricts',
+			 data: {"cityIndex": index},
+			success:   function(data) {
+				 for(var i=0;i<data.length;i=i+1)
+				 {
+				    if($("#districtValue").val()==data[i].districtIndex)
+				    	    $district.append("<option value='"+data[i].districtIndex+"' selected>"+data[i].districtName+"</option>");
+			                       else
+			                       	       $district.append("<option value='"+data[i].districtIndex+"' >"+data[i].districtName+"</option>");
+				 }
+				 
+				
+			}
+	     });
+              		      
+              		      
+              });
+           
+              
+             $province.change();
+             
+             
+
+             
+             
+       });
+
 
      $(function() {
          var emailRegEx = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i,
@@ -225,16 +325,7 @@
          $('#applicationForm').on("click", "#agree", function(ev) {
              valid(ev);
          });
-         var input_code = $('#input-invite');
-         if(input_code)
-         {
-             input_code.focus(function(){
-                 $('.invite-code').show();
-             });
-             input_code.blur(function(){
-                 $('.invite-code').hide();
-             });
-         }
+
          //发送短信请求ajax
         
          var sendNum = 1;  //判断是否第一次点击发送

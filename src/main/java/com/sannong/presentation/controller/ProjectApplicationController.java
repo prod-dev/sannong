@@ -60,19 +60,19 @@ public class ProjectApplicationController {
         return new ModelAndView(COMPLETION_PAGE, models);
     }
 
-    @RequestMapping(value = "getProvinces", method = RequestMethod.POST)
+    @RequestMapping(value = "getProvinces")
     public @ResponseBody
     List<Province> getProvinces() {
         return regionService.getProvinces();
     }
 
-    @RequestMapping(value = "getCities", method = RequestMethod.POST)
+    @RequestMapping(value = "getCities")
     public @ResponseBody
     List<City> getCities(Long provinceIndex) {
         return regionService.getCities(provinceIndex);
     }
 
-    @RequestMapping(value = "getDistricts", method = RequestMethod.POST)
+    @RequestMapping(value = "getDistricts")
     public @ResponseBody
     List<District> getDistricts(Long cityIndex) {
         return regionService.getDistricts(cityIndex);

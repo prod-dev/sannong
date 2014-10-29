@@ -30,7 +30,19 @@
      </select>
      
      <select id="getUserByCondition"  parameterType="Map"  resultMap="userResultMap">
-       	select user_name,username,create_time,cellphone,company,job_title,mailbox,company_address,desk_phone from users 
+       	select user_name,
+       				username,
+       				create_time,
+       				cellphone,
+       				company,
+       				job_title,
+       				mailbox,
+       				company_address,
+       				desk_phone,
+       				company_province,
+       				company_city,
+       				company_district 
+       				 from users 
        	<where>
 	       	<if test="realName != null">  
 	            user_name = #{realName}  
@@ -45,7 +57,19 @@
      </select>
      
      <select id="getUserByNameOrCellphone"  parameterType="Map"  resultMap="userResultMap">
-       	select user_name,username,create_time,cellphone,company,job_title from users 
+       select user_name,
+       				username,
+       				create_time,
+       				cellphone,
+       				company,
+       				job_title,
+       				mailbox,
+       				company_address,
+       				desk_phone,
+       				company_province,
+       				company_city,
+       				company_district 
+       				 from users
        	<where>
 	       	<if test="realName != null">  
 	            user_name like CONCAT('%',#{realName},'%')  
