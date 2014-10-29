@@ -26,7 +26,7 @@
                     <div class="input-group">
                        <span class="input-group-addon"><label type="text" value="">查询条件</label></span>
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"  id="searchKey">用户名<span class="caret"></span></button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"  id="searchKey">姓名<span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="javascript:void(0)" onclick="changeContent()" id="dropdown1">手机号</a></li>
                             </ul>
@@ -47,7 +47,7 @@
                         #
                     </th>
                     <th>
-                        用户名
+                        姓名
                     </th>
                     <th>
                         注册日期

@@ -42,7 +42,6 @@
             	cellphone = #{cellphone}  
             </if>  
        	</where>
-       	limit #{pageStart},10
      </select>
      
      <select id="getUserByNameOrCellphone"  parameterType="Map"  resultMap="userResultMap">
