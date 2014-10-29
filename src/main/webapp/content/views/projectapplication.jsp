@@ -52,7 +52,7 @@
                                <!--<label for="jobCompany">工作单位</label>-->
                                <input type="input" class="form-control" id="jobCompany" name="applicant.company" placeholder="工作单位">
                            </div>
-                           <div class="form-group">
+                           <div class="form-group form-inline">
                                <!--<label for="jobAddress">单位地址</label>-->
                                 <select id="provinceSelect" class="form-control" name="applicant.companyProvince" >
                                 <option></option>

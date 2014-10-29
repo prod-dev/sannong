@@ -56,3 +56,11 @@ ALTER TABLE `sannong`.`users`
 ADD COLUMN `company_province` bigint(20) NULL AFTER `company`,
 ADD COLUMN `company_city` bigint(20) NULL AFTER `company_province`,
 ADD COLUMN `company_district` bigint(20) NULL AFTER `company_city`;
+
+-- Add column option5, question_number and change question_content by Bright
+ALTER TABLE `sannong`.`questions`
+CHANGE COLUMN `questionContent` `question_content` VARCHAR(500) NULL DEFAULT NULL ;
+ALTER TABLE `sannong`.`questions`
+ADD COLUMN `option5` VARCHAR(45) NULL AFTER `option4`;
+ALTER TABLE `sannong`.`questions`
+ADD COLUMN `question_number` bigint(20) NULL AFTER `question_id`;
