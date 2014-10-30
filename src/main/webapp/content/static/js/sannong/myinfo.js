@@ -371,43 +371,37 @@ alert(sb.ToString('__')); //将输出 Hello! a b c__World
                      showError($('#jobAddress'), sb.toString());
              	    hasError = true;    
             }
-             if (!$.trim($('#mailbox').val())) {
+             if ($.trim($('#mailbox').val())) {
+            if (!emailRegEx.test($.trim($('#mailbox').val()))) {
                 showError($('#mailbox'), '请填写有效的邮箱地址');
                 hasError = true;
                 return false;
-            } else if (!emailRegEx.test($.trim($('#mailbox').val()))) {
-                showError($('#mailbox'), '请填写有效的邮箱地址');
-                hasError = true;
-                return false;
-            } else {
-                showTrue($('#mailbox'));
-                hasError = false;
-            }
-            if (!$.trim($('#cellphone').val())) {
-                showError($('#cellphone'), '请填写有效的手机号');
-                hasError = true;
-                return false;
-            } else if (!mobileRegEx.test($.trim($('#cellphone').val()))) {
-                showError($('#cellphone'), '请填写有效的手机号');
-                hasError = true;
-                return false;
-            } else {
-                showTrue($('#input-mobile'));
-                hasError = false;
-            }
-            $regcode = $('#validationCode');
-            if (!$.trim($regcode.val())) {
-                showError($regcode, '请填写6位数字验证码');
-                hasError = true;
-                return false;
-            } else if (!/^\d{6}$/.test($regcode.val())) {
-                showError($regcode, '请填写6位数字验证码');
-                hasError = true;
-                return false;
-            } else {
-                showTrue($regcode);
-                hasError = false;
-            }
+             } }
+           if($('divEditCellphone').css('display')=='block')
+           {
+		     if (!$.trim($('#cellphone').val())) {
+			showError($('#cellphone'), '请填写有效的手机号');
+			hasError = true;
+			return false;
+		    } else if (!mobileRegEx.test($.trim($('#cellphone').val()))) {
+			showError($('#cellphone'), '请填写有效的手机号');
+			hasError = true;
+			return false;
+		    }
+		    $regcode = $('#validationCode');
+		    if (!$.trim($regcode.val())) {
+			showError($regcode, '请填写6位数字验证码');
+			hasError = true;
+			return false;
+		    } else if (!/^\d{6}$/.test($regcode.val())) {
+			showError($regcode, '请填写6位数字验证码');
+			hasError = true;
+			return false;
+		    } else {
+			showTrue($regcode);
+			hasError = false;
+		    }
+           }
             if (!!hasError) {
                 ev.preventDefault();
                 return false;
