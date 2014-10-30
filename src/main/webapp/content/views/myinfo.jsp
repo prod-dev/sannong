@@ -90,7 +90,7 @@
                         <div class="errorDiv"></div>
                     </div>
                 <div class="errorDiv">${myinfomessage}</div>
-                <button type="submit" class="btn btn-success">Submit</button>
+                <input type="button" id="register-btn"  class="btn btn-success" value="Submit">
             </form>
         </div>
         <div class="col-md-4 column"></div>
