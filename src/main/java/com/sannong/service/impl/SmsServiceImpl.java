@@ -1,5 +1,7 @@
 package com.sannong.service.impl;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.repository.SmsRepository;
 import com.sannong.infrastructure.sms.SmsSender;
@@ -11,10 +13,14 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Bright Huang on 10/22/14.
@@ -23,6 +29,8 @@ import java.util.List;
 public class SmsServiceImpl implements ISmsService{
     @Autowired
     private SmsRepository smsRepository;
+    
+    private static String SESSIOIN_SMS_CODES="session_sms_codes";
 
 
     public boolean updateSMS(HttpServletRequest request) {
@@ -48,19 +56,52 @@ public class SmsServiceImpl implements ISmsService{
     public List<SMS> getNewSMS() {
         return smsRepository.getNewSMS();
     }
+  
+    @SuppressWarnings("unchecked")
+    public int validateSMSCode(HttpServletRequest request)
+    {
+    	String smscode=request.getParameter("validationcode").toString().trim();
+    	if(smscode.isEmpty()) return 0;
+    	if( request.getSession().getAttribute(SESSIOIN_SMS_CODES)==null) return 1;
+		Map<Date,String>	 map=(HashMap<Date,String>)request.getSession().getAttribute(SESSIOIN_SMS_CODES);
+		Iterator iterator = map.entrySet().iterator();  
+		while (iterator.hasNext()) {  
+			Map.Entry mapEntry = (Map.Entry) iterator.next();  
+			Date dt=(Date)mapEntry.getKey();
+			String savecode=mapEntry.getValue().toString();
+			if(savecode.equals(smscode))
+			{
+				Date dtNow=new Date(System.currentTimeMillis()); 
+				long diffInMinuts = (dtNow.getTime() - dt.getTime()) / 1000*60;
+				if(diffInMinuts<5)
+					return 2;
+				else 
+					return 1;				
+			}			
+		}     	
+    	 return 0;
+    }
 
-    public boolean generateCode(HttpServletRequest request) {
+    @SuppressWarnings("unchecked")
+	public boolean generateCode(HttpServletRequest request) {
     	String mobile=request.getParameter("mobile").toString();
     	String smstype=request.getParameter("smstype").toString();
-    	String regcode=SmsSender.generateCode(6);
+    	String regcode=SmsSender.generateCode(4);
+    	Map<Date,String>  map= new HashMap<Date,String>();
     	if(mobile.length()<11)
     		return false;
     	else    	
     	{
     		SMS sms=new SMS();    		
     		 sms.setCellphone(mobile);
-    		 sms.setSmsValidationCode(regcode);
-    		 request.getSession().setAttribute("regcode", regcode);   
+    		 sms.setSmsValidationCode(regcode); 
+    		 Date ts=new Date(System.currentTimeMillis()); 
+    		 if( request.getSession().getAttribute(SESSIOIN_SMS_CODES)!=null)
+    		 {
+    			 map=(HashMap<Date,String>)request.getSession().getAttribute(SESSIOIN_SMS_CODES);
+    		 }
+    		 map.put(ts,regcode);    			 
+    		 request.getSession().setAttribute(SESSIOIN_SMS_CODES, map);   
     		 String content="验证码为:"+regcode;
     		 if(smstype.equals("0"))
     			 content=MyConfig.getConfig("sms-welcome").replace("{0}", regcode); 

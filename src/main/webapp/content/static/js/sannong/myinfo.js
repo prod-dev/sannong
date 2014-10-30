@@ -377,29 +377,45 @@ alert(sb.ToString('__')); //将输出 Hello! a b c__World
                 hasError = true;
                 return false;
              } }
-           if($('divEditCellphone').css('display')=='block')
+           if($('#divEditCellphone').css('display')=='block')
            {
-		     if (!$.trim($('#cellphone').val())) {
+		     if ($.trim($('#cellphone').val()).length>0) {
+			if (!mobileRegEx.test($.trim($('#cellphone').val()))) {
 			showError($('#cellphone'), '请填写有效的手机号');
 			hasError = true;
 			return false;
-		    } else if (!mobileRegEx.test($.trim($('#cellphone').val()))) {
-			showError($('#cellphone'), '请填写有效的手机号');
-			hasError = true;
-			return false;
+			}
 		    }
-		    $regcode = $('#validationCode');
+		    $regcode = $('#validationcode');
 		    if (!$.trim($regcode.val())) {
-			showError($regcode, '请填写6位数字验证码');
+			showError($regcode, '请填写4位数字验证码');
 			hasError = true;
 			return false;
-		    } else if (!/^\d{6}$/.test($regcode.val())) {
-			showError($regcode, '请填写6位数字验证码');
+		    } else if (!/^\d{4}$/.test($regcode.val())) {
+			showError($regcode, '请填写4位数字验证码');
 			hasError = true;
 			return false;
 		    } else {
-			showTrue($regcode);
-			hasError = false;
+			            $.ajax({
+				type: "get",
+				async: false,
+				url: 'validateSMSCode',
+				data: {
+				    "validationcode": $regcode.val()
+				},
+				success: function(data) {
+				    if(data==0)
+				    {
+				    	    showError($regcode, '验证码错误');
+				    	    hasError = true; 				    	    
+				    }
+				     if(data==1)
+				    {
+				    	    showError($regcode, '验证码过期，请重新获取验证码');
+				    	    hasError = true; 				    	    
+				    }
+				}
+			    });
 		    }
            }
             if (!!hasError) {

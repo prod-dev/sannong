@@ -44,8 +44,10 @@
                         <input type="input" class="form-control" id="jobCompany"  name="company" placeholder="工作单位"  value="${myinfo.company}">
                         <div class="errorDiv"></div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group ">
                       <label for="jobAddress">单位地址</label> 
+                      </div>
+                        <div class="form-group form-inline">
                          <input type="hidden" id="provinceValue" value="${myinfo.companyProvince}"/>
                          <input type="hidden" id="cityValue" value="${myinfo.companyCity}"/>
                          <input type="hidden" id="districtValue" value="${myinfo.companyDistrict}"/>
@@ -75,21 +77,17 @@
                         <label for="cellPhone">手机号码:</label>&nbsp;${myinfo.cellphone}&nbsp;&nbsp;&nbsp;&nbsp;<input type='button'   class="btn btn-sm btn-warning" onclick="script:$('#divCellphone').attr('style','display:none');$('#divEditCellphone').attr('style','display:block');"  value="更改手机号码">
                     </div>
                     <div id="divEditCellphone" style="display:none">
-                    <div class="form-group" >
+                    <div class="form-group form-inline" >
                         <label for="cellPhone">手机号码</label>
-                        <div>
-                            <input type="input" class="input-short" id="cellphone" name="cellphone" placeholder="手机号码" value="${myinfo.cellphone}">
+                        <div >
+                           <input type="hidden"  id="oldCellphone" value="${myinfo.cellphone}">
+                            <input type="input" class="input-short" id="cellphone" name="cellphone" placeholder="新手机号码">
                             <input type="button" id="action-send-code" data-url="regcode" data-type="1" class="btn btn-sm btn-warning"  value="发送验证码">
-                             <div class="errorDiv"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="validationCode">验证码</label>
-                        <div>
                             <input type="input" class="input-short" name="validationcode"  id="validationcode" placeholder="验证码">
+                            <div class="errorDiv"></div>
                         </div>
                     </div>
-                     <div class="errorDiv"></div>
+                     
                      </div>
                     </div>
                 <div class="errorDiv">${myinfomessage}</div>
