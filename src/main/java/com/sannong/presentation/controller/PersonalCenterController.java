@@ -69,6 +69,12 @@ public class PersonalCenterController {
     public @ResponseBody boolean generateCode(HttpServletRequest request) {
         return smsService.generateCode(request);
     }
+    
+    @RequestMapping(value = "validateSMSCode")
+    public @ResponseBody int  validateRegcode(HttpServletRequest request) {
+        return smsService.validateSMSCode(request);
+    }
+
 
     @RequestMapping(value = "modifyMyinfo", method = RequestMethod.POST)
 	public ModelAndView updateUser(HttpServletRequest request,@ModelAttribute("myinfo")	User user, BindingResult result) {
@@ -83,10 +89,11 @@ public class PersonalCenterController {
          user.setUserName(username); //add by william
          
          User dbuser = userService.getUserByName(username);
+         if(user.getCellphone().toString().trim().isEmpty())
+        	 user.setCellphone(dbuser.getCellphone());
          if(!dbuser.getCellphone().toString().equals(user.getCellphone().toString()))
-         {
-	    	 String code=request.getParameter("validationcode").toString();
-	    	 if(!request.getSession().getAttribute("regcode").equals(code))
+         {    	 
+	    	 if(smsService.validateSMSCode(request)<2)
 	    	 {
 	    		 models.put("myinfomessage", MyConfig.getConfig("error-myinfo-invalidRegcode"));
 	    	 }
