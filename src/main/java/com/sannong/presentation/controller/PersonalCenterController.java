@@ -1,14 +1,16 @@
 package com.sannong.presentation.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sannong.infrastructure.dataexport.CsvExporter;
+import com.sannong.infrastructure.persistance.entity.Application;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
@@ -95,7 +97,7 @@ public class PersonalCenterController {
 		try {
 			userService.updateUser(user);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		
@@ -234,5 +236,41 @@ public class PersonalCenterController {
             }
         }
         return new ModelAndView("redirect:" + "signin");
+    }
+
+    @RequestMapping("/exportCSV")
+    public void exportAll(HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+        Map<String, Object> map = new HashMap<String,Object>();
+        String cellphone = request.getParameter("cellphone");
+        String realName = request.getParameter("realName");
+
+        map.put("cellphone", cellphone);
+        map.put("realName", realName);
+
+        response.setContentType("application/csv");
+        response.setCharacterEncoding("GB2312");
+        response.setHeader("Content-disposition", "attachment;filename=answer.csv");
+
+        PrintWriter w = response.getWriter();
+
+        w.write("序号,姓名,电话,地址,答案"+"\n");
+        List<Application> applicants = userService.getAnswer(map);
+        Iterator it = applicants.iterator();
+        int i = 1;
+        while(it.hasNext()){
+            Application app = (Application) it.next();
+            String answer;
+            if(app.getQuestionnaireAnswer() != null){
+                answer = app.getQuestionnaireAnswer();
+            }
+            else{
+                answer="";
+            }
+            w.write( i + "," + app.getApplicant().getRealName() + ","+ app.getApplicant().getCellphone()  + ","+ app.getApplicant().getCompanyAddress() + "," + CsvExporter.toAnalyseString(answer) + "\n");
+            i++;
+            w.flush();
+        }
+        w.close();
     }
 }

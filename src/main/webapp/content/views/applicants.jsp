@@ -35,7 +35,7 @@
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
                 <button type="submit" class="btn btn-success" id="retrieve">查询</button>
-                <button type="submit" class="btn btn-sm btn-primary">导出问卷调查结果</button>
+                <button type="button" class="btn btn-sm btn-primary" onclick="exportCSV();">导出问卷调查结果</button>
             </div><!-- /.row -->
 
             <br/>
@@ -117,7 +117,7 @@
 		{
 			parameter = "cellphone=" + searchValue;
 		}
-		else if (searchKey == "用户名")
+		else if (searchKey == "姓名")
 		{
 			parameter = "realName=" + searchValue;
 		}
@@ -155,7 +155,7 @@
 	}
 	function pageinationHandle(totalCount,parameter){
 		var pageIndex = 0;     //页面索引初始值  
-	    var pageSize = 10;     //每页显示条数初始化，修改显示条数，修改这里即可  
+	    var pageSize = 2;     //每页显示条数初始化，修改显示条数，修改这里即可
 	    
 	    InitTable(0,parameter);    //Load事件，初始化表格数据，页面索引为0（第一页）  
 	    
@@ -165,7 +165,7 @@
             prev_text: '上一页',       //上一页按钮里text  
             next_text: '下一页',       //下一页按钮里text  
             items_per_page: pageSize,  //显示条数  
-            num_display_entries: 6,    //连续分页主体部分分页条目数  
+            num_display_entries: 2,    //连续分页主体部分分页条目数
             current_page: pageIndex,   //当前页索引  
             num_edge_entries: 2        //两侧首尾分页条目数  
         });
@@ -193,7 +193,17 @@
             });              
         }  
 	}
-	
+
+    //export to csv
+    function exportCSV() {
+        if(confirm("确定要保存到本地CVS文件?")){
+            window.location.href="./exportCSV";
+        }else{
+            return false;
+        }
+
+    }
+
 	$(function(){  
 		show(1);
 	})

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.sannong.infrastructure.persistance.entity.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,5 +103,9 @@ public class UserServiceImpl implements IUserService{
 	public String getUserTotalCount(Map<String, Object> map) throws Exception {
 		return userRepository.getUserTotalCount(map);
 	}
-	
+
+    @Override
+    public List<Application> getAnswer(Map<String, Object> map) {
+        return userRepository.getAnswer(map);
+    }
 }

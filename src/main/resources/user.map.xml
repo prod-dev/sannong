@@ -83,6 +83,8 @@
        	</where>
        	limit #{pageStart},10
      </select>
+
+
      
      <select id="loginValidation" parameterType="Map" resultMap="userResultMap">
      	<![CDATA[
@@ -156,5 +158,34 @@
             </if>  
        	</where>
     </select>
-     
+
+    <!-- 一对一，没有N+1问题 -->
+    <resultMap id="rs2" type="Application">
+        <id property="applicationId" column="application_id"/>
+        <result property="questionnaireAnswer" column="questionnaire_answer"/>
+        <association property="applicant" column="applicant_id" javaType="User">
+            <id property="userId" column="user_id"/>
+            <result property="realName" column="user_name"/>
+            <result property="cellphone" column="cellphone"/>
+            <result property="companyAddress" column="company_address"/>
+        </association>
+    </resultMap>
+    <select id="getAnswer"  parameterType="Map"  resultMap="rs2">
+        select u.user_name,
+        u.cellphone,
+        u.company_address,
+        a.questionnaire_answer
+        from users u left join applications a on u.user_id = a.applicant_id
+        <where>
+            <if test="realName != null">
+                user_name like CONCAT('%',#{realName},'%')
+            </if>
+            <if test="userName != null">
+                username like CONCAT('%',#{userName},'%')
+            </if>
+            <if test="cellphone != null">
+                cellphone like CONCAT('%',#{cellphone},'%')
+            </if>
+        </where>
+    </select>
 </mapper>
