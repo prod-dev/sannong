@@ -64,3 +64,24 @@ ALTER TABLE `sannong`.`questions`
 ADD COLUMN `option5` VARCHAR(45) NULL AFTER `option4`;
 ALTER TABLE `sannong`.`questions`
 ADD COLUMN `question_number` bigint(20) NULL AFTER `question_id`;
+
+-- Drop column questionnaire_answer in applications add by william 2014-10-31
+ALTER TABLE `sannong`.`applications` 
+DROP COLUMN `questionnaire_answer`;
+
+ALTER TABLE `sannong`.`questions` 
+ADD COLUMN `questionnaire_number` CHAR NULL AFTER `application_id`;
+
+CREATE TABLE `sannong`.`answers` (
+  `answer_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `questionnaire1_answers` VARCHAR(200) NULL,
+  `questionnaire2_answers` VARCHAR(200) NULL,
+  `questionnaire3_answers` VARCHAR(200) NULL,
+  `questionnaire4_answers` VARCHAR(200) NULL,
+  `questionnaire5_answers` VARCHAR(200) NULL,
+  `username` VARCHAR(45) NULL,
+  `application_id` BIGINT NULL,
+  `answer_status` CHAR NULL COMMENT '11:questionnaire1 submit\n20:questionnaire2 save\n21:questionnaire2 submit\n30:questionnaire3 save\n31:questionnaire3 submit\n40:questionnaire4 save\n41:questionnaire4 submit\n50:questionnaire5 save\n51:questionnaire5 submit',
+  PRIMARY KEY (`answer_id`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC),
+  UNIQUE INDEX `application_id_UNIQUE` (`application_id` ASC));
