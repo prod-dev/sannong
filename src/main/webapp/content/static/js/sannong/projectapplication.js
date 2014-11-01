@@ -3,74 +3,122 @@
  */
 
 (function($) {
+
     "use strict";
 
-    var ProjectApplication = {};
+    var projectApplication = {};
+    projectApplication.Model = {};
+    projectApplication.View = {};
 
-    ProjectApplication.Model = {};
+    function validateForm(){
+        var validator = $("#applicationForm").validate({
+            rules: {
+                "answers[0]": "required",
+                "answers[1]": "required",
+                "answers[2]": "required",
+                "answers[3]": "required",
+                "answers[4]": "required",
+                "answers[5]": "required",
+                "answers[6]": "required",
+                "answers[7]": "required",
+                "answers[8]": "required",
+                "applicant.realName": "required",
+                "applicant.company": "required",
+                "applicant.provinceSelect": "required",
+                "applicant.citySelect": "required",
+                "applicant.districtSelect": "required",
+                "applicant.companyAddress": "required",
+                "applicant.mailbox": {
+                    email:true
+                },
+                "applicant.deskPhone": {
+                    isTel: true
+                },
+                "applicant.cellphone": {
+                    required: true,
+                    isCellphone: true
+                },
+                "sms.smsValidationCode":{
+                    digits: true,
+                    rangelength:[4,4]
+                },
+                password: {
+                    required: true,
+                    minlength: 6
+                }
+            },
+            messages: {
+                "answers[0]": "必填",
+                "answers[1]": "必填",
+                "answers[2]": "必填",
+                "answers[3]": "必填",
+                "answers[4]": "必填",
+                "answers[5]": "必填",
+                "answers[6]": "必填",
+                "answers[7]": "必填",
+                "answers[8]": "必填",
+                "applicant.realName": "必填",
+                "applicant.provinceSelect": "必填",
+                "applicant.citySelect": "必填",
+                "applicant.districtSelect": "必填",
+                "applicant.jobAddress": "必填",
+                "applicant.company": "必填",
+                "applicant.companyAddress": "必填",
+                "applicant.mailbox": "请输入正确格式的电子邮件",
+                "applicant.deskPhone": {
+                    isTel: "请输入正确格式的电话号码 如:010-12345678"
+                },
+                "applicant.cellphone": {
+                    required: "必填",
+                    isCellphone: "请正确填写您的手机号码",
+                    remote: "姓名或手机号码不存在"
+                },
+                "sms.smsValidationCode":{
+                    digits: "只能输入整数",
+                    rangelength: $.validator.format("请输入一个长度为{0}的整数验证码")
+                },
+                "applicant.password": {
+                    required: "请输入密码",
+                    minlength: $.validator.format("密码不能小于{0}个字 符")
+                }
 
-    ProjectApplication.View = {};
+            },
+            success: function(label, element) {
+            },
+            errorPlacement:function(error,element) {
+                if ( element.is(":radio") ) {
+                    error.appendTo(element.parent().parent());
 
+                }else if ( element.is(":checkbox") ) {
+                    error.appendTo(element.next());
 
-    function addEventListener(){
-        $("#provinceSelect").change(function(event){
-            var provinceIndex = event;
-//            $('#citySelect option').remove();
-//            $('#districtSelect option').remove();
-            addCities();
+                }else if (element.attr("name") == "cellphone") {
+                    error.appendTo(element.next().next());
+                } else{
+                    error.insertAfter(element);
+                }
 
-
-        })
-
-        $("#citySelect").change(function(event){
-            var cityIndex = event;
-            $('#districtSelect option').remove();
-            addDistricts();
-        })
+            },
+            submitHandler:function(form){
+                form.submit();
+            }
+        });
+        return validator;
     }
 
-    function addProvinceSelections(provinces) {
-        var provinceSelect = $('#provinceSelect');
-        $('#provinceSelect option').remove();
-        $('#citySelect option').remove();
-        $('#districtSelect option').remove();
-
-        for (var i in provinces){
-            var optionValue = provinces[i].provinceIndex;
-            var optionText = provinces[i].provinceName;
-            var option = "<option value=" + optionValue + ">" + optionText + "</option>";
-            provinceSelect.append(option);
+    function addCities(){
+        var provinceIndex = $("#provinceSelect").val();
+        var options = {
+            url: 'getCities',
+            type: 'POST',
+            data: {'provinceIndex': provinceIndex},
+            success: function(data){
+                projectApplication.Controller.addCitySelections(data);
+            },
+            fail: function(data){
+            }
         }
-        addCities();
-
-    }
-
-    function addCitySelections(cities) {
-        var citySelect = $('#citySelect');
-        $('#citySelect option').remove();
-        $('#districtSelect option').remove();
-
-        for (var i in cities){
-            var optionValue = cities[i].cityIndex;
-            var optionText = cities[i].cityName;
-            var option = "<option value=" + optionValue + ">" + optionText + "</option>";
-            citySelect.append(option);
-        }
-        addDistricts();
-
-    }
-
-    function addDistrictSelections(districts) {
-        var districtSelect = $('#districtSelect');
-        $('#districtSelect option').remove();
-
-        for (var i in districts){
-            var optionValue = districts[i].districtIndex
-            var optionText = districts[i].districtName;
-            var option = "<option value=" + optionValue + ">" + optionText + "</option>";
-            districtSelect.append(option);
-        }
-
+        projectApplication.Controller.ajaxRequest(options);
     }
 
     function addProvinces(){
@@ -78,54 +126,45 @@
             url: 'getProvinces',
             type: 'POST',
             success: function(data){
-                addProvinceSelections(data);
+                projectApplication.Controller.addProvinceSelections(data);
             },
             fail: function(error){
-
             }
         }
-        ProjectApplication.Controller.ajaxRequest(options);
-
-    }
-
-    function addCities(){
-        var provinceIndex;
-
-        provinceIndex = $("#provinceSelect").val(); //获取选中记录的value值
-        //$("#provinceSelect option:selected").text(); //获取选中记录的text值
-
-        var options = {
-            url: 'getCities',
-            type: 'POST',
-            data: {'provinceIndex': provinceIndex},
-            success: function(data){
-                addCitySelections(data);
-            },
-            fail: function(data){
-            }
-        }
-
-        ProjectApplication.Controller.ajaxRequest(options);
+        projectApplication.Controller.ajaxRequest(options);
     }
 
     function addDistricts(){
         var cityIndex= $('#citySelect').val();
-
         var options = {
             url: 'getDistricts',
             type: 'POST',
             data: {'cityIndex': cityIndex},
             success: function(data){
-                addDistrictSelections(data);
+                projectApplication.Controller.addDistrictSelections(data);
             },
             fail: function(data){
 
             }
         }
-        ProjectApplication.Controller.ajaxRequest(options);
+        projectApplication.Controller.ajaxRequest(options);
     }
 
-    ProjectApplication.Controller = {
+    function init(){
+        $.validator.addMethod("isTel", function(value, element) {
+            var tel = /^\d{3,4}-?\d{7,9}$/; //电话号码格式010-12345678
+            return this.optional(element) || (tel.test(value));
+        }, "请正确填写您的电话号码");
+
+
+        $.validator.addMethod("isCellphone", function(value, element) {
+            var length = value.length;
+            var mobile = /^(((13[0-9]{1})|(15[0-9]{1})||(18[0-9]{1}))+\d{8})$/;
+            return this.optional(element) || (length == 11 && mobile.test(value));
+        }, "请正确填写您的手机号码");
+    }
+
+    projectApplication.Controller = {
         ajaxRequest : function(options) {
             return $.ajax({
                 cache: false,
@@ -140,20 +179,107 @@
             }).always(function (xhr, status, error) {
 
             });
+        },
+        addProvinceSelections: function(provinces) {
+            var provinceSelect = $('#provinceSelect');
+            $('#provinceSelect option').remove();
+            $('#citySelect option').remove();
+            $('#districtSelect option').remove();
+
+            for (var i in provinces){
+                var optionValue = provinces[i].provinceIndex;
+                var optionText = provinces[i].provinceName;
+                var option = "<option value=" + optionValue + ">" + optionText + "</option>";
+                provinceSelect.append(option);
+            }
+            addCities();
+        },
+        addCitySelections: function(cities) {
+            var citySelect = $('#citySelect');
+            $('#citySelect option').remove();
+            $('#districtSelect option').remove();
+
+            for (var i in cities){
+                var optionValue = cities[i].cityIndex;
+                var optionText = cities[i].cityName;
+                var option = "<option value=" + optionValue + ">" + optionText + "</option>";
+                citySelect.append(option);
+            }
+            addDistricts();
+        },
+
+         addDistrictSelections: function(districts) {
+            var districtSelect = $('#districtSelect');
+            $('#districtSelect option').remove();
+
+            for (var i in districts){
+                var optionValue = districts[i].districtIndex
+                var optionText = districts[i].districtName;
+                var option = "<option value=" + optionValue + ">" + optionText + "</option>";
+                districtSelect.append(option);
+            }
+         },
+        addEventListener: function(){
+            $("#provinceSelect").change(function(event){
+                addCities();
+            });
+
+            $("#citySelect").change(function(event){
+                $('#districtSelect option').remove();
+                addDistricts();
+            });
+
+            $("#applicationSubmit").click(function(event){
+                if ((validateForm().form() == true) && $("#applicationSubmit").attr("disabled") != "disabled"){
+                    $("#myModalTrigger").click();
+                }
+            });
+
+            $("#confirmedSubmit").click(function(event){
+                $("#applicationForm").submit();
+            });
 
 
+            $("#validationCode").keyup(function(){
+                if (validateForm().element($("#validationCode")) == true && $("#validationCode").val() != ""){
+                    $("#applicationSubmit").removeAttr("disabled");
+                    $("#applicationSubmit").removeClass().addClass("btn btn-success");
+                } else {
+                    $("#applicationSubmit").attr({disabled: "disabled"});
+                    $("#applicationSubmit").removeClass().addClass("btn btn-default");
+                }
+
+            });
+
+            $("#action-send-code").click(function(event){
+                if (validateForm().form() == true){
+                    var options = {
+                        url: 'regcode',
+                        type: 'GET',
+                        data: {
+                            mobile: $("#cellphone").val(),
+                            smstype: $("#action-send-code").attr("data-type")
+                        },
+                        success: function(data){
+
+                        },
+                        fail: function(data){
+
+                        }
+                    }
+                    projectApplication.Controller.ajaxRequest(options);
+                }
+            });
         }
-
     };
 
-
     $(function() {
+        init();
         addProvinces();
+        projectApplication.Controller.addEventListener();
 
-
-        addEventListener();
     });
 
-    //Sannong.ProjectApplication = ProjectApplication;
-    return ProjectApplication;
+    //Sannong.ProjectApplication = projectApplication;
+    return projectApplication;
 })(jQuery);
