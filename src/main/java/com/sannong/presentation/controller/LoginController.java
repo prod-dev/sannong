@@ -32,21 +32,21 @@ public class LoginController {
     @Resource
     private IUserService userService;
 
-    private static final String SIGNIN_PAGE = "signin";
+    private static final String LOGIN_PAGE = "login";
     private static final String FORGOT_PASSWORD_PAGE = "forgotpassword";
     private static final String MY_APPLICATION_PAGE = "myapplication";
     private static final String APPLICANTS_PAGE = "applicants";
 
-    @RequestMapping(value = "signin", method = RequestMethod.GET)
-    public ModelAndView showSigninPage() {
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public ModelAndView showLoginPage() {
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("signin", new Object());
-        return new ModelAndView(SIGNIN_PAGE, models);
+        models.put("login", new Object());
+        return new ModelAndView(LOGIN_PAGE, models);
     }
 
-    @RequestMapping(value = "signin", method = RequestMethod.POST)
-    public ModelAndView signin() {
-        return showSigninPage();
+    @RequestMapping(value = "login", method = RequestMethod.POST)
+    public ModelAndView login() {
+        return showLoginPage();
     }
 
     @RequestMapping(value = "forgotpassword", method = RequestMethod.GET)
@@ -125,7 +125,7 @@ public class LoginController {
                 return new ModelAndView("redirect:" + APPLICANTS_PAGE);
             }
         }
-        return showSigninPage();
+        return showLoginPage();
     }
 
     @RequestMapping(value = "authentication-failure", method = RequestMethod.GET)
@@ -133,7 +133,7 @@ public class LoginController {
 
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("authentication", "authentication-failure");
-        return new ModelAndView(SIGNIN_PAGE, models);
+        return new ModelAndView(LOGIN_PAGE, models);
     }
 
     @RequestMapping(value = "access-denied", method = RequestMethod.GET)
@@ -141,7 +141,7 @@ public class LoginController {
 
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("access-denied", "access-denied");
-        return new ModelAndView(SIGNIN_PAGE, models);
+        return new ModelAndView(LOGIN_PAGE, models);
     }
 
 }

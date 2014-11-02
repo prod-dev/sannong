@@ -242,7 +242,7 @@ public class PersonalCenterController {
                 return new ModelAndView("redirect:" + "applicants");
             }
         }
-        return new ModelAndView("redirect:" + "signin");
+        return new ModelAndView("redirect:" + "login");
     }
 
     @RequestMapping("/exportCSV")

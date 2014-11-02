@@ -28,7 +28,7 @@
     <sec:http pattern="/**/*.ttf" security="none"/>
 
     <!--
-    <sec:http pattern="/signin.jsp" security="none"/>
+    <sec:http pattern="/login.jsp" security="none"/>
     <sec:http pattern="/home.jsp" security="none"/>
     <sec:http pattern="/forgotpassword" security="none"/>
     <sec:http pattern="/faq" security="none"/>
@@ -39,7 +39,7 @@
         <sec:intercept-url pattern="/usersManager" access="ROLE_PLATFORMADMIN"/>
         <sec:intercept-url pattern="/horizontalQuery" access="ROLE_PLATFORMADMIN"/>
 
-        <!--intercept-url pattern="/signin" access="ROLE_USER, ROLE_ANONYMOUS"/-->
+        <!--intercept-url pattern="/login" access="ROLE_USER, ROLE_ANONYMOUS"/-->
         <sec:intercept-url pattern="/myinfo" access="ROLE_USER, ROLE_ADMIN"/>
         <sec:intercept-url pattern="/mypassword" access="ROLE_USER, ROLE_ADMIN"/>
 
@@ -54,7 +54,7 @@
         <sec:intercept-url pattern="/applicants" access="ROLE_ADMIN"/>
 
 
-        <sec:form-login login-page="/signin"
+        <sec:form-login login-page="/login"
                     authentication-failure-url="/authentication-failure"
                     default-target-url="/authentication-success"/>
 

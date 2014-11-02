@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sannong.service.valueobject.Role;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +20,6 @@ import com.sannong.infrastructure.persistance.repository.AuthorityRepository;
 import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.infrastructure.util.Config;
 import com.sannong.service.IProjectService;
-import com.sannong.service.constents.ServiceConstents;
 
 /**
  * project service
@@ -26,6 +27,8 @@ import com.sannong.service.constents.ServiceConstents;
  */
 @Service
 public class ProjectServiceImpl implements IProjectService {
+
+    private static final Logger logger = Logger.getLogger(ProjectServiceImpl.class);
 
 	@Autowired
 	private UserRepository userRepository; 
@@ -96,7 +99,7 @@ public class ProjectServiceImpl implements IProjectService {
 			//step4: set authrities
 			Map<String,Object> authorityMap = new HashMap<String, Object>();
 			authorityMap.put("userName", application.getApplicant().getUserName());
-			authorityMap.put("authority", ServiceConstents.ROLE_USER);
+			authorityMap.put("authority", Role.ROLE_USER.toString());
 			authorityRepository.addUserAuthority(authorityMap);
 			
 			authorityMap.put("userName", application.getApplicant().getCellphone());
@@ -106,6 +109,7 @@ public class ProjectServiceImpl implements IProjectService {
 			
 		}
 		catch(Exception e){
+            logger.error(e.getMessage());
 			result = false;
 		}
 		

@@ -25,7 +25,7 @@
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a href="signin">登录</a>
+                <a href="login">登录</a>
             </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">个人中心<strong class="caret"></strong></a>

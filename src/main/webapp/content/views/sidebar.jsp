@@ -13,17 +13,17 @@
 </head>
 <body>
 <div class="list-group ">
-    <a href="#" class="list-group-item disabled">
+    <label class="list-group-item disabled">
         我的账户
-    </a>
+    </label>
     <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-        <a href="applicants" class="list-group-item ">用户管理</a>
+        <a href="applicants" class="list-group-item" id="applicants">用户管理</a>
     </sec:authorize>
     <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-        <a href="myapplication" class="list-group-item ">我的申请</a>
+        <a href="myapplication" class="list-group-item" id="myapplication">我的申请</a>
     </sec:authorize>
-    <a href="myinfo" class="list-group-item">我的信息</a>
-    <a href="mypassword" class="list-group-item">我的密码</a>
+    <a href="myinfo" class="list-group-item" id="myinfo">我的信息</a>
+    <a href="mypassword" class="list-group-item" id="mypassword">我的密码</a>
 </div>
 
 </body>

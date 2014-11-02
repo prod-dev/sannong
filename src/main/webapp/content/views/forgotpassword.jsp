@@ -50,7 +50,7 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-success" id="login">登录</button>
-                    <a href="signin"> 返回登录页面</a>
+                    <a href="login"> 返回登录页面</a>
                 </div>
 
                 <div class="errorDiv" style="display: none" status="${forgetPassword}"></div>
