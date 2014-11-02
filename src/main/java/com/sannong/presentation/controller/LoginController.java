@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -56,20 +57,44 @@ public class LoginController {
         return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
     }
 
+    @RequestMapping(value = "getNewPassword", method = RequestMethod.GET)
+    public @ResponseBody boolean getNewPassword(HttpServletRequest request) {
+        String cellphone = request.getParameter("cellphone");
+        String realName = request.getParameter("realName");
+
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("cellphone", cellphone);
+        paramMap.put("realName", realName);
+
+
+        return false;
+
+        /*
+
+        List<User> users = userService.getUserByCondition(paramMap);
+        if (users.isEmpty()) {
+            return false;
+        }else{
+            return true;
+        }
+        */
+    }
+
     @RequestMapping(value = "confirmpassword", method = RequestMethod.POST)
     public ModelAndView confirmPassword(HttpServletRequest request) throws Exception {
         Map<String, Object> models = new HashMap<String, Object>();
         Map<String, Object> map = new HashMap<String, Object>();
 
-        String mobile = request.getParameter("cellphone").toString();
+        String userRealName = request.getParameter("userRealName");
+        String cellphone = request.getParameter("cellphone").toString();
         String password = request.getParameter("password").toString();
 
-        map.put("username", mobile);
-        map.put("cellphone", mobile);
+        map.put("realName", userRealName);
+        map.put("cellphone", cellphone);
 
         List<User> users = userService.getUserByCondition(map);
         if (users.isEmpty()) {
-            models.put("forgetPassword", "no such user found!");
+            models.put("forgetPassword", "not_found!");
             return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
         } else {
             if (!request.getSession().getAttribute("regcode").toString().equals(password)) {
@@ -81,7 +106,7 @@ public class LoginController {
                     md5.encodePassword(request.getSession().getAttribute("regcode").toString(), user.getUserName());
             user.setPassword(encryptedNewPassword);
             userService.updatePassword(user);
-            models.put("forgetPassword", "password changed!");
+            models.put("forgetPassword", "password_changed");
             return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
         }
     }
@@ -118,6 +143,7 @@ public class LoginController {
         models.put("access-denied", "access-denied");
         return new ModelAndView(SIGNIN_PAGE, models);
     }
+
 }
 
 
