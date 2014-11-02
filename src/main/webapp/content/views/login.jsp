@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
 	<link href="content/static/css/sannong/login.css" rel="stylesheet">
+    <link href="content/static/css/sannong/validation.css" rel="stylesheet">
 </head>
 
 <body>
@@ -28,5 +29,13 @@
         </div>
     </div>
 </body>
+<!--
 <script src="content/static/js/lib/require-2.1.15.js" data-main="content/static/js/sannong/main"></script>
+-->
+<script src="content/static/js/lib/jquery-2.1.1.min.js"></script>
+<script src="content/static/js/lib/bootstrap-3.0.3.min.js"></script>
+<script src="content/static/js/lib/jquery.validate-1.13.1.js"></script>
+<script src="content/static/js/lib/additional-methods-1.13.1.js"></script>
+<script src="content/static/js/lib/messages_zh-1.13.1.js"></script>
+<script src="content/static/js/sannong/login/login.js"></script>
 </html>

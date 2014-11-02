@@ -21,6 +21,7 @@
     <sec:http pattern="/**/*.gif" security="none"/>
     <sec:http pattern="/**/*.css" security="none"/>
     <sec:http pattern="/**/*.js" security="none"/>
+    <sec:http pattern="/**/*.map" security="none"/>
 
     <sec:http pattern="/**/*.eot" security="none"/>
     <sec:http pattern="/**/*.woff" security="none"/>

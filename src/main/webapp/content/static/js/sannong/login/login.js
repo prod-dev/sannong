@@ -1,8 +1,9 @@
 /**
- * Created by apple on 10/21/14.
+ * Created by Bright Huang on 10/21/14.
  */
-define('signin', ['jquery', 'sannong', "bootstrap"], function ($, Sannong, Bootstrap) {
 
+//define('login', ['jquery', 'sannong', "bootstrap"], function ($, Sannong, Bootstrap) {
+(function($) {
     "use strict";
 
     var Login = {};
@@ -10,18 +11,18 @@ define('signin', ['jquery', 'sannong', "bootstrap"], function ($, Sannong, Boots
     Login.View = {};
 
     function validateForm(){
-        var validator = $("#signinForm").validate({
+        var validator = $("#loginForm").validate({
             rules: {
                 realName: {
                     required: true
                 },
-                username: {
+                j_username: {
                     required: true,
-                    isCellphone: true
+                    //isCellphone: true
                 },
-                password: {
+                j_password: {
                     required: true,
-                    minlength: 6
+                    //minlength: 6
                 }
             },
             messages: {
@@ -29,15 +30,18 @@ define('signin', ['jquery', 'sannong', "bootstrap"], function ($, Sannong, Boots
                     required: "请先填写姓名",
                     remote: "姓名或手机号码不存在"
                 },
-                username: {
+                j_username: {
                     required: "请先填写手机号码",
                     remote: "姓名或手机号码不存在",
                     isCellphone: "请正确填写您的手机号码"
                 },
-                password: {
+                j_password: {
                     required: "请输入密码",
                     minlength: $.validator.format("密码不能小于{0}个字 符")
                 }
+
+            },
+            success: function(){
 
             },
             errorPlacement:function(error,element) {
@@ -57,13 +61,13 @@ define('signin', ['jquery', 'sannong', "bootstrap"], function ($, Sannong, Boots
     }
 
     Login.Controller = {
-        signin : function(){
-            var signinJsonData = $('.form-signin').serialize();
+        login : function(){
+            var loginJsonData = $('.form-signin').serialize();
 
             $.ajax({
                 type: 'POST',
                 url: 'j_spring_security_check',
-                data: signinJsonData,
+                data: loginJsonData,
                 success: function(response){
                     if (response == "authentication-failure") {
 
@@ -119,9 +123,10 @@ define('signin', ['jquery', 'sannong', "bootstrap"], function ($, Sannong, Boots
     });
 
 
-    Sannong.Login = Login;
+    //Sannong.Login = Login;
     return Login;
-});
+})(jQuery);
+//});
 
 
 
