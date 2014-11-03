@@ -37,7 +37,6 @@ import com.sannong.service.IUserService;
 public class ProjectApplicationController {
     private static final String APPLICATION_PAGE = "projectapplication";
     private static final String COMPLETION_PAGE = "completion";
-    private static final int PAGE_SIZE = 10;
     
     @Resource
     private IProjectService projectService;
@@ -95,6 +94,7 @@ public class ProjectApplicationController {
     	String questionnaireNo = request.getParameter("questionnaireNo");
     	String cellphone = request.getParameter("cellphone");
     	String userName = null;
+    	String realName = null;
     	
     	if (cellphone != null) {
     		Map<String, Object> map = new HashMap<String, Object>();
@@ -103,6 +103,7 @@ public class ProjectApplicationController {
     		
     		if (userList != null &&  userList.get(0) != null) {
     			userName = userList.get(0).getUserName();
+    			realName = userList.get(0).getRealName();
     		}
     	} else if (StringUtils.isNullOrEmpty(userName)) {
     	    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -121,6 +122,7 @@ public class ProjectApplicationController {
     	Answer answer = projectService.getQuestionnaireAndAnswerByCondition(map);
     	User user = new User();
     	user.setUserName(userName);
+    	user.setRealName(realName);
     	answer.setApplicant(user);
     	
     	return answer;

@@ -2,6 +2,10 @@ $(function() {
 	show(1);
 })
 
+function edit(userName){
+	location.href = "myinfo?userName=" + userName;
+}
+
 function changeContent() {
 	var searchKey = $("#searchKey").text();
 	var dropDown1 = $("#dropdown1").text();
@@ -75,6 +79,8 @@ function showQuestionnaireAnswers(questionnaireNo, cellphone) {
 
 			if (data.applicant != null) {
 				$("#userName").val(data.applicant.userName);
+				$("#userRealName").text(data.applicant.realName);
+				$("#userTextShow").show();
 			}
 			Handlebars.registerHelper("fromOne", function(index) {
 				return index + 1;
@@ -123,6 +129,7 @@ function showQuestionnaireAnswers(questionnaireNo, cellphone) {
 
 function show(currentPageIndex) {
 	var parameter = "pageIndex=" + currentPageIndex;
+	$("#userTextShow").hide();
 
 	$.ajax({
 		type : "get",

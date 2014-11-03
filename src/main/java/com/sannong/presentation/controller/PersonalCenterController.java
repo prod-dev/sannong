@@ -1,11 +1,8 @@
 package com.sannong.presentation.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sannong.infrastructure.dataexport.CsvExporter;
 import com.sannong.infrastructure.persistance.entity.Answer;
-import com.sannong.infrastructure.persistance.entity.Application;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.util.MyConfig;
@@ -122,15 +117,17 @@ public class PersonalCenterController {
 	}
 
     @RequestMapping(value = "myinfo")
-    public ModelAndView myInfo() {
+    public ModelAndView myInfo(HttpServletRequest request) {
 
     	Map<String, Object> models = new HashMap<String, Object>();
-        String userName;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            userName = ((UserDetails) principal).getUsername();
-        } else {
-            userName = principal.toString();
+        String userName = request.getParameter("userName");
+        if (userName == null){
+        	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        	if (principal instanceof UserDetails) {
+        		userName = ((UserDetails) principal).getUsername();
+        	} else {
+        		userName = principal.toString();
+        	}
         }
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userName", userName);

@@ -37,7 +37,12 @@
                 <button type="submit" class="btn btn-success" id="retrieve">查询</button>
                 <button type="button" class="btn btn-sm btn-primary" onclick="exportCSV();">导出问卷调查结果</button>
             </div><!-- /.row -->
-
+            
+            <div id="userTextShow" style="display:none; float:right; text-align:right">
+                <div style="float:left;color:#F75000" id="userRealName"></div>
+                <div style="float:left">的调查问卷答案</div>
+            </div>
+            
             <br/>
             <div id="applicantsTable">
                 <table class="table table-striped table-bordered table-hover">
@@ -49,7 +54,9 @@
 	                    <th>手机号码</th>
 	                    <th> 工作单位 </th>
 	                    <th> 职位</th>
-	                    <th> </th>
+	                    <th>电子邮箱</th>
+	                    <th></th>
+	                    <th></th>
 	                </tr>
 	                </thead>
 	                <tbody id="userList"> </tbody>
@@ -67,6 +74,7 @@
 	            </ul>
 	            <form id="answerForm" role="form" action="updateAnswers" method="post">
 	            	<div id="questionList"></div>
+	            	<input type="hidden" name="answerStatus" id="answerStatus" > 
 	            	<input type="hidden" name="questionnaireNo" id="questionnaireNo" >
 	            	<input type="hidden" name="applicant.userName" id="userName" >
 	            </form>
@@ -116,6 +124,10 @@
             <td id="cell{{addOne @index}}">{{cellphone}}</td>
             <td>{{company}}</td>
             <td>{{jobTitle}}</td>
+            <td>{{mailbox}}</td>
+            <td>
+                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="edit({{userName}})">编辑</a>
+            </td>
             <td>
                 <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="showQuestionnaireAnswers(1,{{cellphone}})">问卷调查</a>
             </td>

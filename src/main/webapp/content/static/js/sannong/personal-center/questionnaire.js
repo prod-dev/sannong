@@ -2,6 +2,22 @@ $(function(){
     showQuestions(1);
 })
 
+$("#q1").click(function(){
+	showQuestions(1);
+})
+$("#q1").click(function(){
+	showQuestions(2);
+})
+$("#q1").click(function(){
+	showQuestions(3);
+})
+$("#q1").click(function(){
+	showQuestions(4);
+})
+$("#q1").click(function(){
+	showQuestions(5);
+})
+
 function showQuestions(questionnaireNo){
     
 	$("#questionnaireNo").val(questionnaireNo);
@@ -62,7 +78,7 @@ function showQuestions(questionnaireNo){
         			if (currentQuestionnaireNo != 5){
         				var nextQuestionnaireNo = currentQuestionnaireNo+1;
         				for (var i=nextQuestionnaireNo;i<6;i++){
-            				$("#q" + i).hide();
+            				//$("#q" + i).hide();
         				}
         			}
         		}else if(currentQuestionnaireNo < latestQuestionnaireNo && saveOrSubmit == 0){
@@ -71,13 +87,13 @@ function showQuestions(questionnaireNo){
         			if (latestQuestionnaireNo != 5){
         				var nextQuestionnaireNo = latestQuestionnaireNo+1;
         				for (var i=nextQuestionnaireNo;i<6;i++){
-        					$("#q" + i).hide();
+        					//$("#q" + i).hide();
         				}
         			}
         		}else if (currentQuestionnaireNo == 1){
         			//之后第二个开始不可用
         			for (var i=3;i<6;i++){
-        				$("#q" + i).hide();
+        				//$("#q" + i).hide();
     				}
         		}
         		//else if (((currentQuestionnaireNo == latestQuestionnaireNo) $$ (saveOrSubmit == 1)) || ((currentQuestionnaireNo < latestQuestionnaireNo) $$ (saveOrSubmit == 1))){
