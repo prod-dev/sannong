@@ -5,6 +5,7 @@ $(function(){
 function showQuestions(questionnaireNo){
     
 	if ($("#q" + questionnaireNo).parent().hasClass("disabled")) {
+		$("#questionnaire").empty();
 		return false;
 	}
 	
@@ -48,7 +49,7 @@ function showQuestions(questionnaireNo){
     			if (currentQuestionnaireNo != 5){
     				var nextQuestionnaireNo = currentQuestionnaireNo+1;
     				for (var i=nextQuestionnaireNo;i<6;i++){
-    					if ($("#q" + i).parent()..hasClass("active")){
+    					if ($("#q" + i).parent().hasClass("active")){
     						$("#q" + i).parent().removeClass("active").addClass("disabled");
     					}else{
     						$("#q" + i).parent().addClass("disabled");
