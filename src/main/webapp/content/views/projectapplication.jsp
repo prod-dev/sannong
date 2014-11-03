@@ -88,7 +88,7 @@
                            </div>
                            <div class="form-group form-inline">
                                <input type="text" class="form-control" id="cellphone" name="applicant.cellphone" placeholder="手机号码" autocomplete="off">
-                               <button type="button" id="action-send-code" name="action-send-code" data-url="regcode" data-type="0" class="btn btn-sm btn-warning" value="获取验证码">获取验证码</button>
+                               <input  type="button" id="action-send-code" name="action-send-code" data-url="regcode" data-type="0" class="btn btn-sm btn-warning" value="获取验证码">
                                <input type="text" class="form-control" id="validationCode" name="sms.smsValidationCode" placeholder="验证码" autocomplete="off">
                                <div class="errorDiv"></div>
                            </div>
