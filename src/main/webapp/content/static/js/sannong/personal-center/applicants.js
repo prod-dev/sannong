@@ -45,7 +45,8 @@ $("#retrieve").click(function() {
 
 function showQuestionnaireAnswers(questionnaireNo, cellphone) {
 	$("#questionnaireNo").val(questionnaireNo);
-
+    $("#answerStatus").val(questionnaireNo + '1');
+	
 	var userCellphone = cellphone;
 	if (userCellphone != "") {
 		$("#cellphone").val(userCellphone);
