@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sannong.infrastructure.util.PasswordGenerator;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -56,8 +57,6 @@ public class ProjectApplicationController {
     @RequestMapping(value = "apply", method = RequestMethod.POST)
     public ModelAndView apply(@ModelAttribute("applicationForm") Application application) throws Exception {
 
-    	application.getApplicant().setUserName(application.getApplicant().getCellphone());
-    	
         Boolean result = projectService.projectApplication(application);
          
         DTO dto = new DTO();

@@ -267,8 +267,7 @@
             });
 
             $("#action-send-code").click(function(event){
-               //  if (validateForm().form() == true||validateForm().form()== false){
-               if(true){
+                if (validateForm().form() == true){
                     var options = {
                         url: 'regcode',
                         type: 'GET',

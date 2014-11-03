@@ -7,6 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sannong.domain.valueobject.RoleType;
+import com.sannong.infrastructure.util.PasswordGenerator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ import com.sannong.infrastructure.persistance.repository.QuestionnaireRepository
 import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.infrastructure.util.Config;
 import com.sannong.service.IProjectService;
-import com.sannong.service.constents.ServiceConstents;
+
 
 /**
  * project service
@@ -58,8 +60,8 @@ public class ProjectServiceImpl implements IProjectService {
 	}
 	
 	/**
-	 *  update answers to answer fields relatively
-	 * @param application
+	 * Update answers to answer fields relatively
+	 * @param answer
 	 * @author William Zhang
 	 */
 	private void setAnswers(Answer answer) {
@@ -125,7 +127,25 @@ public class ProjectServiceImpl implements IProjectService {
 			Timestamp createTime = new Timestamp(System.currentTimeMillis());
 			application.getApplicant().setUpdateTime(createTime);
 			application.getApplicant().setCreateTime(createTime);
+
+            String password = PasswordGenerator.generatePassword(6);
+            String username = application.getApplicant().getCellphone();
+            String encryptedPassword = PasswordGenerator.encryptPassword(password, username);
+
+            application.getApplicant().setPassword(encryptedPassword);
+            application.getApplicant().setUserName(username);
+
 			userRepository.addUserInfo(application.getApplicant());
+
+
+            // set authrities
+            Map<String, Object> authorityMap = new HashMap<String, Object>();
+            authorityMap.put("userName", username);
+            authorityMap.put("authority", RoleType.ROLE_USER.toString());
+            authorityRepository.addUserAuthority(authorityMap);
+
+
+
 
 			//  set answers to answer object
 			Answer answer = new Answer();
@@ -147,21 +167,14 @@ public class ProjectServiceImpl implements IProjectService {
 			application.setApplicationDate(createTime);
 			applicationRepository.addProjectApplicationInfo(application);
 
-			// set authrities
-			Map<String, Object> authorityMap = new HashMap<String, Object>();
-			authorityMap.put("userName", application.getApplicant()
-					.getUserName());
-			authorityMap.put("authority", ServiceConstents.ROLE_USER);
-			authorityRepository.addUserAuthority(authorityMap);
 
-			/*authorityMap.put("userName", application.getApplicant()
-					.getCellphone());*/
-			authorityRepository.addUserAuthority(authorityMap);
 			
 			// email admin
 			emailAdmin();
 		} catch (Exception e) {
-			
+
+            logger.error(e.getMessage());
+
 			result = false;
 		}
 		

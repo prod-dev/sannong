@@ -1,9 +1,9 @@
-package com.sannong.service.valueobject;
+package com.sannong.domain.valueobject;
 
 /**
  * create service constants
  * @author william zhang
  */
-public enum Role {
+public enum RoleType {
 	ROLE_USER, ROLE_ADMIM;
 }
