@@ -23,7 +23,30 @@
     <div class="row clearfix">
         <div class="col-md-8 column">
            <form id="applicationForm" role="form" action="apply" method="post">
-               <div id="questionnaire"></div>
+               <div id="questionnaire">
+                   <script id="question-template" type="text/x-handlebars-template">
+                       {{#questions}}
+                       <div class="J_group_radio">
+                           <h5>{{fromOne @index}}. {{questionContent}}</h5>
+                           <label class="radio-inline">
+                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio31" value="{{questionNumber}}:a"> {{option1}}
+                           </label>
+                           <label class="radio-inline">
+                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio32" value="{{questionNumber}}:b"> {{option2}}
+                           </label>
+                           <label class="radio-inline">
+                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio33" value="{{questionNumber}}:c"> {{option3}}
+                           </label>
+                           <label class="radio-inline">
+                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio34" value="{{questionNumber}}:d"> {{option4}}
+                           </label>
+                           <label class="radio-inline">
+                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio35" value="{{questionNumber}}:e"> {{option5}}
+                           </label>
+                       </div>
+                       {{/questions}}
+                   </script>
+               </div>
                <hr>
                <div class="row">
                    <div class="col-xs-1 col-sm-1"></div>
@@ -71,7 +94,7 @@
                            </div>
                        </div>
 
-                       <button type="button" id="applicationSubmit" class="btn btn-default">提交</button>
+                       <button type="button" id="applicationSubmit" class="btn btn-default" disabled="disabled">提交</button>
 
                        <!-- Button trigger modal -->
                        <button type="button" id="myModalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none">
@@ -143,27 +166,6 @@
 <script src="content/static/js/sannong/projectapplication.js"></script>
 <script src="content/static/js/sannong/personal-center/questionnaire.js"></script>
 
-<script id="question-template" type="text/x-handlebars-template">
-    {{#questions}}
-	    <div class="J_group_radio">
-	        <h5>{{fromOne @index}}. {{questionContent}}</h5>
-	        <label class="radio-inline">
-	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio31" value="{{questionNumber}}:a"> {{option1}}
-	        </label>
-	        <label class="radio-inline">
-	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio32" value="{{questionNumber}}:b"> {{option2}}
-	        </label>
-	        <label class="radio-inline">
-	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio33" value="{{questionNumber}}:c"> {{option3}}
-	        </label>
-	        <label class="radio-inline">
-	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio34" value="{{questionNumber}}:d"> {{option4}}
-	        </label>
-	        <label class="radio-inline">
-	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio35" value="{{questionNumber}}:e"> {{option5}}
-	        </label>
-	    </div>
-    {{/questions}}
-</script>
+
 </body>
 </html>
