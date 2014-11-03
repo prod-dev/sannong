@@ -156,16 +156,4 @@
             </if>  
        	</where>
     </select>
-
-    <!-- 一对一，没有N+1问题 -->
-    <resultMap id="rs2" type="Application">
-        <id property="applicationId" column="application_id"/>
-        <result property="questionnaireAnswer" column="questionnaire_answer"/>
-        <association property="applicant" column="applicant_id" javaType="User">
-            <id property="userId" column="user_id"/>
-            <result property="realName" column="user_name"/>
-            <result property="cellphone" column="cellphone"/>
-            <result property="companyAddress" column="company_address"/>
-        </association>
-    </resultMap>
 </mapper>

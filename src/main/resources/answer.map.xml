@@ -50,6 +50,41 @@
         	select questionnaire1_answers,questionnaire2_answers,questionnaire3_answers,questionnaire4_answers,questionnaire5_answers,answer_status from answers where username=#{userName}
         ]]>
     </select>
-	
+
+    <resultMap id="rs2" type="Answer">
+        <id property="answerId" column="answer_id"/>
+        <result property="questionnaire1Answers" column="questionnaire1_answers"/>
+        <result property="questionnaire2Answers" column="questionnaire2_answers"/>
+        <result property="questionnaire3Answers" column="questionnaire3_answers"/>
+        <result property="questionnaire4Answers" column="questionnaire4_answers"/>
+        <result property="questionnaire5Answers" column="questionnaire5_answers"/>
+        <association property="applicant" column="username" javaType="User">
+            <id property="userId" column="user_id"/>
+            <result property="realName" column="user_name"/>
+            <result property="userName" column="username"/>
+            <result property="cellphone" column="cellphone"/>
+            <result property="companyAddress" column="company_address"/>
+        </association>
+    </resultMap>
+    <select id="getAnswer"  parameterType="Map"  resultMap="rs2">
+        select u.user_name,
+        u.username,
+        u.cellphone,
+        u.company_address,
+        a.questionnaire1_answers
+        from users as u inner join answers as a on  u.username = a.username
+        <where>
+            <if test="realName != null">
+                user_name like CONCAT('%',#{realName},'%')
+            </if>
+            <if test="cellphone != null">
+                cellphone like CONCAT('%',#{cellphone},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getQuestionContent"  parameterType="Long" resultType="String">
+        select question_content from questions where question_id = #{questionId}
+    </select>
 </mapper>
 

@@ -1,14 +1,10 @@
 package com.sannong.infrastructure.dataexport;
 
-import com.sannong.service.IUserService;
-import org.apache.ibatis.jdbc.Null;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import com.sannong.infrastructure.persistance.entity.Answer;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.Iterator;
+import java.util.List;
 
 
 /**
@@ -18,10 +14,38 @@ import java.io.*;
 
 public class CsvExporter {
 
-    //解析答案
+    private static final int questionNumbers = 55;
+
+    //export to csv
+    public static void doExport(HttpServletResponse response,List<Answer> answer,String header) throws IOException {
+        response.setContentType("application/csv");
+        response.setCharacterEncoding("GB2312");
+        response.setHeader("Content-disposition", "attachment;filename=answer.csv");
+        PrintWriter w = response.getWriter();
+
+        w.write("序号,姓名,电话,地址,"+header+"\n");
+        Iterator it = answer.iterator();
+        int serialNumber = 1;
+        while(it.hasNext()){
+            Answer app = (Answer) it.next();
+            String answers = toAnalyseString(dealString(app.getQuestionnaire1Answers()))+ "," +toAnalyseString(dealString(app.getQuestionnaire2Answers()))+ ","
+                    +toAnalyseString(dealString(app.getQuestionnaire3Answers()))+ "," +toAnalyseString(dealString(app.getQuestionnaire4Answers()))+ "," +toAnalyseString(dealString(app.getQuestionnaire5Answers()));
+            w.write( serialNumber + ","  +app.getApplicant().getRealName() + ","+ app.getApplicant().getCellphone()  + ","+ app.getApplicant().getCompanyAddress() + "," + CsvExporter.toAnalyseString(answers) + "\n");
+            serialNumber++;
+            w.flush();
+        }
+        w.close();
+    }
+
+    //deal the null String just use in test beacause in real environment getQuestionnaire1Answers can't be null
+    public  static String dealString(String answer){
+        return (answer == null ?"":answer);
+    }
+
+    //analyse answer String
     public  static  String  toAnalyseString(String  answer){
-            String ans = answer.replaceAll("Q\\d:","");
-            String a = ans.replace(";",",");
-            return  a;
+        String ans = answer.replaceAll("Q\\d:","");
+        String a = ans.replace(";",",");
+        return  a;
     }
 }
