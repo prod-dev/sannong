@@ -182,6 +182,7 @@
 
             });
         },
+              
         addProvinceSelections: function(provinces) {
             var provinceSelect = $('#provinceSelect');
             $('#provinceSelect option').remove();
@@ -221,6 +222,18 @@
                 districtSelect.append(option);
             }
          },
+        timeRemained:0,
+       updateTimeLabel:function(duration) {
+                 projectApplication.Controller.timeRemained = duration;
+                var timer = setInterval(function() {
+                    $("#action-send-code").val( projectApplication.Controller.timeRemained + '秒后重新发送');
+                     projectApplication.Controller.timeRemained -= 1;
+                    if ( projectApplication.Controller.timeRemained == -1) {
+                        clearInterval(timer);
+                        $("#action-send-code").val('重新发送').removeAttr('disabled').removeClass("gray");
+                    }
+                }, 1000);
+                },        
         addEventListener: function(){
             $("#provinceSelect").change(function(event){
                 addCities();
@@ -254,19 +267,25 @@
             });
 
             $("#action-send-code").click(function(event){
-                if (validateForm().form() == true){
+               //  if (validateForm().form() == true||validateForm().form()== false){
+               if(true){
                     var options = {
                         url: 'regcode',
                         type: 'GET',
                         data: {
                             mobile: $("#cellphone").val(),
-                            smstype: $("#action-send-code").attr("data-type")
+                            smstype: $(this).attr("data-type")
                         },
                         success: function(data){
-
+                           if (data == true) {
+                              projectApplication.Controller.updateTimeLabel(60);                          
+                         } else {
+                            $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
+                        }
+                        
                         },
                         fail: function(data){
-
+                         $(this).val('重新发送').removeAttr('disabled').removeClass("gray");
                         }
                     }
                     projectApplication.Controller.ajaxRequest(options);
