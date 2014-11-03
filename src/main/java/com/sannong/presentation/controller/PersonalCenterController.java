@@ -1,5 +1,6 @@
 package com.sannong.presentation.controller;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,6 +11,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sannong.infrastructure.dataexport.CsvExporter;
+import com.sannong.service.IAnswerService;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -40,6 +43,7 @@ public class PersonalCenterController {
     private static final String MY_PASSWORD_PAGE = "mypassword";
     private static final String APPLICANTS_PAGE = "applicants";
     private static final String COMPLETION_PAGE = "completion";
+    private static final long questionNumbers = 55;
 
     @Resource
     private IUserService userService;
@@ -47,6 +51,8 @@ public class PersonalCenterController {
     private ISmsService smsService;
     @Resource
     private IProjectService projectService;
+    @Resource
+    private IAnswerService answerService;
 
 
     @RequestMapping(value = "myapplication", method = RequestMethod.GET)
@@ -298,5 +304,22 @@ public class PersonalCenterController {
         Map<String, Object> models = new HashMap<String, Object>();
         models.put(COMPLETION_PAGE, new Object());
         return new ModelAndView(COMPLETION_PAGE, models);
+    }
+    @RequestMapping("/exportCSV")
+    public void exportAll(HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        String cellphone = request.getParameter("cellphone");
+        String realName = request.getParameter("realName");
+
+        map.put("cellphone", cellphone);
+        map.put("realName", realName);
+
+        List<Answer> answer = answerService.getAnswer(map);
+        StringBuffer head = new StringBuffer();
+        for(long i =1;i<=questionNumbers;i++){
+            head.append(answerService.getQuestionContent(i)+",");
+        }
+        CsvExporter.doExport(response, answer, head.toString());
     }
 }

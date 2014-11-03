@@ -156,4 +156,20 @@
 	    </div>
     {{/questions}}
 </script>
+<script type="application/javascript">
+    //export to csv
+    function exportCSV() {
+        if(confirm("确定要保存到本地CVS文件?")){
+            window.location.href="./exportCSV";
+        }else{
+            return false;
+        }
+
+    }
+
+    $(function(){
+        show(1);
+    })
+
+</script>
 </html>
