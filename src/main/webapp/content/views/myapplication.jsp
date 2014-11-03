@@ -20,11 +20,11 @@
         <div class="col-md-7 column">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="javascript:void(0)" role="tab" data-toggle="tab" id="q1">项目状态</a></li>
-                <li class="disabled" ><a href="javascript:void(0)" role="tab" data-toggle="tab" id="q2">问卷题集二</a></li>
-                <li><a href="javascript:void(0)" role="tab" data-toggle="tab" id="q3">问卷题集三</a></li>
-                <li><a href="javascript:void(0)" orole="tab" data-toggle="tab" id="q4">问卷题集四</a></li>
-                <li><a href="javascript:void(0)" role="tab" data-toggle="tab" id="q5">问卷题集五</a></li>
+                <li class="active"><a href="javascript:void(0)" onclick="showQuestions(1)" role="tab" data-toggle="tab" id="q1">项目状态</a></li>
+                <li><a href="javascript:void(0)" onclick="showQuestions(2)" role="tab" data-toggle="tab" id="q2">问卷题集二</a></li>
+                <li><a href="javascript:void(0)" onclick="showQuestions(3)" role="tab" data-toggle="tab" id="q3">问卷题集三</a></li>
+                <li><a href="javascript:void(0)" onclick="showQuestions(4)" role="tab" data-toggle="tab" id="q4">问卷题集四</a></li>
+                <li><a href="javascript:void(0)" onclick="showQuestions(5)" role="tab" data-toggle="tab" id="q5">问卷题集五</a></li>
             </ul>
 
             <!-- Tab panes -->
