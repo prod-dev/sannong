@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.sannong.infrastructure.persistance.entity.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.persistance.repository.QuestionnaireRepository;
+import com.sannong.infrastructure.persistance.repository.AnswerRepository;
 import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.service.IUserService;
 
@@ -18,10 +17,8 @@ public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	private UserRepository userRepository;
-	
 	@Autowired
-	private QuestionnaireRepository questionnaireRepository;
-	
+	private AnswerRepository answerRepository;
 
 	public boolean loginValidation(String phoneNumber, String password) {
 		boolean result = false;
@@ -91,21 +88,11 @@ public class UserServiceImpl implements IUserService{
 			}		 
 	}
 
-	public String getAnswerByCellphone(String cellphone) throws Exception {
-		return questionnaireRepository.getAnswerByCellphone(cellphone);
-	}
-	
 	public List<User> getUserByNameOrCellphone(Map<String, Object> map) {
 		return userRepository.getUserByNameOrCellphone(map);
 	}
 
-
 	public String getUserTotalCount(Map<String, Object> map) throws Exception {
 		return userRepository.getUserTotalCount(map);
 	}
-
-    @Override
-    public List<Application> getAnswer(Map<String, Object> map) {
-        return userRepository.getAnswer(map);
-    }
 }

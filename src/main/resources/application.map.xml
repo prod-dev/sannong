@@ -17,7 +17,7 @@
 
 	<insert id="addProjectApplicationInfo" parameterType="Application">
      	<![CDATA[
-     		insert into applications(applicant_id,questionnaire_answer,application_date) values(#{applicant.userId},#{questionnaireAnswer},#{applicationDate})
+     		insert into applications(applicant_id,application_date) values(#{applicant.userId},#{applicationDate})
      	]]>
 	</insert>
 </mapper>

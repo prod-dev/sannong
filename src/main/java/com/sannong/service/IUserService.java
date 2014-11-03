@@ -3,7 +3,6 @@ package com.sannong.service;
 import java.util.List;
 import java.util.Map;
 
-import com.sannong.infrastructure.persistance.entity.Application;
 import com.sannong.infrastructure.persistance.entity.User;
 
 public interface IUserService {
@@ -26,9 +25,5 @@ public interface IUserService {
 
     public boolean updatePassword(User user) throws Exception;
     
-    public String getAnswerByCellphone(String cellphone) throws Exception;
-    
     public String getUserTotalCount(Map<String,Object> map) throws Exception;
-
-    List<Application> getAnswer(Map<String, Object> map);
 }

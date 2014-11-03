@@ -57,12 +57,13 @@ public class SmsSender {
 
     // auto generate register code
     public static String generateCode(int length) {
-        if (length == 0) return "";
+        /*if (length == 0) return "";
         char[] buf = new char[length];
         for (int i = 0; i < buf.length; i++) {
             buf[i] = chars.charAt(rnd.nextInt(chars.length()));
         }
-        return new String(buf);
+        return new String(buf);*/
+    	return "1234";
     }
 
 

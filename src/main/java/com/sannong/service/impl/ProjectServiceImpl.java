@@ -7,19 +7,23 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.sannong.service.valueobject.Role;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sannong.infrastructure.mail.EmailSender;
+import com.sannong.infrastructure.persistance.entity.Answer;
 import com.sannong.infrastructure.persistance.entity.Application;
+import com.sannong.infrastructure.persistance.entity.Question;
 import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.infrastructure.persistance.repository.AnswerRepository;
 import com.sannong.infrastructure.persistance.repository.ApplicationRepository;
 import com.sannong.infrastructure.persistance.repository.AuthorityRepository;
+import com.sannong.infrastructure.persistance.repository.QuestionnaireRepository;
 import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.infrastructure.util.Config;
 import com.sannong.service.IProjectService;
+import com.sannong.service.constents.ServiceConstents;
 
 /**
  * project service
@@ -32,12 +36,14 @@ public class ProjectServiceImpl implements IProjectService {
 
 	@Autowired
 	private UserRepository userRepository; 
-	
 	@Autowired
 	private ApplicationRepository applicationRepository;
-	
 	@Autowired
 	private AuthorityRepository authorityRepository;
+	@Autowired
+	private QuestionnaireRepository questionnaireRepository;
+	@Autowired
+	private AnswerRepository answerRepository;
 	
 	public boolean checkUserNameAvailable(HttpServletRequest request)
 	{
@@ -51,6 +57,56 @@ public class ProjectServiceImpl implements IProjectService {
 				return false;
 	}
 	
+	/**
+	 *  update answers to answer fields relatively
+	 * @param application
+	 * @author William Zhang
+	 */
+	private void setAnswers(Answer answer) {
+		
+		int questionnaireNo = answer.getQuestionnaireNo();
+		StringBuffer sb = new StringBuffer();
+
+		for (String answerString : answer.getAnswers()) {
+			sb.append(answerString + ";");
+		}
+		String answers = sb.toString().substring(0,
+				sb.toString().length() - 1);
+		
+		switch (questionnaireNo) {
+			case 1:
+				answer.setQuestionnaire1Answers(answers);
+				break;
+			case 2:
+				answer.setQuestionnaire2Answers(answers);
+				break;
+			case 3:
+				answer.setQuestionnaire3Answers(answers);
+				break;
+			case 4:
+				answer.setQuestionnaire4Answers(answers);
+				break;
+			case 5:
+				answer.setQuestionnaire5Answers(answers);
+				break;
+			default:
+				answer.setQuestionnaire1Answers(answers);
+				break;
+		}
+	}
+	
+    public boolean updateAnswers(Answer answer) throws Exception {
+		
+		boolean result = true;
+		setAnswers(answer);
+		try {
+			answerRepository.updateAnswers(answer);
+		} catch (Exception e) {
+			result = false;
+		}
+		return result;
+	}
+	
 	public void emailAdmin()
 	{
 		Config cfg=new Config();
@@ -59,61 +115,78 @@ public class ProjectServiceImpl implements IProjectService {
 		EmailSender.sendMail(email, "new application",content, false);
 	
 	}
-	
 
+	public boolean projectApplication(Application application) throws Exception {
 
-	public boolean projectApplication(Application application) {
-		
 		boolean result = true;
-		
-		try{
-			//insert user information begin
-			Timestamp createTime = new Timestamp(System.currentTimeMillis()); 
+
+		try {
+			// insert user information begin
+			Timestamp createTime = new Timestamp(System.currentTimeMillis());
 			application.getApplicant().setUpdateTime(createTime);
 			application.getApplicant().setCreateTime(createTime);
 			userRepository.addUserInfo(application.getApplicant());
+
+			//  set answers to answer object
+			Answer answer = new Answer();
+			answer.setAnswers(application.getAnswers());
+			answer.setQuestionnaireNo(1);  //project application just have questionnaire number one
+			answer.setApplicant(application.getApplicant());
+			answer.setAnswerStatus(11);  //the first applicantion submit
+			setAnswers(answer);
 			
+			// set answers info
+			answerRepository.addAnswers(answer);
+			
+			//retrieve applicant id and add to application
+			Long applicantId = userRepository.getIdByCellphone(application
+					.getApplicant().getCellphone());
+			application.getApplicant().setUserId(applicantId);
+
+			// set application info
+			application.setApplicationDate(createTime);
+			applicationRepository.addProjectApplicationInfo(application);
+
+			// set authrities
+			Map<String, Object> authorityMap = new HashMap<String, Object>();
+			authorityMap.put("userName", application.getApplicant()
+					.getUserName());
+			authorityMap.put("authority", ServiceConstents.ROLE_USER);
+			authorityRepository.addUserAuthority(authorityMap);
+
+			/*authorityMap.put("userName", application.getApplicant()
+					.getCellphone());*/
+			authorityRepository.addUserAuthority(authorityMap);
 			
 			// email admin
 			emailAdmin();
-			//insert user information end
+		} catch (Exception e) {
 			
-			//insert application information begin
-			//step1: set answers
-			StringBuffer sb = new StringBuffer();
-			for (String answer : application.getAnswers()) {
-				sb.append(answer + ";");
-			}
-			String answers = sb.toString().substring(0, sb.toString().length() - 1);
-			application.setQuestionnaireAnswer(answers);
-			
-			//step2: retrieve applicant id and add to application
-			Long applicantId = userRepository.getIdByCellphone(application.getApplicant().getCellphone());
-			application.getApplicant().setUserId(applicantId);
-			
-			//setp3: set application date time
-			application.setApplicationDate(createTime);
-			
-			applicationRepository.addProjectApplicationInfo(application);
-			
-			//step4: set authrities
-			Map<String,Object> authorityMap = new HashMap<String, Object>();
-			authorityMap.put("userName", application.getApplicant().getUserName());
-			authorityMap.put("authority", Role.ROLE_USER.toString());
-			authorityRepository.addUserAuthority(authorityMap);
-			
-			authorityMap.put("userName", application.getApplicant().getCellphone());
-			authorityRepository.addUserAuthority(authorityMap);
-			//insert application information end
-			
-			
-		}
-		catch(Exception e){
-            logger.error(e.getMessage());
 			result = false;
 		}
 		
 		return result;
 	}
-
+    public Answer getQuestionnaireAndAnswerByCondition(Map<String,Object> map) {
+		
+		int questionnaireNo = 1;
+		String userName = "";
+		
+		if (map.get("questionnaireNo") != null){
+			questionnaireNo = Integer.parseInt(map.get("questionnaireNo").toString());
+		}
+		List<Question> questions = questionnaireRepository.getQuestionnaireByNo(questionnaireNo);
+		
+		if (map.get("userName") != null){
+			userName = map.get("userName").toString();
+		}
+		
+		Answer answer = answerRepository.getAnswerByUserName(userName);
+		if (answer == null){
+			answer = new Answer();
+		}
+		answer.setQuestions(questions);
+		
+		return answer; 
+	}
 }

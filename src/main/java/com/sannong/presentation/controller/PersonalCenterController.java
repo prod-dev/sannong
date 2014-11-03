@@ -3,14 +3,15 @@ package com.sannong.presentation.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.sannong.infrastructure.dataexport.CsvExporter;
-import com.sannong.infrastructure.persistance.entity.Application;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,9 +27,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sannong.infrastructure.dataexport.CsvExporter;
+import com.sannong.infrastructure.persistance.entity.Answer;
+import com.sannong.infrastructure.persistance.entity.Application;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.util.MyConfig;
+import com.sannong.service.IProjectService;
 import com.sannong.service.ISmsService;
 import com.sannong.service.IUserService;
 
@@ -39,11 +44,14 @@ public class PersonalCenterController {
     private static final String MY_INFO_PAGE = "myinfo";
     private static final String MY_PASSWORD_PAGE = "mypassword";
     private static final String APPLICANTS_PAGE = "applicants";
+    private static final String COMPLETION_PAGE = "completion";
 
     @Resource
     private IUserService userService;
     @Resource
     private ISmsService smsService;
+    @Resource
+    private IProjectService projectService;
 
 
     @RequestMapping(value = "myapplication", method = RequestMethod.GET)
@@ -218,16 +226,6 @@ public class PersonalCenterController {
         return new ModelAndView(MY_PASSWORD_PAGE, models);
     }
 
-    @RequestMapping(value = "questionnaireanswer", method = RequestMethod.GET)
-    public ModelAndView getAnswerByUserName(HttpServletRequest request) throws Exception {
-    	
-    	String answer = userService.getAnswerByCellphone(request.getParameter("cellphone"));
-    	
-    	Map<String, Object> models = new HashMap<String, Object>();
-    	models.put("answer", answer);
-        return new ModelAndView("questionnaireanswer", models);
-    }
-
     @RequestMapping(value = "myaccount", method = RequestMethod.GET)
     public ModelAndView loginMyAccount(HttpServletRequest request) throws Exception {
         Collection<SimpleGrantedAuthority> authorities =
@@ -245,7 +243,7 @@ public class PersonalCenterController {
         return new ModelAndView("redirect:" + "login");
     }
 
-    @RequestMapping("/exportCSV")
+    /*@RequestMapping("/exportCSV")
     public void exportAll(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
         Map<String, Object> map = new HashMap<String,Object>();
@@ -279,5 +277,29 @@ public class PersonalCenterController {
             w.flush();
         }
         w.close();
+    }*/
+    @RequestMapping(value = "updateAnswers", method = RequestMethod.POST)
+    public ModelAndView updateAnswers(@ModelAttribute("answerForm") Answer answer) throws Exception{
+        
+    	String userName = null;
+        Object principal = null;
+        
+        if (answer.getApplicant() != null){
+        	userName = answer.getApplicant().getUserName();
+        }else if (principal instanceof UserDetails) {
+        	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        	userName = ((UserDetails) principal).getUsername();
+        } else {
+        	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        	userName = principal.toString();
+        }
+        User applicant = new User();
+        applicant.setUserName(userName);
+        answer.setApplicant(applicant);
+        Boolean result = projectService.updateAnswers(answer);
+    	
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put(COMPLETION_PAGE, new Object());
+        return new ModelAndView(COMPLETION_PAGE, models);
     }
 }

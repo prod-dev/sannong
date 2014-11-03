@@ -19,7 +19,7 @@
             <jsp:include page='sidebar.jsp'/>
         </div>
         <div class="col-md-10 column">
-            <div class="row">
+            <div class="row" id="searchBar">
 
                 <div class="col-lg-6">
 
@@ -39,39 +39,62 @@
             </div><!-- /.row -->
 
             <br/>
-
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        姓名
-                    </th>
-                    <th>
-                        注册日期
-                    </th>
-                    <th>
-                        手机号码
-                    </th>
-                    <th>
-                        工作单位
-                    </th>
-                    <th>
-                        职位
-                    </th>
-                    <th>
-
-                    </th>
-                </tr>
-                </thead>
-                <tbody id="userList">
-                	
-                </tbody>
-            </table>
-            <div id="pagination"></div>
+            <div id="applicantsTable">
+                <table class="table table-striped table-bordered table-hover">
+	                <thead>
+	                <tr>
+	                    <th> #</th>
+	                    <th>姓名</th>
+	                    <th>注册日期</th>
+	                    <th>手机号码</th>
+	                    <th> 工作单位 </th>
+	                    <th> 职位</th>
+	                    <th> </th>
+	                </tr>
+	                </thead>
+	                <tbody id="userList"> </tbody>
+	            </table>
+                <div id="pagination"></div>
             <%--<ul class="pagination" id="pagination" />--%>
+            </div>
+            <div id="questionnaireTable" style="display:none">
+	            <ul class="nav nav-tabs" role="tablist">
+	                <li class="active"><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(1,'')" role="tab" data-toggle="tab" id="q1">项目状态</a></li>
+	                <li><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(2,'')" role="tab" data-toggle="tab" id="q2">问卷题集二</a></li>
+	                <li><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(3,'')" role="tab" data-toggle="tab" id="q3">问卷题集三</a></li>
+	                <li><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(4,'')" role="tab" data-toggle="tab" id="q4">问卷题集四</a></li>
+	                <li><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(5,'')" role="tab" data-toggle="tab" id="q5">问卷题集五</a></li>
+	            </ul>
+	            <form id="answerForm" role="form" action="updateAnswers" method="post">
+	            	<div id="questionList"></div>
+	            	<input type="hidden" name="questionnaireNo" id="questionnaireNo" >
+	            	<input type="hidden" name="applicant.userName" id="userName" >
+	            </form>
+	            <br>
+	            <button  class="btn btn-success" id="cancel" onclick="cancel()">取消</button>
+	            <button  class="btn btn-success" id="update" onclick="update()">更新</button>
+	            
+	            <!-- <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: block;">
+                           <div class="modal-dialog">
+                               <div class="modal-content">
+                                   <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                       <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                   </div>
+                                   <div class="modal-body">
+                                       ...
+                                   </div>
+                                   <div class="modal-footer">
+                                       <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                                       <button type="submit" id="register-btn" class="btn btn-success">提交</button>
+                                       
+                                       <button type="button" class="btn btn-primary">Save changes</button>
+                                      
+                                   </div>
+                               </div>
+                           </div>
+                </div> -->
+            </div>
         </div>
     </div>
 </div>
@@ -81,8 +104,9 @@
         <jsp:include page='footer.jsp'/>
     </div>
 </div>
+<div><input type="hidden"  id="cellphone" ></div>
 </body>
-
+<script src="content/static/js/sannong/personal-center/applicants.js"></script>
 <script id="table-template" type="text/x-handlebars-template">
     {{#each this}}
         <tr>
@@ -93,119 +117,31 @@
             <td>{{company}}</td>
             <td>{{jobTitle}}</td>
             <td>
-                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="showQuestionnaire({{addOne @index}})">问卷调查</a>
+                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="showQuestionnaireAnswers(1,{{cellphone}})">问卷调查</a>
             </td>
        </tr>
     {{/each}}
 </script>
-
-<script type="text/javascript">
-	function changeContent(){
-		var searchKey = $("#searchKey").text();
-		var dropDown1 = $("#dropdown1").text();
-		
-		$("#dropdown1").text(searchKey);
-		$("#searchKey").html(dropDown1 + '<span class="caret">');
-	}
-
-	$("#retrieve").click(function(){
-		var searchKey = $("#searchKey").text().trim();
-		var searchValue = $("#searchValue").val();
-		
-		var parameter;
-		if (searchKey == "手机号")
-		{
-			parameter = "cellphone=" + searchValue;
-		}
-		else if (searchKey == "姓名")
-		{
-			parameter = "realName=" + searchValue;
-		}
-		
-		$.ajax({
-	        type: "get",
-	        dataType: "text",
-	        url: "userTotalCount",
-	        data: parameter,
-	        success: function(totalCount){
-	        	//pageination and data list presentation
-	    	    pageinationHandle(totalCount,parameter);
-	        }
-	    });
-	})
-	
-	function showQuestionnaire(id){
-		var id = "cell" + id;
-		var cellphone = $("#" + id).text().trim();
-
-		location.href = "questionnaireanswer?cellphone=" + cellphone;
-	}
-	function show(currentPageIndex){
-		 var parameter = "pageIndex=" + currentPageIndex;
-		 
-		 $.ajax({
-		        type: "get",
-		        dataType: "text",
-		        url: "userTotalCount",
-		        success: function(totalCount,parameter){
-		        	//pageination presentation
-		    	    pageinationHandle(totalCount);
-		        }
-		 });
-	}
-	function pageinationHandle(totalCount,parameter){
-		var pageIndex = 0;     //页面索引初始值  
-	    var pageSize = 2;     //每页显示条数初始化，修改显示条数，修改这里即可
-	    
-	    InitTable(0,parameter);    //Load事件，初始化表格数据，页面索引为0（第一页）  
-	    
-	    //分页，PageCount是总条目数，这是必选参数，其它参数都是可选  
-        $("#pagination").pagination(totalCount, {  
-            callback: PageCallback,  
-            prev_text: '上一页',       //上一页按钮里text  
-            next_text: '下一页',       //下一页按钮里text  
-            items_per_page: pageSize,  //显示条数  
-            num_display_entries: 2,    //连续分页主体部分分页条目数
-            current_page: pageIndex,   //当前页索引  
-            num_edge_entries: 2        //两侧首尾分页条目数  
-        });
-	    
-       //翻页调用  
-        function PageCallback(index, jq) {             
-            InitTable(index);  
-        }  
-        //请求数据  
-        function InitTable(pageIndex,parameter) {                                  
-            $.ajax({   
-                type: "get",  
-                dataType: "json",  
-                url: 'showApplicants',      //提交到一般处理程序请求数据  
-                data: "pageIndex=" + (pageIndex + 1) + "&" + parameter,           
-                success: function(data) {                                   
-                	var handleHelper = Handlebars.registerHelper("addOne",function(index){
-                		return index+1;
-                	});
-                    var handle = Handlebars.compile($("#table-template").html());
-                	var html = handle(data);
-                	$("#userList").empty();
-                	$("#userList").append(html);
-                }  
-            });              
-        }  
-	}
-
-    //export to csv
-    function exportCSV() {
-        if(confirm("确定要保存到本地CVS文件?")){
-            window.location.href="./exportCSV";
-        }else{
-            return false;
-        }
-
-    }
-
-	$(function(){  
-		show(1);
-	})
+<script id="question-template" type="text/x-handlebars-template">
+    {{#questions}}
+	    <div class="J_group_radio">
+	        <h5>{{fromOne @index}}. {{questionContent}}</h5>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio31" value="{{questionNumber}}:a"> {{option1}}
+	        </label>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio32" value="{{questionNumber}}:b"> {{option2}}
+	        </label>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio33" value="{{questionNumber}}:c"> {{option3}}
+	        </label>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio34" value="{{questionNumber}}:d"> {{option4}}
+	        </label>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio35" value="{{questionNumber}}:e"> {{option5}}
+	        </label>
+	    </div>
+    {{/questions}}
 </script>
 </html>

@@ -85,3 +85,11 @@ CREATE TABLE `sannong`.`answers` (
   PRIMARY KEY (`answer_id`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   UNIQUE INDEX `application_id_UNIQUE` (`application_id` ASC));
+  
+-- add by william 2014-11-1  
+ALTER TABLE `sannong`.`answers` 
+CHANGE COLUMN `answer_status` `answer_status` INT NULL DEFAULT NULL COMMENT '11:questionnaire1 submit\n20:questionnaire2 save\n21:questionnaire2 submit\n30:questionnaire3 save\n31:questionnaire3 submit\n40:questionnaire4 save\n41:questionnaire4 submit\n50:questionnaire5 save\n51:questionnaire5 submit' ;
+
+-- add by william 2014-11-3
+ALTER TABLE `sannong`.`sms` 
+CHANGE COLUMN `sms_content` `sms_content` VARCHAR(160) NULL DEFAULT NULL ;

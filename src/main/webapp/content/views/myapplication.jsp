@@ -1,11 +1,4 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: apple
-  Date: 10/14/14
-  Time: 10:08
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -27,25 +20,24 @@
         <div class="col-md-7 column">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#questionnaire" role="tab" data-toggle="tab">问卷题集一</a></li>
-                <li><a href="#questionnaire2" role="tab" data-toggle="tab">问卷题集二</a></li>
-                <li><a href="#questionnaire3" role="tab" data-toggle="tab">问卷题集三</a></li>
-                <li><a href="#questionnaire4" role="tab" data-toggle="tab">问卷题集四</a></li>
-                <li><a href="#questionnaire5" role="tab" data-toggle="tab">问卷题集五</a></li>
+                <li class="active"><a href="javascript:void(0)" onclick="showQuestions(1)" role="tab" data-toggle="tab" id="q1">项目状态</a></li>
+                <li><a href="javascript:void(0)" onclick="showQuestions(2)" role="tab" data-toggle="tab" id="q2">问卷题集二</a></li>
+                <li><a href="javascript:void(0)" onclick="showQuestions(3)" role="tab" data-toggle="tab" id="q3">问卷题集三</a></li>
+                <li><a href="javascript:void(0)" onclick="showQuestions(4)" role="tab" data-toggle="tab" id="q4">问卷题集四</a></li>
+                <li><a href="javascript:void(0)" onclick="showQuestions(5)" role="tab" data-toggle="tab" id="q5">问卷题集五</a></li>
             </ul>
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <div class="tab-pane active" id="questionnaire">
-                    <jsp:include page='questionnaire.jsp'/>
-                </div>
-                <div class="tab-pane" id="questionnaire2">...</div>
-                <div class="tab-pane" id="questionnaire3">...</div>
-                <div class="tab-pane" id="questionnaire4">...</div>
-                <div class="tab-pane" id="questionnaire5">...</div>
+                <form id="answerForm" role="form" action="updateAnswers" method="post">
+	                <div class="tab-pane active" id="questionnaire"></div>
+	                <input type="hidden" name="answerStatus" id="answerStatus" > 
+	                <input type="hidden" name="questionnaireNo" id="questionnaireNo" >
+	            </form>
             </div>
             <hr/>
-
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="submitForm(0)">暂存</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="submitForm(1)">提交</button>
             <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
                 <form role="form">
                     <div class="form-group">
@@ -66,7 +58,28 @@
         <jsp:include page='footer.jsp'/>
     </div>
 </div>
-
-
 </body>
+<script src="content/static/js/sannong/personal-center/questionnaire.js"></script>
+<script id="question-template" type="text/x-handlebars-template">
+    {{#questions}}
+	    <div class="J_group_radio">
+	        <h5>{{fromOne @index}}. {{questionContent}}</h5>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio31" value="{{questionNumber}}:a"> {{option1}}
+	        </label>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio32" value="{{questionNumber}}:b"> {{option2}}
+	        </label>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio33" value="{{questionNumber}}:c"> {{option3}}
+	        </label>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio34" value="{{questionNumber}}:d"> {{option4}}
+	        </label>
+	        <label class="radio-inline">
+	            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio35" value="{{questionNumber}}:e"> {{option5}}
+	        </label>
+	    </div>
+    {{/questions}}
+</script>
 </html>

@@ -16,8 +16,9 @@ public class Question implements Serializable{
 	private String option2;
 	private String option3;
 	private String option4;
+	private String option5;
 	private String questionContent;
-	private List<Application> applications;
+	private String questionNumber;
 	
 	public Long getQuestionId() {
 		return questionId;
@@ -55,11 +56,17 @@ public class Question implements Serializable{
 	public void setQuestionContent(String questionContent) {
 		this.questionContent = questionContent;
 	}
-	public List<Application> getApplications() {
-		return applications;
+	public String getOption5() {
+		return option5;
 	}
-	public void setApplications(List<Application> applications) {
-		this.applications = applications;
+	public void setOption5(String option5) {
+		this.option5 = option5;
+	}
+	public String getQuestionNumber() {
+		return questionNumber;
+	}
+	public void setQuestionNumber(String questionNumber) {
+		this.questionNumber = questionNumber;
 	}
 
 }
