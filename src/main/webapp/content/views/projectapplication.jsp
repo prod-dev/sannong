@@ -71,7 +71,7 @@
                            </div>
                        </div>
 
-                       <button type="button" id="applicationSubmit" class="btn btn-default">提交</button>
+                       <button type="button" id="applicationSubmit" class="btn btn-default" disabled="disabled">提交</button>
 
                        <!-- Button trigger modal -->
                        <button type="button" id="myModalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none">
