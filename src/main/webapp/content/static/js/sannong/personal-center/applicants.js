@@ -68,6 +68,8 @@ function showQuestionnaireAnswers(questionnaireNo, cellphone) {
 					|| (questionnaireNo = latestQuestionnaireNo
 							&& saveOrSubmit == 0)) {
 				$("#update").attr("disabled", "disabled");
+			}else{
+				$("#update").attr("disabled", false);
 			}
 
 			if (data.applicant != null) {
