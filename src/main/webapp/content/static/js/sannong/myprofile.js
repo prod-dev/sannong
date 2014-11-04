@@ -265,7 +265,9 @@
 
             $("#userInfoSubmit").click(function(event){
                 if (validateForm(userInfoForm).form() == true){
-                    $("#userInfoSubmit").submit();
+                	$("#userInfoForm").ajaxSubmit(function(message) {
+                		return false;
+                	});
                 }
             });
         }

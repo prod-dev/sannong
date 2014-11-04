@@ -109,6 +109,6 @@
     </div>
 </div>
 <script src="content/static/js/sannong/myprofile.js"> </script>
-
+<script src="content/static/js/lib/jquery-form.js"></script>
 </body>
 </html>
