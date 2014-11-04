@@ -9,6 +9,11 @@
     var projectApplication = {};
     projectApplication.Model = {};
     projectApplication.View = {};
+    
+        var showError = function($obj, txt) {
+                var $td = $obj.parent();
+                $td.find(".error").html(txt);             
+            };
 
     function validateForm(){
         var validator = $("#applicationForm").validate({
@@ -256,6 +261,26 @@
 
 
             $("#validationCode").keyup(function(){
+               if($("#validationCode").val().length<4)return;
+            	 var options ={
+				type: "get",
+				async: false,
+				url: 'validateSMSCode',
+				data: {
+				    "validationcode": $("#validationCode").val()
+				},
+				success: function(data) {
+				    if(data==0)
+				    {
+				    	    showError($("#validationCode"), '验证码错误');	    	    
+				    }
+				     if(data==1)
+				    {
+				    	    showError($("#validationCode"), '验证码过期，请重新获取验证码');	    	    
+				    }
+				}
+		 };
+	projectApplication.Controller.ajaxRequest(options);   
                 if (validateForm().element($("#validationCode")) == true && $("#validationCode").val() != ""){
                     $("#applicationSubmit").removeAttr("disabled");
                     $("#applicationSubmit").removeClass().addClass("btn btn-success");
@@ -266,8 +291,9 @@
 
             });
 
+
             $("#action-send-code").click(function(event){
-                if (validateForm().form() == true){
+               if (validateForm().form() == true){
                     var options = {
                         url: 'regcode',
                         type: 'GET',
@@ -276,7 +302,8 @@
                             smstype: $(this).attr("data-type")
                         },
                         success: function(data){
-                           if (data == true) {
+                        $("#validationCode").removeAttr("disabled"); 
+                         if (data == true) {                          
                               projectApplication.Controller.updateTimeLabel(60);                          
                          } else {
                             $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
@@ -299,6 +326,8 @@
         projectApplication.Controller.addEventListener();
 
     });
+    
+
 
     //Sannong.ProjectApplication = projectApplication;
     return projectApplication;
