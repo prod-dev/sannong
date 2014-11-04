@@ -12,6 +12,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
     <link href="content/static/css/sannong/validation.css" rel="stylesheet">
+    
 </head>
 <body>
 <div class="container">
@@ -90,7 +91,7 @@
                                <input type="text" class="form-control" id="cellphone" name="applicant.cellphone" placeholder="手机号码" autocomplete="off">
                                <input  type="button" id="action-send-code" name="action-send-code" data-url="regcode" data-type="0" class="btn btn-sm btn-warning" value="获取验证码">
                                <input type="text" class="form-control" id="validationCode" name="sms.smsValidationCode"  disabled="true"  placeholder="验证码" autocomplete="off">
-                               <div class="errorDiv"></div>
+                               <label id="errorDiv" class="error"></label>
                            </div>
                        </div>
 

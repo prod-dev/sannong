@@ -8,7 +8,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sannong.infrastructure.util.MyConfig;
 import com.sannong.infrastructure.util.PasswordGenerator;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -48,7 +50,7 @@ public class ProjectApplicationController {
 
     @RequestMapping(value = "applicationpage", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
-
+    	request.getSession().setAttribute(MyConfig.SESSIOIN_SMS_CODES,null); //clear sms code session
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("projectapplication", new Object());
         return new ModelAndView(APPLICATION_PAGE, models);

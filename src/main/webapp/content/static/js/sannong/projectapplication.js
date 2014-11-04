@@ -12,7 +12,8 @@
     
         var showError = function($obj, txt) {
                 var $td = $obj.parent();
-                $td.find(".error").html(txt);             
+                $td.find("#errorDiv").removeAttr("style").text(txt);    
+                $("#applicationSubmit").attr("disabled","true");
             };
 
     function validateForm(formName){
@@ -272,6 +273,7 @@
 				    "validationcode": $("#validationCode").val()
 				},
 				success: function(data) {
+				 $("#errorDiv").css("display","none");
 				    if(data==0)
 				    {
 				    	    showError($("#validationCode"), '验证码错误');	    	    
@@ -280,6 +282,8 @@
 				    {
 				    	    showError($("#validationCode"), '验证码过期，请重新获取验证码');	    	    
 				    }
+				    if(data==2)
+				       $("#applicationSubmit").removeAttr("disabled");
 				}
 		 };
 	projectApplication.Controller.ajaxRequest(options);   
