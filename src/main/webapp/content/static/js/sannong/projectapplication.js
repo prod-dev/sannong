@@ -15,8 +15,8 @@
                 $td.find(".error").html(txt);             
             };
 
-    function validateForm(){
-        var validator = $("#applicationForm").validate({
+    function validateForm(formName){
+        var validator = $(formName).validate({
             rules: {
                 "answers[0]": "required",
                 "answers[1]": "required",
@@ -27,6 +27,7 @@
                 "answers[6]": "required",
                 "answers[7]": "required",
                 "answers[8]": "required",
+                "answers[9]": "required",
                 "applicant.realName": "required",
                 "applicant.jobTitle": "required",
                 "applicant.company": "required",
@@ -63,6 +64,7 @@
                 "answers[6]": "必填",
                 "answers[7]": "必填",
                 "answers[8]": "必填",
+                "answers[9]": "必填",
                 "applicant.realName": "必填",
                 "applicant.jobTitle": "必填",
                 "applicant.provinceSelect": "必填",
@@ -250,7 +252,7 @@
             });
 
             $("#applicationSubmit").click(function(event){
-                if ((validateForm().form() == true) && $("#applicationSubmit").attr("disabled") != "disabled"){
+                if ((validateForm("#applicationForm").form() == true) && $("#applicationSubmit").attr("disabled") != "disabled"){
                     $("#myModalTrigger").click();
                 }
             });
@@ -281,7 +283,7 @@
 				}
 		 };
 	projectApplication.Controller.ajaxRequest(options);   
-                if (validateForm().element($("#validationCode")) == true && $("#validationCode").val() != ""){
+                if (validateForm("#applicationForm").element($("#validationCode")) == true && $("#validationCode").val() != ""){
                     $("#applicationSubmit").removeAttr("disabled");
                     $("#applicationSubmit").removeClass().addClass("btn btn-success");
                 } else {
@@ -293,7 +295,7 @@
 
 
             $("#action-send-code").click(function(event){
-               if (validateForm().form() == true){
+               if (validateForm("#applicationForm").form() == true){
                     var options = {
                         url: 'regcode',
                         type: 'GET',
@@ -327,6 +329,23 @@
 
     });
     
+    //myapplication page questionnaire validation
+    $("#save").click(function(){
+    	submitForm(0);
+    })
+    $("#submt").click(function(){
+    	submitForm(1);
+    })
+    
+    function submitForm(saveOrSubmit){
+    	if (validateForm("#answerForm").form() == true){
+    		var questionnaireNo = $("#questionnaireNo").val();
+    		
+    		var answerStatus = questionnaireNo + saveOrSubmit;
+    		$("#answerStatus").val(answerStatus);
+    		$("#answerForm").submit();
+    	}
+    }
 
 
     //Sannong.ProjectApplication = projectApplication;

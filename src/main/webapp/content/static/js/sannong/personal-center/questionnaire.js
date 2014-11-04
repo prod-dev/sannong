@@ -3,9 +3,13 @@ $(function(){
 })
 
 function showQuestions(questionnaireNo){
-    
+	$("#buttonGroup").show();
+	$("#save").removeAttr("disabled");
+	$("#submit").removeAttr("disabled");
+	
 	if ($("#q" + questionnaireNo).parent().hasClass("disabled")) {
 		$("#questionnaire").empty();
+		$("#buttonGroup").hide();
 		return false;
 	}
 	
@@ -42,7 +46,7 @@ function showQuestions(questionnaireNo){
     		var latestQuestionnaireNo = answerStatusStr.substring(0,1);
     		var saveOrSubmit = answerStatusStr.substring(1,2);
     		var currentQuestionnaireNo = questionnaireNo;
-    		var radioStatus = 1;  //1:avalibale 0:unavliable 默认提交状态，radio不可用
+    		var radioStatus = 1;  //1:submit 0:save 默认提交状态，radio不可用
     		
     		if (currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0){
     			//之后选项卡不可用
@@ -58,6 +62,11 @@ function showQuestions(questionnaireNo){
     			}
     		}else if(currentQuestionnaireNo < latestQuestionnaireNo && saveOrSubmit == 0){
     			radioStatus = 0;
+    			
+    			//当前选项卡中的button disabled
+    			$("#save").attr("disabled","disabled");
+    			$("#submit").attr("disabled","disabled");
+    			
     			//大于latestQuestionnaireNo之后的选项卡不可用
     			if (latestQuestionnaireNo != 5){
     				var nextQuestionnaireNo = latestQuestionnaireNo+1;
@@ -69,7 +78,11 @@ function showQuestions(questionnaireNo){
     					}
     				}
     			}
-    		}else if (currentQuestionnaireNo == 1){
+    		}else if (currentQuestionnaireNo == latestQuestionnaireNo == 1){
+    			//当前选项卡中的button disabled
+    			$("#save").attr("disabled","disabled");
+    			$("#submit").attr("disabled","disabled");
+    			
     			//之后第二个开始不可用
     			for (var i=3;i<6;i++){
     				if ($("#q" + i).parent().hasClass("active")){
@@ -118,12 +131,4 @@ function showQuestions(questionnaireNo){
         	}
         }  
     });  		
-}
-
-function submitForm(saveOrSubmit){
-	var questionnaireNo = $("#questionnaireNo").val();
-	
-	var answerStatus = questionnaireNo + saveOrSubmit;
-	$("#answerStatus").val(answerStatus);
-	$("#answerForm").submit();
 }
