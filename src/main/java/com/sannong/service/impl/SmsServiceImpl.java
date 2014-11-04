@@ -71,8 +71,12 @@ public class SmsServiceImpl implements ISmsService{
 			if(savecode.equals(smscode))
 			{
 				Date dtNow=new Date(System.currentTimeMillis()); 
-				long diffInMinuts = (dtNow.getTime() - dt.getTime()) / 1000*60;
-				if(diffInMinuts<5)
+				Date dtSms=new Date(dt.getTime());
+				@SuppressWarnings("deprecation")
+				int diffInHours=dtNow.getHours()-dt.getHours();
+				@SuppressWarnings("deprecation")
+				int diffInMinuts=dtNow.getMinutes()-dt.getMinutes();
+				if(diffInHours==0&&diffInMinuts<5)
 					return 2;
 				else 
 					return 1;				
