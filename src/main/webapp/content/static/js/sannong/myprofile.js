@@ -7,7 +7,11 @@
     "use strict";
 
     var myinfo = {};
-    myinfo.Model = {};
+    myinfo.Model = {
+        provinceInit: false,
+        cityInit: false,
+        districtInit: false
+    };
     myinfo.View = {};
 
     function validateForm(formName){
@@ -124,6 +128,7 @@
             data: {'cityIndex': cityIndex},
             success: function(data){
                 myinfo.Controller.addDistrictSelections(data);
+
             },
             fail: function(data){
 
@@ -174,6 +179,10 @@
                 var option = "<option value=" + optionValue + ">" + optionText + "</option>";
                 provinceSelect.append(option);
             }
+            if (myinfo.Model.provinceInit == false) {
+                $("#provinceSelect").val($("#provinceValue").val());
+                myinfo.Model.provinceInit = true;
+            }
             addCities();
         },
         addCitySelections: function(cities) {
@@ -187,6 +196,10 @@
                 var option = "<option value=" + optionValue + ">" + optionText + "</option>";
                 citySelect.append(option);
             }
+            if (myinfo.Model.cityInit == false) {
+                $("#citySelect").val($("#cityValue").val());
+                myinfo.Model.cityInit = true;
+            }
             addDistricts();
         },
 
@@ -199,6 +212,10 @@
                 var optionText = districts[i].districtName;
                 var option = "<option value=" + optionValue + ">" + optionText + "</option>";
                 districtSelect.append(option);
+            }
+            if (myinfo.Model.districtInit == false){
+                $("#districtSelect").val($("#districtValue").val());
+                myinfo.Model.districtInit = true;
             }
         },
         addEventListener: function(){
@@ -266,7 +283,10 @@
             $("#userInfoSubmit").click(function(event){
                 if (validateForm(userInfoForm).form() == true){
                 	$("#userInfoForm").ajaxSubmit(function(message) {
-                		return false;
+
+                        $("#return").after('<label id="jobTitle-error" class="error" for="jobTitle">已保存</label>');
+                        //message.appendTo($("#return").next());
+                        return false;
                 	});
                 }
             });
