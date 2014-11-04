@@ -28,7 +28,7 @@ import java.util.Map;
 public class SmsServiceImpl implements ISmsService{
     @Autowired
     private SmsRepository smsRepository;
-    
+
     private static String SESSIOIN_SMS_CODES="session_sms_codes";
 
 
@@ -67,6 +67,7 @@ public class SmsServiceImpl implements ISmsService{
 
     	if( request.getSession().getAttribute(SESSIOIN_SMS_CODES)==null) return 1;
 		Map<Date,String>	 map=(HashMap<Date,String>)request.getSession().getAttribute(SESSIOIN_SMS_CODES);
+
 		Iterator iterator = map.entrySet().iterator();  
 		while (iterator.hasNext()) {  
 			Map.Entry mapEntry = (Map.Entry) iterator.next();  
@@ -75,8 +76,12 @@ public class SmsServiceImpl implements ISmsService{
 			if(savecode.equals(smsCode))
 			{
 				Date dtNow=new Date(System.currentTimeMillis()); 
-				long diffInMinuts = (dtNow.getTime() - dt.getTime()) / 1000*60;
-				if(diffInMinuts<5)
+				Date dtSms=new Date(dt.getTime());
+				@SuppressWarnings("deprecation")
+				int diffInHours=dtNow.getHours()-dt.getHours();
+				@SuppressWarnings("deprecation")
+				int diffInMinuts=dtNow.getMinutes()-dt.getMinutes();
+				if(diffInHours==0&&diffInMinuts<5)
 					return 2;
 				else 
 					return 1;				
@@ -99,12 +104,12 @@ public class SmsServiceImpl implements ISmsService{
     		 sms.setCellphone(mobile);
     		 sms.setSmsValidationCode(regcode); 
     		 Date ts=new Date(System.currentTimeMillis()); 
-    		 if( request.getSession().getAttribute(SESSIOIN_SMS_CODES)!=null)
+    		 if( request.getSession().getAttribute(MyConfig.SESSIOIN_SMS_CODES)!=null)
     		 {
-    			 map=(HashMap<Date,String>)request.getSession().getAttribute(SESSIOIN_SMS_CODES);
+    			 map=(HashMap<Date,String>)request.getSession().getAttribute(MyConfig.SESSIOIN_SMS_CODES);
     		 }
     		 map.put(ts,regcode);    			 
-    		 request.getSession().setAttribute(SESSIOIN_SMS_CODES, map);   
+    		 request.getSession().setAttribute(MyConfig.SESSIOIN_SMS_CODES, map);   
     		 String content="验证码为:"+regcode;
     		 if(smstype.equals("0"))
     			 content=MyConfig.getConfig("sms-welcome").replace("{0}", regcode); 

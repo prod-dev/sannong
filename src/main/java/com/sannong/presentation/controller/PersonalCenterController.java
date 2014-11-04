@@ -11,8 +11,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sannong.infrastructure.dataexport.CsvExporter;
-import com.sannong.service.IAnswerService;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,10 +26,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sannong.infrastructure.dataexport.CsvExporter;
 import com.sannong.infrastructure.persistance.entity.Answer;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.util.MyConfig;
+import com.sannong.service.IAnswerService;
 import com.sannong.service.IProjectService;
 import com.sannong.service.ISmsService;
 import com.sannong.service.IUserService;
@@ -329,9 +329,17 @@ public class PersonalCenterController {
     }*/
     @RequestMapping(value = "updateAnswers", method = RequestMethod.POST)
     public ModelAndView updateAnswers(@ModelAttribute("answerForm") Answer answer) throws Exception{
-        
+    	
     	String userName = null;
         Object principal = null;
+        
+    	Map<String, Object> models = new HashMap<String, Object>();
+        models.put(COMPLETION_PAGE, new Object());
+        
+    	ModelAndView modelAndView = new ModelAndView(COMPLETION_PAGE, models);
+    	if (answer.getAnswers() == null){
+    		return modelAndView;
+    	}
         
         if (answer.getApplicant() != null){
         	userName = answer.getApplicant().getUserName();
@@ -347,9 +355,7 @@ public class PersonalCenterController {
         answer.setApplicant(applicant);
         Boolean result = projectService.updateAnswers(answer);
     	
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put(COMPLETION_PAGE, new Object());
-        return new ModelAndView(COMPLETION_PAGE, models);
+        return modelAndView;
     }
     @RequestMapping("/exportCSV")
     public void exportAll(HttpServletRequest request,HttpServletResponse response) throws IOException {

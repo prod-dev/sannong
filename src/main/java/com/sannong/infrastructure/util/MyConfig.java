@@ -7,5 +7,7 @@ public class MyConfig {
 		 Config cf=new Config();
 		 return cf.getProperty(key);
 	}
+	
+	public static String SESSIOIN_SMS_CODES="session_sms_codes";
 
 }

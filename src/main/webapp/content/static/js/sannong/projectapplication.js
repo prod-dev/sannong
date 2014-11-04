@@ -9,9 +9,16 @@
     var projectApplication = {};
     projectApplication.Model = {};
     projectApplication.View = {};
+    
+        var showError = function($obj, txt) {
+                var $td = $obj.parent();
+                $td.find("#errorDiv").removeAttr("style").text(txt);    
+                $("#applicationSubmit").attr("disabled","true");
+            };
 
-    function validateForm(form){
-        var validator = $("#" + form).validate({
+
+    function validateForm(formName){
+        var validator = $(formName).validate({
             rules: {
                 "answers[0]": "required",
                 "answers[1]": "required",
@@ -22,6 +29,7 @@
                 "answers[6]": "required",
                 "answers[7]": "required",
                 "answers[8]": "required",
+                "answers[9]": "required",
                 "applicant.realName": "required",
                 "applicant.jobTitle": "required",
                 "applicant.company": "required",
@@ -58,6 +66,7 @@
                 "answers[6]": "必填",
                 "answers[7]": "必填",
                 "answers[8]": "必填",
+                "answers[9]": "必填",
                 "applicant.realName": "必填",
                 "applicant.jobTitle": "必填",
                 "applicant.provinceSelect": "必填",
@@ -245,7 +254,7 @@
             });
 
             $("#applicationSubmit").click(function(event){
-                if ((validateForm().form() == true) && $("#applicationSubmit").attr("disabled") != "disabled"){
+                if ((validateForm("#applicationForm").form() == true) && $("#applicationSubmit").attr("disabled") != "disabled"){
                     $("#myModalTrigger").click();
                 }
             });
@@ -256,7 +265,31 @@
 
 
             $("#validationCode").keyup(function(){
-                if (validateForm().element($("#validationCode")) == true && $("#validationCode").val() != ""){
+               if($("#validationCode").val().length<4)return;
+            	 var options ={
+				type: "get",
+				async: false,
+				url: 'validateSMSCode',
+				data: {
+				    "validationcode": $("#validationCode").val()
+				},
+				success: function(data) {
+				 $("#errorDiv").css("display","none");
+				    if(data==0)
+				    {
+				    	    showError($("#validationCode"), '验证码错误');	    	    
+				    }
+				     if(data==1)
+				    {
+				    	    showError($("#validationCode"), '验证码过期，请重新获取验证码');	    	    
+				    }
+				    if(data==2)
+				       $("#applicationSubmit").removeAttr("disabled");
+				}
+		 };
+
+	projectApplication.Controller.ajaxRequest(options);   
+                if (validateForm("#applicationForm").element($("#validationCode")) == true && $("#validationCode").val() != ""){
                     $("#applicationSubmit").removeAttr("disabled");
                     $("#applicationSubmit").removeClass().addClass("btn btn-success");
                 } else {
@@ -266,8 +299,9 @@
 
             });
 
+
             $("#action-send-code").click(function(event){
-                if (validateForm().form() == true){
+               if (validateForm("#applicationForm").form() == true){
                     var options = {
                         url: 'regcode',
                         type: 'GET',
@@ -276,7 +310,8 @@
                             smstype: $(this).attr("data-type")
                         },
                         success: function(data){
-                           if (data == true) {
+                        $("#validationCode").removeAttr("disabled"); 
+                         if (data == true) {                          
                               projectApplication.Controller.updateTimeLabel(60);                          
                          } else {
                             $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
@@ -299,6 +334,25 @@
         projectApplication.Controller.addEventListener();
 
     });
+    
+    //myapplication page questionnaire validation
+    $("#save").click(function(){
+    	submitForm(0);
+    })
+    $("#submt").click(function(){
+    	submitForm(1);
+    })
+    
+    function submitForm(saveOrSubmit){
+    	if (validateForm("#answerForm").form() == true){
+    		var questionnaireNo = $("#questionnaireNo").val();
+    		
+    		var answerStatus = questionnaireNo + saveOrSubmit;
+    		$("#answerStatus").val(answerStatus);
+    		$("#answerForm").submit();
+    	}
+    }
+
 
     //Sannong.ProjectApplication = projectApplication;
     return projectApplication;

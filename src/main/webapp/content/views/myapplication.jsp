@@ -4,6 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
+    <link href="content/static/css/sannong/validation.css" rel="stylesheet">
     <title></title>
 </head>
 <body>
@@ -36,8 +37,10 @@
 	            </form>
             </div>
             <hr/>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="submitForm(0)">暂存</button>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="submitForm(1)">提交</button>
+            <div id="buttonGroup">
+	            <button id="save" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="submitForm(0)">暂存</button>
+	            <button id="submit" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="submitForm(1)">提交</button>
+            </div>
             <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
                 <form role="form">
                     <div class="form-group">
@@ -60,6 +63,7 @@
 </div>
 </body>
 <script src="content/static/js/sannong/personal-center/questionnaire.js"></script>
+<script src="content/static/js/sannong/projectapplication.js"></script>
 <script id="question-template" type="text/x-handlebars-template">
     {{#questions}}
 	    <div class="J_group_radio">
