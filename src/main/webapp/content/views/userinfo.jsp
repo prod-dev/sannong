@@ -97,6 +97,7 @@
                 <input name="cellphone" type="hidden" value="${myinfo.cellphone}" >
                 <div class="errorDiv">${myinfomessage}</div>
                 <input type="button" id="userInfoSubmit"  name="userInfoSubmit" class="btn btn-success" value="提交">
+                <a href="applicants" id="return" class="btn btn-primary">返回</a>
             </form>
 
         </div>
