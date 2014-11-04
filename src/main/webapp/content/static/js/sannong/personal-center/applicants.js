@@ -21,8 +21,20 @@ function cancel() {
 }
 
 function update() {
-	$("#answerForm").submit();
+	$("#myModalTrigger").click();
 }
+
+$("#submit").click(function(event){
+	//$("#answerForm").submit();
+	$("#answerForm").ajaxSubmit(function(message) {
+	    if (message.result == true){
+	    	$("#return").click();
+	    }else{
+	    	alert("更新失败！");
+	    }
+	});
+	return false;
+});
 
 $("#retrieve").click(function() {
 	var searchKey = $("#searchKey").text().trim();
@@ -168,7 +180,7 @@ function pageinationHandle(totalCount, parameter) {
 		$.ajax({
 			type : "get",
 			dataType : "json",
-			url : 'showApplicants', // 提交到一般处理程序请求数据
+			url : 'showApplicants', 
 			data : "pageIndex=" + (pageIndex + 1) + "&" + parameter,
 			success : function(data) {
 				var handleHelper = Handlebars.registerHelper("addOne",
@@ -182,4 +194,14 @@ function pageinationHandle(totalCount, parameter) {
 			}
 		});
 	}
+	
+	//export to csv
+    function exportCSV() {
+        if(confirm("确定要保存到本地CVS文件?")){
+            window.location.href="./exportCSV";
+        }else{
+            return false;
+        }
+
+    }
 }

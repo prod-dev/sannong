@@ -41,6 +41,25 @@
 	            <button id="save" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="submitForm(0)">暂存</button>
 	            <button id="submit" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="submitForm(1)">提交</button>
             </div>
+            
+            <!-- Button trigger modal -->
+            <button type="button" id="myModalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
+            <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	            <div class="modal-dialog">
+	                <div class="modal-content">
+	                     <div class="modal-header">
+	                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+	                         <h4 class="modal-title" id="myModalLabel">提示</h4>
+	                     </div>
+	                     <div class="modal-body">提交后即不可以再修改。如要修改，需要电话联系我们的工作人员。你确定提交吗？</div>
+	                     <div class="modal-footer">
+	                         <button id="return" type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+	                         <button type="submit" id="dialogSubmit" class="btn btn-success">提交</button>
+	                     </div>
+	                </div>
+	            </div>
+            </div>
+            
             <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
                 <form role="form">
                     <div class="form-group">
@@ -64,6 +83,7 @@
 </body>
 <script src="content/static/js/sannong/personal-center/questionnaire.js"></script>
 <script src="content/static/js/sannong/projectapplication.js"></script>
+<script src="content/static/js/lib/jquery-form.js"></script>
 <script id="question-template" type="text/x-handlebars-template">
     {{#questions}}
 	    <div class="J_group_radio">

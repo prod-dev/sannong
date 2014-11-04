@@ -61,8 +61,8 @@ public class ProjectApplicationController {
 
         Boolean result = projectService.projectApplication(application);
          
-        DTO dto = new DTO();
-        dto.setResult(result);
+      /*  DTO dto = new DTO();
+        dto.setResult(result);*/
     	
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("completion", new Object());

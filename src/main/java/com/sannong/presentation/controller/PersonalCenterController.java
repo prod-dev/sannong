@@ -31,6 +31,7 @@ import com.sannong.infrastructure.persistance.entity.Answer;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.util.MyConfig;
+import com.sannong.presentation.model.DTO;
 import com.sannong.service.IAnswerService;
 import com.sannong.service.IProjectService;
 import com.sannong.service.ISmsService;
@@ -292,70 +293,37 @@ public class PersonalCenterController {
         return new ModelAndView("redirect:" + "login");
     }
 
-    /*@RequestMapping("/exportCSV")
-    public void exportAll(HttpServletRequest request,HttpServletResponse response) throws IOException {
-
-        Map<String, Object> map = new HashMap<String,Object>();
-        String cellphone = request.getParameter("cellphone");
-        String realName = request.getParameter("realName");
-
-        map.put("cellphone", cellphone);
-        map.put("realName", realName);
-
-        response.setContentType("application/csv");
-        response.setCharacterEncoding("GB2312");
-        response.setHeader("Content-disposition", "attachment;filename=answer.csv");
-
-        PrintWriter w = response.getWriter();
-
-        w.write("序号,姓名,电话,地址,答案"+"\n");
-        List<Application> applicants = userService.getAnswer(map);
-        Iterator it = applicants.iterator();
-        int i = 1;
-        while(it.hasNext()){
-            Application app = (Application) it.next();
-            String answer;
-            if(app.getQuestionnaireAnswer() != null){
-                answer = app.getQuestionnaireAnswer();
-            }
-            else{
-                answer="";
-            }
-            w.write( i + "," + app.getApplicant().getRealName() + ","+ app.getApplicant().getCellphone()  + ","+ app.getApplicant().getCompanyAddress() + "," + CsvExporter.toAnalyseString(answer) + "\n");
-            i++;
-            w.flush();
-        }
-        w.close();
-    }*/
     @RequestMapping(value = "updateAnswers", method = RequestMethod.POST)
-    public ModelAndView updateAnswers(@ModelAttribute("answerForm") Answer answer) throws Exception{
+    public @ResponseBody DTO updateAnswers(@ModelAttribute("answerForm") Answer answer) throws Exception{
     	
     	String userName = null;
-        Object principal = null;
+        Boolean result = true;
         
-    	Map<String, Object> models = new HashMap<String, Object>();
-        models.put(COMPLETION_PAGE, new Object());
-        
-    	ModelAndView modelAndView = new ModelAndView(COMPLETION_PAGE, models);
     	if (answer.getAnswers() == null){
-    		return modelAndView;
+    		result = false;
+    		return new DTO(result,null);
     	}
         
         if (answer.getApplicant() != null){
         	userName = answer.getApplicant().getUserName();
-        }else if (principal instanceof UserDetails) {
-        	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        	userName = ((UserDetails) principal).getUsername();
-        } else {
-        	SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        	userName = principal.toString();
+        }else {
+        	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        	
+        	if (principal instanceof UserDetails) {
+        		SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            	userName = ((UserDetails) principal).getUsername();
+        	}else{
+        		SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            	userName = principal.toString();
+        	}
         }
+        	
         User applicant = new User();
         applicant.setUserName(userName);
         answer.setApplicant(applicant);
-        Boolean result = projectService.updateAnswers(answer);
+        result = projectService.updateAnswers(answer);
     	
-        return modelAndView;
+        return new DTO(result,null);
     }
     @RequestMapping("/exportCSV")
     public void exportAll(HttpServletRequest request,HttpServletResponse response) throws IOException {

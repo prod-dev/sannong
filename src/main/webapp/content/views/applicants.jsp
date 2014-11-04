@@ -82,26 +82,23 @@
 	            <button  class="btn btn-success" id="cancel" onclick="cancel()">取消</button>
 	            <button  class="btn btn-success" id="update" onclick="update()">更新</button>
 	            
-	            <!-- <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" style="display: block;">
-                           <div class="modal-dialog">
-                               <div class="modal-content">
-                                   <div class="modal-header">
-                                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-                                       <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                                   </div>
-                                   <div class="modal-body">
-                                       ...
-                                   </div>
-                                   <div class="modal-footer">
-                                       <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
-                                       <button type="submit" id="register-btn" class="btn btn-success">提交</button>
-                                       
-                                       <button type="button" class="btn btn-primary">Save changes</button>
-                                      
-                                   </div>
-                               </div>
-                           </div>
-                </div> -->
+	             <!-- Button trigger modal -->
+                <button type="button" id="myModalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
+	            <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	                <div class="modal-dialog">
+	                    <div class="modal-content">
+	                        <div class="modal-header">
+	                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+	                            <h4 class="modal-title" id="myModalLabel">提示</h4>
+	                        </div>
+	                        <div class="modal-body">你确认要更新调查问卷答案和状态吗？</div>
+	                        <div class="modal-footer">
+	                            <button id="return" type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+	                            <button type="submit" id="submit" class="btn btn-success">提交</button>
+	                        </div>
+	                    </div>
+	                </div>
+                </div>
             </div>
         </div>
     </div>
@@ -115,6 +112,7 @@
 <div><input type="hidden"  id="cellphone" ></div>
 </body>
 <script src="content/static/js/sannong/personal-center/applicants.js"></script>
+<script src="content/static/js/lib/jquery-form.js"></script>
 <script id="table-template" type="text/x-handlebars-template">
     {{#each this}}
         <tr>
@@ -155,21 +153,5 @@
 	        </label>
 	    </div>
     {{/questions}}
-</script>
-<script type="application/javascript">
-    //export to csv
-    function exportCSV() {
-        if(confirm("确定要保存到本地CVS文件?")){
-            window.location.href="./exportCSV";
-        }else{
-            return false;
-        }
-
-    }
-
-    $(function(){
-        show(1);
-    })
-
 </script>
 </html>

@@ -16,7 +16,6 @@
                 $("#applicationSubmit").attr("disabled","true");
             };
 
-
     function validateForm(formName){
         var validator = $(formName).validate({
             rules: {
@@ -339,19 +338,48 @@
     $("#save").click(function(){
     	submitForm(0);
     })
-    $("#submt").click(function(){
+    $("#submit").click(function(){
     	submitForm(1);
     })
     
+    //myapplication page submit or save
     function submitForm(saveOrSubmit){
     	if (validateForm("#answerForm").form() == true){
     		var questionnaireNo = $("#questionnaireNo").val();
-    		
     		var answerStatus = questionnaireNo + saveOrSubmit;
     		$("#answerStatus").val(answerStatus);
-    		$("#answerForm").submit();
+    		
+    		if (saveOrSubmit == 1){
+    			$("#myModalTrigger").click();
+    		}else{
+    			$("#answerForm").ajaxSubmit(function(message) {
+    	    	    if (message.result == true){
+    	    	    	$("#return").click();
+    	    	    	
+    	    	    	//保存成功重新加载questionnaire and answer
+    	    	    	showQuestions(questionnaireNo);
+    	    	    }else{
+    	    	    	alert("保存失败！");
+    	    	    }
+    	    	});
+    		}
     	}
     }
+    
+    $("#dialogSubmit").click(function(event){
+    	$("#answerForm").ajaxSubmit(function(message) {
+    	    if (message.result == true){
+    	    	$("#return").click();
+    	    	
+    	    	//更新成功重新加载questionnaire and answer
+    	    	var questionnaireNo = $("#questionnaireNo").val();
+    	    	showQuestions(questionnaireNo);
+    	    }else{
+    	    	alert("更新失败！");
+    	    }
+    	});
+    	return false;
+    });
 
 
     //Sannong.ProjectApplication = projectApplication;

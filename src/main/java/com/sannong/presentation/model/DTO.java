@@ -2,11 +2,20 @@ package com.sannong.presentation.model;
 
 import java.util.List;
 
+/**
+ * create DTO class
+ * @author william zhang
+ */
 public class DTO {
 
-	private boolean responseResult;
+	public DTO(boolean responseResult, List<Object> dto) {
+		
+		this.responseResult = responseResult;
+		this.dto = dto;
+	}
 
-	List<Object> dto;
+	private boolean responseResult;
+	private List<Object> dto;
 
 	public boolean getResult() {
 		return responseResult;

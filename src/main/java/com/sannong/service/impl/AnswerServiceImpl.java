@@ -16,12 +16,10 @@ public class AnswerServiceImpl implements IAnswerService {
 	@Autowired
 	private AnswerRepository answerRepository;
 
-    @Override
     public List<Answer> getAnswer(Map<String, Object> map) {
         return answerRepository.getAnswer(map);
     }
 
-    @Override
     public String getQuestionContent(long questionId) {
         return answerRepository.getQuestionContent(questionId);
     }

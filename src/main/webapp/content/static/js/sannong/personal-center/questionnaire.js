@@ -49,9 +49,10 @@ function showQuestions(questionnaireNo){
     		var radioStatus = 1;  //1:submit 0:save 默认提交状态，radio不可用
     		
     		if (currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0){
+    			radioStatus = 0;
     			//之后选项卡不可用
     			if (currentQuestionnaireNo != 5){
-    				var nextQuestionnaireNo = currentQuestionnaireNo+1;
+    				var nextQuestionnaireNo = parseInt(currentQuestionnaireNo) + 1;
     				for (var i=nextQuestionnaireNo;i<6;i++){
     					if ($("#q" + i).parent().hasClass("active")){
     						$("#q" + i).parent().removeClass("active").addClass("disabled");
@@ -61,7 +62,7 @@ function showQuestions(questionnaireNo){
     				}
     			}
     		}else if(currentQuestionnaireNo < latestQuestionnaireNo && saveOrSubmit == 0){
-    			radioStatus = 0;
+    			radioStatus = 1;
     			
     			//当前选项卡中的button disabled
     			$("#save").attr("disabled","disabled");
@@ -69,7 +70,7 @@ function showQuestions(questionnaireNo){
     			
     			//大于latestQuestionnaireNo之后的选项卡不可用
     			if (latestQuestionnaireNo != 5){
-    				var nextQuestionnaireNo = latestQuestionnaireNo+1;
+    				var nextQuestionnaireNo = parseInt(latestQuestionnaireNo) + 1;
     				for (var i=nextQuestionnaireNo;i<6;i++){
     					if ($("#q" + i).parent().hasClass("active")){
     						$("#q" + i).parent().removeClass("active").addClass("disabled");
@@ -78,19 +79,43 @@ function showQuestions(questionnaireNo){
     					}
     				}
     			}
-    		}else if (currentQuestionnaireNo == latestQuestionnaireNo == 1){
+    		}else if (currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 1){
+    			radioStatus = 1;
     			//当前选项卡中的button disabled
     			$("#save").attr("disabled","disabled");
     			$("#submit").attr("disabled","disabled");
     			
     			//之后第二个开始不可用
-    			for (var i=3;i<6;i++){
-    				if ($("#q" + i).parent().hasClass("active")){
-						$("#q" + i).parent().removeClass("active").addClass("disabled");
-					}else{
-						$("#q" + i).parent().addClass("disabled");
-					}
-				}
+    			if (latestQuestionnaireNo != 5){
+    				var nextQuestionnaireNo = parseInt(latestQuestionnaireNo) + 2;
+    				for (var i=nextQuestionnaireNo;i<6;i++){
+    					if ($("#q" + i).parent().hasClass("active")){
+    						$("#q" + i).parent().removeClass("active").addClass("disabled");
+    					}else{
+    						$("#q" + i).parent().addClass("disabled");
+    					}
+    				}
+    			}
+    		}else if(currentQuestionnaireNo < latestQuestionnaireNo && saveOrSubmit == 1){
+    			radioStatus = 1;
+    			
+    			//当前选项卡中的button disabled
+    			$("#save").attr("disabled","disabled");
+    			$("#submit").attr("disabled","disabled");
+    			
+    			//大于latestQuestionnaireNo(之后+1)的选项卡不可用
+    			if (latestQuestionnaireNo != 5){
+    				var nextQuestionnaireNo = parseInt(latestQuestionnaireNo) + 2;
+    				if (nextQuestionnaireNo <= 6){
+    					for (var i=nextQuestionnaireNo;i<6;i++){
+    						if ($("#q" + i).parent().hasClass("active")){
+    							$("#q" + i).parent().removeClass("active").addClass("disabled");
+    						}else{
+    							$("#q" + i).parent().addClass("disabled");
+    						}
+    					}
+    				}
+    			}
     		}
     		//else if (((currentQuestionnaireNo == latestQuestionnaireNo) $$ (saveOrSubmit == 1)) || ((currentQuestionnaireNo < latestQuestionnaireNo) $$ (saveOrSubmit == 1))){
     		//	radioStatus = 1;//当前页面不可用

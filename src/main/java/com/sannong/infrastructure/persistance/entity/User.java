@@ -3,6 +3,10 @@ package com.sannong.infrastructure.persistance.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import com.sannong.infrastructure.util.CustomDateSerializer;
+
 /**
  * create user class
  * @author william zhang
@@ -30,6 +34,7 @@ public class User implements Serializable{
 	private String realName;
 	private Timestamp createTime;
 	
+	@JsonSerialize(using = CustomDateSerializer.class)
 	public Timestamp getCreateTime() {
 		return createTime;
 	}
