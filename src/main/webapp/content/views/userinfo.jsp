@@ -27,11 +27,6 @@
             <form role="form" id="userInfoForm" action="updateUserInfo" method="post">
                 <div>
                     <div class="form-group">
-                        <label for="userName">用户名</label>
-                        <input id="userName" class="form-control" name="userName" disabled value="${myinfo.userName}">
-                    </div>
-
-                    <div class="form-group">
                         <label for="realName">姓名</label>
                         <input id="realName" class="form-control" name="realName" disabled value="${myinfo.realName}">
                     </div>
@@ -97,6 +92,9 @@
                         </div>
                     </sec:authorize>
                 </div>
+                <input name="userName" type="hidden" value="${myinfo.userName}" >
+                <input name="realName" type="hidden" value="${myinfo.realName}" >
+                <input name="cellphone" type="hidden" value="${myinfo.cellphone}" >
                 <div class="errorDiv">${myinfomessage}</div>
                 <input type="button" id="userInfoSubmit"  name="userInfoSubmit" class="btn btn-success" value="提交">
             </form>
