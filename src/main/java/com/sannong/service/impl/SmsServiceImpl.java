@@ -6,13 +6,13 @@ import com.sannong.infrastructure.persistance.repository.SmsRepository;
 import com.sannong.infrastructure.sms.SmsSender;
 import com.sannong.infrastructure.util.MyConfig;
 import com.sannong.service.ISmsService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -59,8 +59,12 @@ public class SmsServiceImpl implements ISmsService{
     @SuppressWarnings("unchecked")
     public int validateSMSCode(HttpServletRequest request)
     {
-    	String smscode=request.getParameter("validationcode").toString().trim();
-    	if(smscode.isEmpty()) return 0;
+    	String smsCode = request.getParameter("validationcode");
+
+        if (StringUtils.isEmpty(smsCode)){
+            return 0;
+        }
+
     	if( request.getSession().getAttribute(SESSIOIN_SMS_CODES)==null) return 1;
 		Map<Date,String>	 map=(HashMap<Date,String>)request.getSession().getAttribute(SESSIOIN_SMS_CODES);
 		Iterator iterator = map.entrySet().iterator();  
@@ -68,7 +72,7 @@ public class SmsServiceImpl implements ISmsService{
 			Map.Entry mapEntry = (Map.Entry) iterator.next();  
 			Date dt=(Date)mapEntry.getKey();
 			String savecode=mapEntry.getValue().toString();
-			if(savecode.equals(smscode))
+			if(savecode.equals(smsCode))
 			{
 				Date dtNow=new Date(System.currentTimeMillis()); 
 				long diffInMinuts = (dtNow.getTime() - dt.getTime()) / 1000*60;

@@ -19,6 +19,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,7 @@ import com.sannong.service.IUserService;
 public class PersonalCenterController {
     private static final String MY_APPLICATION_PAGE = "myapplication";
     private static final String MY_INFO_PAGE = "myinfo";
+    private static final String USER_INFO_PAGE = "userinfo";
     private static final String MY_PASSWORD_PAGE = "mypassword";
     private static final String APPLICANTS_PAGE = "applicants";
     private static final String COMPLETION_PAGE = "completion";
@@ -87,7 +89,9 @@ public class PersonalCenterController {
 
     @RequestMapping(value = "modifyMyinfo", method = RequestMethod.POST)
 	public ModelAndView updateUser(HttpServletRequest request,@ModelAttribute("myinfo")	User user, BindingResult result) {
-    	 Map<String, Object> models = new HashMap<String, Object>();
+        Map<String, Object> models = new HashMap<String, Object>();
+        String userName = user.getUserName();
+
     	 String username;
          Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
          if (principal instanceof UserDetails) {
@@ -98,17 +102,19 @@ public class PersonalCenterController {
          user.setUserName(username); //add by william
          
          User dbuser = userService.getUserByName(username);
-         if(user.getCellphone().toString().trim().isEmpty())
-        	 user.setCellphone(dbuser.getCellphone());
+         if(StringUtils.isEmpty(user.getCellphone().toString())) {
+             user.setCellphone(dbuser.getCellphone());
+         }
+
          if(!dbuser.getCellphone().toString().equals(user.getCellphone().toString()))
-         {    	 
-	    	 if(smsService.validateSMSCode(request)<2)
+         {
+	    	 if(smsService.validateSMSCode(request) < 2)
 	    	 {
 	    		 models.put("myinfomessage", MyConfig.getConfig("error-myinfo-invalidRegcode"));
 	    	 }
-	    	 return new ModelAndView(MY_INFO_PAGE, models);
+            return new ModelAndView(MY_INFO_PAGE, models);
          }
-    	Timestamp ts  =new Timestamp(System.currentTimeMillis()); 
+    	Timestamp ts = new Timestamp(System.currentTimeMillis());
 		user.setUpdateTime(ts);
 		try {
 			userService.updateUser(user);
@@ -117,7 +123,7 @@ public class PersonalCenterController {
 			e.printStackTrace();
 		}
 		
-		models.put("myinfomessage", "save!");
+		models.put("myinfomessage", "Save!");
 		
 		return new ModelAndView(MY_INFO_PAGE, models);
 	}
@@ -141,6 +147,46 @@ public class PersonalCenterController {
         models.put("myinfo", users.get(0));
         return new ModelAndView(MY_INFO_PAGE, models);
     }
+
+    @RequestMapping(value = "userinfo")
+    public ModelAndView userInfo(HttpServletRequest request) {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        String userName = request.getParameter("userName");
+        if (userName == null){
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                userName = ((UserDetails) principal).getUsername();
+            } else {
+                userName = principal.toString();
+            }
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userName", userName);
+        List<User> users = userService.getUserByCondition(map);
+        models.put("myinfo", users.get(0));
+        return new ModelAndView(USER_INFO_PAGE, models);
+    }
+
+    @RequestMapping(value = "updateUserInfo", method = RequestMethod.POST)
+    public ModelAndView updateUserInfo(HttpServletRequest request, @ModelAttribute("userinfo") User user, BindingResult result) {
+        Map<String, Object> models = new HashMap<String, Object>();
+        String userName = user.getUserName();
+
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        user.setUpdateTime(ts);
+        try {
+            userService.updateUser(user);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        models.put("myinfomessage", "Save!");
+
+        return new ModelAndView(USER_INFO_PAGE, models);
+    }
+
 
     @RequestMapping(value = "mypassword", method = RequestMethod.GET)
     public ModelAndView myPassword() {

@@ -43,21 +43,21 @@
                         <div class="errorDiv"></div>
                     </div>
                     <div class="form-group ">
-                      <label for="jobAddress">单位地址</label> 
-                      </div>
-                        <div class="form-group form-inline">
-                         <input type="hidden" id="provinceValue" value="${myinfo.companyProvince}"/>
-                         <input type="hidden" id="cityValue" value="${myinfo.companyCity}"/>
-                         <input type="hidden" id="districtValue" value="${myinfo.companyDistrict}"/>
-								<select id="provinceSelect" class="form-control" name="companyProvince" >
-                                <option></option>
-                               </select>
-                               <select id="citySelect" class="form-control" name="companyCity">
-                               <option></option>
-                               </select>
-                               <select id="districtSelect" class="form-control" name="companyDistrict">
-                               <option></option>
-                               </select>
+                        <label for="jobAddress">单位地址</label>
+                    </div>
+                    <div class="form-group form-inline">
+                        <input type="hidden" id="provinceValue" value="${myinfo.companyProvince}"/>
+                        <input type="hidden" id="cityValue" value="${myinfo.companyCity}"/>
+                        <input type="hidden" id="districtValue" value="${myinfo.companyDistrict}"/>
+                        <select id="provinceSelect" class="form-control" name="companyProvince" >
+                            <option></option>
+                        </select>
+                        <select id="citySelect" class="form-control" name="companyCity">
+                            <option></option>
+                        </select>
+                        <select id="districtSelect" class="form-control" name="companyDistrict">
+                            <option></option>
+                        </select>
                         <input type="input" class="form-control" id="jobAddress" name="companyAddress" placeholder="单位地址"  value="${myinfo.companyAddress}">
                         <div class="errorDiv"></div>
                     </div>
@@ -92,10 +92,11 @@
                             </div>
                         </div>
                     </sec:authorize>
-                 </div>
+                </div>
                 <div class="errorDiv">${myinfomessage}</div>
                 <input type="button" id="register-btn"  name="myInfoSubmit" class="btn btn-success" value="提交">
             </form>
+
         </div>
         <div class="col-md-4 column"></div>
     </div>

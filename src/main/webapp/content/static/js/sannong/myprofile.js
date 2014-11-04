@@ -10,8 +10,9 @@
     myinfo.Model = {};
     myinfo.View = {};
 
-    function validateForm(){
-        var validator = $("#myInfoForm").validate({
+    function validateForm(formName){
+
+        var validator = $("#" + formName ).validate({
             rules: {
                 "jobTitle": "required",
                 "company": "required",
@@ -201,6 +202,10 @@
             }
         },
         addEventListener: function(){
+
+            var userInfoForm = "userInfoForm";
+            var myInfoForm = "myInfoForm";
+
             $("#provinceSelect").change(function(event){
                 addCities();
             });
@@ -211,8 +216,14 @@
             });
 
             $("#register-btn").click(function(event){
-                if (validateForm().form() == true){
+                if (validateForm(myInfoForm).form() == true){
                     $("#myInfoForm").submit();
+                }
+            });
+
+            $("#register-btn").click(function(event){
+                if (validateForm(myInfoForm).form() == true){
+                    $("#userInfoForm").submit();
                 }
             });
 
@@ -222,7 +233,7 @@
 
 
             $("#validationCode").keyup(function(){
-                if (validateForm().element($("#validationCode")) == true && $("#validationCode").val() != ""){
+                if (validateForm(myInfoForm).element($("#validationCode")) == true && $("#validationCode").val() != ""){
                     $("#applicationSubmit").removeAttr("disabled");
                     $("#applicationSubmit").removeClass().addClass("btn btn-success");
                 } else {
@@ -233,7 +244,7 @@
             });
 
             $("#action-send-code").click(function(event){
-                if (validateForm().form() == true){
+                if (validateForm(myInfoForm).form() == true){
                     var options = {
                         url: 'regcode',
                         type: 'GET',
@@ -249,6 +260,12 @@
                         }
                     }
                     myinfo.Controller.ajaxRequest(options);
+                }
+            });
+
+            $("#userInfoSubmit").click(function(event){
+                if (validateForm(userInfoForm).form() == true){
+                    $("#userInfoSubmit").submit();
                 }
             });
         }

@@ -126,7 +126,7 @@
             <td>{{jobTitle}}</td>
             <td>{{mailbox}}</td>
             <td>
-                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="edit({{userName}})">编辑</a>
+                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="edit('{{userName}}')">编辑</a>
             </td>
             <td>
                 <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="showQuestionnaireAnswers(1,{{cellphone}})">问卷调查</a>

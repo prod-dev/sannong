@@ -3,7 +3,7 @@ $(function() {
 })
 
 function edit(userName){
-	location.href = "myinfo?userName=" + userName;
+	location.href = "userinfo?userName=" + userName;
 }
 
 function changeContent() {

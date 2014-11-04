@@ -10,8 +10,8 @@
     projectApplication.Model = {};
     projectApplication.View = {};
 
-    function validateForm(){
-        var validator = $("#applicationForm").validate({
+    function validateForm(form){
+        var validator = $("#" + form).validate({
             rules: {
                 "answers[0]": "required",
                 "answers[1]": "required",
@@ -233,7 +233,7 @@
                         $("#action-send-code").val('重新发送').removeAttr('disabled').removeClass("gray");
                     }
                 }, 1000);
-                },        
+        },
         addEventListener: function(){
             $("#provinceSelect").change(function(event){
                 addCities();
