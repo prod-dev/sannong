@@ -22,25 +22,7 @@ function showQuestions(questionnaireNo){
         url: 'questionAndAnswer',
         data: "questionnaireNo=" + questionnaireNo,           
         success: function(data) {
-        	//fill out answers in questionnaire relatively
-        	var answerString = "";
-        	switch (questionnaireNo){
-        		case 1 :
-        			answerString = data.questionnaire1Answers;
-        			break;
-        		case 2 :
-        			answerString = data.questionnaire2Answers;
-        			break;
-        		case 3 :
-        			answerString = data.questionnaire3Answers;
-        			break;
-        		case 4 :
-        			answerString = data.questionnaire4Answers;
-        			break;
-        		case 5 :
-        			answerString = data.questionnaire5Answers;
-        			break;
-        	}
+        	
         	//判断哪些选项卡不可用
         	var answerStatus = data.answerStatus;
     		var answerStatusStr =  answerStatus.toString();
@@ -150,6 +132,26 @@ function showQuestions(questionnaireNo){
         	});
         	
         	//fill out answers in questionnaire relatively
+        	//fill out answers in questionnaire relatively
+        	var answerString = "";
+        	switch (questionnaireNo){
+        		case 1 :
+        			answerString = data.questionnaire1Answers;
+        			break;
+        		case 2 :
+        			answerString = data.questionnaire2Answers;
+        			break;
+        		case 3 :
+        			answerString = data.questionnaire3Answers;
+        			break;
+        		case 4 :
+        			answerString = data.questionnaire4Answers;
+        			break;
+        		case 5 :
+        			answerString = data.questionnaire5Answers;
+        			break;
+        	}
+        	
         	if (answerString != "" && answerString != null){
         		var answer = answerString.split(";");
             	for (var i = 0;i < answer.length;i++){

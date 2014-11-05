@@ -15,6 +15,7 @@ function changeContent() {
 }
 
 function cancel() {
+	$("#userTextShow").hide();
 	$("#questionnaireTable").hide();
 	$("#applicantsTable").show();
 	$("#searchBar").show();
@@ -62,6 +63,7 @@ $("#retrieve").click(function() {
 function showQuestionnaireAnswers(questionnaireNo, cellphone) {
 	$("#questionnaireNo").val(questionnaireNo);
     $("#answerStatus").val(questionnaireNo + '1');
+    $("#userTextShow").hide();
 	
 	var userCellphone = cellphone;
 	if (userCellphone != "") {
@@ -78,12 +80,11 @@ function showQuestionnaireAnswers(questionnaireNo, cellphone) {
 		success : function(data) {
 			var answerStatus = data.answerStatus;
 			var answerStatusStr = answerStatus.toString();
-			var latestQuestionnaireNo = answerStatusStr.substring(0, 1);
+			var latestQuestionnaireNo = parseInt(answerStatusStr.substring(0, 1));
 			var saveOrSubmit = answerStatusStr.substring(1, 2);
 			// about when admin can update user's questionnaire
-			if ((questionnaireNo > latestQuestionnaireNo)
-					|| (questionnaireNo = latestQuestionnaireNo
-							&& saveOrSubmit == 0)) {
+			if (parseInt(questionnaireNo) > latestQuestionnaireNo || 
+					((parseInt(questionnaireNo) == latestQuestionnaireNo) && saveOrSubmit == 0)){
 				$("#update").attr("disabled", "disabled");
 			}else{
 				$("#update").attr("disabled", false);
@@ -122,9 +123,26 @@ function showQuestionnaireAnswers(questionnaireNo, cellphone) {
 			});
 
 			// fill out answers in questionnaire relatively
-			var answerString = data.questionnaire1Answers;
+			var answerString = "";
+        	switch (parseInt(questionnaireNo)){
+        		case 1 :
+        			answerString = data.questionnaire1Answers;
+        			break;
+        		case 2 :
+        			answerString = data.questionnaire2Answers;
+        			break;
+        		case 3 :
+        			answerString = data.questionnaire3Answers;
+        			break;
+        		case 4 :
+        			answerString = data.questionnaire4Answers;
+        			break;
+        		case 5 :
+        			answerString = data.questionnaire5Answers;
+        			break;
+        	}
 
-			if (answerString != "") {
+			if (answerString != "" && answerString != null) {
 				var answer = answerString.split(";");
 				for ( var i = 0; i < answer.length; i++) {
 					var $_radios = $(".J_group_radio").eq(i).find("input");
