@@ -356,11 +356,12 @@
     	    	    if (message.result == true){
     	    	    	$("#return").click();
     	    	    	
-    	    	    	alert("save success!");
+    	    	    	$("#submit").after('<label id="save-success" class="error" for="jobTitle">已保存</label>');
+    	    	    	
     	    	    	//保存成功重新加载questionnaire and answer
     	    	    	showQuestions(questionnaireNo);
     	    	    }else{
-    	    	    	alert("保存失败！");
+    	    	    	$("#submit").after('<label id="save-error" class="error" for="jobTitle">保存失败</label>');
     	    	    }
     	    	});
     		}
@@ -372,11 +373,15 @@
     	    if (message.result == true){
     	    	$("#return").click();
     	    	
+    	    	$("#save-success").empty();
+    	    	$("#submit").after('<label id="update-success" class="error" for="jobTitle">更新成功</label>');
+    	    	
     	    	//更新成功重新加载questionnaire and answer
     	    	var questionnaireNo = $("#questionnaireNo").val();
     	    	showQuestions(questionnaireNo);
     	    }else{
-    	    	alert("更新失败！");
+    	    	$("#save-success").empty();
+    	    	$("#submit").after('<label id="update-error" class="error" for="jobTitle">更新失败</label>');
     	    }
     	});
     	return false;
