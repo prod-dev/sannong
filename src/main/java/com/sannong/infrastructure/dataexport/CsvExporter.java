@@ -10,8 +10,6 @@ import java.util.List;
 /**
  * Created by Vidor Chan on 10/30/14.
  */
-
-
 public class CsvExporter {
 
     private static final int questionNumbers = 55;
