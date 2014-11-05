@@ -29,9 +29,10 @@ public class  SendMailHander extends Thread
 	{
 	try
 	{
+		String[] emails=receiver.split(";");	
 		Email email = Email.create()
 		        .from(MyConfig.getConfig("smtp-sender"))
-		        .to(receiver)
+		        .to(emails)
 		        .subject(subject);
 		if(!isHtml)
 			email.addText(content);
