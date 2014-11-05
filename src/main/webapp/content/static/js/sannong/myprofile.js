@@ -13,6 +13,10 @@
         districtInit: false
     };
     myinfo.View = {};
+   var showError = function($obj, txt) {
+                var $td = $obj.parent();
+                $td.find("#errorDiv").removeAttr("style").text(txt);    
+            };
 
     function validateForm(formName){
 
@@ -30,8 +34,7 @@
                 "deskPhone": {
                     isTel: true
                 },
-                "cellphone": {
-                    required: true,
+                "cellphone": {                    
                     isCellphone: true
                 },
                 "sms.smsValidationCode":{
@@ -55,7 +58,6 @@
                     isTel: "请输入正确格式的电话号码 如:010-12345678"
                 },
                 "cellphone": {
-                    required: "必填",
                     isCellphone: "请正确填写您的手机号码",
                     remote: "姓名或手机号码不存在"
                 },
@@ -146,6 +148,7 @@
 
         $.validator.addMethod("isCellphone", function(value, element) {
             var length = value.length;
+            if(length==0)return true;
             var mobile = /^(((13[0-9]{1})|(15[0-9]{1})||(18[0-9]{1}))+\d{8})$/;
             return this.optional(element) || (length == 11 && mobile.test(value));
         }, "请正确填写您的手机号码");
@@ -166,6 +169,19 @@
             }).always(function (xhr, status, error) {
 
             });
+        },
+ 	timeRemained:0,
+       updateTimeLabel:function(duration) {
+                 if(myinfo.Controller.timeRemained>0)return;;
+                 myinfo.Controller.timeRemained = duration;
+                var timer = setInterval(function() {
+                    $("#action-send-code").val( myinfo.Controller.timeRemained + '秒后重新发送');
+                     myinfo.Controller.timeRemained -= 1;
+                    if ( myinfo.Controller.timeRemained == -1) {
+                        clearInterval(timer);
+                        $("#action-send-code").val('重新发送').removeAttr('disabled').removeClass("gray");
+                    }
+                }, 1000);
         },
         addProvinceSelections: function(provinces) {
             var provinceSelect = $('#provinceSelect');
@@ -248,32 +264,84 @@
                 $("#myInfoForm").submit();
             });
 
+ 	  $("#cellphone").keyup(function(){
+		if($("#cellphone").val().length>0&& $("#register-btn").attr("disabled")==undefined)
+		{
+		    $("#register-btn").attr({disabled: "disabled"});
+                    $("#register-btn").removeClass().addClass("btn btn-default");
+		}
+		else
+		{
+		}
+		if($("#cellphone").val().length<11)return;
+		if($("#" + myInfoForm).length>0)
+		if (validateForm(myInfoForm).form() == true)
+		{
+ 			$("#action-send-code").removeAttr("disabled");
+				
+		}
+		if($("#" + userInfoForm).length>0)
+		if (validateForm(userInfoForm).form() == true)
+		{
+ 			$("#action-send-code").removeAttr("disabled");
+				
+		}
+
+	  });
+
 
             $("#validationCode").keyup(function(){
-                if (validateForm(myInfoForm).element($("#validationCode")) == true && $("#validationCode").val() != ""){
-                    $("#applicationSubmit").removeAttr("disabled");
-                    $("#applicationSubmit").removeClass().addClass("btn btn-success");
-                } else {
-                    $("#applicationSubmit").attr({disabled: "disabled"});
-                    $("#applicationSubmit").removeClass().addClass("btn btn-default");
-                }
+		 if($("#validationCode").val().length<4)return;
+            	 var options ={
+				type: "get",
+				async: false,
+				url: 'validateSMSCode',
+				data: {
+				    "validationcode": $("#validationCode").val()
+				},
+				success: function(data) {
+				 $("#errorDiv").css("display","none");
+				    if(data==0)
+				    {
+				    	    showError($("#validationCode"), '验证码错误');	    	    
+				    }
+				     if(data==1)
+				    {
+				    	    showError($("#validationCode"), '验证码过期，请重新获取验证码');	    	    
+				    }
+				    if(data==2)
+				    {				
+					    $("#register-btn").removeAttr("disabled");
+					    $("#register-btn").removeClass().addClass("btn btn-success");
+				     }
+				}
+		 };
+
+		myinfo.Controller.ajaxRequest(options);  
+                
 
             });
 
             $("#action-send-code").click(function(event){
-                if (validateForm(myInfoForm).form() == true){
+                if (validateForm(myInfoForm).form() == true){          
                     var options = {
                         url: 'regcode',
                         type: 'GET',
                         data: {
                             mobile: $("#cellphone").val(),
-                            smstype: $("#action-send-code").attr("data-type")
+                            smstype: $(this).attr("data-type")
                         },
                         success: function(data){
-
+                        $("#validationCode").removeAttr("disabled"); 
+                         if (data == true) {                          
+                              myinfo.Controller.updateTimeLabel(60);                          
+                         } else {
+                            $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
+                        }
+                        
                         },
                         fail: function(data){
-
+                         $(this).val('重新发送').removeAttr('disabled').removeClass("gray");
                         }
                     }
                     myinfo.Controller.ajaxRequest(options);

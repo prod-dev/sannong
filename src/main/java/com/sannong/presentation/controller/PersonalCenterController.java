@@ -103,7 +103,7 @@ public class PersonalCenterController {
          user.setUserName(username); //add by william
          
          User dbuser = userService.getUserByName(username);
-         if(StringUtils.isEmpty(user.getCellphone().toString())) {
+         if(!StringUtils.isEmpty(user.getCellphone().toString())) {
              user.setCellphone(dbuser.getCellphone());
          }
 
@@ -131,7 +131,7 @@ public class PersonalCenterController {
 
     @RequestMapping(value = "myinfo")
     public ModelAndView myInfo(HttpServletRequest request) {
-
+    	request.getSession().setAttribute(MyConfig.SESSIOIN_SMS_CODES,null); //clear sms code session
     	Map<String, Object> models = new HashMap<String, Object>();
         String userName = request.getParameter("userName");
         if (userName == null){

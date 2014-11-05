@@ -85,9 +85,9 @@
                                 <div >
                                     <input type="hidden"  id="oldCellphone" value="${myinfo.cellphone}">
                                     <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="新手机号码" autocomplete="off">
-                                    <input type="button" id="action-send-code" data-url="regcode" data-type="1" class="btn btn-sm btn-warning" value="发送验证码">
-                                    <input type="text" class="form-control" name="validationcode"  id="validationcode" placeholder="验证码" autocomplete="off">
-                                    <div class="errorDiv"></div>
+                                    <input type="button" id="action-send-code" data-url="regcode" data-type="1" class="btn btn-sm btn-warning" disabled="true"  value="发送验证码">
+                                    <input type="text" class="form-control" name="validationcode"  id="validationCode"  disabled="true" placeholder="验证码" autocomplete="off">
+                                  <label id="errorDiv" class="error" ></label>
                                 </div>
                             </div>
                         </div>
