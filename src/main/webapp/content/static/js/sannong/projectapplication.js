@@ -232,6 +232,7 @@
          },
         timeRemained:0,
        updateTimeLabel:function(duration) {
+                 if(projectApplication.Controller.timeRemained!=0)return;
                  projectApplication.Controller.timeRemained = duration;
                 var timer = setInterval(function() {
                     $("#action-send-code").val( projectApplication.Controller.timeRemained + '秒后重新发送');
