@@ -14,6 +14,7 @@ function showQuestions(questionnaireNo){
 	}
 	
 	$("#questionnaireNo").val(questionnaireNo);
+	var questionnaireNo = parseInt(questionnaireNo);
 	
 	$.ajax({   
         type: "get",  
@@ -43,16 +44,21 @@ function showQuestions(questionnaireNo){
         	//判断哪些选项卡不可用
         	var answerStatus = data.answerStatus;
     		var answerStatusStr =  answerStatus.toString();
-    		var latestQuestionnaireNo = answerStatusStr.substring(0,1);
+    		var latestQuestionnaireNo = parseInt(answerStatusStr.substring(0,1));
     		var saveOrSubmit = answerStatusStr.substring(1,2);
     		var currentQuestionnaireNo = questionnaireNo;
     		var radioStatus = 1;  //1:submit 0:save 默认提交状态，radio不可用
     		
     		if (currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0){
     			radioStatus = 0;
+    			
+    			//当前选项卡中的button enabled
+    			$("#save").attr("disabled",false);
+    			$("#submit").attr("disabled",false);
+    			
     			//之后选项卡不可用
     			if (currentQuestionnaireNo != 5){
-    				var nextQuestionnaireNo = parseInt(currentQuestionnaireNo) + 1;
+    				var nextQuestionnaireNo = currentQuestionnaireNo + 1;
     				for (var i=nextQuestionnaireNo;i<6;i++){
     					if ($("#q" + i).parent().hasClass("active")){
     						$("#q" + i).parent().removeClass("active").addClass("disabled");
@@ -70,7 +76,7 @@ function showQuestions(questionnaireNo){
     			
     			//大于latestQuestionnaireNo之后的选项卡不可用
     			if (latestQuestionnaireNo != 5){
-    				var nextQuestionnaireNo = parseInt(latestQuestionnaireNo) + 1;
+    				var nextQuestionnaireNo = latestQuestionnaireNo + 1;
     				for (var i=nextQuestionnaireNo;i<6;i++){
     					if ($("#q" + i).parent().hasClass("active")){
     						$("#q" + i).parent().removeClass("active").addClass("disabled");
@@ -81,12 +87,18 @@ function showQuestions(questionnaireNo){
     			}
     		}else if (currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 1){
     			radioStatus = 1;
+    			
     			//当前选项卡中的button disabled
     			$("#save").attr("disabled","disabled");
     			$("#submit").attr("disabled","disabled");
     			
+    			//下一个选项卡可用
+    			if ($("#q" + (currentQuestionnaireNo + 1).toString()).parent().hasClass("disabled")){
+					$("#q" + (currentQuestionnaireNo + 1).toString()).parent().removeClass("disabled");
+				}
+    			
     			//之后第二个开始不可用
-    			if (latestQuestionnaireNo != 5){
+    			if (latestQuestionnaireNo < 4){
     				var nextQuestionnaireNo = parseInt(latestQuestionnaireNo) + 2;
     				for (var i=nextQuestionnaireNo;i<6;i++){
     					if ($("#q" + i).parent().hasClass("active")){
@@ -105,7 +117,7 @@ function showQuestions(questionnaireNo){
     			
     			//大于latestQuestionnaireNo(之后+1)的选项卡不可用
     			if (latestQuestionnaireNo != 5){
-    				var nextQuestionnaireNo = parseInt(latestQuestionnaireNo) + 2;
+    				var nextQuestionnaireNo = latestQuestionnaireNo + 2;
     				if (nextQuestionnaireNo <= 6){
     					for (var i=nextQuestionnaireNo;i<6;i++){
     						if ($("#q" + i).parent().hasClass("active")){
@@ -117,8 +129,6 @@ function showQuestions(questionnaireNo){
     				}
     			}
     		}
-    		//else if (((currentQuestionnaireNo == latestQuestionnaireNo) $$ (saveOrSubmit == 1)) || ((currentQuestionnaireNo < latestQuestionnaireNo) $$ (saveOrSubmit == 1))){
-    		//	radioStatus = 1;//当前页面不可用
         	
         	//fill out questionnaire
         	Handlebars.registerHelper("fromOne",function(index){

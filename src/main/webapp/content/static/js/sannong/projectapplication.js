@@ -356,6 +356,7 @@
     	    	    if (message.result == true){
     	    	    	$("#return").click();
     	    	    	
+    	    	    	alert("save success!");
     	    	    	//保存成功重新加载questionnaire and answer
     	    	    	showQuestions(questionnaireNo);
     	    	    }else{
