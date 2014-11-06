@@ -8,7 +8,7 @@
  */
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
-		define( ["jquery", "./jquery.validate-1.13.1.js"], factory );
+		define( ["jquery", "./jquery-validate-1.13.1.js"], factory );
 	} else {
 		factory( jQuery );
 	}

@@ -109,7 +109,7 @@
         <jsp:include page='footer.jsp'/>
     </div>
 </div>
-<script src="content/static/js/sannong/myprofile.js"> </script>
-<script src="content/static/js/lib/jquery-form.js"></script>
+<script data-main="content/static/js/sannong/pages/myinfo" src="content/static/js/lib/require-2.1.15.js"></script>
+
 </body>
 </html>

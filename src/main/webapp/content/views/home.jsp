@@ -45,5 +45,6 @@
         <jsp:include page='footer.jsp'/>
     </div>
 </div>
+<script data-main="content/static/js/sannong/pages/home" src="content/static/js/lib/require-2.1.15.js"></script>
 </body>
 </html>
