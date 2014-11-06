@@ -92,7 +92,7 @@
             }
         });
         return validator;
-    }
+    }  
 
     function addCities(){
         var provinceIndex = $("#provinceSelect").val();
@@ -153,6 +153,14 @@
             return this.optional(element) || (length == 11 && mobile.test(value));
         }, "请正确填写您的手机号码");
     }
+
+    function disableSubmitButton(){
+      		 if($("#register-btn").attr("disabled")==undefined){		
+		    $("#register-btn").attr({disabled: "disabled"});
+                    $("#register-btn").removeClass().addClass("btn btn-default");
+		}
+
+	}
 
     myinfo.Controller = {
         ajaxRequest : function(options) {
@@ -265,14 +273,11 @@
             });
 
  	  $("#cellphone").keyup(function(){
-		if($("#cellphone").val().length>0&& $("#register-btn").attr("disabled")==undefined)
+		if($("#cellphone").val().length>0)
 		{
-		    $("#register-btn").attr({disabled: "disabled"});
-                    $("#register-btn").removeClass().addClass("btn btn-default");
+		    disableSubmitButton();
 		}
-		else
-		{
-		}
+
 		if($("#cellphone").val().length<11)return;
 		if($("#" + myInfoForm).length>0)
 		if (validateForm(myInfoForm).form() == true)
@@ -303,11 +308,14 @@
 				 $("#errorDiv").css("display","none");
 				    if(data==0)
 				    {
-				    	    showError($("#validationCode"), '验证码错误');	    	    
+				    	    showError($("#validationCode"), '验证码错误');
+					    disableSubmitButton();	    	    
 				    }
 				     if(data==1)
 				    {
-				    	    showError($("#validationCode"), '验证码过期，请重新获取验证码');	    	    
+				    	    showError($("#validationCode"), '验证码过期，请重新获取验证码');
+					     disableSubmitButton();
+					    	    	    
 				    }
 				    if(data==2)
 				    {				
