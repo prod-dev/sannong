@@ -14,9 +14,12 @@ import java.util.List;
 @Repository
 @Transactional
 public interface RegionRepository {
+	
     List<Province> getProvinces();
+    
     List<Province> getProvinceByCountryCode(String countryCode);
+    
     List<City> getCityByProvinceIndex(Long provinceIndex);
+    
     List<District> getDistrictByCityIndex(Long cityIndex);
-
 }

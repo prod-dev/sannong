@@ -49,14 +49,14 @@ public class ProjectServiceImpl implements IProjectService {
 	
 	public boolean checkUserNameAvailable(HttpServletRequest request)
 	{
-			String username=request.getParameter("username");
-			Map<String,Object> map=new HashMap<String,Object>();
-			map.put("userName", username);
-			List<User> li=userRepository.getUserByCondition(map);
-			if(li.isEmpty())
-				return true;
-			else 
-				return false;
+		String username=request.getParameter("username");
+		Map<String,Object> map=new HashMap<String,Object>();
+		map.put("userName", username);
+		List<User> li=userRepository.getUserByCondition(map);
+		if(li.isEmpty())
+			return true;
+		else 
+			return false;
 	}
 	
 	/**
@@ -109,8 +109,8 @@ public class ProjectServiceImpl implements IProjectService {
 		return result;
 	}
 	
-	public void emailAdmin()
-	{
+	public void emailAdmin(){
+		
 		Config cfg=new Config();
 		String email=cfg.getProperty("newApp-admin-email");
 		String content=cfg.getProperty("newApp-email-content");
@@ -123,7 +123,7 @@ public class ProjectServiceImpl implements IProjectService {
 		boolean result = true;
 
 		try {
-			// insert user information begin
+			//set user information
 			Timestamp createTime = new Timestamp(System.currentTimeMillis());
 			application.getApplicant().setUpdateTime(createTime);
 			application.getApplicant().setCreateTime(createTime);
@@ -137,37 +137,32 @@ public class ProjectServiceImpl implements IProjectService {
 
 			userRepository.addUserInfo(application.getApplicant());
 
-
             // set authrities
             Map<String, Object> authorityMap = new HashMap<String, Object>();
             authorityMap.put("userName", username);
             authorityMap.put("authority", RoleType.ROLE_USER.toString());
             authorityRepository.addUserAuthority(authorityMap);
+            
+            //retrieve applicant id and add to application
+			Long applicantId = userRepository.getIdByCellphone(application
+					.getApplicant().getCellphone());
+			application.getApplicant().setUserId(applicantId);
+			
+			// set application info
+			application.setApplicationDate(createTime);
+			applicationRepository.addProjectApplicationInfo(application);
 
-
-
-
-			//  set answers to answer object
+			//set answers to answer object
 			Answer answer = new Answer();
 			answer.setAnswers(application.getAnswers());
 			answer.setQuestionnaireNo(1);  //project application just have questionnaire number one
 			answer.setApplicant(application.getApplicant());
 			answer.setAnswerStatus(11);  //the first applicantion submit
+			answer.setApplication(application);  //set application_id in answers
 			setAnswers(answer);
 			
 			// set answers info
 			answerRepository.addAnswers(answer);
-			
-			//retrieve applicant id and add to application
-			Long applicantId = userRepository.getIdByCellphone(application
-					.getApplicant().getCellphone());
-			application.getApplicant().setUserId(applicantId);
-
-			// set application info
-			application.setApplicationDate(createTime);
-			applicationRepository.addProjectApplicationInfo(application);
-
-
 			
 			// email admin
 			emailAdmin();

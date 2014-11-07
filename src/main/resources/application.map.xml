@@ -4,20 +4,9 @@
 <mapper namespace="com.sannong.infrastructure.persistance.repository.ApplicationRepository">
 	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
 
-	<!-- <resultMap type="Application" id="applicationResultMap">
-		<id property="applicationId" column="application_id" />
-		<association property="applicant" column="user_id" resultMap="userResultMap" select="selectApplicantId" />
-		<association property="auditor" column="user_id" resultMap="userResultMap" select="" />
-		<association property="project" column="project_id" resultMap="projectResultMap" select="" />
-		<association property="answer" column="answer_id" resultMap="answerResultMap" select="" />
-		<association property="questionnaire" column="questionnaire_id" resultMap="questionnaireResultMap" select="" />
-		<association property="sms" column="sms" resultMap="smsResultMap" select="" />
-		<result property="applicationDate" column="application_date" />
-	</resultMap> -->
-
-	<insert id="addProjectApplicationInfo" parameterType="Application">
+	<insert id="addProjectApplicationInfo" useGeneratedKeys="true" keyProperty="applicationId" parameterType="Application">
      	<![CDATA[
-     		insert into applications(applicant_id,application_date) values(#{applicant.userId},#{applicationDate})
+     		insert into applications(user_id,application_date) values(#{applicant.userId},#{applicationDate})
      	]]>
 	</insert>
 </mapper>

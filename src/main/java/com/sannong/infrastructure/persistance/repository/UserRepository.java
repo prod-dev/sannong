@@ -13,10 +13,6 @@ import com.sannong.infrastructure.persistance.entity.User;
 @Transactional
 public interface UserRepository {
 	
-	List<User> getUserByUserId();
-	
-	User loginValidation(Map<String,Object> mapObject);
-	
 	void addUserInfo(User user);
 	
 	Long getIdByCellphone(String cellphone);
@@ -27,10 +23,6 @@ public interface UserRepository {
 
     void updatePassword(User user);
 
-    User getUserById(Long userId);
-
-    User getUserByName(String userName);
-    
     List<User> getUserByNameOrCellphone(Map<String,Object> map);
     
     String getUserTotalCount(Map<String,Object> map);

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.persistance.repository.AnswerRepository;
 import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.service.IUserService;
 
@@ -17,8 +16,6 @@ public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	private UserRepository userRepository;
-	@Autowired
-	private AnswerRepository answerRepository;
 
 	public boolean loginValidation(String phoneNumber, String password) {
 		boolean result = false;
@@ -27,15 +24,14 @@ public class UserServiceImpl implements IUserService{
 		mapObject.put("phoneNumber", phoneNumber);
 		mapObject.put("password", password);
 		
-		User user = userRepository.loginValidation(mapObject);
+		List<User> userList = userRepository.getUserByCondition(mapObject);
 		
-		if (user != null) {
+		if (userList != null && userList.get(0) != null) {
 			result = true;
 		}
 		
 		return result;
 	}
-
 
 	public boolean addUserInfo(User user) {
 		boolean result = false;
@@ -51,23 +47,9 @@ public class UserServiceImpl implements IUserService{
 		return result;
 	}
 
-    public List<User> getUserByUserId() {
-
-		return userRepository.getUserByUserId();
-	}
-
 	public List<User> getUserByCondition(Map<String, Object> map) {
     	return userRepository.getUserByCondition(map);
 	}
-
-
-	public User getUserByName(String userName) {
-        return userRepository.getUserByName(userName);
-    }
-
-    public User getUserById(Long userId) {
-        return userRepository.getUserById(userId);
-    }
 
     public boolean updatePassword(User user) throws Exception {
         try{
@@ -79,13 +61,13 @@ public class UserServiceImpl implements IUserService{
     }
 
 	public boolean  updateUser(User user) throws Exception {
-			try
-			{
-				userRepository.updateUserInfo(user);
-				return true;
-			}catch(Exception e){
-				throw e;
-			}		 
+		try
+		{
+			userRepository.updateUserInfo(user);
+			return true;
+		}catch(Exception e){
+			throw e;
+		}		 
 	}
 
 	public List<User> getUserByNameOrCellphone(Map<String, Object> map) {

@@ -36,7 +36,7 @@ requirejs.config({
             deps :['jquery'],
             exports : "additionalMethods"
         },
-        "avalidate": {
+        "validate": {
             deps : ['jquery'],
             exports : "validate"
         },
@@ -57,7 +57,7 @@ requirejs.config({
             exports : "questionnaire"
         },
         "jqueryForm": {
-            deps :['jquery'],
+        	deps :['jquery'],
             exports : "jqueryForm"
         },
         "formValidator": {

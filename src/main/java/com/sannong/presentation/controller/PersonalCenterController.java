@@ -91,30 +91,35 @@ public class PersonalCenterController {
     @RequestMapping(value = "modifyMyinfo", method = RequestMethod.POST)
 	public ModelAndView updateUser(HttpServletRequest request,@ModelAttribute("myinfo")	User user, BindingResult result) {
         Map<String, Object> models = new HashMap<String, Object>();
-        String userName = user.getUserName();
-
-    	 String username;
-         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-         if (principal instanceof UserDetails) {
-             username = ((UserDetails) principal).getUsername();
-         } else {
-             username = principal.toString();
-         }
-         user.setUserName(username); //add by william
+    	String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
+        if (principal instanceof UserDetails) {
+        	userName = ((UserDetails) principal).getUsername();
+        } else {
+        	userName = principal.toString();
+        }
+        user.setUserName(userName); //add by william
          
-         User dbuser = userService.getUserByName(username);
-         if(StringUtils.isEmpty(user.getCellphone().toString())) {
-             user.setCellphone(dbuser.getCellphone());
-         }
-
-         if(!dbuser.getCellphone().toString().equals(user.getCellphone().toString()))
-         {
-	    	 if(smsService.validateSMSCode(request) < 2)
-	    	 {
-	    		 models.put("myinfomessage", MyConfig.getConfig("error-myinfo-invalidRegcode"));
-	    	 }
-            return new ModelAndView(MY_INFO_PAGE, models);
-         }
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("userName", userName);
+        
+        List<User> userList = userService.getUserByCondition(map);
+        
+        if (userList != null && userList.get(0) != null){
+        	if(StringUtils.isEmpty(user.getCellphone().toString())) {
+        		user.setCellphone(userList.get(0).getCellphone());
+        	}
+        	
+        	if(!userList.get(0).getCellphone().toString().equals(user.getCellphone().toString()))
+        	{
+        		if(smsService.validateSMSCode(request) < 2)
+        		{
+        			models.put("myinfomessage", MyConfig.getConfig("error-myinfo-invalidRegcode"));
+        		}
+        		return new ModelAndView(MY_INFO_PAGE, models);
+        	}
+        }
     	Timestamp ts = new Timestamp(System.currentTimeMillis());
 		user.setUpdateTime(ts);
 		try {
@@ -172,7 +177,6 @@ public class PersonalCenterController {
     @RequestMapping(value = "updateUserInfo", method = RequestMethod.POST)
     public ModelAndView updateUserInfo(HttpServletRequest request, @ModelAttribute("userinfo") User user, BindingResult result) {
         Map<String, Object> models = new HashMap<String, Object>();
-        String userName = user.getUserName();
 
         Timestamp ts = new Timestamp(System.currentTimeMillis());
         user.setUpdateTime(ts);
@@ -245,30 +249,37 @@ public class PersonalCenterController {
 
         Map<String, Object> models = new HashMap<String, Object>();
         Md5PasswordEncoder md5 = new Md5PasswordEncoder();
-
-        String username;
+        String userName = null;;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        
         if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
+        	userName = ((UserDetails) principal).getUsername();
         } else {
-            username = principal.toString();
+        	userName = principal.toString();
         }
 
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String confirmedPassword = request.getParameter("confirmedPassword");
 
-        User user = userService.getUserByName(username);
-
-        if ( !user.getPassword().equals(md5.encodePassword(oldPassword, username)) ){
-            models.put("myPasswordAuth", "oldPasswordAuthFailure");
-            return new ModelAndView(MY_PASSWORD_PAGE, models);
-        }else if ( ! newPassword.equals(confirmedPassword) ){
-            models.put("myPasswordAuth", "newPasswordAuthFailure");
-            return new ModelAndView(MY_PASSWORD_PAGE, models);
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("userName", userName);
+        List<User> userList = userService.getUserByCondition(map);
+        User user = null;
+        
+        if (userList != null && userList.get(0) != null){
+        	user = userList.get(0);
+        	
+			if (!user.getPassword().equals(md5.encodePassword(oldPassword, userName))){
+			    models.put("myPasswordAuth", "oldPasswordAuthFailure");
+			    return new ModelAndView(MY_PASSWORD_PAGE, models);
+			}else if (!newPassword.equals(confirmedPassword) ){
+			    models.put("myPasswordAuth", "newPasswordAuthFailure");
+			    return new ModelAndView(MY_PASSWORD_PAGE, models);
+			}
         }
 
-        String encryptedNewPassword = md5.encodePassword(newPassword, username);
+        String encryptedNewPassword = md5.encodePassword(newPassword, userName);
         user.setPassword(encryptedNewPassword);
         userService.updatePassword(user);
 

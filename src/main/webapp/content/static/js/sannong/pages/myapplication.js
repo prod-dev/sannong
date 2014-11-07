@@ -2,8 +2,8 @@
  * Created by Bright Huang on 11/6/14.
  */
 require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire'],
-        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire) {
+    require(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire','jqueryForm'],
+        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire, jqueryForm) {
 
             "use strict";
 
@@ -18,7 +18,7 @@ require(['../main'], function () {
                     if (saveOrSubmit == 1){
                         $("#myModalTrigger").click();
                     }else{
-                        $("#answerForm").ajaxSubmit(function(message) {
+                        $("#answerForm").jqueryForm.ajaxSubmit(function(message) {
                             if (message.result == true){
                                 $("#return").click();
 
@@ -35,7 +35,7 @@ require(['../main'], function () {
             }
 
             $("#dialogSubmit").click(function(event){
-                $("#answerForm").ajaxSubmit(function(message) {
+                $("#answerForm").jqueryForm.ajaxSubmit(function(message) {
                     if (message.result == true){
                         $("#return").click();
 

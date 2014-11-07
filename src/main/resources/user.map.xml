@@ -23,12 +23,6 @@
         <result property="createTime" column="create_time" />
      </resultMap>
      
-     <select id="getUserByUserId" parameterType="User" resultMap="userResultMap">
-     	<![CDATA[
-        	select * from users where user_id = #{userId}
-        ]]>
-     </select>
-     
      <select id="getUserByCondition"  parameterType="Map"  resultMap="userResultMap">
        	select user_name,
        				username,
@@ -48,10 +42,10 @@
 	            user_name = #{realName}  
 	        </if>
 	        <if test="userName != null">  
-	            username = #{userName}
+	            and username = #{userName}
 	        </if>
 	        <if test="cellphone != null">  
-            	cellphone = #{cellphone}  
+            	and cellphone = #{cellphone}  
             </if>  
        	</where>
      </select>
@@ -82,12 +76,6 @@
             </if>  
        	</where>
        	limit #{pageStart},10
-     </select>
-     
-     <select id="loginValidation" parameterType="Map" resultMap="userResultMap">
-     	<![CDATA[
-        	select * from users where phone_number = #{phoneNumber} and password = #{password}
-        ]]>
      </select>
      
      <update  id="updateUserInfo" parameterType="User" >
@@ -136,12 +124,6 @@
           ]]>
     </select>
 
-    <select id="getUserByName" parameterType="String" resultMap="userResultMap">
-        <![CDATA[
-         select * from users where username = #{userName}
-      ]]>
-    </select>
-    
     <select id="getUserTotalCount" parameterType="Map" resultType="String">
         select count(*) from users
         <where>
