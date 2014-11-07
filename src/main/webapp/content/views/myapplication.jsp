@@ -38,8 +38,8 @@
             </div>
             <hr/>
             <div id="buttonGroup">
-	            <button id="save" type="button" class="btn btn-primary" onclick="submitForm(0)">暂存</button>
-	            <button id="submit" type="button" class="btn btn-primary" onclick="submitForm(1)">提交</button>
+	            <button id="save" type="button" class="btn btn-primary" onclick="Sannong.MyApplication.submitForm(0)">暂存</button>
+	            <button id="submit" type="button" class="btn btn-primary" onclick="Sannong.MyApplication.submitForm(1)">提交</button>
             </div>
             
             <!-- Button trigger modal -->

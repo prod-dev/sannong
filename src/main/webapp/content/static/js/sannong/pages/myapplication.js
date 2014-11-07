@@ -2,14 +2,14 @@
  * Created by Bright Huang on 11/6/14.
  */
 require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire'],
-        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire) {
+    require(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire', 'jqueryForm'],
+        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire, jqueryForm) {
 
             "use strict";
 
             var myApplication = {};
 
-            function submitForm(saveOrSubmit){
+            myApplication.submitForm = function (saveOrSubmit){
                 if (formValidator.getValidator("#answerForm").form() == true){
                     var questionnaireNo = $("#questionnaireNo").val();
                     var answerStatus = questionnaireNo + saveOrSubmit;
@@ -59,11 +59,11 @@ require(['../main'], function () {
 
 
                 $("#save").click(function(){
-                    submitForm(0);
+                    myApplication.submitForm(0);
                 });
 
                 $("#submit").click(function(){
-                    submitForm(1);
+                    myApplication.submitForm(1);
                 });
 
                 $("#q1").click(function(){
