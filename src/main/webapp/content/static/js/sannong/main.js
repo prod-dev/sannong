@@ -13,11 +13,11 @@ requirejs.config({
         "message_zh": "lib/message_zh.1.13.1",
         "jqueryForm": "lib/jquery-form",
         "sannong" : "sannong/sannong",
-        "ajaxHandler" : "sannong/modules/ajaxHandler",
+        "ajaxHandler" : "sannong/modules/ajax-handler",
         "questionnaire": "sannong/modules/questionnaire",
-        "formValidator": "sannong/modules/formValidator",
+        "formValidator": "sannong/modules/form-validator",
         "region": "sannong/modules/region",
-        "additionalMethods": "sannong/modules/additionalMethods"
+        "additionalMethods": "sannong/modules/additional-methods"
     },
     shim: {
         'bootstrap' : {
