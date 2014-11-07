@@ -67,10 +67,10 @@
             <div id="questionnaireTable" style="display:none">
 	            <ul class="nav nav-tabs" role="tablist">
 	                <li class="active"><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(1,'')" role="tab" data-toggle="tab" id="q1">项目状态</a></li>
-	                <li><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(2,'')" role="tab" data-toggle="tab" id="q2">问卷题集二</a></li>
-	                <li><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(3,'')" role="tab" data-toggle="tab" id="q3">问卷题集三</a></li>
-	                <li><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(4,'')" role="tab" data-toggle="tab" id="q4">问卷题集四</a></li>
-	                <li><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(5,'')" role="tab" data-toggle="tab" id="q5">问卷题集五</a></li>
+	                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(2,'')" role="tab" data-toggle="tab" id="q2">问卷题集二</a></li>
+	                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(3,'')" role="tab" data-toggle="tab" id="q3">问卷题集三</a></li>
+	                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(4,'')" role="tab" data-toggle="tab" id="q4">问卷题集四</a></li>
+	                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(5,'')" role="tab" data-toggle="tab" id="q5">问卷题集五</a></li>
 	            </ul>
 	            <form id="answerForm" role="form" action="updateAnswers" method="post">
 	            	<div id="questionList"></div>
@@ -79,8 +79,8 @@
 	            	<input type="hidden" name="applicant.userName" id="userName" >
 	            </form>
 	            <br>
-	            <button  class="btn btn-success" id="cancel" onclick="cancel()">取消</button>
-	            <button  class="btn btn-success" id="update" onclick="update()">更新</button>
+	            <button  class="btn btn-success" id="cancel" onclick="Sannong.Applicants.cancel()">取消</button>
+	            <button  class="btn btn-success" id="update" onclick="Sannong.Applicants.update()">更新</button>
 	            
 	             <!-- Button trigger modal -->
                 <button type="button" id="myModalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
@@ -111,8 +111,7 @@
 </div>
 <div><input type="hidden"  id="cellphone" ></div>
 </body>
-<script src="content/static/js/sannong/personal-center/applicants.js"></script>
-<script src="content/static/js/lib/jquery-form.js"></script>
+<script data-main="content/static/js/sannong/pages/applicants" src="content/static/js/lib/require-2.1.15.js"></script>
 <script id="table-template" type="text/x-handlebars-template">
     {{#each this}}
         <tr>
@@ -124,10 +123,10 @@
             <td>{{jobTitle}}</td>
             <td>{{mailbox}}</td>
             <td>
-                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="edit('{{userName}}')">编辑</a>
+                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="Sannong.Applicants.edit('{{userName}}')">编辑</a>
             </td>
             <td>
-                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="showQuestionnaireAnswers(1,{{cellphone}})">问卷调查</a>
+                <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(1,{{cellphone}})">问卷调查</a>
             </td>
        </tr>
     {{/each}}

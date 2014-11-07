@@ -66,10 +66,7 @@
     </div>
 
 </div>
-<script src="content/static/js/sannong/forgotpassword.js"></script>
-<!--
-<script src="content/static/js/sannong/myinfo.js?v=201410211111"> </script>
-<script src="content/static/js/sannong/jquery.weebox.js?v=201410211946"></script>
--->
+<script data-main="content/static/js/sannong/pages/forgotpassword" src="content/static/js/lib/require-2.1.15.js"></script>
+
 </body>
 </html>

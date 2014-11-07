@@ -160,12 +160,7 @@
         <jsp:include page='footer.jsp'/>
     </div>
 </div>
-<!--
-<script src="content/static/js/sannong/myinfo.js?v=201410201404"> </script>
--->
-<script src="content/static/js/sannong/projectapplication.js"></script>
-<script src="content/static/js/sannong/personal-center/questionnaire.js"></script>
-
+<script data-main="content/static/js/sannong/pages/projectapplication" src="content/static/js/lib/require-2.1.15.js"></script>
 
 </body>
 </html>
