@@ -38,8 +38,8 @@
             </div>
             <hr/>
             <div id="buttonGroup">
-	            <button id="save" type="button" class="btn btn-primary" onclick="submitForm(0)">暂存</button>
-	            <button id="submit" type="button" class="btn btn-primary" onclick="submitForm(1)">提交</button>
+	            <button id="save" type="button" class="btn btn-primary" onclick="Sannong.MyApplication.submitForm(0)">暂存</button>
+	            <button id="submit" type="button" class="btn btn-primary" onclick="Sannong.MyApplication.submitForm(1)">提交</button>
             </div>
             
             <!-- Button trigger modal -->
@@ -86,19 +86,19 @@
     <div class="J_group_radio">
         <h5>{{fromOne @index}}. {{questionContent}}</h5>
         <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio31" value="{{questionId}}:a"> {{option1}}
+            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio31" value="{{questionNumber}}:a"> {{option1}}
         </label>
         <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio32" value="{{questionId}}:b"> {{option2}}
+            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio32" value="{{questionNumber}}:b"> {{option2}}
         </label>
         <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio33" value="{{questionId}}:c"> {{option3}}
+            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio33" value="{{questionNumber}}:c"> {{option3}}
         </label>
         <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio34" value="{{questionId}}:d"> {{option4}}
+            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio34" value="{{questionNumber}}:d"> {{option4}}
         </label>
         <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio35" value="{{questionId}}:e"> {{option5}}
+            <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio35" value="{{questionNumber}}:e"> {{option5}}
         </label>
     </div>
     {{/questions}}
