@@ -25,7 +25,7 @@ require(['../main'], function () {
                                 $("#submit").after('<label id="save-success" class="error" for="jobTitle">已保存</label>');
 
                                 //保存成功重新加载questionnaire and answer
-                                showQuestions(questionnaireNo);
+                                questionnaire.showQuestions(questionnaireNo);
                             }else{
                                 $("#submit").after('<label id="save-error" class="error" for="jobTitle">保存失败</label>');
                             }
@@ -44,7 +44,7 @@ require(['../main'], function () {
 
                         //更新成功重新加载questionnaire and answer
                         var questionnaireNo = $("#questionnaireNo").val();
-                        showQuestions(questionnaireNo);
+                        questionnaire.showQuestions(questionnaireNo);
                     }else{
                         $("#save-success").empty();
                         $("#submit").after('<label id="update-error" class="error" for="jobTitle">更新失败</label>');
