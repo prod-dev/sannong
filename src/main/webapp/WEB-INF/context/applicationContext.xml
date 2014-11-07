@@ -43,6 +43,6 @@
    </bean>
 
 
-
+    <bean id="unifiedExceptionResolver" class="com.sannong.presentation.exception.UnifiedExceptionResolver"/>
 
 </beans>

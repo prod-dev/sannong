@@ -1,6 +1,6 @@
 -- add test data for users and authorities
-INSERT INTO `users`(user_name, cellphone, username, password, mailbox, company, company_address, job_title, enabled) VALUES ('user', '13510730468', '13510730468', '47a733d60998c719cf3526ae7d106d13', 'sannong.dev@outlook.com', 'company3', 'company_address3', 'CEO', 1);
-INSERT INTO `users`(user_name, cellphone, username, password, mailbox, company, company_address, job_title, enabled) VALUES ('admin', '18617071085', '18617071085', 'ceb4f32325eda6142bd65215f4c0f371', 'prod.dev@outlook.com', 'company4', 'company_address4', 'Developer', 1);
+INSERT INTO `users`(user_name, cellphone, username, password, mailbox, company, company_address, job_title, enabled) VALUES ('user', '13510730468', '13510730468', '9c339fbadfcc171a1edd6ec6077b99f6', 'sannong.dev@outlook.com', 'company3', 'company_address3', 'CEO', 1);
+INSERT INTO `users`(user_name, cellphone, username, password, mailbox, company, company_address, job_title, enabled) VALUES ('admin', '18617071085', '18617071085', '1f34bdc73c8cbe9af43a383e937f927e', 'prod.dev@outlook.com', 'company4', 'company_address4', 'Developer', 1);
 
 INSERT INTO `authorities`(username, authority) VALUES ('13510730468','ROLE_USER');
 INSERT INTO `authorities`(username, authority) VALUES ('18617071085','ROLE_ADMIN');
