@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `sannong`.`sms` (
   `sms_status` BIGINT(20) NOT NULL,
   PRIMARY KEY (`sms_id`),
   INDEX `fk_user_id_idx` (`user_id` ASC),
-  CONSTRAINT `fk_user_id`
+  CONSTRAINT `fk_sms_user_id`
     FOREIGN KEY (`user_id`)
     REFERENCES `sannong`.`users` (`user_id`)
     ON DELETE NO ACTION
