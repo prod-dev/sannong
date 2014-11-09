@@ -9,7 +9,6 @@ require(['../main'], function () {
             "use strict";
 
             var myInfo = {};
-
             myInfo.Model = {}
             myInfo.View = {};
 
@@ -20,12 +19,12 @@ require(['../main'], function () {
                     var myInfoForm = "myInfoForm";
 
                     $("#provinceSelect").change(function(event){
-                        region.addCities();
+                        region.Controller.addCities();
                     });
 
                     $("#citySelect").change(function(event){
                         $('#districtSelect option').remove();
-                        region.addDistricts();
+                        region.Controller.addDistricts();
                     });
 
                     $("#register-btn").click(function(event){
@@ -84,8 +83,10 @@ require(['../main'], function () {
                 }
             };
 
+
             $(function() {
-                region.addProvinces();
+                region.Controller.saveRegion();
+                region.Controller.addProvinces();
                 myInfo.Controller.addEventListener();
 
             });

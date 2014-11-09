@@ -7,59 +7,49 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
     "use strict";
 
     var region = {};
-    region.Model = {
-        provinceInit: false,
-        cityInit: false,
-        districtInit: false
-    };
-
-    region.addCities = function(){
-        var provinceIndex = $("#provinceSelect").val();
-        var options = {
-            url: 'getCities',
-            type: 'POST',
-            data: {'provinceIndex': provinceIndex},
-            success: function(data){
-                region.Controller.addCitySelections(data);
-            },
-            fail: function(data){
-            }
-        }
-        ajaxHandler.sendRequest(options);
-    }
-
-    region.addProvinces = function(){
-        var options = {
-            url: 'getProvinces',
-            type: 'POST',
-            success: function(data){
-                region.Controller.addProvinceSelections(data);
-            },
-            fail: function(error){
-            }
-        }
-        ajaxHandler.sendRequest(options);
-    }
-
-    region.addDistricts = function(){
-        var cityIndex= $('#citySelect').val();
-        var options = {
-            url: 'getDistricts',
-            type: 'POST',
-            data: {'cityIndex': cityIndex},
-            success: function(data){
-                region.Controller.addDistrictSelections(data);
-            },
-            fail: function(data){
-
-            }
-        }
-        ajaxHandler.sendRequest(options);
-    }
-
+    region.Model = {province: "", city: "", district: ""};
 
     region.Controller = {
-
+        addProvinces: function(){
+            var options = {
+                url: 'getProvinces',
+                type: 'POST',
+                success: function(data){
+                    region.Controller.addProvinceSelections(data);
+                },
+                fail: function(error){
+                }
+            }
+            ajaxHandler.sendRequest(options);
+        },
+        addCities: function(){
+            var provinceIndex = $("#provinceSelect").val();
+            var options = {
+                url: 'getCities',
+                type: 'POST',
+                data: {'provinceIndex': provinceIndex},
+                success: function(data){
+                    region.Controller.addCitySelections(data);
+                },
+                fail: function(data){
+                }
+            }
+            ajaxHandler.sendRequest(options);
+        },
+        addDistricts: function(){
+            var cityIndex= $('#citySelect').val();
+            var options = {
+                url: 'getDistricts',
+                type: 'POST',
+                data: {'cityIndex': cityIndex},
+                success: function(data){
+                    region.Controller.addDistrictSelections(data);
+                },
+                fail: function(data){
+                }
+            }
+            ajaxHandler.sendRequest(options);
+        },
         addProvinceSelections: function(provinces) {
             var provinceSelect = $('#provinceSelect');
             $('#provinceSelect option').remove();
@@ -72,11 +62,11 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                 var option = "<option value=" + optionValue + ">" + optionText + "</option>";
                 provinceSelect.append(option);
             }
-            if (region.Model.provinceInit == false) {
-                $("#provinceSelect").val($("#provinceValue").val());
-                region.Model.provinceInit = true;
+            if (region.Model.province != ""){
+                $("#provinceSelect").val(region.Model.province);
+                region.Model.province = "";
             }
-            region.addCities();
+            region.Controller.addCities();
         },
         addCitySelections: function(cities) {
             var citySelect = $('#citySelect');
@@ -89,13 +79,12 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                 var option = "<option value=" + optionValue + ">" + optionText + "</option>";
                 citySelect.append(option);
             }
-            if (region.Model.cityInit == false) {
-                $("#citySelect").val($("#cityValue").val());
-                region.Model.cityInit = true;
+            if (region.Model.city != ""){
+                $("#citySelect").val(region.Model.city);
+                region.Model.city = "";
             }
-            region.addDistricts();
+            region.Controller.addDistricts();
         },
-
         addDistrictSelections: function(districts) {
             var districtSelect = $('#districtSelect');
             $('#districtSelect option').remove();
@@ -106,12 +95,23 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                 var option = "<option value=" + optionValue + ">" + optionText + "</option>";
                 districtSelect.append(option);
             }
-            if (region.Model.districtInit == false){
-                $("#districtSelect").val($("#districtValue").val());
-                region.Model.districtInit = true;
+            if (region.Model.district != ""){
+                $("#districtSelect").val(region.Model.district);
+                region.Model.district = "";
             }
+        },
+        saveRegion: function(){
+            region.Model.province = $("#provinceValue").val();
+            region.Model.city = $("#cityValue").val();
+            region.Model.district = $("#districtValue").val();
+        },
+        restoreRegion: function (){
+            $("#provinceSelect").val(region.Model.district);
+            $("#citySelect").val(region.Model.district);
+            $("#districtSelect").val(region.Model.district);
         }
-    }
+
+}
 
     sannong.Region = region;
     return region;

@@ -50,13 +50,10 @@
                         <input type="hidden" id="cityValue" value="${myinfo.companyCity}"/>
                         <input type="hidden" id="districtValue" value="${myinfo.companyDistrict}"/>
                         <select id="provinceSelect" class="form-control" name="companyProvince" >
-                            <option></option>
                         </select>
                         <select id="citySelect" class="form-control" name="companyCity">
-                            <option></option>
                         </select>
                         <select id="districtSelect" class="form-control" name="companyDistrict">
-                            <option></option>
                         </select>
                         <input type="input" class="form-control" id="jobAddress" name="companyAddress" placeholder="单位地址"  value="${myinfo.companyAddress}">
                         <div class="errorDiv"></div>

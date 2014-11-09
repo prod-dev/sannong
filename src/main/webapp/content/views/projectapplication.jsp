@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: apple
+  User: Bright Huang
   Date: 10/14/14
   Time: 9:52
   To change this template use File | Settings | File Templates.
@@ -53,36 +53,27 @@
                    <div class="col-xs-10 col-sm-10">
                        <div>
                            <div class="form-group">
-                               <!--<label for="userRealName">姓名</label>-->
                                <input type="text" class="form-control" id="userRealName" name="applicant.realName" placeholder="姓名">
                            </div>
                            <div class="form-group">
-                               <!--<label for="jobTitle">职务</label>-->
                                <input type="text" class="form-control" id="jobTitle" name="applicant.jobTitle" placeholder="职务">
                            </div>
                            <div class="form-group">
-                               <!--<label for="company">工作单位</label>-->
                                <input type="text" class="form-control" id="company" name="applicant.company" placeholder="工作单位">
                            </div>
                            <div class="form-group form-inline">
-                               <!--<label for="jobAddress">单位地址</label>-->
                                 <select id="provinceSelect" class="form-control" name="applicant.companyProvince" >
-                                <option></option>
                                </select>
                                <select id="citySelect" class="form-control" name="applicant.companyCity">
-                               <option></option>
                                </select>
                                <select id="districtSelect" class="form-control" name="applicant.companyDistrict">
-                               <option></option>
                                </select>
                                <input type="text" class="form-control" id="jobAddress" name="applicant.companyAddress" placeholder="单位地址">
                            </div>
                            <div class="form-group">
-                               <!--<label for="deskPhone">工作电话</label>-->
                                <input type="text" class="form-control" id="deskPhone" name="applicant.deskPhone" placeholder="工作电话">
                            </div>
                            <div class="form-group">
-                               <!--<label for="mailBox">电子邮箱</label>-->
                                <input type="text" class="form-control" id="mailbox" name="applicant.mailbox" placeholder="电子邮箱">
                                 <div class="errorDiv"></div>
                            </div>
@@ -123,8 +114,6 @@
                                </div>
                            </div>
                        </div>
-
-
                    </div>
                    <div class="col-xs-1 col-sm-1"></div>
                </div>

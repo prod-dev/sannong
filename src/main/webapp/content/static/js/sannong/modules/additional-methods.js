@@ -1,7 +1,7 @@
 /**
  * Created by apple on 11/5/14.
  */
-define(['jquery', 'sannong'], function($, sannong) {
+define(['jquery', 'sannong', 'formValidator', 'additionalMethods'], function($, sannong, formValidator, additionalMethods) {
 
     "use strict";
 

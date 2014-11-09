@@ -13,32 +13,32 @@ require(['../main'], function () {
     projectApplication.View = {};
 
     var showError = function($obj, txt) {
-            var $td = $obj.parent();
-            $td.find("#errorDiv").removeAttr("style").text(txt);
-            $("#applicationSubmit").attr("disabled","true");
-        };
+        var $td = $obj.parent();
+        $td.find("#errorDiv").removeAttr("style").text(txt);
+        $("#applicationSubmit").attr("disabled","true");
+    };
 
     projectApplication.Controller = {
-       timeRemained:0,
-       updateTimeLabel:function(duration) {
-                 projectApplication.Controller.timeRemained = duration;
-                var timer = setInterval(function() {
-                    $("#action-send-code").val( projectApplication.Controller.timeRemained + '秒后重新发送');
-                     projectApplication.Controller.timeRemained -= 1;
-                    if ( projectApplication.Controller.timeRemained == -1) {
-                        clearInterval(timer);
-                        $("#action-send-code").val('重新发送').removeAttr('disabled').removeClass("gray");
-                    }
-                }, 1000);
+        timeRemained: 0,
+        updateTimeLabel:function(duration) {
+            projectApplication.Controller.timeRemained = duration;
+            var timer = setInterval(function() {
+                $("#action-send-code").val( projectApplication.Controller.timeRemained + '秒后重新发送');
+                projectApplication.Controller.timeRemained -= 1;
+                if ( projectApplication.Controller.timeRemained == -1) {
+                    clearInterval(timer);
+                    $("#action-send-code").val('重新发送').removeAttr('disabled').removeClass("gray");
+                }
+            }, 1000);
         },
         addEventListener: function(){
             $("#provinceSelect").change(function(event){
-                region.addCities();
+                region.Controller.addCities();
             });
 
             $("#citySelect").change(function(event){
                 $('#districtSelect option').remove();
-                region.addDistricts();
+                region.Controller.addDistricts();
             });
 
             $("#applicationSubmit").click(function(event){
@@ -53,32 +53,30 @@ require(['../main'], function () {
 
 
             $("#validationCode").keyup(function(){
-               if($("#validationCode").val().length<4)return;
-            	 var options ={
-				type: "get",
-				async: false,
-				url: 'validateSMSCode',
-				data: {
-				    "validationcode": $("#validationCode").val()
-				},
-				success: function(data) {
-				 $("#errorDiv").css("display","none");
-				    if(data==0)
-				    {
-				    	    showError($("#validationCode"), '验证码错误');	    	    
-				    }
-				     if(data==1)
-				    {
-				    	    showError($("#validationCode"), '验证码过期，请重新获取验证码');	    	    
-				    }
-				    if(data==2)
-				       $("#applicationSubmit").removeAttr("disabled");
-				}
-		    };
+                if($("#validationCode").val().length < 4){ return; }
+            	var options = {
+                    type: "get",
+                    async: false,
+                    url: 'validateSMSCode',
+                    data: {
+                        "validationcode": $("#validationCode").val()
+                    },
+                    success: function(data) {
+                     $("#errorDiv").css("display","none");
+                        if(data == 0){
+                            showError($("#validationCode"), '验证码错误');
+                        }
+                        if(data==1){
+                            showError($("#validationCode"), '验证码过期，请重新获取验证码');
+                        }
+                        if(data==2){
+                            $("#applicationSubmit").removeAttr("disabled");
+                        }
 
-            ajaxHandler.sendRequest(options);
+                    }
+                };
 
-
+                ajaxHandler.sendRequest(options);
 
                 if (validateForm("#applicationForm").element($("#validationCode")) == true && $("#validationCode").val() != ""){
                     $("#applicationSubmit").removeAttr("disabled");
@@ -89,7 +87,6 @@ require(['../main'], function () {
                 }
 
             });
-
 
             $("#action-send-code").click(function(event){
                if (formValidator.getValidator("#applicationForm").form() == true){
@@ -110,7 +107,7 @@ require(['../main'], function () {
                         
                         },
                         fail: function(data){
-                         $(this).val('重新发送').removeAttr('disabled').removeClass("gray");
+                            $(this).val('重新发送').removeAttr('disabled').removeClass("gray");
                         }
                     }
                    ajaxHandler.sendRequest(options);
@@ -121,7 +118,7 @@ require(['../main'], function () {
 
     $(function() {
         questionnaire.showQuestions(1);
-        region.addProvinces();
+        region.Controller.addProvinces();
         projectApplication.Controller.addEventListener();
 
     });
