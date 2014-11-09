@@ -45,7 +45,7 @@ public class PersonalCenterController {
     private static final String USER_INFO_PAGE = "userinfo";
     private static final String MY_PASSWORD_PAGE = "mypassword";
     private static final String APPLICANTS_PAGE = "applicants";
-    private static final String COMPLETION_PAGE = "completion";
+    private static final String LOGIN_PAGE = "login";
     private static final long questionNumbers = 55;
 
     @Resource
@@ -296,12 +296,12 @@ public class PersonalCenterController {
         for (GrantedAuthority authority : authorities){
             role = authority.getAuthority();
             if (role.equals("ROLE_USER")){
-                return new ModelAndView("redirect:" + "myapplication");
+                return new ModelAndView("redirect:" + MY_APPLICATION_PAGE);
             } else if(role.equals("ROLE_ADMIN")){
-                return new ModelAndView("redirect:" + "applicants");
+                return new ModelAndView("redirect:" + APPLICANTS_PAGE);
             }
         }
-        return new ModelAndView("redirect:" + "login");
+        return new ModelAndView("redirect:" + LOGIN_PAGE);
     }
 
     @RequestMapping(value = "updateAnswers", method = RequestMethod.POST)

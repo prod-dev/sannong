@@ -13,7 +13,7 @@ require(['../main'], function () {
         function addEventListener(){
             $("#action-send-code").click(function(element){
 
-                var validator = formValidator.getValidator("#confirmPasswordForm");
+                var validator = formValidator.getValidator("#forgotPasswordForm");
 
                 validator.resetForm();
 
@@ -41,7 +41,7 @@ require(['../main'], function () {
 
         $(function () {
             addEventListener();
-            formValidator.getValidator("#confirmPasswordForm");
+            formValidator.getValidator("#forgotPasswordForm");
         });
 
         sannong.ForgotPassword = forgotPassword;

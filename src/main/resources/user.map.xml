@@ -26,6 +26,7 @@
      <select id="getUserByCondition"  parameterType="Map"  resultMap="userResultMap">
        	select user_name,
        				username,
+                    password,
        				create_time,
        				cellphone,
        				company,

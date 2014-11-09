@@ -24,7 +24,7 @@
     <div class="row clearfix">
         <div class="col-md-4 column"></div>
         <div class="col-md-6 column">
-            <form  id="confirmPasswordForm" role="form" action="confirmpassword" method="post">
+            <form  id="forgotPasswordForm" role="form" action="loginWithNewPassword" method="post">
                 <div  class="form-group">
                     <label for="realName">姓名</label>
                     <div>

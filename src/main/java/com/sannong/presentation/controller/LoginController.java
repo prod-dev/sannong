@@ -2,6 +2,7 @@ package com.sannong.presentation.controller;
 
 
 import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.service.IUserService;
 import org.apache.log4j.Logger;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -36,6 +37,7 @@ public class LoginController {
     private static final String FORGOT_PASSWORD_PAGE = "forgotpassword";
     private static final String MY_APPLICATION_PAGE = "myapplication";
     private static final String APPLICANTS_PAGE = "applicants";
+    private static final String PROJECT_APPLICATION_PAGE = "projectapplication";
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView showLoginPage() {
@@ -57,6 +59,7 @@ public class LoginController {
         return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
     }
 
+    //TODO: This function is not implemented yet.
     @RequestMapping(value = "getNewPassword", method = RequestMethod.GET)
     public @ResponseBody boolean getNewPassword(HttpServletRequest request) {
         String cellphone = request.getParameter("cellphone");
@@ -66,30 +69,19 @@ public class LoginController {
         paramMap.put("cellphone", cellphone);
         paramMap.put("realName", realName);
 
-
         return false;
-
-        /*
-
-        List<User> users = userService.getUserByCondition(paramMap);
-        if (users.isEmpty()) {
-            return false;
-        }else{
-            return true;
-        }
-        */
     }
 
-    @RequestMapping(value = "confirmpassword", method = RequestMethod.POST)
-    public ModelAndView confirmPassword(HttpServletRequest request) throws Exception {
+    @RequestMapping(value = "loginWithNewPassword", method = RequestMethod.POST)
+    public ModelAndView loginWithNewPassword(HttpServletRequest request) throws Exception {
         Map<String, Object> models = new HashMap<String, Object>();
         Map<String, Object> map = new HashMap<String, Object>();
 
-        String userRealName = request.getParameter("userRealName");
-        String cellphone = request.getParameter("cellphone").toString();
-        String password = request.getParameter("password").toString();
+        String realName = request.getParameter("realName");
+        String cellphone = request.getParameter("cellphone");
+        String password = request.getParameter("password");
 
-        map.put("realName", userRealName);
+        map.put("realName", realName);
         map.put("cellphone", cellphone);
 
         List<User> users = userService.getUserByCondition(map);
@@ -97,17 +89,16 @@ public class LoginController {
             models.put("forgetPassword", "not_found!");
             return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
         } else {
-            if (!request.getSession().getAttribute("regcode").toString().equals(password)) {
-                models.put("forgetPassword", "confirm code  not pass! please input code you got on your mobile ");
-            }
             User user = users.get(0);
-            Md5PasswordEncoder md5 = new Md5PasswordEncoder();
-            String encryptedNewPassword =
-                    md5.encodePassword(request.getSession().getAttribute("regcode").toString(), user.getUserName());
-            user.setPassword(encryptedNewPassword);
-            userService.updatePassword(user);
-            models.put("forgetPassword", "password_changed");
-            return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
+            String updatedPassword = user.getPassword();
+            String encryptedNewPassword = PasswordGenerator.encryptPassword(password, user.getUserName());
+
+            if (updatedPassword.equals(encryptedNewPassword)) {
+                return new ModelAndView(PROJECT_APPLICATION_PAGE, models);
+            } else {
+                models.put("forgetPassword", "confirm code  not pass! please input code you got on your mobile ");
+                return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
+            }
         }
     }
 

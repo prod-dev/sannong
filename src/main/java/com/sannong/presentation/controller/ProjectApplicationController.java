@@ -40,6 +40,7 @@ import com.sannong.service.IUserService;
 public class ProjectApplicationController {
     private static final String APPLICATION_PAGE = "projectapplication";
     private static final String COMPLETION_PAGE = "completion";
+    private static final String ERROR_PAGE = "error";
     
     @Resource
     private IProjectService projectService;
@@ -58,15 +59,18 @@ public class ProjectApplicationController {
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
     public ModelAndView apply(@ModelAttribute("applicationForm") Application application) throws Exception {
+        Map<String, Object> models = new HashMap<String, Object>();
 
         Boolean result = projectService.projectApplication(application);
-         
-      /*  DTO dto = new DTO();
-        dto.setResult(result);*/
-    	
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("completion", new Object());
-        return new ModelAndView(COMPLETION_PAGE, models);
+
+        if (result == true){
+            models.put("completion", new Object());
+            return new ModelAndView(COMPLETION_PAGE, models);
+        }else {
+            models.put("error", new Object());
+            return new ModelAndView(ERROR_PAGE, models);
+        }
+
     }
 
     @RequestMapping(value = "getProvinces")
