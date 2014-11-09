@@ -43,14 +43,12 @@ public class ProjectApplicationController {
     @Resource
     private IProjectService projectService;
     @Resource
-    private IRegionService regionService;
-    @Resource
     private IUserService userService;
     @Autowired
     private AppConfig appConfig;
 
     @RequestMapping(value = "applicationpage", method = RequestMethod.GET)
-    public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView show(HttpServletRequest request) {
     	request.getSession().setAttribute(appConfig.getSessionSmsCodes(), null); //clear sms code session
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("projectapplication", new Object());
@@ -71,21 +69,6 @@ public class ProjectApplicationController {
             return new ModelAndView(ERROR_PAGE, models);
         }
 
-    }
-
-    @RequestMapping(value = "getProvinces")
-    public @ResponseBody List<Province> getProvinces() {
-        return regionService.getProvinces();
-    }
-
-    @RequestMapping(value = "getCities")
-    public @ResponseBody List<City> getCities(Long provinceIndex) {
-        return regionService.getCities(provinceIndex);
-    }
-
-    @RequestMapping(value = "getDistricts")
-    public @ResponseBody List<District> getDistricts(Long cityIndex) {
-        return regionService.getDistricts(cityIndex);
     }
 
     @RequestMapping(value = "useravail", method = RequestMethod.GET)
