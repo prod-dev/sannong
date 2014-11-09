@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.sannong.domain.valueobject.RoleType;
+import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.infrastructure.util.PasswordGenerator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,6 @@ import com.sannong.infrastructure.persistance.repository.ApplicationRepository;
 import com.sannong.infrastructure.persistance.repository.AuthorityRepository;
 import com.sannong.infrastructure.persistance.repository.QuestionnaireRepository;
 import com.sannong.infrastructure.persistance.repository.UserRepository;
-import com.sannong.infrastructure.util.Config;
 import com.sannong.service.IProjectService;
 
 
@@ -46,6 +46,8 @@ public class ProjectServiceImpl implements IProjectService {
 	private QuestionnaireRepository questionnaireRepository;
 	@Autowired
 	private AnswerRepository answerRepository;
+    @Autowired
+    private AppConfig appConfig;
 	
 	public boolean checkUserNameAvailable(HttpServletRequest request)
 	{
@@ -110,10 +112,8 @@ public class ProjectServiceImpl implements IProjectService {
 	}
 	
 	public void emailAdmin(){
-		
-		Config cfg=new Config();
-		String email=cfg.getProperty("newApp-admin-email");
-		String content=cfg.getProperty("newApp-email-content");
+		String email = appConfig.getProperty("newApp-admin-email");
+		String content = appConfig.getProperty("newApp-email-content");
 		EmailSender.sendMail(email, "new application",content, false);
 	
 	}

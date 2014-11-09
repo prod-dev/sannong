@@ -8,9 +8,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sannong.infrastructure.util.MyConfig;
-import com.sannong.infrastructure.util.PasswordGenerator;
-
+import com.sannong.infrastructure.util.AppConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,6 @@ import com.sannong.infrastructure.persistance.entity.City;
 import com.sannong.infrastructure.persistance.entity.District;
 import com.sannong.infrastructure.persistance.entity.Province;
 import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.presentation.model.DTO;
 import com.sannong.service.IProjectService;
 import com.sannong.service.IRegionService;
 import com.sannong.service.IUserService;
@@ -48,10 +46,12 @@ public class ProjectApplicationController {
     private IRegionService regionService;
     @Resource
     private IUserService userService;
+    @Autowired
+    private AppConfig appConfig;
 
     @RequestMapping(value = "applicationpage", method = RequestMethod.GET)
     public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
-    	request.getSession().setAttribute(MyConfig.SESSIOIN_SMS_CODES,null); //clear sms code session
+    	request.getSession().setAttribute(appConfig.getSessionSmsCodes(), null); //clear sms code session
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("projectapplication", new Object());
         return new ModelAndView(APPLICATION_PAGE, models);

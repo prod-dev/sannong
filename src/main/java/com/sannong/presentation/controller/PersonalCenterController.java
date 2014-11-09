@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sannong.infrastructure.util.AppConfig;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +31,6 @@ import com.sannong.infrastructure.dataexport.CsvExporter;
 import com.sannong.infrastructure.persistance.entity.Answer;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.util.MyConfig;
 import com.sannong.presentation.model.DTO;
 import com.sannong.service.IAnswerService;
 import com.sannong.service.IProjectService;
@@ -56,6 +56,8 @@ public class PersonalCenterController {
     private IProjectService projectService;
     @Resource
     private IAnswerService answerService;
+    @Resource
+    private AppConfig appConfig;
 
 
     @RequestMapping(value = "myapplication", method = RequestMethod.GET)
@@ -115,7 +117,7 @@ public class PersonalCenterController {
         	{
         		if(smsService.validateSMSCode(request) < 2)
         		{
-        			models.put("myinfomessage", MyConfig.getConfig("error-myinfo-invalidRegcode"));
+        			models.put("myinfomessage", appConfig.getProperty("error-myinfo-invalidRegcode"));
         		}
         		return new ModelAndView(MY_INFO_PAGE, models);
         	}
