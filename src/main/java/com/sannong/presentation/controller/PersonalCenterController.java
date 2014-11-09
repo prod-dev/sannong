@@ -59,9 +59,75 @@ public class PersonalCenterController {
     @Resource
     private AppConfig appConfig;
 
+    /**
+     * Determine which page will be shown when user login. If user is admin, show applicants page,
+     * if user is ordinary user, show myapplication page.
+     * @param
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "myaccount", method = RequestMethod.GET)
+    public ModelAndView loginMyAccount() throws Exception {
+        Collection<SimpleGrantedAuthority> authorities =
+                (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
+        String role;
+        for (GrantedAuthority authority : authorities){
+            role = authority.getAuthority();
+            if (role.equals("ROLE_USER")){
+                return new ModelAndView("redirect:" + MY_APPLICATION_PAGE);
+            } else if(role.equals("ROLE_ADMIN")){
+                return new ModelAndView("redirect:" + APPLICANTS_PAGE);
+            }
+        }
+        return new ModelAndView("redirect:" + LOGIN_PAGE);
+    }
+
+    /**
+     * Show applicants page.
+     * @return
+     */
+    @RequestMapping(value = "applicants", method = RequestMethod.GET)
+    public ModelAndView showList() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("applicants", new Object());
+        return new ModelAndView(APPLICANTS_PAGE, models);
+    }
+
+    /**
+     * Show applicants page.  //TODO: Why there are two functions to show applicants here?
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "showApplicants", method = RequestMethod.GET)
+    public @ResponseBody List<User> showList(HttpServletRequest request) {
+
+        Map<String, Object> map = new HashMap<String,Object>();
+        String pageIndex = request.getParameter("pageIndex");
+        String cellphone = request.getParameter("cellphone");
+        String realName = request.getParameter("realName");
+
+        int pageStart = 0;
+
+        if (null != pageIndex){
+            pageStart =  (Integer.parseInt(pageIndex)- 1)  * 10;
+        }
+        map.put("pageStart", pageStart);
+        map.put("cellphone", cellphone);
+        map.put("realName", realName);
+
+        List<User> applicants = userService.getUserByNameOrCellphone(map);
+
+        return applicants;
+    }
+
+    /**
+     * Show my application page.
+     * @return
+     */
     @RequestMapping(value = "myapplication", method = RequestMethod.GET)
-    public ModelAndView myApplication(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView myApplication() {
 
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("myapplication", new Object());
@@ -69,29 +135,39 @@ public class PersonalCenterController {
         return new ModelAndView(MY_APPLICATION_PAGE, models);
     }
 
-    @RequestMapping(value = "updatesms", method = RequestMethod.GET)
-    public @ResponseBody boolean updateSMS(HttpServletRequest request) {
-        return smsService.updateSMS(request);
+    /**
+     * Show myinfo page.
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "myinfo", method = RequestMethod.GET)
+    public ModelAndView myInfo(HttpServletRequest request) {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        String userName = request.getParameter("userName");
+        if (userName == null){
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                userName = ((UserDetails) principal).getUsername();
+            } else {
+                userName = principal.toString();
+            }
+        }
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userName", userName);
+        List<User> users = userService.getUserByCondition(map);
+        models.put("myinfo", users.get(0));
+        return new ModelAndView(MY_INFO_PAGE, models);
     }
 
-    @RequestMapping(value = "getnewsms", method = RequestMethod.GET)
-    public @ResponseBody List<SMS> getNewSMS() {
-        return smsService.getNewSMS();
-    }
-
-    @RequestMapping(value = "regcode", method = RequestMethod.GET)
-    public @ResponseBody boolean generateCode(HttpServletRequest request) {
-        return smsService.generateCode(request);
-    }
-    
-    @RequestMapping(value = "validateSMSCode")
-    public @ResponseBody int  validateRegcode(HttpServletRequest request) {
-        return smsService.validateSMSCode(request);
-    }
-
-
+    /**
+     * Update user's information.
+     * @param request
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "modifyMyinfo", method = RequestMethod.POST)
-	public ModelAndView updateUser(HttpServletRequest request,@ModelAttribute("myinfo")	User user, BindingResult result) {
+	public ModelAndView updateUser(HttpServletRequest request, @ModelAttribute("myinfo") User user) {
         Map<String, Object> models = new HashMap<String, Object>();
     	String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -136,26 +212,11 @@ public class PersonalCenterController {
 		return new ModelAndView(MY_INFO_PAGE, models);
 	}
 
-    @RequestMapping(value = "myinfo")
-    public ModelAndView myInfo(HttpServletRequest request) {
-
-    	Map<String, Object> models = new HashMap<String, Object>();
-        String userName = request.getParameter("userName");
-        if (userName == null){
-        	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        	if (principal instanceof UserDetails) {
-        		userName = ((UserDetails) principal).getUsername();
-        	} else {
-        		userName = principal.toString();
-        	}
-        }
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userName", userName);
-        List<User> users = userService.getUserByCondition(map);
-        models.put("myinfo", users.get(0));
-        return new ModelAndView(MY_INFO_PAGE, models);
-    }
-
+    /**
+     * Show user info page when clicked edit button from applicants page.
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "userinfo")
     public ModelAndView userInfo(HttpServletRequest request) {
 
@@ -176,8 +237,13 @@ public class PersonalCenterController {
         return new ModelAndView(USER_INFO_PAGE, models);
     }
 
+    /**
+     * Update user info.
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "updateUserInfo", method = RequestMethod.POST)
-    public ModelAndView updateUserInfo(HttpServletRequest request, @ModelAttribute("userinfo") User user, BindingResult result) {
+    public ModelAndView updateUserInfo(@ModelAttribute("userinfo") User user) {
         Map<String, Object> models = new HashMap<String, Object>();
 
         Timestamp ts = new Timestamp(System.currentTimeMillis());
@@ -194,45 +260,12 @@ public class PersonalCenterController {
         return new ModelAndView(USER_INFO_PAGE, models);
     }
 
-
-    @RequestMapping(value = "mypassword", method = RequestMethod.GET)
-    public ModelAndView myPassword() {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("mypassword", new Object());
-
-        return new ModelAndView(MY_PASSWORD_PAGE, models);
-    }
-
-    @RequestMapping(value = "applicants", method = RequestMethod.GET)
-    public ModelAndView showList(HttpServletRequest request, HttpServletResponse response) {
-    	
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("applicants", new Object());
-        return new ModelAndView(APPLICANTS_PAGE, models);
-    }
-    
-    @RequestMapping(value = "showApplicants", method = RequestMethod.GET)
-    public @ResponseBody List<User> showList(HttpServletRequest request) {
-    	
-    	Map<String, Object> map = new HashMap<String,Object>();
-    	String pageIndex = request.getParameter("pageIndex");
-    	String cellphone = request.getParameter("cellphone");
-    	String realName = request.getParameter("realName");
-    	
-        int pageStart = 0;
-    	
-    	if (null != pageIndex){
-    		pageStart =  (Integer.parseInt(pageIndex)- 1)  * 10;
-    	}
-    	map.put("pageStart", pageStart);
-    	map.put("cellphone", cellphone);
-    	map.put("realName", realName);
-    	
-    	List<User> applicants = userService.getUserByNameOrCellphone(map);
-
-       return applicants;
-    }
+    /**
+     * Get user total count.
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "userTotalCount", method = RequestMethod.GET)
     public @ResponseBody String getUserTotalCount(HttpServletRequest request) throws Exception {
 
@@ -246,6 +279,25 @@ public class PersonalCenterController {
     	return userService.getUserTotalCount(map);
     }
 
+    /**
+     * Show mypassword page.
+     * @return
+     */
+    @RequestMapping(value = "mypassword", method = RequestMethod.GET)
+    public ModelAndView myPassword() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("mypassword", new Object());
+
+        return new ModelAndView(MY_PASSWORD_PAGE, models);
+    }
+
+    /**
+     * Update password from mypassword page.
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "updatepassword", method = RequestMethod.POST)
     public ModelAndView updatePassword(HttpServletRequest request) throws Exception {
 
@@ -289,23 +341,12 @@ public class PersonalCenterController {
         return new ModelAndView(MY_PASSWORD_PAGE, models);
     }
 
-    @RequestMapping(value = "myaccount", method = RequestMethod.GET)
-    public ModelAndView loginMyAccount(HttpServletRequest request) throws Exception {
-        Collection<SimpleGrantedAuthority> authorities =
-                (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-
-        String role;
-        for (GrantedAuthority authority : authorities){
-            role = authority.getAuthority();
-            if (role.equals("ROLE_USER")){
-                return new ModelAndView("redirect:" + MY_APPLICATION_PAGE);
-            } else if(role.equals("ROLE_ADMIN")){
-                return new ModelAndView("redirect:" + APPLICANTS_PAGE);
-            }
-        }
-        return new ModelAndView("redirect:" + LOGIN_PAGE);
-    }
-
+    /**
+     * Update answers from questionnaire page.
+     * @param answer
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "updateAnswers", method = RequestMethod.POST)
     public @ResponseBody DTO updateAnswers(@ModelAttribute("answerForm") Answer answer) throws Exception{
     	
@@ -338,6 +379,13 @@ public class PersonalCenterController {
     	
         return new DTO(result,null);
     }
+
+    /**
+     * Export answers to CSV file.
+     * @param request
+     * @param response
+     * @throws IOException
+     */
     @RequestMapping("/exportCSV")
     public void exportAll(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
