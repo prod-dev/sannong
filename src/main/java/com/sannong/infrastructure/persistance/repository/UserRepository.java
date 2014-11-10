@@ -23,7 +23,7 @@ public interface UserRepository {
 
     void updatePassword(User user);
 
-    List<User> getUserByNameOrCellphone(Map<String,Object> map);
+    List<User> getUserByFuzzyMatch(Map<String,Object> map);
     
     String getUserTotalCount(Map<String,Object> map);
 }

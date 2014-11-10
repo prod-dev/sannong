@@ -3,8 +3,8 @@
  */
 
 require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods', 'pagination'],
-        function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator, additionalMethods, pagination) {
+    require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods', 'pagination', 'region'],
+        function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator, additionalMethods, pagination, region) {
 
             "use strict";
 
@@ -15,12 +15,12 @@ require(['../main'], function () {
                 location.href = "userinfo?userName=" + userName;
             }
 
-            function changeContent() {
+            applicants.changeContent = function(dropdownName){
                 var searchKey = $("#searchKey").text();
-                var dropDown1 = $("#dropdown1").text();
+                var dropDownNameText = $("#" + dropdownName).text();
 
-                $("#dropdown1").text(searchKey);
-                $("#searchKey").html(dropDown1 + '<span class="caret">');
+                $("#" + dropdownName).text(searchKey);
+                $("#searchKey").html(dropDownNameText + '<span class="caret">');
             }
 
             applicants.cancel = function () {
@@ -51,10 +51,25 @@ require(['../main'], function () {
                 var searchValue = $("#searchValue").val();
 
                 var parameter;
-                if (searchKey == "手机号") {
+                if (searchKey == "手机号"){
                     parameter = "cellphone=" + searchValue;
-                } else if (searchKey == "姓名") {
+                }else if (searchKey == "姓名"){
                     parameter = "realName=" + searchValue;
+                }else if (searchKey == "工作单位"){
+                    parameter = "company=" + searchValue;
+                }else if (searchKey == "职位"){
+                    parameter = "jobTitle=" + searchValue;
+                }else if (searchKey == "电子邮箱"){
+                    parameter = "mailbox=" + searchValue;
+                }else if (searchKey == "单位地址"){
+                	if (searchValue != null && searchValue != ""){
+                		var provinceIndex = $("#provinceSelect").val();
+                		var cityIndex = $("#citySelect").val();
+                		var districtIndex = $("#districtSelect").val();
+                		
+                		parameter = "&provinceIndex=" + provinceIndex + "&cityIndex=" + cityIndex + 
+                		"&districtIndex=" + districtIndex +"&companyAddress=" + searchValue;
+                	}
                 }
 
                 $.ajax({
@@ -69,6 +84,19 @@ require(['../main'], function () {
                 });
             })
 
+            applicants.Controller = {
+            	 addEventListener: function(){
+                     $("#provinceSelect").change(function(event){
+                         region.Controller.addCities();
+                     });
+
+                     $("#citySelect").change(function(event){
+                         $('#districtSelect option').remove();
+                         region.Controller.addDistricts();
+                     });
+            	 }
+            }
+            
             applicants.showQuestionnaireAnswers = function (questionnaireNo, cellphone) {
                 $("#questionnaireNo").val(questionnaireNo);
                 $("#answerStatus").val(questionnaireNo + '1');
@@ -236,6 +264,8 @@ require(['../main'], function () {
 
 
             $(function() {
+            	region.Controller.addProvinces();
+            	applicants.Controller.addEventListener();
                 show(1);
             })
 

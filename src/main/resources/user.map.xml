@@ -51,7 +51,7 @@
        	</where>
      </select>
      
-     <select id="getUserByNameOrCellphone"  parameterType="Map"  resultMap="userResultMap">
+     <select id="getUserByFuzzyMatch"  parameterType="Map"  resultMap="userResultMap">
        select user_name,
        				username,
        				create_time,
@@ -70,11 +70,24 @@
 	            user_name like CONCAT('%',#{realName},'%')  
 	        </if>
 	        <if test="userName != null">  
-	            username like CONCAT('%',#{userName},'%')
+	            and username like CONCAT('%',#{userName},'%')
 	        </if>
 	        <if test="cellphone != null">  
-            	cellphone like CONCAT('%',#{cellphone},'%') 
-            </if>  
+            	and cellphone like CONCAT('%',#{cellphone},'%') 
+            </if>
+            <if test="company != null">  
+            	and company like CONCAT('%',#{company},'%') 
+            </if>
+            <if test="jobTitle != null">  
+            	and job_title like CONCAT('%',#{jobTitle},'%') 
+            </if>
+            <if test="mailbox != null">  
+            	and mailbox like CONCAT('%',#{mailbox},'%') 
+            </if>
+            <if test="companyAddress != null">  
+            	and company_province = #{companyProvince} and company_city = #{companyCity} and 
+            	company_district = #{companyDistrict} and  company_address like CONCAT('%',#{companyAddress},'%') 
+            </if>
        	</where>
        	limit #{pageStart},10
      </select>
@@ -132,11 +145,24 @@
 	            user_name like CONCAT('%',#{realName},'%')  
 	        </if>
 	        <if test="userName != null">  
-	            username like CONCAT('%',#{userName},'%')
+	            and username like CONCAT('%',#{userName},'%')
 	        </if>
 	        <if test="cellphone != null">  
-            	cellphone like CONCAT('%',#{cellphone},'%') 
-            </if>  
+            	and cellphone like CONCAT('%',#{cellphone},'%') 
+            </if>
+            <if test="company != null">  
+            	and company like CONCAT('%',#{company},'%') 
+            </if>
+            <if test="jobTitle != null">  
+            	and job_title like CONCAT('%',#{jobTitle},'%') 
+            </if>
+            <if test="mailbox != null">  
+            	and mailbox like CONCAT('%',#{mailbox},'%') 
+            </if>
+            <if test="companyAddress != null">  
+            	and company_province = #{companyProvince} and company_city = #{companyCity} and 
+            	company_district = #{companyDistrict} and  company_address like CONCAT('%',#{companyAddress},'%') 
+            </if>
        	</where>
     </select>
 </mapper>

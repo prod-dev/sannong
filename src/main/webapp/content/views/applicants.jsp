@@ -20,20 +20,27 @@
         </div>
         <div class="col-md-10 column">
             <div class="row" id="searchBar">
-
                 <div class="col-lg-6">
-
                     <div class="input-group">
                        <span class="input-group-addon"><label type="text" value="">查询条件</label></span>
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"  id="searchKey">姓名<span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="javascript:void(0)" onclick="changeContent()" id="dropdown1">手机号</a></li>
+                                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.changeContent('dropdownCellphone')" id="dropdownCellphone">手机号</a></li>
+                                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.changeContent('dropdownCompany')" id="dropdownCompany">工作单位</a></li>
+                                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.changeContent('dropdownJobTitle')" id="dropdownJobTitle">职位</a></li>
+                                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.changeContent('dropdownMailbox')" id="dropdownMailbox">电子邮箱</a></li>
+                                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.changeContent('dropdownCompanyAddress')" id="dropdownCompanyAddress">单位地址</a></li>
                             </ul>
                         </div><!-- /btn-group -->
                         <input type="text" class="form-control" id="searchValue">
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
+                <div class="form-group form-inline">
+	                <select id="provinceSelect" class="form-control" name="applicant.companyProvince"></select>
+	                <select id="citySelect" class="form-control" name="applicant.companyCity"></select>
+	                <select id="districtSelect" class="form-control" name="applicant.companyDistrict"></select>
+                </div>
                 <button type="submit" class="btn btn-success" id="retrieve">查询</button>
                 <button type="button" class="btn btn-sm btn-primary" onclick="exportCSV();">导出问卷调查结果</button>
             </div><!-- /.row -->

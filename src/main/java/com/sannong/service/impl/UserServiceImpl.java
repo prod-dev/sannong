@@ -70,8 +70,8 @@ public class UserServiceImpl implements IUserService{
 		}		 
 	}
 
-	public List<User> getUserByNameOrCellphone(Map<String, Object> map) {
-		return userRepository.getUserByNameOrCellphone(map);
+	public List<User> getUserByFuzzyMatch(Map<String, Object> map) {
+		return userRepository.getUserByFuzzyMatch(map);
 	}
 
 	public String getUserTotalCount(Map<String, Object> map) throws Exception {

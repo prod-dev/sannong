@@ -11,7 +11,7 @@ public interface IUserService {
 
     public List<User> getUserByCondition(Map<String, Object> map);
     
-    public List<User> getUserByNameOrCellphone(Map<String, Object> map);
+    public List<User> getUserByFuzzyMatch(Map<String, Object> map);
 
     public boolean updateUser(User user) throws Exception;
 

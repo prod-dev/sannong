@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sannong.infrastructure.util.AppConfig;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +18,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,8 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sannong.infrastructure.dataexport.CsvExporter;
 import com.sannong.infrastructure.persistance.entity.Answer;
-import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.presentation.model.DTO;
 import com.sannong.service.IAnswerService;
 import com.sannong.service.IProjectService;
@@ -107,6 +105,13 @@ public class PersonalCenterController {
         String pageIndex = request.getParameter("pageIndex");
         String cellphone = request.getParameter("cellphone");
         String realName = request.getParameter("realName");
+        String company = request.getParameter("company");
+    	String jobTitle = request.getParameter("jobTitle");
+    	String companyAddress = request.getParameter("companyAddress");
+    	String mailbox = request.getParameter("mailbox");
+    	String provinceIndex = request.getParameter("provinceIndex");
+    	String cityIndex = request.getParameter("cityIndex");
+    	String districtIndex = request.getParameter("districtIndex");
 
         int pageStart = 0;
 
@@ -116,8 +121,15 @@ public class PersonalCenterController {
         map.put("pageStart", pageStart);
         map.put("cellphone", cellphone);
         map.put("realName", realName);
+        map.put("company", company);
+    	map.put("jobTitle", jobTitle);
+    	map.put("companyAddress", companyAddress);
+    	map.put("mailbox", mailbox);
+    	map.put("companyProvince", provinceIndex);
+    	map.put("companyCity", cityIndex);
+    	map.put("companyDistrict", districtIndex);
 
-        List<User> applicants = userService.getUserByNameOrCellphone(map);
+        List<User> applicants = userService.getUserByFuzzyMatch(map);
 
         return applicants;
     }
@@ -272,9 +284,23 @@ public class PersonalCenterController {
     	Map<String, Object> map = new HashMap<String,Object>();
     	String cellphone = request.getParameter("cellphone");
     	String realName = request.getParameter("realName");
+    	String company = request.getParameter("company");
+    	String jobTitle = request.getParameter("jobTitle");
+    	String companyAddress = request.getParameter("companyAddress");
+    	String mailbox = request.getParameter("mailbox");
+    	String provinceIndex = request.getParameter("provinceIndex");
+    	String cityIndex = request.getParameter("cityIndex");
+    	String districtIndex = request.getParameter("districtIndex");
     	
     	map.put("cellphone", cellphone);
     	map.put("realName", realName);
+    	map.put("company", company);
+    	map.put("jobTitle", jobTitle);
+    	map.put("companyAddress", companyAddress);
+    	map.put("mailbox", mailbox);
+    	map.put("companyProvince", provinceIndex);
+    	map.put("companyCity", cityIndex);
+    	map.put("companyDistrict", districtIndex);
     	
     	return userService.getUserTotalCount(map);
     }
