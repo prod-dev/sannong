@@ -66,7 +66,7 @@
             </div>
             <div id="questionnaireTable" style="display:none">
 	            <ul class="nav nav-tabs" role="tablist">
-	                <li class="active"><a href="javascript:void(0)" onclick="showQuestionnaireAnswers(1,'')" role="tab" data-toggle="tab" id="q1">项目状态</a></li>
+	                <li class="active"><a href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(1,'')" role="tab" data-toggle="tab" id="q1">项目状态</a></li>
 	                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(2,'')" role="tab" data-toggle="tab" id="q2">问卷题集二</a></li>
 	                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(3,'')" role="tab" data-toggle="tab" id="q3">问卷题集三</a></li>
 	                <li><a href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(4,'')" role="tab" data-toggle="tab" id="q4">问卷题集四</a></li>
