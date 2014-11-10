@@ -35,7 +35,7 @@
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
                 <button type="submit" class="btn btn-success" id="retrieve">查询</button>
-                <button type="button" class="btn btn-sm btn-primary" onclick="exportCSV();">导出问卷调查结果</button>
+                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exportModal">导出问卷调查结果</button>
             </div><!-- /.row -->
             
             <div id="userTextShow" style="display:none; float:right; text-align:right">
@@ -110,8 +110,25 @@
     </div>
 </div>
 <div><input type="hidden"  id="cellphone" ></div>
+<!-- export modal content -->
+<div id="exportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">确定导出问卷调查结果?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a href="./exportCSV" class="btn btn-success" id="exportCSV" >确定</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script data-main="content/static/js/sannong/pages/applicants" src="content/static/js/lib/require-2.1.15.js"></script>
+<script src="content/static/js/lib/jquery-2.1.1.min.js"></script>
+<script src="content/static/js/lib/bootstrap-3.0.3.min.js"></script>
 <script id="table-template" type="text/x-handlebars-template">
     {{#each this}}
         <tr>

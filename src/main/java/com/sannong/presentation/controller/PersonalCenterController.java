@@ -397,10 +397,6 @@ public class PersonalCenterController {
         map.put("realName", realName);
 
         List<Answer> answer = answerService.getAnswer(map);
-        StringBuffer head = new StringBuffer();
-        for(long i =1;i<=questionNumbers;i++){
-            head.append(answerService.getQuestionContent(i)+",");
-        }
-        CsvExporter.doExport(response, answer, head.toString());
+        CsvExporter.doExport(response,answer);
     }
 }
