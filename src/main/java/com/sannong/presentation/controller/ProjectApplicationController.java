@@ -6,9 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import com.sannong.infrastructure.util.AppConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,12 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mysql.jdbc.StringUtils;
 import com.sannong.infrastructure.persistance.entity.Answer;
 import com.sannong.infrastructure.persistance.entity.Application;
-import com.sannong.infrastructure.persistance.entity.City;
-import com.sannong.infrastructure.persistance.entity.District;
-import com.sannong.infrastructure.persistance.entity.Province;
 import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.service.IProjectService;
-import com.sannong.service.IRegionService;
 import com.sannong.service.IUserService;
 
 
@@ -60,15 +55,17 @@ public class ProjectApplicationController {
         Map<String, Object> models = new HashMap<String, Object>();
 
         Boolean result = projectService.projectApplication(application);
-
+        ModelAndView modelAndView = null;
+        
         if (result == true){
             models.put("completion", new Object());
-            return new ModelAndView(COMPLETION_PAGE, models);
+            modelAndView =  new ModelAndView(COMPLETION_PAGE, models);
         }else {
             models.put("error", new Object());
-            return new ModelAndView(ERROR_PAGE, models);
+            modelAndView = new ModelAndView(ERROR_PAGE, models);
         }
-
+        
+        return modelAndView;
     }
 
     @RequestMapping(value = "useravail", method = RequestMethod.GET)

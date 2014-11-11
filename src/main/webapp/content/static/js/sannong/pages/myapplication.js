@@ -21,11 +21,12 @@ require(['../main'], function () {
                         $("#answerForm").ajaxSubmit(function(message) {
                             if (message.result == true){
                                 $("#return").click();
-
+                                
+                                if ($("#save-success") != null){
+                                	$("#save-success").remove();
+                                }
+                                
                                 $("#submit").after('<label id="save-success" class="error" for="jobTitle">已保存</label>');
-
-                                //保存成功重新加载questionnaire and answer
-                                questionnaire.showQuestions(questionnaireNo);
                             }else{
                                 $("#submit").after('<label id="save-error" class="error" for="jobTitle">保存失败</label>');
                             }
@@ -39,14 +40,16 @@ require(['../main'], function () {
                     if (message.result == true){
                         $("#return").click();
 
-                        $("#save-success").empty();
-                        $("#submit").after('<label id="update-success" class="error" for="jobTitle">更新成功</label>');
-
                         //更新成功重新加载questionnaire and answer
                         var questionnaireNo = $("#questionnaireNo").val();
                         questionnaire.showQuestions(questionnaireNo);
                     }else{
-                        $("#save-success").empty();
+                    	if ($("#save-success") != null){
+                            $("#save-success").remove();
+                        }
+                    	if ($("#update-error") != null){
+                            $("#update-error").remove();
+                        }
                         $("#submit").after('<label id="update-error" class="error" for="jobTitle">更新失败</label>');
                     }
                 });

@@ -21,6 +21,9 @@ define(['jquery', 'sannong'], function($, sannong) {
                 "answers[7]": "required",
                 "answers[8]": "required",
                 "answers[9]": "required",
+                "answers[10]": "required",
+                "answers[11]": "required",
+                "answers[12]": "required",
                 "applicant.realName": "required",
                 "applicant.jobTitle": "required",
                 "applicant.company": "required",
@@ -96,6 +99,9 @@ define(['jquery', 'sannong'], function($, sannong) {
                 "answers[7]": "必填",
                 "answers[8]": "必填",
                 "answers[9]": "必填",
+                "answers[10]": "必填",
+                "answers[11]": "必填",
+                "answers[12]": "必填",
                 "applicant.realName": "必填",
                 "applicant.jobTitle": "必填",
                 "applicant.provinceSelect": "必填",
@@ -172,7 +178,7 @@ define(['jquery', 'sannong'], function($, sannong) {
                     error.appendTo(element.parent().parent());
 
                 }else if ( element.is(":checkbox") ) {
-                    error.appendTo(element.next());
+                    error.appendTo(element.parent().parent());
 
                 }else if (element.attr("name") == "cellphone") {
                     error.appendTo(element.next().next());
