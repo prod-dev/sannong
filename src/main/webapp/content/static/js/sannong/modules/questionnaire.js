@@ -13,6 +13,14 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
         $("#buttonGroup").show();
         $("#save").removeAttr("disabled");
         $("#submit").removeAttr("disabled");
+        
+        if ($("#save-success") != null){
+        	$("#save-success").remove();
+        }
+        
+        if ($("#update-success") != null){
+        	$("#update-success").remove();
+        }
 
         if ($("#q" + questionnaireNo).parent().hasClass("disabled")) {
             $("#questionnaire").empty();
@@ -131,14 +139,13 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 $("#questionnaire").empty();
                 $("#questionnaire").append(html);
 
-                $("#questionnaire").find(".radio-inline").each(function(){
-                    var test = $(this).text();
-                    if (test.trim() == ""){
+                $("#questionnaire").find(".checkbox-inline").each(function(){
+                    var checkbox = $(this).text();
+                    if (checkbox.trim() == ""){
                         $(this).remove();
                     }
                 });
 
-                //fill out answers in questionnaire relatively
                 //fill out answers in questionnaire relatively
                 var answerString = "";
                 switch (questionnaireNo){
@@ -161,14 +168,19 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
 
                 if (answerString != "" && answerString != null){
                     var answer = answerString.split(";");
+                    var singleAnswer = "";
+                    
                     for (var i = 0;i < answer.length;i++){
-                        var $_radios=$(".J_group_radio").eq(i).find("input");
+                        var $_radios = $(".J_group_checkbox").eq(i).find("input");
                         $_radios.each(function(){
                             if (radioStatus == 1){
                                 $(this).attr("disabled","disabled");
                             }
-                            if($(this).val()===answer[i]){
-                                $(this).attr("checked","checked");
+                            singleAnswer = answer[i].split(",");
+                            for (var j = 0;j < singleAnswer.length;j++){
+	                            if($(this).val()===singleAnswer[j]){
+	                                $(this).attr("checked","checked");
+	                            }
                             }
                         });
                     }

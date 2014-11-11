@@ -3,8 +3,8 @@
  */
 
 require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods', 'pagination', 'region'],
-        function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator, additionalMethods, pagination, region) {
+    require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods', 'pagination', 'region', 'jqueryForm'],
+        function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator, additionalMethods, pagination, region, jqueryForm) {
 
             "use strict";
 
@@ -151,10 +151,11 @@ require(['../main'], function () {
                         $("#searchBar").hide();
                         $("#questionList").empty();
                         $("#questionList").append(html);
-
-                        $("#questionnaireTable").find(".radio-inline").each(function() {
-                            var redioValue = $(this).text();
-                            if (redioValue.trim() == "") {
+                        
+                        //remove extra checkbox
+                        $("#questionnaireTable").find(".checkbox-inline").each(function() {
+                            var checkboxValue = $(this).text();
+                            if (checkboxValue.trim() == "") {
                                 $(this).remove();
                             }
                         });
@@ -179,13 +180,18 @@ require(['../main'], function () {
                                 break;
                         }
 
-                        if (answerString != "" && answerString != null) {
+                        if (answerString != "" && answerString != null){
                             var answer = answerString.split(";");
-                            for ( var i = 0; i < answer.length; i++) {
-                                var $_radios = $(".J_group_radio").eq(i).find("input");
-                                $_radios.each(function() {
-                                    if ($(this).val() === answer[i]) {
-                                        $(this).attr("checked", "checked");
+                            var singleAnswer = "";
+                            
+                            for (var i = 0;i < answer.length;i++){
+                                var $_radios = $(".J_group_checkbox").eq(i).find("input");
+                                $_radios.each(function(){
+                                    singleAnswer = answer[i].split(",");
+                                    for (var j = 0;j < singleAnswer.length;j++){
+        	                            if($(this).val()===singleAnswer[j]){
+        	                                $(this).attr("checked","checked");
+        	                            }
                                     }
                                 });
                             }
