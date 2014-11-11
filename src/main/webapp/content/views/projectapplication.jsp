@@ -24,31 +24,46 @@
         <div class="col-md-8 column">
            <form id="applicationForm" role="form" action="apply" method="post">
                <div id="questionnaire">
-                   <script id="question-template" type="text/x-handlebars-template">
-                       {{#questions}}
-                       <div class="J_group_checkbox">
-                           <h5>{{fromOne @index}}. {{questionContent}}</h5>
+                   <script id="question-template-checkbox" type="text/x-handlebars-template">
+                       <div class="J_group_choice">
+                           <h5>{{fromOne}}. {{questionContent}}</h5>
                            <label class="checkbox-inline">
-	                           <input type="checkbox" name="answers[{{fromZero @index}}]" id="inlineRadio31" value="{{questionId}}:a"> {{option1}}
+	                           <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:a"> {{option1}}
                            </label>
                            <label class="checkbox-inline">
-                               <input type="checkbox" name="answers[{{fromZero @index}}]" id="inlineRadio32" value="{{questionId}}:b"> {{option2}}
-                		   </label>                 	
-                		   <label class="checkbox-inline">
-                    	       <input type="checkbox" name="answers[{{fromZero @index}}]" id="inlineRadio33" value="{{questionId}}:c"> {{option3}}
+                               <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:b"> {{option2}}
+                           </label>                 	
+                           <label class="checkbox-inline">
+                               <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:c"> {{option3}}
 	                       </label>
                            <label class="checkbox-inline">
-                               <input type="checkbox" name="answers[{{fromZero @index}}]" id="inlineRadio33" value="{{questionId}}:d"> {{option3}}
-	                       </label> 	
-                           <label class="checkbox-inline">
-                               <input type="checkbox" name="answers[{{fromZero @index}}]" id="inlineRadio34" value="{{questionId}}:e"> {{option4}}
+                               <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:d"> {{option4}}
 	                       </label>
                            <label class="checkbox-inline">
-                               <input type="checkbox" name="answers[{{fromZero @index}}]" id="inlineRadio35" value="{{questionId}}:f"> {{option5}}
-	        	           </label>
+                               <input type="checkbox" name="answers[{{fromZero}}]"  value="{{questionId}}:e"> {{option5}}
+	                       </label>
                        </div>
-                       {{/questions}}
-                   </script>
+                  </script>
+                  <script id="question-template-radio" type="text/x-handlebars-template">
+					    <div class="J_group_choice">
+					        <h5>{{fromOne}}. {{questionContent}}</h5>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:a"> {{option1}}
+					        </label>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:b"> {{option2}}
+					        </label>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:c"> {{option3}}
+					        </label>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:d"> {{option4}}
+					        </label>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]"  value="{{questionId}}:e"> {{option5}}
+					        </label>
+					    </div>
+                  </script>
                </div>
                <hr>
                <div class="row">

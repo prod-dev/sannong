@@ -227,3 +227,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Added by Bright 2014-11-7
 ALTER TABLE `sannong`.`sms`
 CHANGE COLUMN `user_id` `user_id` BIGINT(20) NULL ;
+
+-- Added by William 2014-11-11
+ALTER TABLE `sannong`.`questions` 
+ADD COLUMN `is_single` CHAR NULL COMMENT '1:single choice\n0:multiple choice' AFTER `questionnaire_number`;
