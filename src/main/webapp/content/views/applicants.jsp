@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-10 column">
             <div class="row" id="searchBar">
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="input-group">
                        <span class="input-group-addon"><label type="text" value="">查询条件</label></span>
                         <div class="input-group-btn">
@@ -37,12 +37,18 @@
                     </div><!-- /input-group -->
                 </div><!-- /.col-lg-6 -->
                 <div class="form-group form-inline">
-	                <select id="provinceSelect" class="form-control" name="applicant.companyProvince"></select>
-	                <select id="citySelect" class="form-control" name="applicant.companyCity"></select>
-	                <select id="districtSelect" class="form-control" name="applicant.companyDistrict"></select>
+	                <select id="provinceSelect" class="form-control" name="applicant.companyProvince">
+                        <option>省/直辖市</option>
+	                </select>
+	                <select id="citySelect" class="form-control" name="applicant.companyCity">
+                        <option>市</option>
+	                </select>
+	                <select id="districtSelect" class="form-control" name="applicant.companyDistrict">
+                        <option>县/市辖区</option>
+                    </select>
+                    <button type="submit" class="btn btn-success" id="retrieve">查询</button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="exportCSV();">导出问卷调查结果</button>
                 </div>
-                <button type="submit" class="btn btn-success" id="retrieve">查询</button>
-                <button type="button" class="btn btn-sm btn-primary" onclick="exportCSV();">导出问卷调查结果</button>
             </div><!-- /.row -->
             
             <div id="userTextShow" style="display:none; float:right; text-align:right">
@@ -52,7 +58,7 @@
             
             <br/>
             <div id="applicantsTable">
-                <table class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover table-condensed">
 	                <thead>
 	                <tr>
 	                    <th> #</th>

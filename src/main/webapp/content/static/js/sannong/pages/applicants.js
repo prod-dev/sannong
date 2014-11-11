@@ -87,12 +87,12 @@ require(['../main'], function () {
             applicants.Controller = {
             	 addEventListener: function(){
                      $("#provinceSelect").change(function(event){
-                         region.Controller.addCities();
+                         region.Controller.addCitySelectionsOnly();
                      });
 
                      $("#citySelect").change(function(event){
                          $('#districtSelect option').remove();
-                         region.Controller.addDistricts();
+                         region.Controller.addDistrictSelectionsOnly();
                      });
             	 }
             }
@@ -264,7 +264,7 @@ require(['../main'], function () {
 
 
             $(function() {
-            	region.Controller.addProvinces();
+            	region.Controller.addProvinceSelectionsOnly();
             	applicants.Controller.addEventListener();
                 show(1);
             })
