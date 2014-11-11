@@ -44,6 +44,8 @@ public class PersonalCenterController {
     private static final String MY_PASSWORD_PAGE = "mypassword";
     private static final String APPLICANTS_PAGE = "applicants";
     private static final String LOGIN_PAGE = "login";
+    private static final String ISO = "iso8859-1";
+    private static final String UTF8 = "UTF-8";
     private static final long questionNumbers = 55;
 
     @Resource
@@ -94,20 +96,21 @@ public class PersonalCenterController {
     }
 
     /**
-     * Show applicants page.  //TODO: Why there are two functions to show applicants here?
+     * Show applicants page
      * @param request
      * @return
+     * @throws Exception 
      */
     @RequestMapping(value = "showApplicants", method = RequestMethod.GET)
-    public @ResponseBody List<User> showList(HttpServletRequest request) {
+    public @ResponseBody List<User> showList(HttpServletRequest request) throws Exception {
 
         Map<String, Object> map = new HashMap<String,Object>();
         String pageIndex = request.getParameter("pageIndex");
         String cellphone = request.getParameter("cellphone");
-        String realName = request.getParameter("realName");
-        String company = request.getParameter("company");
-    	String jobTitle = request.getParameter("jobTitle");
-    	String companyAddress = request.getParameter("companyAddress");
+    	String realName = request.getParameter("realName") == null ? null : new String(request.getParameter("realName").getBytes(ISO),UTF8);
+    	String company = request.getParameter("company") == null ? null : new String(request.getParameter("company").getBytes(ISO),UTF8);
+    	String jobTitle = request.getParameter("jobTitle") == null ? null : new String(request.getParameter("jobTitle").getBytes(ISO),UTF8);
+    	String companyAddress = request.getParameter("companyAddress") == null ? null : new String(request.getParameter("companyAddress").getBytes(ISO),UTF8);
     	String mailbox = request.getParameter("mailbox");
     	String provinceIndex = request.getParameter("provinceIndex");
     	String cityIndex = request.getParameter("cityIndex");
@@ -283,10 +286,10 @@ public class PersonalCenterController {
 
     	Map<String, Object> map = new HashMap<String,Object>();
     	String cellphone = request.getParameter("cellphone");
-    	String realName = request.getParameter("realName");
-    	String company = request.getParameter("company");
-    	String jobTitle = request.getParameter("jobTitle");
-    	String companyAddress = request.getParameter("companyAddress");
+    	String realName = request.getParameter("realName") == null ? null : new String(request.getParameter("realName").getBytes(ISO),UTF8);
+    	String company = request.getParameter("company") == null ? null : new String(request.getParameter("company").getBytes(ISO),UTF8);
+    	String jobTitle = request.getParameter("jobTitle") == null ? null : new String(request.getParameter("jobTitle").getBytes(ISO),UTF8);
+    	String companyAddress = request.getParameter("companyAddress") == null ? null : new String(request.getParameter("companyAddress").getBytes(ISO),UTF8);
     	String mailbox = request.getParameter("mailbox");
     	String provinceIndex = request.getParameter("provinceIndex");
     	String cityIndex = request.getParameter("cityIndex");
