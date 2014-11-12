@@ -45,27 +45,12 @@ public class SmsController {
 
     @RequestMapping(value = "sendValidationCode")
     public @ResponseBody String sendValidationCode(HttpServletRequest request) throws Exception {
-        String validationCode = PasswordGenerator.generateValidationCode(4);
-        String cellphone = request.getParameter("mobile");
-
-        SmsSender smsSender = new SmsSender();
-        String smsUrl = smsSender.generateSmsUrl(cellphone, validationCode);
-
-        String result = smsSender.sendSms(smsUrl);
-
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        if (result != ""){
-            SMS sms = new SMS();
-            sms.setCellphone(cellphone);
-            sms.setSmsValidationCode(validationCode);
-            sms.setSmsContent(result);
-            sms.setSendTime(timestamp);
-            sms.setSmsStatus(0);
-            smsService.addNewSms(sms);
-        }
-        return result;
+        return smsService.sendValidationCode(request);
     }
 
-
+    @RequestMapping(value = "sendLoginMessage")
+    public @ResponseBody String sendLoginMessage(HttpServletRequest request) throws Exception {
+        return smsService.sendLoginMessage(request);
+    }
 
 }

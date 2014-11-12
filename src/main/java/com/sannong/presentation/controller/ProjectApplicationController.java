@@ -51,10 +51,10 @@ public class ProjectApplicationController {
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
-    public ModelAndView apply(@ModelAttribute("applicationForm") Application application) throws Exception {
+    public ModelAndView apply(HttpServletRequest request, @ModelAttribute("applicationForm") Application application) throws Exception {
         Map<String, Object> models = new HashMap<String, Object>();
 
-        Boolean result = projectService.projectApplication(application);
+        Boolean result = projectService.projectApplication(request, application);
         ModelAndView modelAndView = null;
         
         if (result == true){

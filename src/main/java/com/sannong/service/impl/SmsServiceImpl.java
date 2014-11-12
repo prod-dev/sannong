@@ -5,7 +5,9 @@ import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.repository.SmsRepository;
 import com.sannong.infrastructure.sms.SmsSender;
 import com.sannong.infrastructure.util.AppConfig;
+import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.service.ISmsService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,6 +21,8 @@ import java.util.*;
  */
 @Service
 public class SmsServiceImpl implements ISmsService {
+    private static final Logger logger = Logger.getLogger(SmsServiceImpl.class);
+
     @Autowired
     private SmsRepository smsRepository;
     @Autowired
@@ -101,16 +105,6 @@ public class SmsServiceImpl implements ISmsService {
         return smsRepository.getMaxSmsIdByCellphone(sms);
     }
 
-    @Override
-    public boolean addNewSms(SMS sms){
-       try{
-            smsRepository.addNewSMS(sms);
-        }catch(Exception e){
-            return false;
-        }
-        return true;
-    }
-
     @SuppressWarnings("unchecked")
     public boolean generateCode(HttpServletRequest request) {
 
@@ -118,7 +112,7 @@ public class SmsServiceImpl implements ISmsService {
         String smstype = request.getParameter("smstype").toString();
 
 
-        String regcode = SmsSender.generateCode(4);
+        String regcode = PasswordGenerator.generateValidationCode(4);
 
         Map<Date, String> map = new HashMap<Date, String>();
         if (mobile.length() < 11)
@@ -156,5 +150,64 @@ public class SmsServiceImpl implements ISmsService {
 
             return true;
         }
+    }
+
+
+    @Override
+    public String sendValidationCode(HttpServletRequest request) {
+        String validationCode = PasswordGenerator.generateValidationCode(4);
+        String cellphone = request.getParameter("mobile");
+
+        String result = "";
+        try{
+            SmsSender smsSender = new SmsSender();
+            String smsUrl = smsSender.getSmsValidationCodeUrl(cellphone, validationCode);
+
+            result = smsSender.sendSms(smsUrl);
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            if (result != ""){
+                SMS sms = new SMS();
+                sms.setCellphone(cellphone);
+                sms.setSmsValidationCode(validationCode);
+                sms.setSmsContent(result);
+                sms.setSendTime(timestamp);
+                sms.setSmsStatus(0);
+                smsRepository.addNewSMS(sms);
+
+            }
+
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public String sendLoginMessage(HttpServletRequest request){
+        String validationCode = PasswordGenerator.generateValidationCode(6);
+        String cellphone = request.getParameter("mobile");
+        String result = "";
+        try{
+            SmsSender smsSender = new SmsSender();
+            String smsUrl = smsSender.getSmsLoginMessageUrl(cellphone, validationCode);
+
+            result = smsSender.sendSms(smsUrl);
+
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+            if (result != ""){
+                SMS sms = new SMS();
+                sms.setCellphone(cellphone);
+                sms.setSmsValidationCode(validationCode);
+                sms.setSmsContent(result);
+                sms.setSendTime(timestamp);
+                sms.setSmsStatus(0);
+                smsRepository.addNewSMS(sms);
+            }
+
+        }catch (Exception e){
+            logger.error(e.getMessage());
+        }
+        return result;
     }
 }

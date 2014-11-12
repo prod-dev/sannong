@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.sannong.domain.valueobject.RoleType;
 import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.infrastructure.util.PasswordGenerator;
+import com.sannong.service.ISmsService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,8 @@ public class ProjectServiceImpl implements IProjectService {
 	private AnswerRepository answerRepository;
     @Autowired
     private AppConfig appConfig;
+    @Autowired
+    private ISmsService smsService;
 	
 	public boolean checkUserNameAvailable(HttpServletRequest request)
 	{
@@ -118,7 +121,7 @@ public class ProjectServiceImpl implements IProjectService {
 	
 	}
 
-	public boolean projectApplication(Application application) throws Exception {
+	public boolean projectApplication(HttpServletRequest request, Application application) throws Exception {
 
 		boolean result = true;
 
@@ -163,9 +166,14 @@ public class ProjectServiceImpl implements IProjectService {
 			
 			// set answers info
 			answerRepository.addAnswers(answer);
-			
+
+            //smsService.
+
 			// email admin
 			emailAdmin();
+
+            smsService.sendLoginMessage(request);
+
 		} catch (Exception e) {
 
             logger.error(e.getMessage());

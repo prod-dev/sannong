@@ -16,5 +16,6 @@ public interface ISmsService {
     public boolean generateCode(HttpServletRequest request);
     public int validateSMSCode(HttpServletRequest request);
     public Long getMaxSmsIdByCellphone(HttpServletRequest request);
-    public boolean addNewSms(SMS sms);
+    public String sendValidationCode(HttpServletRequest request);
+    public String sendLoginMessage(HttpServletRequest request);
 }
