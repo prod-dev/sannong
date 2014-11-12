@@ -66,27 +66,35 @@
        				company_district 
        				 from users
        	<where>
-	       	<if test="realName != null">  
+	       	<if test="realName != null and realName != '' ">  
 	            user_name like CONCAT('%',#{realName},'%')  
 	        </if>
-	        <if test="userName != null">  
+	        <if test="userName != null and userName != '' ">  
 	            and username like CONCAT('%',#{userName},'%')
 	        </if>
-	        <if test="cellphone != null">  
+	        <if test="cellphone != null and cellphone != '' ">  
             	and cellphone like CONCAT('%',#{cellphone},'%') 
             </if>
-            <if test="company != null">  
+            <if test="company != null and company != '' ">  
             	and company like CONCAT('%',#{company},'%') 
             </if>
-            <if test="jobTitle != null">  
+            <if test="jobTitle != null and jobTitle != '' ">  
             	and job_title like CONCAT('%',#{jobTitle},'%') 
             </if>
-            <if test="mailbox != null">  
+            <if test="mailbox != null and mailbox != '' ">  
             	and mailbox like CONCAT('%',#{mailbox},'%') 
             </if>
-            <if test="companyAddress != null">  
-            	and company_province = #{companyProvince} and company_city = #{companyCity} and 
-            	company_district = #{companyDistrict} and  company_address like CONCAT('%',#{companyAddress},'%') 
+            <if test="companyAddress != null and companyAddress != '' ">  
+            	and company_address like CONCAT('%',#{companyAddress},'%') 
+            </if>
+            <if test="companyProvince != null and companyProvince != '' ">  
+            	and company_province = #{companyProvince}
+            </if>
+            <if test="companyCity != null and companyCity != '' ">  
+            	and company_city = #{companyCity}
+            </if>
+            <if test="companyDistrict != null and companyDistrict != '' ">  
+            	and company_district = #{companyDistrict}
             </if>
        	</where>
        	limit #{pageStart},10
@@ -141,27 +149,35 @@
     <select id="getUserTotalCount" parameterType="Map" resultType="String">
         select count(*) from users
         <where>
-	       	<if test="realName != null">  
+	       	<if test="realName != null and realName != '' ">  
 	            user_name like CONCAT('%',#{realName},'%')  
 	        </if>
-	        <if test="userName != null">  
+	        <if test="userName != null and userName != '' ">  
 	            and username like CONCAT('%',#{userName},'%')
 	        </if>
-	        <if test="cellphone != null">  
+	        <if test="cellphone != null and cellphone != '' ">  
             	and cellphone like CONCAT('%',#{cellphone},'%') 
             </if>
-            <if test="company != null">  
+            <if test="company != null and company != '' ">  
             	and company like CONCAT('%',#{company},'%') 
             </if>
-            <if test="jobTitle != null">  
+            <if test="jobTitle != null and jobTitle != '' ">  
             	and job_title like CONCAT('%',#{jobTitle},'%') 
             </if>
-            <if test="mailbox != null">  
+            <if test="mailbox != null and mailbox != '' ">  
             	and mailbox like CONCAT('%',#{mailbox},'%') 
             </if>
-            <if test="companyAddress != null">  
-            	and company_province = #{companyProvince} and company_city = #{companyCity} and 
-            	company_district = #{companyDistrict} and  company_address like CONCAT('%',#{companyAddress},'%') 
+            <if test="companyAddress != null and companyAddress != '' ">  
+            	and company_address like CONCAT('%',#{companyAddress},'%') 
+            </if>
+            <if test="companyProvince != null and companyProvince != '' ">  
+            	and company_province = #{companyProvince}
+            </if>
+            <if test="companyCity != null and companyCity != '' ">  
+            	and company_city = #{companyCity}
+            </if>
+            <if test="companyDistrict != null and companyDistrict != '' ">  
+            	and company_district = #{companyDistrict}
             </if>
        	</where>
     </select>

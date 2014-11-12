@@ -62,15 +62,13 @@ require(['../main'], function () {
                 }else if (searchKey == "电子邮箱"){
                     parameter = "mailbox=" + searchValue;
                 }else if (searchKey == "单位地址"){
-                	if (searchValue != null && searchValue != ""){
-                		var provinceIndex = $("#provinceSelect").val();
-                		var cityIndex = $("#citySelect").val();
-                		var districtIndex = $("#districtSelect").val();
-                		
-                		parameter = "&provinceIndex=" + provinceIndex + "&cityIndex=" + cityIndex + 
-                		"&districtIndex=" + districtIndex +"&companyAddress=" + searchValue;
-                	}
+                	parameter = "companyAddress=" + searchValue;
                 }
+                var provinceIndex = $("#provinceSelect").val();
+        		var cityIndex = $("#citySelect").val();
+        		var districtIndex = $("#districtSelect").val();
+        		
+        		parameter = parameter + "&provinceIndex=" + provinceIndex + "&cityIndex=" + "&districtIndex=" + districtIndex;
 
                 $.ajax({
                     type : "get",
