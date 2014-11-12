@@ -68,7 +68,7 @@ require(['../main'], function () {
         		var cityIndex = $("#citySelect").val();
         		var districtIndex = $("#districtSelect").val();
         		
-        		parameter = parameter + "&provinceIndex=" + provinceIndex + "&cityIndex=" + "&districtIndex=" + districtIndex;
+        		parameter = parameter + "&provinceIndex=" + provinceIndex + "&cityIndex=" + cityIndex + "&districtIndex=" + districtIndex;
 
                 $.ajax({
                     type : "get",
