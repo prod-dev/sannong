@@ -8,16 +8,18 @@ import java.util.Random;
  * Created by Bright Huang on 11/3/14.
  */
 public class PasswordGenerator {
-    private static String seed = "0123456789";
-    private static Random random = new Random();
 
+    public static String generateValidationCode(int length) {
+        return generatePassword(length);
+    }
 
     public static String generatePassword(int length) {
+        String seed = "0123456789";
+        Random random = new Random();
 
         //TODO: Just for test purpose, will replace it by commentted code below after test.
-        return "123456";
+        //return "123456";
 
-        /*
         if (length == 0) {
             return "";
         }
@@ -26,9 +28,7 @@ public class PasswordGenerator {
         for (int i = 0; i < buf.length; i++) {
             buf[i] = seed.charAt(random.nextInt(seed.length()));
         }
-
         return new String(buf);
-        */
     }
 
     public static String encryptPassword(String password, String salt){

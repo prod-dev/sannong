@@ -62,7 +62,9 @@ require(['../main'], function () {
                         "validationcode": $("#validationCode").val()
                     },
                     success: function(data) {
-                     $("#errorDiv").css("display","none");
+                        $("#applicationSubmit").removeAttr("disabled");
+                        /*
+                         $("#errorDiv").css("display","none");
                         if(data == 0){
                             showError($("#validationCode"), '验证码错误');
                         }
@@ -72,13 +74,14 @@ require(['../main'], function () {
                         if(data==2){
                             $("#applicationSubmit").removeAttr("disabled");
                         }
+                        */
 
                     }
                 };
 
                 ajaxHandler.sendRequest(options);
 
-                if (validateForm("#applicationForm").element($("#validationCode")) == true && $("#validationCode").val() != ""){
+                if (formValidator.getValidator("#applicationForm").element($("#validationCode")) == true && $("#validationCode").val() != ""){
                     $("#applicationSubmit").removeAttr("disabled");
                     $("#applicationSubmit").removeClass().addClass("btn btn-success");
                 } else {
@@ -91,24 +94,27 @@ require(['../main'], function () {
             $("#action-send-code").click(function(event){
                if (formValidator.getValidator("#applicationForm").form() == true){
                     var options = {
-                        url: 'regcode',
+                        url: 'sendValidationCode',
                         type: 'GET',
                         data: {
                             mobile: $("#cellphone").val(),
                             smstype: $(this).attr("data-type")
                         },
                         success: function(data){
-                        $("#validationCode").removeAttr("disabled"); 
-                         if (data == true) {                          
-                              projectApplication.Controller.updateTimeLabel(60);                          
-                         } else {
-                            $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
-                        }
-                        
+
+                            $("#validationCode").removeAttr("disabled");
+                            /*
+                             if (data != "") {
+                                  projectApplication.Controller.updateTimeLabel(60);
+                             } else {
+                                $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
+                            }
+                            */
                         },
                         fail: function(data){
                             $(this).val('重新发送').removeAttr('disabled').removeClass("gray");
                         }
+
                     }
                    ajaxHandler.sendRequest(options);
                 }

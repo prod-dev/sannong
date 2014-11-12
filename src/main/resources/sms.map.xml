@@ -21,6 +21,12 @@
         	select * from sms where sms_status = 0
         ]]>
     </select>
+
+    <select id="getMaxSmsIdByCellphone" parameterType="Sms" resultMap="smsMap">
+        <![CDATA[
+        	select max(smsId) from sms where cellphone = #{cellphone} and sms_status = 0
+        ]]>
+    </select>
      
     <insert id="addNewSMS" parameterType="SMS" useGeneratedKeys="true"  keyProperty="sms_Id">
      	<![CDATA[
@@ -32,6 +38,13 @@
     <update id="updateSMS"  parameterType="SMS">
        	<![CDATA[
         	update sms set send_time = #{sendTime},sms_status = #{smsStatus} where sms_id = #{smsId}
+        ]]>
+    </update>
+
+    <update id="updateSmsByCellphone"  parameterType="SMS">
+        <![CDATA[
+        	update sms set sms_validation_code = #{smsValidationCode}, send_time = #{sendTime}, sms_status = #{smsStatus}
+        	where cellphone = #{cellphone}
         ]]>
     </update>
      
