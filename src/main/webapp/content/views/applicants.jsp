@@ -47,7 +47,7 @@
                         <option>县/市辖区</option>
                     </select>
                     <button type="submit" class="btn btn-success" id="retrieve">查询</button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="exportCSV();">导出问卷调查结果</button>
+                    <button type="button" class="btn btn-sm btn-primary" onclick="Sannong.Applicants.exportCSV();">导出问卷调查结果</button>
                 </div>
             </div><!-- /.row -->
             

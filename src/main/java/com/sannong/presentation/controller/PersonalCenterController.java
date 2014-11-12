@@ -47,6 +47,7 @@ public class PersonalCenterController {
     private static final String ISO = "iso8859-1";
     private static final String UTF8 = "UTF-8";
     private static final long questionNumbers = 55;
+    private static final long pageSum = 10;
 
     @Resource
     private IUserService userService;
@@ -122,6 +123,7 @@ public class PersonalCenterController {
             pageStart =  (Integer.parseInt(pageIndex)- 1)  * 10;
         }
         map.put("pageStart", pageStart);
+        map.put("pageSum", pageSum);
         map.put("cellphone", cellphone);
         map.put("realName", realName);
         map.put("company", company);

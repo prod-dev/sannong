@@ -33,7 +33,14 @@ public class User implements Serializable{
 	private Timestamp updateTime;
 	private String realName;
 	private Timestamp createTime;
+	private Answer answer;
 	
+	public Answer getAnswer() {
+		return answer;
+	}
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
+	}
 	@JsonSerialize(using = CustomDateSerializer.class)
 	public Timestamp getCreateTime() {
 		return createTime;
