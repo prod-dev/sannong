@@ -39,7 +39,14 @@ define(['jquery', 'sannong'], function($, sannong) {
                 },
                 "applicant.cellphone": {
                     required: true,
-                    isCellphone: true
+                    isCellphone: true,
+                    remote:{
+                        type: "GET",
+                        url: "validateUniqueCellphone",
+                        data:{
+                            cellphone: $("#cellphone").val()
+                        }
+                    }
                 },
                 "sms.smsValidationCode":{
                     digits: true,
@@ -117,7 +124,7 @@ define(['jquery', 'sannong'], function($, sannong) {
                 "applicant.cellphone": {
                     required: "必填",
                     isCellphone: "请正确填写您的手机号码",
-                    remote: "姓名或手机号码不存在"
+                    remote: "此手机号码已经被使用"
                 },
                 "sms.smsValidationCode":{
                     digits: "只能输入整数",

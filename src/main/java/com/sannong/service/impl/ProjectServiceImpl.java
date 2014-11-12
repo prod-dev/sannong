@@ -58,10 +58,12 @@ public class ProjectServiceImpl implements IProjectService {
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("userName", username);
 		List<User> li=userRepository.getUserByCondition(map);
-		if(li.isEmpty())
-			return true;
-		else 
-			return false;
+		if(li.isEmpty()) {
+            return true;
+        }
+		else {
+            return false;
+        }
 	}
 	
 	/**
@@ -121,7 +123,7 @@ public class ProjectServiceImpl implements IProjectService {
 	
 	}
 
-	public boolean projectApplication(HttpServletRequest request, Application application) throws Exception {
+	public boolean projectApplication(HttpServletRequest request, Application application)  {
 
 		boolean result = true;
 
@@ -140,7 +142,7 @@ public class ProjectServiceImpl implements IProjectService {
 
 			userRepository.addUserInfo(application.getApplicant());
 
-            // set authrities
+            // set authorities
             Map<String, Object> authorityMap = new HashMap<String, Object>();
             authorityMap.put("userName", username);
             authorityMap.put("authority", RoleType.ROLE_USER.toString());
@@ -183,6 +185,7 @@ public class ProjectServiceImpl implements IProjectService {
 		
 		return result;
 	}
+
     public Answer getQuestionnaireAndAnswerByCondition(Map<String,Object> map) {
 		
 		int questionnaireNo = 1;
@@ -205,4 +208,15 @@ public class ProjectServiceImpl implements IProjectService {
 		
 		return answer; 
 	}
+
+    @Override
+    public boolean validateUniqueCellphone(String cellphone) {
+        Map<String, Object> map = new HashMap<String,Object>();
+        map.put("cellphone", cellphone);
+        List<User> users = userRepository.getUserByCondition(map);
+        if (users.size() > 0){
+            return false;
+        }
+        return true;
+    }
 }
