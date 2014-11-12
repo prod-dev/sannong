@@ -3,6 +3,7 @@ package com.sannong.infrastructure.sms;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -51,8 +52,9 @@ public class SmsSender {
         CloseableHttpResponse httpResponse = null;
         try {
             httpClient = HttpClients.createDefault();
-            HttpGet httpGet = new HttpGet(smsUrl);
-            httpResponse = httpClient.execute(httpGet);
+            HttpPost httpPost = new HttpPost(smsUrl);
+            //HttpGet httpGet = new HttpGet(smsUrl);
+            httpResponse = httpClient.execute(httpPost);
             HttpEntity httpEntity = httpResponse.getEntity();
             if (httpEntity != null) {
                 result = EntityUtils.toString(httpEntity);

@@ -14,8 +14,12 @@ public class SendMailHander extends Thread {
     private String subject;
     private String content;
     private boolean isHtml;
-    @Autowired
-    private AppConfig appConfig;
+    private String mailContent =
+                        "管理员:" +
+                        "xxx省xxx市xxx村 xxx(名字) 与 xxx (时间) 提交了项目申请, 请尽快联系该项目申请人, 以便项目申请人更快的完成后续工作, 推动项目进展." +
+                        "该项目申请人的联系方式是: 手机: xxxxxxxx" +
+                        "三农平台";
+
 
     public SendMailHander(String receiver, String subject, String content, boolean isHtml) {
         this.receiver = receiver;
@@ -26,15 +30,17 @@ public class SendMailHander extends Thread {
 
     public void run() {
         try {
+            AppConfig appConfig = new AppConfig();
+            String[] emails=receiver.split(";");
             Email email = Email.create()
                     .from(appConfig.getProperty("smtp-sender"))
-                    .to(receiver)
+                    .to(emails)
                     .subject(subject);
             if (!isHtml) {
-                email.addText(content);
+                email.addText(mailContent);
             }
             else {
-                email.addHtml(content);
+                email.addHtml(mailContent);
             }
             SmtpServer smtpServer =
                     new SmtpServer(appConfig.getProperty("smtp-server"),
