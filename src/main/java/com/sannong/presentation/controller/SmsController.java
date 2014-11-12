@@ -1,10 +1,7 @@
 package com.sannong.presentation.controller;
 
 import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.infrastructure.sms.SmsSender;
-import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.service.ISmsService;
-import com.sun.tools.corba.se.idl.constExpr.Times;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -24,14 +20,14 @@ public class SmsController {
     private ISmsService smsService;
 
     @RequestMapping(value = "updatesms", method = RequestMethod.GET)
-    public @ResponseBody
-    boolean updateSMS(HttpServletRequest request) {
+    public @ResponseBody boolean updateSMS(HttpServletRequest request) {
         return smsService.updateSMS(request);
     }
 
     @RequestMapping(value = "getnewsms", method = RequestMethod.GET)
-    public @ResponseBody
-    List<SMS> getNewSMS() {return smsService.getNewSMS();}
+    public @ResponseBody List<SMS> getNewSMS() {
+        return smsService.getNewSMS();
+    }
 
     @RequestMapping(value = "regcode", method = RequestMethod.GET)
     public @ResponseBody boolean generateCode(HttpServletRequest request) {
@@ -39,7 +35,7 @@ public class SmsController {
     }
 
     @RequestMapping(value = "validateSMSCode")
-    public @ResponseBody int  validateRegcode(HttpServletRequest request) {
+    public @ResponseBody int validateRegcode(HttpServletRequest request) {
         return smsService.validateSMSCode(request);
     }
 
