@@ -12,11 +12,12 @@
         <result property="option4" column="option4" />
         <result property="option5" column="option5" />
         <result property="questionContent" column="question_content" />
+        <result property="isSingle" column="is_single" />
     </resultMap>
     
 	<select id="getQuestionnaireByNo" parameterType="int" resultMap="questionnaireResultMap">
      	<![CDATA[
-     		select question_id,option1,option2,option3,option4,option5,question_content from questions where questionnaire_number = #{questionnaireNo}
+     		select question_id,option1,option2,option3,option4,option5,question_content,is_single from questions where questionnaire_number = #{questionnaireNo}
      	]]>
 	</select>
 </mapper>

@@ -128,20 +128,39 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 }
 
                 //fill out questionnaire
-                handlebars.registerHelper("fromOne",function(index){
-                    return index+1;
-                });
-                handlebars.registerHelper("fromZero",function(index){
-                    return index;
-                });
-                var handle = handlebars.compile($("#question-template").html());
-                var html = handle(data);
+                var handleCheckbox = handlebars.compile($("#question-template-checkbox").html());
+                var handleRadio = handlebars.compile($("#question-template-radio").html());
+                var questionObject = null;
+                var html = null;
+                
                 $("#questionnaire").empty();
-                $("#questionnaire").append(html);
+                for (var i = 0; i < data.questions.length; i++){
+                	 handlebars.registerHelper("fromOne",function(){
+                         return i+1;
+                     });
+                     handlebars.registerHelper("fromZero",function(){
+                         return i;
+                     });
+                     
+                	questionObject = data.questions[i];
+                	if (questionObject.isSingle == 1){
+                		html = handleRadio(questionObject);
+                	}else{
+                		html = handleCheckbox(questionObject);
+                	}
+                	$("#questionnaire").append(html);
+                }
 
+                //remove extra checkbox and radio button
                 $("#questionnaire").find(".checkbox-inline").each(function(){
                     var checkbox = $(this).text();
                     if (checkbox.trim() == ""){
+                        $(this).remove();
+                    }
+                });
+                $("#questionnaire").find(".radio-inline").each(function(){
+                    var radio = $(this).text();
+                    if (radio.trim() == ""){
                         $(this).remove();
                     }
                 });
@@ -171,7 +190,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                     var singleAnswer = "";
                     
                     for (var i = 0;i < answer.length;i++){
-                        var $_radios = $(".J_group_checkbox").eq(i).find("input");
+                        var $_radios = $(".J_group_choice").eq(i).find("input");
                         $_radios.each(function(){
                             if (radioStatus == 1){
                                 $(this).attr("disabled","disabled");
