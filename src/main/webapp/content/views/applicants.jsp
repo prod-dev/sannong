@@ -132,7 +132,7 @@
             <td>{{realName}}</td>
             <td>{{createTime}}</td>
             <td id="cell{{addOne @index}}">{{cellphone}}</td>
-            <td>{{company}}</td>
+            <td>{{companyAddress}}</td>
             <td>{{jobTitle}}</td>
             <td>{{mailbox}}</td>
             <td>
