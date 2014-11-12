@@ -3529,7 +3529,7 @@ insert into `questions` (question_content, option1, option2, option3, option4, o
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('贵村的主要民族是哪种？（用点击选择的方式）', '汉族', '回族', '壮族', '满族', '其他', 1,0);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('贵村有多少人口？', '1000人以下', '1000-2000人', '2000-3000人', '3000人以上', '', 1,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('贵村有多少儿童（15岁以下）？', '200 人以下', '200-300人', '300-400人', '400人以上', '', 1,1);
-insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('贵村有多少留守儿童（15岁以下）？', '200 人以下', '200-300人', '300-400人', '400人以上', '', 1,1);
+insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('贵村有多少留守儿童（15岁以下）？', '200 人以下', '200-300人', '300-400人', '400人以上', '', 2,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('贵村有多少老人（60岁以上）？', '300人以下', '300-400人', '400-500人', '500人以上', '', 2,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('贵村有哪些学校？', '幼儿园', '小学', '初中', '高中', '其他', 2,0);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('贵村常年在外工作的人口有多少（不在本市工作的人）？', '300人以下', '300-600人', '500-900人', '900人以上', '', 2,1);
@@ -3539,7 +3539,7 @@ insert into `questions` (question_content, option1, option2, option3, option4, o
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('贵村是否有医疗所？', '有', '无', '', '', '', 2,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('附近15公里内邻村数量？', '3个以下', '3~5个', '6~8个', '8个以上', '', 2,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('村民平时出行（近距离），用哪一种交通工具？', '步行', '自行车', '摩托车', '三轮车', '公交车', 2,0);
-insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('村民平时出行（远距离），用哪一种交通工具？', '汽车', '火车', '飞机', '轮船', '', 2,0);
+insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('村民平时出行（远距离），用哪一种交通工具？', '汽车', '火车', '飞机', '轮船', '', 3,0);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('学生平时如何上学？', '步行', '骑自行车', '校车接送', '拼车接送', '', 3,0);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('如果有使用到交通工具，交通费大概每人每月多少钱？', '5元以下', '5-10元', '10-20元', '20元以上', '', 3,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('农集团有计划在符合条件的村里建设“农村综合服务中心”，用地约35亩 (非农耕地，村里是否有意向让惠农集团建设“农村综合服务中心”。', '有', '无', '', '', '', 3,1);
@@ -3560,8 +3560,8 @@ insert into `questions` (question_content, option1, option2, option3, option4, o
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团可以帮助贵村解决农产品积压和销售的问题，建立统一的销售渠道，贵村是否愿意加入？', '是', '否', '', '', '', 4,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团拥有专业、科学的食品保鲜技术，可以延长食品的保鲜期限，贵村是否愿意采用？', '是', '否', '', '', '', 4,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团还将向贵村定制需要的农产品，比如蔬菜、鱼等农产品，是否乐意加入？', '是', '否', '', '', '', 4,1);
-insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('如果家乡有企业，贵村村民是否愿意回乡发展，壮大贵村的经济实力？', '是', '否', '', '', '', 5,1);
-insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团将帮助贵村发展适合贵村的旅游资源、特色产品、地方风俗、小吃等，是否欢迎和支持？', '是', '否', '', '', '', 5,1);
+insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('如果家乡有企业，贵村村民是否愿意回乡发展，壮大贵村的经济实力？', '是', '否', '', '', '', 4,1);
+insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团将帮助贵村发展适合贵村的旅游资源、特色产品、地方风俗、小吃等，是否欢迎和支持？', '是', '否', '', '', '', 4,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团的人力资源部，将为农民朋友提供就业咨询及适合的企业、工厂的招聘信息，避免出现农民在农闲时，想进城找工作而没有好的途径的困惑，以及企业招不到人的现象，农民朋友是否需要这项服务？', '是', '否', '', '', '', 5,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团的人力资源部，还将提供劳动技能培训服务，提升农民朋友的劳动技能，扩展就业范围，您是否愿意参与和支持？', '是', '否', '', '', '', 5,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('对于想创业的农民朋友，惠农集团将提供创业咨询及帮助，您是否支持？', '是', '否', '', '', '', 5,1);
@@ -3570,8 +3570,8 @@ insert into `questions` (question_content, option1, option2, option3, option4, o
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团的“农村综合服务中心”设有小型医疗室，可以对村民平时的小病小痛进行治疗，村民们是否欢迎？', '是', '否', '', '', '', 5,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('当遇重大意外或突发重大疾病的时候，可以由医疗室的医生通过网络联系医疗专家，及时对患者进行指导治疗，从而避免因去大医院而耽误的时间，您是否支持这样的服务？', '是', '否', '', '', '', 5,1);
 insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团的“农村综合服务中心”还将设有小型游乐场，包括深受欢迎的旋转木马、海盗船等等，价格低廉，希望借此丰富小朋友的童年生活，使他们健康快乐的成长，是否愿意消费？', '是', '否', '', '', '', 5,1);
-insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团的“农村综合服务中心”还将设有简易KTV、电影院，以此来丰富村民的生活，您是否愿意参与？', '是', '否', '', '', '', 6,1);
-insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('车站将设小卖部，出售一些日常用品、普通衣服、鞋等，价格公道，村民们是否欢迎及接受？', '是', '否', '', '', '', 6,1);
-insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团的“农村综合服务中心”设有洗衣间，价格低廉，冬天的时候衣服、被子难以手洗，村民们是否愿意来消费？', '是', '否', '', '', '', 6,1);
-insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('车站将设公共澡堂，冷热水都有，价格低廉，村民们是否愿意消费？', '是', '否', '', '', '', 6,1);
-insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('您认为贵村急需解决的问题是什么？	', '交通问题', '教育问题', '经济发展', '环境卫生', '科技信息', 6,0);
+insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团的“农村综合服务中心”还将设有简易KTV、电影院，以此来丰富村民的生活，您是否愿意参与？', '是', '否', '', '', '', 5,1);
+insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('车站将设小卖部，出售一些日常用品、普通衣服、鞋等，价格公道，村民们是否欢迎及接受？', '是', '否', '', '', '', 5,1);
+insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('惠农集团的“农村综合服务中心”设有洗衣间，价格低廉，冬天的时候衣服、被子难以手洗，村民们是否愿意来消费？', '是', '否', '', '', '', 5,1);
+insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('车站将设公共澡堂，冷热水都有，价格低廉，村民们是否愿意消费？', '是', '否', '', '', '', 5,1);
+insert into `questions` (question_content, option1, option2, option3, option4, option5, questionnaire_number, is_single) values ('您认为贵村急需解决的问题是什么？	', '交通问题', '教育问题', '经济发展', '环境卫生', '科技信息', 5,0);
