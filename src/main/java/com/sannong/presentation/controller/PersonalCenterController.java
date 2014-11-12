@@ -157,7 +157,7 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "myinfo", method = RequestMethod.GET)
     public ModelAndView myInfo(HttpServletRequest request) {
-
+    	request.getSession().setAttribute(appConfig.getSessionSmsCodes(),null); //clear sms code session
         Map<String, Object> models = new HashMap<String, Object>();
         String userName = request.getParameter("userName");
         if (userName == null){
@@ -200,7 +200,7 @@ public class PersonalCenterController {
         List<User> userList = userService.getUserByCondition(map);
         
         if (userList != null && userList.get(0) != null){
-        	if(StringUtils.isEmpty(user.getCellphone().toString())) {
+        	if(!StringUtils.isEmpty(user.getCellphone().toString())) {
         		user.setCellphone(userList.get(0).getCellphone());
         	}
         	
