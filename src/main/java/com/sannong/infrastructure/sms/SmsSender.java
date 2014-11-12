@@ -2,19 +2,16 @@ package com.sannong.infrastructure.sms;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
-import java.util.Random;
-
 public class SmsSender {
     private static final Logger logger = Logger.getLogger(SmsSender.class);
 
-    public String getSmsLoginMessageUrl(String cellphone, String password){
+    public String getSmsLoginMessageUrl(String cellphone, String password) {
         String smsUrl = "http://www.6610086.net/jk.aspx?zh=agropine&mm=itlt7758258";
         String smsContent = "谢谢你联系我们，我们的工作人员会尽快和您取得联系。你可以登录我们的网站查询查询申报审批的进度和状态。";
         String smsContentUsername = "用户名是你的手机号码";
@@ -30,7 +27,7 @@ public class SmsSender {
         return url;
     }
 
-    public String getSmsValidationCodeUrl(String cellphone, String password){
+    public String getSmsValidationCodeUrl(String cellphone, String password) {
         String smsUrl = "http://www.6610086.net/jk.aspx?zh=agropine&mm=itlt7758258";
         String smsContent = "验证码是";
         String smsSignature = "【三农网】";
@@ -59,15 +56,14 @@ public class SmsSender {
         } catch (Exception e) {
             logger.error(e.getMessage());
         } finally {
-            try{
+            try {
                 if (httpResponse != null) {
                     httpResponse.close();
                 }
-                if (httpClient != null){
+                if (httpClient != null) {
                     httpClient.close();
                 }
-            }catch(Exception ex)
-            {
+            } catch (Exception ex) {
                 logger.error(ex.getMessage());
             }
         }

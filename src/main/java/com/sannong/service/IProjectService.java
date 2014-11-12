@@ -16,4 +16,6 @@ public interface IProjectService {
 	Answer getQuestionnaireAndAnswerByCondition(Map<String,Object> map);
 	
 	boolean updateAnswers(Answer answer) throws Exception;
+
+    boolean validateUniqueCellphone(String phoneNumber);
 }

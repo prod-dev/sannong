@@ -51,12 +51,14 @@ public class ProjectApplicationController {
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
-    public ModelAndView apply(HttpServletRequest request, @ModelAttribute("applicationForm") Application application) throws Exception {
+    public ModelAndView apply(HttpServletRequest request, @ModelAttribute("applicationForm") Application application)
+            throws Exception {
         Map<String, Object> models = new HashMap<String, Object>();
 
         Boolean result = projectService.projectApplication(request, application);
         ModelAndView modelAndView = null;
-        
+
+        /*
         if (result == true){
             models.put("completion", new Object());
             modelAndView =  new ModelAndView(COMPLETION_PAGE, models);
@@ -64,6 +66,10 @@ public class ProjectApplicationController {
             models.put("error", new Object());
             modelAndView = new ModelAndView(ERROR_PAGE, models);
         }
+        */
+
+        models.put("completion", new Object());
+        modelAndView =  new ModelAndView(COMPLETION_PAGE, models);
         
         return modelAndView;
     }
@@ -112,4 +118,13 @@ public class ProjectApplicationController {
     	
     	return answer;
     }
+
+
+    @RequestMapping(value = "validateUniqueCellphone",method = RequestMethod.GET)
+    public @ResponseBody boolean validateUniqueCellphone(HttpServletRequest request){
+        String cellphone = request.getParameter("applicant.cellphone");
+
+        return projectService.validateUniqueCellphone(cellphone);
+    }
+
 }
