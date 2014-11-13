@@ -157,7 +157,7 @@ public class PersonalCenterController {
      * @param request
      * @return
      */
-    @RequestMapping(value = "myinfo", method = RequestMethod.GET)
+    @RequestMapping(value = {"myinfo", "userinfo"}, method = RequestMethod.GET)
     public ModelAndView myInfo(HttpServletRequest request) {
 
         Map<String, Object> models = new HashMap<String, Object>();
@@ -170,11 +170,18 @@ public class PersonalCenterController {
                 userName = principal.toString();
             }
         }
+
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userName", userName);
         List<User> users = userService.getUserByCondition(map);
         models.put("myinfo", users.get(0));
-        return new ModelAndView(MY_INFO_PAGE, models);
+
+        String servletPath = request.getServletPath();
+        if (servletPath.equals("/myinfo")){
+            return new ModelAndView(MY_INFO_PAGE, models);
+        }
+
+        return new ModelAndView(USER_INFO_PAGE, models);
     }
 
     /**
@@ -183,24 +190,27 @@ public class PersonalCenterController {
      * @param user
      * @return
      */
-    @RequestMapping(value = "modifyMyinfo", method = RequestMethod.POST)
+    @RequestMapping(value = {"updateUserInfo", "updateMyInfo"}, method = RequestMethod.POST)
 	public ModelAndView updateUser(HttpServletRequest request, @ModelAttribute("myinfo") User user) {
-        Map<String, Object> models = new HashMap<String, Object>();
-    	String userName = null;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        
-        if (principal instanceof UserDetails) {
-        	userName = ((UserDetails) principal).getUsername();
-        } else {
-        	userName = principal.toString();
+
+        String userName = request.getParameter("userName");
+        if (userName == null) {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                userName = ((UserDetails) principal).getUsername();
+            } else {
+                userName = principal.toString();
+            }
         }
-        user.setUserName(userName); //add by william
+
+        user.setUserName(userName);
          
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("userName", userName);
         
         List<User> userList = userService.getUserByCondition(map);
-        
+
+        Map<String, Object> models = new HashMap<String, Object>();
         if (userList != null && userList.get(0) != null){
         	if(StringUtils.isEmpty(user.getCellphone().toString())) {
         		user.setCellphone(userList.get(0).getCellphone());
@@ -225,57 +235,14 @@ public class PersonalCenterController {
 		}
 		
 		models.put("myinfomessage", "Save!");
+
+        String servletPath = request.getServletPath();
+        if (servletPath.equals("/updateMyInfo")){
+            return new ModelAndView(MY_INFO_PAGE, models);
+        }
 		
-		return new ModelAndView(MY_INFO_PAGE, models);
+		return new ModelAndView(USER_INFO_PAGE, models);
 	}
-
-    /**
-     * Show user info page when clicked edit button from applicants page.
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "userinfo")
-    public ModelAndView userInfo(HttpServletRequest request) {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        String userName = request.getParameter("userName");
-        if (userName == null){
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                userName = ((UserDetails) principal).getUsername();
-            } else {
-                userName = principal.toString();
-            }
-        }
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userName", userName);
-        List<User> users = userService.getUserByCondition(map);
-        models.put("myinfo", users.get(0));
-        return new ModelAndView(USER_INFO_PAGE, models);
-    }
-
-    /**
-     * Update user info.
-     * @param user
-     * @return
-     */
-    @RequestMapping(value = "updateUserInfo", method = RequestMethod.POST)
-    public ModelAndView updateUserInfo(@ModelAttribute("userinfo") User user) {
-        Map<String, Object> models = new HashMap<String, Object>();
-
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
-        user.setUpdateTime(ts);
-        try {
-            userService.updateUser(user);
-        } catch (Exception e) {
-
-            e.printStackTrace();
-        }
-
-        models.put("myinfomessage", "Save!");
-
-        return new ModelAndView(USER_INFO_PAGE, models);
-    }
 
     /**
      * Get user total count.

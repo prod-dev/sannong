@@ -27,17 +27,6 @@ require(['../main'], function () {
                         region.Controller.addDistricts();
                     });
 
-                    $("#register-btn").click(function(event){
-                        if (formValidator.getValidator("#myInfoForm").form() == true){
-                            $("#myInfoForm").submit();
-                        }
-                    });
-
-                    $("#register-btn").click(function(event){
-                        if (formValidator.getValidator("#myInfoForm").form() == true){
-                            $("#userInfoForm").submit();
-                        }
-                    });
 
                     $("#confirmedSubmit").click(function(event){
                         $("#myInfoForm").submit();
@@ -57,18 +46,33 @@ require(['../main'], function () {
                     $("#action-send-code").click(function(event){
                         if (formValidator.getValidator("#myInfoForm").form() == true){
                             var options = {
-                                url: 'regcode',
+                                url: 'sendValidationCode',
                                 type: 'GET',
                                 data: {
-                                    mobile: $("#cellphone").val(),
+                                    mobile: $("#newCellphone").val(),
                                     smstype: $("#action-send-code").attr("data-type")
                                 },
                                 success: function(data){
+                                    if (data != "") {
+                                        //projectApplication.Controller.updateTimeLabel(60);
+                                        $("#validationCode").removeAttr("disabled");
+                                    } else {
+                                        $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
+                                    }
                                 },
                                 fail: function(data){
                                 }
                             }
                             ajaxHandler.sendRequest(options);
+                        }
+                    });
+
+                    $("#myInfoSubmit").click(function(event){
+                        if (formValidator.getValidator("#myInfoForm").form() == true){
+                            $("#myInfoForm").ajaxSubmit(function(message) {
+                                $("#return").after('<label id="jobTitle-error" class="error" for="jobTitle">已保存</label>');
+                                return false;
+                            });
                         }
                     });
 
