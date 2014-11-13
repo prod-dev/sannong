@@ -1,7 +1,9 @@
 package com.sannong.service.impl;
 
 
+import com.sannong.domain.sms.SmsUrlGenerator;
 import com.sannong.infrastructure.persistance.entity.SMS;
+import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.persistance.repository.SmsRepository;
 import com.sannong.infrastructure.sms.SmsSender;
 import com.sannong.infrastructure.util.AppConfig;
@@ -11,6 +13,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
@@ -58,7 +63,6 @@ public class SmsServiceImpl implements ISmsService {
         return smsRepository.getNewSMS();
     }
 
-    @SuppressWarnings("unchecked")
     public int validateSMSCode(HttpServletRequest request) {
         String smsCode = request.getParameter("validationcode");
 
@@ -105,7 +109,6 @@ public class SmsServiceImpl implements ISmsService {
         return smsRepository.getMaxSmsIdByCellphone(sms);
     }
 
-    @SuppressWarnings("unchecked")
     public boolean generateCode(HttpServletRequest request) {
 
         String mobile = request.getParameter("mobile").toString();
@@ -161,7 +164,7 @@ public class SmsServiceImpl implements ISmsService {
         String result = "";
         try{
             SmsSender smsSender = new SmsSender();
-            String smsUrl = smsSender.getSmsValidationCodeUrl(cellphone, validationCode);
+            String smsUrl = new SmsUrlGenerator().generateValidationCodeSmsUrl(cellphone, validationCode);
 
             result = smsSender.sendSms(smsUrl);
 
@@ -190,7 +193,7 @@ public class SmsServiceImpl implements ISmsService {
         String result = "";
         try{
             SmsSender smsSender = new SmsSender();
-            String smsUrl = smsSender.getSmsLoginMessageUrl(cellphone, validationCode);
+            String smsUrl = new SmsUrlGenerator().generateLoginMessageSmsUrl(cellphone, validationCode);
 
             result = smsSender.sendSms(smsUrl);
 
@@ -210,4 +213,11 @@ public class SmsServiceImpl implements ISmsService {
         }
         return result;
     }
+
+    @Override
+    public String sendNewPasswordMessage(String url) {
+        SmsSender smsSender = new SmsSender();
+        return smsSender.sendSms(url);
+    }
+
 }

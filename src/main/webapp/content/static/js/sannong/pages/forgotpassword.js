@@ -19,7 +19,7 @@ require(['../main'], function () {
 
                 if (validator.element($("#realName")) == true && validator.element($("#cellphone")) == true){
                     var options = {
-                        url: 'getNewPassword',
+                        url: 'sendNewPasswordMessage',
                         type: 'GET',
                         dataType: 'json',
                         data: {

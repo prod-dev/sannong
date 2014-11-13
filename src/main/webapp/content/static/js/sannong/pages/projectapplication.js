@@ -19,21 +19,6 @@ require(['../main'], function () {
     };
 
     projectApplication.Controller = {
-        timeRemained: 0,
-        updateTimeLabel:function(duration) {
-            if(projectApplication.Controller.timeRemained > 0){
-                return;
-            }
-            projectApplication.Controller.timeRemained = duration;
-            var timer = setInterval(function() {
-                $("#action-send-code").val( projectApplication.Controller.timeRemained + '秒后重新发送');
-                projectApplication.Controller.timeRemained -= 1;
-                if ( projectApplication.Controller.timeRemained == -1) {
-                    clearInterval(timer);
-                    $("#action-send-code").val('重新发送').removeAttr('disabled').removeClass("gray");
-                }
-            }, 1000);
-        },
         addEventListener: function(){
             $("#provinceSelect").change(function(event){
                 region.Controller.addCities();
@@ -105,8 +90,9 @@ require(['../main'], function () {
                         },
                         success: function(data){
                              if (data != "") {
-                                 projectApplication.Controller.updateTimeLabel(60);
-                                 $("#validationCode").removeAttr("disabled");
+                                 additionalMethods.updateTimeLabel(60, "#action-send-code");
+                                 //$("#validationCode").removeAttr("disabled");
+                                 $("#validationCode").attr({disabled: "disabled"});
                              } else {
                                 $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
                             }

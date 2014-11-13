@@ -11,35 +11,6 @@ import org.apache.log4j.Logger;
 public class SmsSender {
     private static final Logger logger = Logger.getLogger(SmsSender.class);
 
-    public String getSmsLoginMessageUrl(String cellphone, String password) {
-        String smsUrl = "http://www.6610086.net/jk.aspx?zh=agropine&mm=itlt7758258";
-        String smsContent = "谢谢你联系我们，我们的工作人员会尽快和您取得联系。你可以登录我们的网站查询查询申报审批的进度和状态。";
-        String smsContentUsername = "用户名是你的手机号码";
-        String smsContentPassword = "密码是";
-        String smsSignature = "【三农网】";
-
-        String url = smsUrl + "&hm=" + cellphone + "&nr=" + smsContent
-                + smsContentUsername + cellphone
-                + smsContentPassword + password
-                + smsSignature
-                + "&sms_type=45";
-
-        return url;
-    }
-
-    public String getSmsValidationCodeUrl(String cellphone, String password) {
-        String smsUrl = "http://www.6610086.net/jk.aspx?zh=agropine&mm=itlt7758258";
-        String smsContent = "验证码是";
-        String smsSignature = "【三农网】";
-
-        String url = smsUrl + "&hm=" + cellphone + "&nr=" + smsContent
-                + password
-                + smsSignature
-                + "&sms_type=45";
-
-        return url;
-    }
-
     public String sendSms(String smsUrl) {
         String result = null;
         CloseableHttpClient httpClient = null;

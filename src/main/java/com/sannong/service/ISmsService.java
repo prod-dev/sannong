@@ -18,4 +18,5 @@ public interface ISmsService {
     public Long getMaxSmsIdByCellphone(HttpServletRequest request);
     public String sendValidationCode(HttpServletRequest request);
     public String sendLoginMessage(HttpServletRequest request);
+    public String sendNewPasswordMessage(String url);
 }

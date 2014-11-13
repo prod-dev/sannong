@@ -1,4 +1,4 @@
-package com.sannong.domain.valueobject;
+package com.sannong.domain.auth;
 
 /**
  * create service constants

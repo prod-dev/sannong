@@ -28,12 +28,6 @@
     <sec:http pattern="/**/*.svg" security="none"/>
     <sec:http pattern="/**/*.ttf" security="none"/>
 
-    <!--
-    <sec:http pattern="/login.jsp" security="none"/>
-    <sec:http pattern="/home.jsp" security="none"/>
-    <sec:http pattern="/forgotpassword" security="none"/>
-    <sec:http pattern="/faq" security="none"/>
-    -->
     <sec:http auto-config="true" access-denied-page="/access-denied">
         <!-- anonymous enabled="false"></anonymous -->
         <sec:intercept-url pattern="/unitsManager" access="ROLE_PLATFORMADMIN"/>
@@ -54,6 +48,7 @@
         <!-- admin enabled="true"></admin -->
         <sec:intercept-url pattern="/applicants" access="ROLE_ADMIN"/>
 
+        <custom-filter before="FORM_LOGIN_FILTER" ref="loginFilter" />
 
         <sec:form-login login-page="/login"
                     authentication-failure-url="/authentication-failure"
@@ -79,6 +74,24 @@
     <b:bean id="userDetailsManager"
             class="org.springframework.security.provisioning.JdbcUserDetailsManager">
         <b:property name="dataSource" ref="dataSource"/>
+    </b:bean>
+
+    <b:bean id="loginFilter" class="com.sannong.presentation.filter.LoginFilter">
+        <b:property name="authenticationManager" ref="authenticationManager"/>
+        <b:property name="authenticationSuccessHandler">
+             <!-- 自定义登录成功后的处理handler -->
+             <b:bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+                 <!-- 登录成功后的默认url -->
+                 <b:property name="defaultTargetUrl" value="/authentication-success" />
+             </b:bean>
+        </b:property>
+        <b:property name="authenticationFailureHandler">
+             <b:bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+                 <!-- 登录失败后的默认Url -->
+                 <b:property name="defaultFailureUrl" value="/authentication-failure" />
+                 <b:property name="useForward" value="true" />
+             </b:bean>
+     </b:property>
     </b:bean>
 
     <!--   事件监听:实现了 ApplicationListener监听接口，包括AuthenticationCredentialsNotFoundEvent 事件，
