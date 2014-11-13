@@ -11,6 +11,7 @@
         <result property="userName" column="username" />
         <result property="realName" column="user_name" />
         <result property="mailbox" column="mailbox" />
+        <result property="company" column="company" />
         <result property="companyProvince" column="company_province" />
         <result property="companyCity" column="company_city" />
         <result property="companyDistrict" column="company_district" />
