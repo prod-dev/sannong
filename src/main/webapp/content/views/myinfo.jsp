@@ -72,7 +72,7 @@
                         <label for="mobilphone">手机号码:</label>
                         <input id="mobilphone" class="form-control" name="mobilphone" disabled value="${myinfo.cellphone}">
                         <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-                            <input type='button' class="btn btn-sm btn-warning" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="#demo" value="更改手机号码">
+                            <input type='button' id="changeMobile"  class="btn btn-sm btn-warning" data-toggle="collapse" data-target="#demo" aria-expanded="false" aria-controls="#demo" value="更改手机号码">
                         </sec:authorize>
 
                     </div>
@@ -83,8 +83,9 @@
                                     <input type="hidden"  id="oldCellphone" value="${myinfo.cellphone}">
                                     <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="新手机号码" autocomplete="off">
                                     <input type="button" id="action-send-code" data-url="regcode" data-type="1" class="btn btn-sm btn-warning" value="发送验证码">
-                                    <input type="text" class="form-control" name="validationcode"  id="validationcode" placeholder="验证码" autocomplete="off">
-                                    <div class="errorDiv"></div>
+                                    <input type="text" class="form-control" name="validationcode"  id="validationCode" placeholder="验证码" autocomplete="off">
+
+                                    <label id="errorDiv" class="error" style="display:none"></label>
                                 </div>
                             </div>
                         </div>
