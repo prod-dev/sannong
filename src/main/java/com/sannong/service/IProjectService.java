@@ -18,4 +18,6 @@ public interface IProjectService {
 	boolean updateAnswers(Answer answer) throws Exception;
 
     boolean validateUniqueCellphone(String phoneNumber);
+    
+    int getTotalQuestions();
 }

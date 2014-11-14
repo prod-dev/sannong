@@ -1,6 +1,5 @@
 package com.sannong.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,37 +15,7 @@ public class UserServiceImpl implements IUserService{
 
 	@Autowired
 	private UserRepository userRepository;
-
-	public boolean loginValidation(String phoneNumber, String password) {
-		boolean result = false;
-		
-		Map<String,Object> mapObject = new HashMap<String,Object>();
-		mapObject.put("phoneNumber", phoneNumber);
-		mapObject.put("password", password);
-		
-		List<User> userList = userRepository.getUserByCondition(mapObject);
-		
-		if (userList != null && userList.get(0) != null) {
-			result = true;
-		}
-		
-		return result;
-	}
-
-	public boolean addUserInfo(User user) {
-		boolean result = false;
-		
-		try {
-            userRepository.addUserInfo(user);
-			result = true;
-		}
-		catch(Exception e) {
-			
-		}
-		
-		return result;
-	}
-
+	
 	public List<User> getUserByCondition(Map<String, Object> map) {
     	return userRepository.getUserByCondition(map);
 	}
@@ -60,7 +29,7 @@ public class UserServiceImpl implements IUserService{
         }
     }
 
-	public boolean  updateUser(User user) throws Exception {
+	public boolean updateUser(User user) throws Exception {
 		try
 		{
 			userRepository.updateUserInfo(user);

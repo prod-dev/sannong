@@ -47,7 +47,7 @@
                         <option>县/市辖区</option>
                     </select>
                     <button type="submit" class="btn btn-success" id="retrieve">查询</button>
-                    <button type="button" class="btn btn-sm btn-primary" onclick="Sannong.Applicants.exportCSV();">导出问卷调查结果</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exportModal">导出问卷调查结果</button>
                 </div>
             </div><!-- /.row -->
             
@@ -87,7 +87,7 @@
 	            </ul>
 	            <form id="answerForm" role="form" action="updateAnswers" method="post">
 	            	<div id="questionList"></div>
-	            	<input type="hidden" name="answerStatus" id="answerStatus" > 
+	            	<input type="hidden" name="answerStatus" id="answerStatus" >
 	            	<input type="hidden" name="questionnaireNo" id="questionnaireNo" >
 	            	<input type="hidden" name="applicant.userName" id="userName" >
 	            </form>
@@ -123,6 +123,21 @@
     </div>
 </div>
 <div><input type="hidden"  id="cellphone" ></div>
+<!-- export modal content -->
+<div id="exportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">确定导出问卷调查结果?</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <a href="javascript:void(0)" class="btn btn-success" id="exportCSV" >确定</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 <script data-main="content/static/js/sannong/pages/applicants" src="content/static/js/lib/require-2.1.15.js"></script>
 <script id="table-template" type="text/x-handlebars-template">
@@ -144,7 +159,7 @@
        </tr>
     {{/each}}
 </script>
-<script id="question-template-checkbox" type="text/x-handlebars-template">  
+<script id="question-template-checkbox" type="text/x-handlebars-template">
     <div class="J_group_choice">
         <h5>{{fromOne}}. {{questionContent}}</h5>
         <label class="checkbox-inline">
@@ -152,7 +167,7 @@
         </label>
         <label class="checkbox-inline">
             <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:b"> {{option2}}
-        </label>                 	
+        </label>
         <label class="checkbox-inline">
             <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:c"> {{option3}}
      </label>
@@ -164,7 +179,7 @@
      </label>
     </div>
 </script>
-<script id="question-template-radio" type="text/x-handlebars-template">                  
+<script id="question-template-radio" type="text/x-handlebars-template">
     <div class="J_group_choice">
         <h5>{{fromOne}}. {{questionContent}}</h5>
         <label class="radio-inline">

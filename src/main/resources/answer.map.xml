@@ -50,9 +50,5 @@
         	select questionnaire1_answers,questionnaire2_answers,questionnaire3_answers,questionnaire4_answers,questionnaire5_answers,answer_status from answers where username=#{userName}
         ]]>
     </select>
-
-    <select id="getQuestionContent"  parameterType="Long" resultType="String">
-        select question_content from questions where question_id = #{questionId}
-    </select>
 </mapper>
 

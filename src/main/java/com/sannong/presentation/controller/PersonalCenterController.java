@@ -1,6 +1,5 @@
 package com.sannong.presentation.controller;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
@@ -9,7 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,7 +28,6 @@ import com.sannong.infrastructure.persistance.entity.Answer;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.presentation.model.DTO;
-import com.sannong.service.IAnswerService;
 import com.sannong.service.IProjectService;
 import com.sannong.service.ISmsService;
 import com.sannong.service.IUserService;
@@ -46,7 +43,6 @@ public class PersonalCenterController {
     private static final String LOGIN_PAGE = "login";
     private static final String ISO = "iso8859-1";
     private static final String UTF8 = "UTF-8";
-    private static final long questionNumbers = 55;
     private static final long pageSum = 10;
 
     @Resource
@@ -55,8 +51,6 @@ public class PersonalCenterController {
     private ISmsService smsService;
     @Resource
     private IProjectService projectService;
-    @Resource
-    private IAnswerService answerService;
     @Resource
     private AppConfig appConfig;
 
@@ -381,24 +375,41 @@ public class PersonalCenterController {
     /**
      * Export answers to CSV file.
      * @param request
-     * @param response
-     * @throws IOException
+     * @return
+     * @throws Exception
      */
     @RequestMapping("/exportCSV")
-    public void exportAll(HttpServletRequest request,HttpServletResponse response) throws IOException {
-
-        Map<String, Object> map = new HashMap<String, Object>();
+    public @ResponseBody DTO exportAll(HttpServletRequest request) throws Exception {
+    	
+        Map<String, Object> map = new HashMap<String,Object>();
         String cellphone = request.getParameter("cellphone");
-        String realName = request.getParameter("realName");
+    	String realName = request.getParameter("realName") == null ? null : new String(request.getParameter("realName").getBytes(ISO),UTF8);
+    	String company = request.getParameter("company") == null ? null : new String(request.getParameter("company").getBytes(ISO),UTF8);
+    	String jobTitle = request.getParameter("jobTitle") == null ? null : new String(request.getParameter("jobTitle").getBytes(ISO),UTF8);
+    	String companyAddress = request.getParameter("companyAddress") == null ? null : new String(request.getParameter("companyAddress").getBytes(ISO),UTF8);
+        String mailbox = request.getParameter("mailbox");
+        String provinceIndex = request.getParameter("provinceIndex");
+        String cityIndex = request.getParameter("cityIndex");
+        String districtIndex = request.getParameter("districtIndex");
 
+        map.put("pageStart", 0);
         map.put("cellphone", cellphone);
         map.put("realName", realName);
+        map.put("company", company);
+        map.put("jobTitle", jobTitle);
+        map.put("companyAddress", companyAddress);
+        map.put("mailbox", mailbox);
+        map.put("companyProvince", provinceIndex);
+        map.put("companyCity", cityIndex);
+        map.put("companyDistrict", districtIndex);
 
-        List<Answer> answer = answerService.getAnswer(map);
-        StringBuffer head = new StringBuffer();
-        for(long i =1;i<=questionNumbers;i++){
-            head.append(answerService.getQuestionContent(i)+",");
-        }
-        CsvExporter.doExport(response, answer, head.toString());
+        String pageSum = userService.getUserTotalCount(map);
+        map.put("pageSum", Integer.parseInt(pageSum));
+
+        List<User> applicants = userService.getUserByFuzzyMatch(map);
+        int questionSum = projectService.getTotalQuestions();
+        String filePath = CsvExporter.export(applicants,questionSum);
+        
+        return new DTO(true,filePath);
     }
 }

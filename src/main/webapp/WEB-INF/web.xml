@@ -30,6 +30,7 @@
         <url-pattern>*.css</url-pattern>
         <url-pattern>*.js</url-pattern>
         <url-pattern>*.map</url-pattern>
+        <url-pattern>*.csv</url-pattern>
     </servlet-mapping>
 
     <servlet>

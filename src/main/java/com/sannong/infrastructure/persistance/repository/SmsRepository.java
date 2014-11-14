@@ -11,8 +11,12 @@ import com.sannong.infrastructure.persistance.entity.SMS;;
 public interface SmsRepository {
 	
 	List<SMS> getNewSMS();
+	
 	void addNewSMS(SMS sms);
+	
 	void updateSMS(SMS sms);
+	
     void updateSmsByCellphone(SMS sms);
+    
     Long getMaxSmsIdByCellphone(SMS sms);
 }

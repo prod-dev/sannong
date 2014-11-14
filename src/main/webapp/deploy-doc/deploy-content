@@ -1,0 +1,14 @@
+1. run ddl.sql
+2. run dml.sql
+3. add 
+    <mime-mapping>  
+        <extension>csv</extension>  
+        <mime-type>application/octet-stream</mime-type>  
+    </mime-mapping>
+   in tomcat/conf/web.xml
+4. add
+       <Connector port="8080" protocol="HTTP/1.1" 
+	       connectionTimeout="20000" 
+	       redirectPort="8443"
+	       URIEncoding="UTF-8"/>
+   in server.xml                                                                             

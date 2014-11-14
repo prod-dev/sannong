@@ -277,24 +277,49 @@ require(['../main'], function () {
                     });
                 }
 
-                //export to csv
-                applicants.exportCSV = function() {
-                    if(confirm("确定要保存到本地CVS文件?")){
-                        window.location.href="./exportCSV";
-                    }else{
-                        return false;
+                $("#exportCSV").click(function() {
+                    var searchKey = $("#searchKey").text().trim();
+                    var searchValue = $("#searchValue").val();
+                    var provinceIndex = $("#provinceSelect").val();
+                    var cityIndex = $("#citySelect").val();
+                    var districtIndex = $("#districtSelect").val();
+                    var parameter;
+                    
+                    if (searchKey == "手机号"){
+                        parameter = "cellphone=" + searchValue;
+                    }else if (searchKey == "姓名"){
+                        parameter = "realName=" + searchValue;
+                    }else if (searchKey == "工作单位"){
+                        parameter = "company=" + searchValue;
+                    }else if (searchKey == "职位"){
+                        parameter = "jobTitle=" + searchValue;
+                    }else if (searchKey == "电子邮箱"){
+                        parameter = "mailbox=" + searchValue;
+                    }else if (searchKey == "单位地址"){
+                        parameter = "companyAddress=" + searchValue;
                     }
 
-                }
-            }
+                    parameter = parameter + "&provinceIndex=" + provinceIndex + "&cityIndex=" + cityIndex + "&districtIndex=" + districtIndex;
 
+                    $.ajax({
+                        type : "get",
+                        dataType : "json",
+                        url : "exportCSV",
+                        data : parameter,
+                        success : function(data) {
+                        	$('#exportModal').modal('hide');
+                        	location.href = data.returnValue;
+                        }
+                    });
+                    
+                })
+            }
 
             $(function() {
             	region.Controller.addProvinceSelectionsOnly();
             	applicants.Controller.addEventListener();
                 show(1);
             })
-
 
             sannong.Applicants = applicants;
             return applicants;

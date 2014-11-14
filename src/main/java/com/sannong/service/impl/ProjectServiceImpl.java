@@ -23,6 +23,7 @@ import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.persistance.repository.AnswerRepository;
 import com.sannong.infrastructure.persistance.repository.ApplicationRepository;
 import com.sannong.infrastructure.persistance.repository.AuthorityRepository;
+import com.sannong.infrastructure.persistance.repository.QuestionRepository;
 import com.sannong.infrastructure.persistance.repository.QuestionnaireRepository;
 import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.service.IProjectService;
@@ -51,6 +52,8 @@ public class ProjectServiceImpl implements IProjectService {
     private AppConfig appConfig;
     @Autowired
     private ISmsService smsService;
+    @Autowired
+    private QuestionRepository questionRepository;
 	
 	public boolean checkUserNameAvailable(HttpServletRequest request)
 	{
@@ -209,8 +212,7 @@ public class ProjectServiceImpl implements IProjectService {
 		return answer; 
 	}
 
-    @Override
-    public boolean validateUniqueCellphone(String cellphone) {
+	public boolean validateUniqueCellphone(String cellphone) {
         Map<String, Object> map = new HashMap<String,Object>();
         map.put("cellphone", cellphone);
         List<User> users = userRepository.getUserByCondition(map);
@@ -219,4 +221,8 @@ public class ProjectServiceImpl implements IProjectService {
         }
         return true;
     }
+	
+	public int getTotalQuestions() {
+		return questionRepository.getTotalQuestions();
+	}
 }

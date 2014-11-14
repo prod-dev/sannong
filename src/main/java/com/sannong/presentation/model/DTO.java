@@ -1,6 +1,5 @@
 package com.sannong.presentation.model;
 
-import java.util.List;
 
 /**
  * create DTO class
@@ -8,14 +7,22 @@ import java.util.List;
  */
 public class DTO {
 
-	public DTO(boolean responseResult, List<Object> dto) {
+	public DTO(boolean responseResult, String returnValue) {
 		
 		this.responseResult = responseResult;
-		this.dto = dto;
+		this.returnValue = returnValue;
 	}
 
 	private boolean responseResult;
-	private List<Object> dto;
+	private String returnValue;
+
+	public String getReturnValue() {
+		return returnValue;
+	}
+
+	public void setReturnValue(String returnValue) {
+		this.returnValue = returnValue;
+	}
 
 	public boolean getResult() {
 		return responseResult;
@@ -23,13 +30,5 @@ public class DTO {
 
 	public void setResult(boolean result) {
 		this.responseResult = result;
-	}
-
-	public List<Object> getResponseObject() {
-		return dto;
-	}
-
-	public void setResponseObject(List<Object> dto) {
-		this.dto = dto;
 	}
 }

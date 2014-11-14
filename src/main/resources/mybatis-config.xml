@@ -24,5 +24,6 @@
     	<mapper resource="questionnaire.map.xml"/>
         <mapper resource="region.map.xml"/>
         <mapper resource="answer.map.xml"/>
+        <mapper resource="question.map.xml"/>
     </mappers>
 </configuration>

@@ -7,8 +7,6 @@ import com.sannong.infrastructure.persistance.entity.User;
 
 public interface IUserService {
 	
-	public boolean addUserInfo(User user);
-
     public List<User> getUserByCondition(Map<String, Object> map);
     
     public List<User> getUserByFuzzyMatch(Map<String, Object> map);
