@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.sannong.infrastructure.persistance.entity.User;
@@ -11,6 +12,7 @@ import com.sannong.infrastructure.persistance.repository.UserRepository;
 import com.sannong.service.IUserService;
 
 @Service
+@Repository
 public class UserServiceImpl implements IUserService{
 
 	@Autowired

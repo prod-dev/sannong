@@ -1,27 +1,34 @@
 package com.sannong.service.impl;
 
 
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
 import com.sannong.domain.factories.SmsUrlFactory;
 import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.persistance.repository.SmsRepository;
 import com.sannong.infrastructure.sms.SmsSender;
 import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.service.ISmsService;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
-import java.util.*;
 
 /**
  * Created by Bright Huang on 10/22/14.
  */
 @Service
+@Repository
 public class SmsServiceImpl implements ISmsService {
     private static final Logger logger = Logger.getLogger(SmsServiceImpl.class);
 

@@ -7,11 +7,9 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.persistance.repository.QuestionRepository;
 
 /**
  * Created by Vidor Chan on 10/30/14.

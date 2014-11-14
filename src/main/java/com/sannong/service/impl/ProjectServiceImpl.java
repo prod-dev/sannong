@@ -16,6 +16,7 @@ import com.sannong.service.IProjectService;
 import com.sannong.service.ISmsService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +33,7 @@ import java.util.Map;
  * @author William Zhang
  */
 @Service
+@Repository
 public class ProjectServiceImpl implements IProjectService {
 
     private static final Logger logger = Logger.getLogger(ProjectServiceImpl.class);
