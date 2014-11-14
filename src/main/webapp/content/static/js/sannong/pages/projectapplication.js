@@ -91,8 +91,8 @@ require(['../main'], function () {
                         success: function(data){
                              if (data != "") {
                                  additionalMethods.updateTimeLabel(60, "#action-send-code");
-                                 //$("#validationCode").removeAttr("disabled");
-                                 $("#validationCode").attr({disabled: "disabled"});
+                                 $("#validationCode").removeAttr("disabled");
+                                 //$("#validationCode").attr({disabled: "disabled"});
                              } else {
                                 $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
                             }

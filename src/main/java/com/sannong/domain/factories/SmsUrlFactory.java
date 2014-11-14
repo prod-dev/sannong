@@ -1,10 +1,13 @@
-package com.sannong.domain.sms;
+package com.sannong.domain.factories;
 
+
+import org.springframework.stereotype.Component;
 
 /**
  * Created by Bright Huang on 11/13/14.
  */
-public class SmsUrlGenerator {
+@Component
+public class SmsUrlFactory {
     private static final String SMS_BASE_URL = "http://www.6610086.net/jk.aspx?zh=agropine&mm=itlt7758258";
     private static final String SMS_SIGNATURE = "【三农网】";
     private static final String SMS_TYPE = "&sms_type=45";
@@ -22,7 +25,7 @@ public class SmsUrlGenerator {
     }
 
     public String generateValidationCodeSmsUrl(String cellphone, String password) {
-        String smsContent = "您好, 您的验证码是";
+        String smsContent = "您好,您的验证码是";
         String url = SMS_BASE_URL + "&hm=" + cellphone + "&nr=" + smsContent
                 + password
                 + SMS_SIGNATURE
@@ -31,7 +34,7 @@ public class SmsUrlGenerator {
     }
 
     public String generateNewPasswordSmsUrl(String cellphone, String password){
-        String smsContent = "您好, 您新密码是";
+        String smsContent = "您好,您新密码是";
         String url = SMS_BASE_URL + "&hm=" + cellphone + "&nr=" + smsContent
                 + password
                 + SMS_SIGNATURE

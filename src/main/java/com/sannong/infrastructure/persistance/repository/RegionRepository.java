@@ -22,4 +22,12 @@ public interface RegionRepository {
     List<City> getCityByProvinceIndex(Long provinceIndex);
     
     List<District> getDistrictByCityIndex(Long cityIndex);
+
+    Province getProvince(Long provinceIndex);
+
+    City getCity(Long cityIndex);
+
+    District getDistrict(Long districtIndex);
+
+
 }

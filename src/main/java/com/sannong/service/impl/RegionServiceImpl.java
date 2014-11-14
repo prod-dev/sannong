@@ -33,6 +33,20 @@ public class RegionServiceImpl implements IRegionService{
         return regionRepository.getDistrictByCityIndex(cityIndex);
     }
 
+    @Override
+    public Province getProvince(long provinceIndex) {
+        return null;
+    }
+
+    @Override
+    public City getCity(long cityIndex) {
+        return null;
+    }
+
+    @Override
+    public District getDistrict(long districtIndex) {
+        return null;
+    }
 
 
 }

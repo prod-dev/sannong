@@ -13,4 +13,7 @@ public interface IRegionService {
     public List<Province> getProvinces();
     public List<City> getCities(Long provinceIndex);
     public List<District> getDistricts(Long cityIndex);
+    public Province getProvince(long provinceIndex);
+    public City getCity(long cityIndex);
+    public District getDistrict(long districtIndex);
 }
