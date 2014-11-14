@@ -13,6 +13,7 @@
     http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
+    <context:component-scan base-package="com.sannong" />
     <tx:annotation-driven/>
 
     <!-- 不要过滤图片等静态资源，其中**代表可以跨越目录，*不可以跨越目录。 -->

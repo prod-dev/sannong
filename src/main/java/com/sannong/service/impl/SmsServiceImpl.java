@@ -1,7 +1,7 @@
 package com.sannong.service.impl;
 
 
-import com.sannong.domain.sms.SmsUrlGenerator;
+import com.sannong.domain.factories.SmsUrlFactory;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
 import com.sannong.infrastructure.persistance.repository.SmsRepository;
@@ -9,13 +9,10 @@ import com.sannong.infrastructure.sms.SmsSender;
 import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.service.ISmsService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
@@ -32,6 +29,8 @@ public class SmsServiceImpl implements ISmsService {
     private SmsRepository smsRepository;
     @Autowired
     private AppConfig appConfig;
+    @Autowired
+    private SmsUrlFactory smsUrlFactory;
 
     public boolean updateSMS(HttpServletRequest request) {
         SMS sms = new SMS();
@@ -66,7 +65,7 @@ public class SmsServiceImpl implements ISmsService {
     public int validateSMSCode(HttpServletRequest request) {
         String smsCode = request.getParameter("validationcode");
 
-        if (StringUtils.isEmpty(smsCode)) {
+        if (StringUtils.isBlank(smsCode)) {
             return 0;
         }
 
@@ -157,29 +156,13 @@ public class SmsServiceImpl implements ISmsService {
 
 
     @Override
-    public String sendValidationCode(HttpServletRequest request) {
-        String validationCode = PasswordGenerator.generateValidationCode(4);
-        String cellphone = request.getParameter("mobile");
-
+    public String sendValidationCode(String cellphone, String validationCode) {
         String result = "";
         try{
+            String smsUrl = smsUrlFactory.generateValidationCodeSmsUrl(cellphone, validationCode);
             SmsSender smsSender = new SmsSender();
-            String smsUrl = new SmsUrlGenerator().generateValidationCodeSmsUrl(cellphone, validationCode);
-
             result = smsSender.sendSms(smsUrl);
-
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            if (result != ""){
-                SMS sms = new SMS();
-                sms.setCellphone(cellphone);
-                sms.setSmsValidationCode(validationCode);
-                sms.setSmsContent(result);
-                sms.setSendTime(timestamp);
-                sms.setSmsStatus(0);
-                smsRepository.addNewSMS(sms);
-
-            }
-
+            addSmsRecord(cellphone, validationCode, result);
         }catch (Exception e){
             logger.error(e.getMessage());
         }
@@ -187,27 +170,13 @@ public class SmsServiceImpl implements ISmsService {
     }
 
     @Override
-    public String sendLoginMessage(HttpServletRequest request){
-        String validationCode = PasswordGenerator.generateValidationCode(6);
-        String cellphone = request.getParameter("mobile");
+    public String sendLoginMessage(String cellphone, String password){
         String result = "";
         try{
+            String smsUrl = smsUrlFactory.generateLoginMessageSmsUrl(cellphone, password);
             SmsSender smsSender = new SmsSender();
-            String smsUrl = new SmsUrlGenerator().generateLoginMessageSmsUrl(cellphone, validationCode);
-
             result = smsSender.sendSms(smsUrl);
-
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            if (result != ""){
-                SMS sms = new SMS();
-                sms.setCellphone(cellphone);
-                sms.setSmsValidationCode(validationCode);
-                sms.setSmsContent(result);
-                sms.setSendTime(timestamp);
-                sms.setSmsStatus(0);
-                smsRepository.addNewSMS(sms);
-            }
-
+            addSmsRecord(cellphone, password, result);
         }catch (Exception e){
             logger.error(e.getMessage());
         }
@@ -215,9 +184,29 @@ public class SmsServiceImpl implements ISmsService {
     }
 
     @Override
-    public String sendNewPasswordMessage(String url) {
-        SmsSender smsSender = new SmsSender();
-        return smsSender.sendSms(url);
+    public String sendNewPasswordMessage(String cellphone, String password) {
+        String result = "";
+        try{
+            String url = smsUrlFactory.generateNewPasswordSmsUrl(cellphone, password);
+            SmsSender smsSender = new SmsSender();
+            result =  smsSender.sendSms(url);
+            addSmsRecord(cellphone, password, result);
+        }catch(Exception e){
+            logger.error(e.getMessage());
+        }
+        return result;
     }
 
+    private void addSmsRecord(String cellphone, String password, String result){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        if (StringUtils.isNotBlank(result)){
+            SMS sms = new SMS();
+            sms.setCellphone(cellphone);
+            sms.setSmsValidationCode(password);
+            sms.setSmsContent(result);
+            sms.setSendTime(timestamp);
+            sms.setSmsStatus(0);
+            smsRepository.addNewSMS(sms);
+        }
+    }
 }

@@ -51,4 +51,23 @@
      		select * from districts where city_index = #{cityIndex}
      	]]>
     </select>
+
+    <select id="getProvince" parameterType="Long" resultMap="provinceResultMap">
+        <![CDATA[
+     		select * from provinces where province_index = #{provinceIndex}
+     	]]>
+    </select>
+
+    <select id="getCity" parameterType="Long" resultMap="cityResultMap">
+        <![CDATA[
+     		select * from cities where city_index = #{cityIndex}
+     	]]>
+    </select>
+
+    <select id="getDistrict" parameterType="Long" resultMap="districtResultMap">
+        <![CDATA[
+     		select * from districts where district_index = #{districtIndex}
+     	]]>
+    </select>
+
 </mapper>
