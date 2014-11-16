@@ -25,7 +25,7 @@ public class SmsUrlFactory {
     }
 
     public String generateValidationCodeSmsUrl(String cellphone, String password) {
-        String smsContent = "您好,您的验证码是";
+        String smsContent = "您好，您的验证码是";
         String url = SMS_BASE_URL + "&hm=" + cellphone + "&nr=" + smsContent
                 + password
                 + SMS_SIGNATURE
@@ -34,7 +34,7 @@ public class SmsUrlFactory {
     }
 
     public String generateNewPasswordSmsUrl(String cellphone, String password){
-        String smsContent = "您好,您新密码是";
+        String smsContent = "您好，您的新密码是";
         String url = SMS_BASE_URL + "&hm=" + cellphone + "&nr=" + smsContent
                 + password
                 + SMS_SIGNATURE

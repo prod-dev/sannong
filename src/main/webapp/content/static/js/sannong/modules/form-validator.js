@@ -52,10 +52,6 @@ define(['jquery', 'sannong'], function($, sannong) {
                     digits: true,
                     rangelength:[4,4]
                 },
-                password: {
-                    required: true,
-                    minlength: 6
-                },
                 realName: "required",
                 jobTitle: "required",
                 company: "required",
@@ -73,13 +69,21 @@ define(['jquery', 'sannong'], function($, sannong) {
                     required: true,
                     isCellphone: true
                 },
+                newCellphone:{
+                    required: true,
+                    isCellphone: true
+                },
                 j_username: {
-                    required: true
-                    //isCellphone: true
+                    required: true,
+                    isCellphone: true
                 },
                 j_password: {
-                    required: true
-                    //minlength: 6
+                    required: true,
+                    minlength: 6
+                },
+                password: {
+                    required: true,
+                    minlength: 6
                 },
                 oldPassword: {
                     required: true,
@@ -150,18 +154,23 @@ define(['jquery', 'sannong'], function($, sannong) {
                     isCellphone: "请正确填写您的手机号码",
                     remote: "姓名或手机号码不存在"
                 },
-                password: {
-                    required: "请输入密码",
-                    minlength: $.validator.format("密码不能小于{0}个字 符")
+                newCellphone: {
+                    required: "必填",
+                    isCellphone: "请正确填写您的手机号码",
+                    remote: "姓名或手机号码不存在"
                 },
                 j_username: {
-                    required: "请先填写手机号码",
+                    required: "必填",
                     remote: "姓名或手机号码不存在",
                     isCellphone: "请正确填写您的手机号码"
                 },
                 j_password: {
+                    required: "必填",
+                    minlength: $.validator.format("密码不能小于{0}个字符")
+                },
+                password: {
                     required: "请输入密码",
-                    minlength: $.validator.format("密码不能小于{0}个字 符")
+                    minlength: $.validator.format("密码不能小于{0}个字符")
                 },
                 oldPassword: {
                     required: "必填",

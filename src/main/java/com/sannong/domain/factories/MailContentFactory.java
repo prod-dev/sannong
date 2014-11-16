@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 @Component
 public class MailContentFactory {
     private static final String LF = "\n\n";
-    private static final String DEFAULT_RECEIVER_NAME = "管理员:";
+    private static final String DEFAULT_RECEIVER_NAME = "管理员";
     private static final String CONTACT_CONTENT = " 提交了项目申请, 请尽快联系该项目申请人, 以便项目申请人更快的完成后续工作, 推动项目进展.";
     private static final String CELLPHONE_CONTENT = "该项目申请人的联系方式是: 手机:";
     private static final String SIGNATURE = "三农平台";

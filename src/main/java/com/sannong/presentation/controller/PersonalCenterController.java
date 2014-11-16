@@ -9,13 +9,15 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.sannong.infrastructure.persistance.entity.SMS;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,6 +37,7 @@ import com.sannong.service.IUserService;
 @Controller
 @SessionAttributes("myinfo")
 public class PersonalCenterController {
+    private static final Logger logger = Logger.getLogger(PersonalCenterController.class);
     private static final String MY_APPLICATION_PAGE = "myapplication";
     private static final String MY_INFO_PAGE = "myinfo";
     private static final String USER_INFO_PAGE = "userinfo";
@@ -178,64 +181,58 @@ public class PersonalCenterController {
         return new ModelAndView(USER_INFO_PAGE, models);
     }
 
+    @RequestMapping(value = {"updateUserInfo"}, method = RequestMethod.POST)
+    public ModelAndView updateUserInfo(HttpServletRequest request, @ModelAttribute("myinfo") User user) {
+        Map<String, Object> models = new HashMap<String, Object>();
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        user.setUpdateTime(ts);
+        try {
+            userService.updateUser(user);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            models.put("status", "error");
+        }
+        models.put("myinfo", user);
+        models.put("status", "saved");
+        return new ModelAndView(MY_INFO_PAGE, models);
+
+
+    }
+
     /**
      * Update user's information.
      * @param request
      * @param user
      * @return
      */
-    @RequestMapping(value = {"updateUserInfo", "updateMyInfo"}, method = RequestMethod.POST)
-	public ModelAndView updateUser(HttpServletRequest request, @ModelAttribute("myinfo") User user) {
+    @RequestMapping(value = {"updateMyInfo"}, method = RequestMethod.POST)
+	public ModelAndView updateMyInfo(HttpServletRequest request, @ModelAttribute("myinfo") User user) {
+        String newCellphone = request.getParameter("newCellphone");
+        String validationCode = request.getParameter("validationcode");
 
-        String userName = request.getParameter("userName");
-        if (userName == null) {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                userName = ((UserDetails) principal).getUsername();
-            } else {
-                userName = principal.toString();
+        Map<String, Object> models = new HashMap<String, Object>();
+        if (StringUtils.isNotBlank(newCellphone) && StringUtils.isNotBlank(validationCode)){
+            List<SMS> smsList = smsService.getSmsByCellphoneAndValidationCode(newCellphone, validationCode);
+            if (smsList.isEmpty()){
+                models.put("status", "error");
+                models.put("myinfo", user);
+                return new ModelAndView(MY_INFO_PAGE, models);
+            }else{
+                user.setCellphone(newCellphone);
             }
         }
 
-        user.setUserName(userName);
-         
-        Map<String,Object> map = new HashMap<String,Object>();
-        map.put("userName", userName);
-        
-        List<User> userList = userService.getUserByCondition(map);
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        if (userList != null && userList.get(0) != null){
-        	if(StringUtils.isEmpty(user.getCellphone().toString())) {
-        		user.setCellphone(userList.get(0).getCellphone());
-        	}
-        	
-        	if(!userList.get(0).getCellphone().toString().equals(user.getCellphone().toString()))
-        	{
-        		if(smsService.validateSMSCode(request) < 2)
-        		{
-        			models.put("myinfomessage", appConfig.getProperty("error-myinfo-invalidRegcode"));
-        		}
-        		return new ModelAndView(MY_INFO_PAGE, models);
-        	}
-        }
     	Timestamp ts = new Timestamp(System.currentTimeMillis());
 		user.setUpdateTime(ts);
 		try {
 			userService.updateUser(user);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			logger.error(e.getMessage());
+            models.put("status", "error");
 		}
-		
-		models.put("myinfomessage", "Save!");
-
-        String servletPath = request.getServletPath();
-        if (servletPath.equals("/updateMyInfo")){
-            return new ModelAndView(MY_INFO_PAGE, models);
-        }
-		
-		return new ModelAndView(USER_INFO_PAGE, models);
+		models.put("myinfo", user);
+		models.put("status", "saved");
+        return new ModelAndView(MY_INFO_PAGE, models);
 	}
 
     /**

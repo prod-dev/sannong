@@ -18,5 +18,5 @@ public interface SmsRepository {
 	
     void updateSmsByCellphone(SMS sms);
     
-    Long getMaxSmsIdByCellphone(SMS sms);
+    List<SMS> getSmsByCellphoneAndValidationCode(String cellphone, String validationCode);
 }

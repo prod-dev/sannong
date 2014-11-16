@@ -25,7 +25,7 @@
             <jsp:include page='sidebar.jsp'/>
         </div>
         <div class="col-md-6 column">
-            <form role="form" id="myInfoForm" action="updateMyInfo" method="post">
+            <form role="form" id="myInfoForm" action="updateMyInfo" method="POST">
                 <jsp:include page='template/userinfo-form-template.jsp'/>
                 <div>
                     <input type="button" id="myInfoSubmit" name="myInfoSubmit" class="btn btn-success" value="提交">

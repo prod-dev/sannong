@@ -81,24 +81,23 @@ require(['../main'], function () {
 
             $("#action-send-code").click(function(event){
                if (formValidator.getValidator("#applicationForm").form() == true){
+                   additionalMethods.updateTimeLabel("#action-send-code", "验证码");
                     var options = {
                         url: 'sendValidationCode',
-                        type: 'GET',
+                        type: 'POST',
                         data: {
                             mobile: $("#cellphone").val(),
                             smstype: $(this).attr("data-type")
                         },
                         success: function(data){
                              if (data != "") {
-                                 additionalMethods.updateTimeLabel(60, "#action-send-code");
                                  $("#validationCode").removeAttr("disabled");
-                                 //$("#validationCode").attr({disabled: "disabled"});
                              } else {
-                                $( this).val('重新发送').removeAttr('disabled').removeClass("gray");
+                                 $("#validationCode").attr({disabled: "disabled"});
                             }
                         },
                         fail: function(data){
-                            $(this).val('重新发送').removeAttr('disabled').removeClass("gray");
+                            $("#validationCode").attr({disabled: "disabled"});
                         }
 
                     }
