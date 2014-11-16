@@ -1,21 +1,6 @@
 package com.sannong.service.impl;
 
 
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-
 import com.sannong.domain.factories.SmsUrlFactory;
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.repository.SmsRepository;
@@ -23,12 +8,21 @@ import com.sannong.infrastructure.sms.SmsSender;
 import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.service.ISmsService;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * Created by Bright Huang on 10/22/14.
  */
 @Service
-@Repository
+@Transactional(rollbackFor = Exception.class)
 public class SmsServiceImpl implements ISmsService {
     private static final Logger logger = Logger.getLogger(SmsServiceImpl.class);
 
@@ -161,26 +155,26 @@ public class SmsServiceImpl implements ISmsService {
     @Override
     public String sendValidationCode(String cellphone, String validationCode) {
         String result = "";
-        try{
+        try {
             String smsUrl = smsUrlFactory.generateValidationCodeSmsUrl(cellphone, validationCode);
             SmsSender smsSender = new SmsSender();
             result = smsSender.sendSms(smsUrl);
             addSmsRecord(cellphone, validationCode, result);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage());
         }
         return result;
     }
 
     @Override
-    public String sendLoginMessage(String cellphone, String password){
+    public String sendLoginMessage(String cellphone, String password) {
         String result = "";
-        try{
+        try {
             String smsUrl = smsUrlFactory.generateLoginMessageSmsUrl(cellphone, password);
             SmsSender smsSender = new SmsSender();
             result = smsSender.sendSms(smsUrl);
             addSmsRecord(cellphone, password, result);
-        }catch (Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage());
         }
         return result;
@@ -189,20 +183,20 @@ public class SmsServiceImpl implements ISmsService {
     @Override
     public String sendNewPasswordMessage(String cellphone, String password) {
         String result = "";
-        try{
+        try {
             String url = smsUrlFactory.generateNewPasswordSmsUrl(cellphone, password);
             SmsSender smsSender = new SmsSender();
-            result =  smsSender.sendSms(url);
+            result = smsSender.sendSms(url);
             addSmsRecord(cellphone, password, result);
-        }catch(Exception e){
+        } catch (Exception e) {
             logger.error(e.getMessage());
         }
         return result;
     }
 
-    private void addSmsRecord(String cellphone, String password, String result){
+    private void addSmsRecord(String cellphone, String password, String result) {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        if (StringUtils.isNotBlank(result)){
+        if (StringUtils.isNotBlank(result)) {
             SMS sms = new SMS();
             sms.setCellphone(cellphone);
             sms.setSmsValidationCode(password);

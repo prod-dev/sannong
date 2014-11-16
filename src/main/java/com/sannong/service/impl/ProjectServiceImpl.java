@@ -16,8 +16,8 @@ import com.sannong.service.IProjectService;
 import com.sannong.service.ISmsService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
@@ -33,7 +33,7 @@ import java.util.Map;
  * @author William Zhang
  */
 @Service
-@Repository
+@Transactional(rollbackFor = Exception.class)
 public class ProjectServiceImpl implements IProjectService {
 
     private static final Logger logger = Logger.getLogger(ProjectServiceImpl.class);
