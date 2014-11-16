@@ -12,36 +12,48 @@ require(['../main'], function () {
 
         function addEventListener(){
             $("#action-send-code").click(function(element){
-
                 var validator = formValidator.getValidator("#forgotPasswordForm");
-
                 validator.resetForm();
-
-                if (validator.element($("#realName")) == true && validator.element($("#cellphone")) == true){
+                var realNameValid = validator.element($("#realName"));
+                var cellphoneValid = validator.element($("#cellphone"));
+                if ((cellphoneValid == true) && (realNameValid == true)){
                     var options = {
                         url: 'sendNewPasswordMessage',
-                        type: 'GET',
+                        type: 'POST',
                         dataType: 'json',
                         data: {
                             cellphone: $("#cellphone").val(),
                             realName: $("#realName").val()
                         },
                         success: function(data){
-
+                            if (data == false){
+                                $("#action-send-code").after('<label id="cellphone-error" class="error" for="cellphone" style="display: inline-block;">姓名或手机号码不存在</label>');
+                            }else{
+                                additionalMethods.updateTimeLabel("#action-send-code", "密码");
+                            }
                         },
                         fail: function(data){
-
+                            if (data == false){
+                                $("#action-send-code").after('<label id="cellphone-error" class="error" for="cellphone" style="display: inline-block;">姓名或手机号码不存在</label>');
+                            }
                         }
                     }
                     ajaxHandler.sendRequest(options);
                 }
-            });
+           });
+        }
 
+        function checkAuthenticationStatus(){
+            var status = $("#authentication").attr("status");
+            if (status == "false"){
+                $("#password").after('<label id="password-error" class="error" for="password" style="display: inline-block;">验证失败, 请重新输入</label>');
+            }
         }
 
         $(function () {
             addEventListener();
             formValidator.getValidator("#forgotPasswordForm");
+            checkAuthenticationStatus();
         });
 
         sannong.ForgotPassword = forgotPassword;

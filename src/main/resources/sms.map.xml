@@ -22,9 +22,9 @@
         ]]>
     </select>
 
-    <select id="getMaxSmsIdByCellphone" parameterType="Sms" resultMap="smsMap">
+    <select id="getSmsByCellphoneAndValidationCode" parameterType="Sms" resultMap="smsMap">
         <![CDATA[
-        	select max(smsId) from sms where cellphone = #{cellphone} and sms_status = 0
+        	select * from sms where cellphone = #{cellphone} and sms_validation_code = #{smsValidationCode} and sms_status = 0
         ]]>
     </select>
      

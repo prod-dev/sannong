@@ -15,8 +15,8 @@ public interface ISmsService {
     public List<SMS> getNewSMS();
     public boolean generateCode(HttpServletRequest request);
     public int validateSMSCode(HttpServletRequest request);
-    public Long getMaxSmsIdByCellphone(HttpServletRequest request);
     public String sendValidationCode(String cellphone, String validationCode);
     public String sendLoginMessage(String cellphone, String password);
     public String sendNewPasswordMessage(String cellphone, String password);
+    public List<SMS> getSmsByCellphoneAndValidationCode(String cellphone, String validationCode);
 }

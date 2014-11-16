@@ -100,12 +100,8 @@ public class SmsServiceImpl implements ISmsService {
     }
 
     @Override
-    public Long getMaxSmsIdByCellphone(HttpServletRequest request) {
-        String mobile = request.getParameter("mobile").toString();
-
-        SMS sms = new SMS();
-        sms.setCellphone(mobile);
-        return smsRepository.getMaxSmsIdByCellphone(sms);
+    public List<SMS> getSmsByCellphoneAndValidationCode(String cellphone, String validationCode) {
+        return smsRepository.getSmsByCellphoneAndValidationCode(cellphone, validationCode);
     }
 
     public boolean generateCode(HttpServletRequest request) {

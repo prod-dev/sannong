@@ -61,12 +61,17 @@ public class LoginController {
         return showLoginPage();
     }
 
+    @RequestMapping(value = "authentication-failure", method = RequestMethod.POST)
+    public ModelAndView handleAuthenticationFailureOnPost(HttpServletRequest request) {
+        return handleAuthenticationFailure(request);
+    }
+
     @RequestMapping(value = "authentication-failure", method = RequestMethod.GET)
     public ModelAndView handleAuthenticationFailure(HttpServletRequest request) {
         String realName = request.getParameter("realName");
 
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("authentication", "authentication-failure");
+        models.put("authentication", "false");
 
         if (realName != null) {
             return new ModelAndView(FORGOT_PASSWORD_PAGE, models);

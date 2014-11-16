@@ -58,7 +58,7 @@ public class SmsController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "sendValidationCode")
+    @RequestMapping(value = "sendValidationCode", method = RequestMethod.POST)
     public @ResponseBody String sendValidationCode(HttpServletRequest request) throws Exception {
         String cellphone = request.getParameter("cellphone");
         String newCellphone = request.getParameter("newCellphone");
@@ -77,7 +77,7 @@ public class SmsController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "sendLoginMessage")
+    @RequestMapping(value = "sendLoginMessage", method = RequestMethod.POST)
     public @ResponseBody String sendLoginMessage(HttpServletRequest request) throws Exception {
         String password = PasswordGenerator.generateValidationCode(6);
         String cellphone = request.getParameter("cellphone");
@@ -92,7 +92,7 @@ public class SmsController {
      */
     @RequestMapping(value = "sendNewPasswordMessage", method = RequestMethod.POST)
     public @ResponseBody boolean sendNewPasswordMessage(HttpServletRequest request) throws Exception{
-        String cellphone = request.getParameter("j_username");
+        String cellphone = request.getParameter("cellphone");
         String realName = request.getParameter("realName");
 
         Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -100,14 +100,17 @@ public class SmsController {
         paramMap.put("realName", realName);
 
         List<User> users = userService.getUserByCondition(paramMap);
-        if (users.isEmpty()){
+        if (users.isEmpty()) {
             return false;
         } else {
+            User user = users.get(0);
+            if (!(user.getCellphone().equals(cellphone) && user.getRealName().equals(realName))) {
+                return false;
+            }
             String password = PasswordGenerator.generatePassword(6);
             String encryptedPassword = PasswordGenerator.encryptPassword(password, cellphone);
             String smsResponse = smsService.sendNewPasswordMessage(cellphone, password);
             if (StringUtils.isNotBlank(smsResponse)){
-                User user = users.get(0);
                 user.setPassword(encryptedPassword);
                 return userService.updateUser(user);
             } else {
