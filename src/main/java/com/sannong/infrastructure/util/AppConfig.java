@@ -14,6 +14,14 @@ public class AppConfig {
         properties.load(this.getClass().getClassLoader().getResourceAsStream(APP_CONFIG_FILE_NAME));
     }
 
+    
+    public String getPath()
+    {
+
+    	return getClass().getClassLoader().getResource("").getPath();
+    }
+    
+    
     public String getProperty(String key) {
         return this.properties.getProperty(key);
     }
