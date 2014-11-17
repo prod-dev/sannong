@@ -10,19 +10,29 @@ require(['../main'], function () {
 
     var projectApplication = {};
     projectApplication.Model = {
-        cellphoneError: '<label id="cellphone-error" class="error" for="cellphone" style="display: inline-block;">手机号码已存在</label>'
+        cellphoneErrorMsg: '<label id="cellphone-error" class="error" for="cellphone" style="display: inline-block;">手机号码已存在</label>',
+        validationCodeErrorMsg: '<label id="validationCode-error" class="error" for="validation" style="display: inline-block;">验证码不匹配</label>'
     };
     projectApplication.View = {
         cellphone: $("#cellphone"),
-        cellphoneError: $("#cellphone-error")
+        cellphoneError: $("#cellphone-error"),
+        validationCode: $("#validationCode"),
+        validationCodeError: $("#validationCode-error")
+
     };
 
-
-    function showValidationError(){
+    function showCellphoneError(){
         projectApplication.View.cellphoneError.remove();
         projectApplication.View.cellphone.removeClass("error");
-        projectApplication.View.cellphone.after(projectApplication.Model.newCellphoneError);
+        projectApplication.View.cellphone.after(projectApplication.Model.cellphoneErrorMsg);
         projectApplication.View.cellphone.addClass("error");
+    }
+
+    function showValidationCodeError(){
+        projectApplication.View.validationCodeError.remove();
+        projectApplication.View.validationCode.removeClass("error");
+        projectApplication.View.validationCode.after(projectApplication.Model.validationCodeErrorMsg);
+        projectApplication.View.validationCode.addClass("error");
     }
 
     function enableSubmitButton(){
@@ -39,7 +49,7 @@ require(['../main'], function () {
         var options = {
             url: 'sendValidationCode',
             type: 'POST',
-            data: {mobile: $("#cellphone").val()},
+            data: {cellphone: $("#cellphone").val()},
             success: function(data){
                 if (data != "") {
                     $("#validationCode").removeAttr("disabled");
@@ -69,8 +79,27 @@ require(['../main'], function () {
         });
 
         $("#applicationSubmit").click(function(event){
-            if ((formValidator.getValidator("#applicationForm").form() == true) && $("#applicationSubmit").attr("disabled") != "disabled"){
-                $("#myModalTrigger").click();
+            if ((formValidator.getValidator("#applicationForm").form() == true)
+                && $("#applicationSubmit").attr("disabled") != "disabled"){
+
+                ajaxHandler.sendRequest({
+                    type: "GET",
+                    url: "validateValidationCode",
+                    data:{
+                        cellphone: $("#cellphone").val(),
+                        validationCode: $("#validationCode").val()
+                    },
+                    success: function(response){
+                        if (response == true){
+                            $("#myModalTrigger").click();
+                        }else{
+                            showValidationCodeError();
+                        }
+                    },
+                    fail: function(){
+                        showValidationCodeError();
+                    }
+                });
             }
         });
 
@@ -90,11 +119,11 @@ require(['../main'], function () {
                             sendValidationCode();
                         }
                     }else{
-                        showValidationError();
+                        showCellphoneError();
                     }
                 },
                 fail: function(){
-                    showValidationError();
+                    showCellphoneError();
                 }
             });
         });

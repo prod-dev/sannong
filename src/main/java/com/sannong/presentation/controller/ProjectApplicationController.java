@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.sannong.infrastructure.persistance.entity.SMS;
+import com.sannong.service.ISmsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,6 +41,8 @@ public class ProjectApplicationController {
     private IProjectService projectService;
     @Resource
     private IUserService userService;
+    @Resource
+    private ISmsService smsService;
     @Autowired
     private AppConfig appConfig;
 
@@ -54,6 +58,7 @@ public class ProjectApplicationController {
     public ModelAndView apply(HttpServletRequest request, @ModelAttribute("applicationForm") Application application)
             throws Exception {
         Map<String, Object> models = new HashMap<String, Object>();
+
         Boolean result = projectService.projectApplication(request, application);
         models.put("completion", new Object());
         return new ModelAndView(COMPLETION_PAGE, models);
@@ -111,5 +116,16 @@ public class ProjectApplicationController {
             cellphone = request.getParameter("cellphone");
         }
         return projectService.validateUniqueCellphone(cellphone);
+    }
+
+    @RequestMapping(value = "validateValidationCode",method = RequestMethod.GET)
+    public @ResponseBody boolean validateValidationCode(HttpServletRequest request){
+        String cellphone = request.getParameter("cellphone");
+        String validationCode = request.getParameter("validationCode");
+        List<SMS> smsList = smsService.getSmsByCellphoneAndValidationCode(cellphone, validationCode);
+        if (!smsList.isEmpty()){
+            return true;
+        }
+        return false;
     }
 }

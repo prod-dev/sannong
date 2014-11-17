@@ -102,7 +102,10 @@ public class SmsServiceImpl implements ISmsService {
 
     @Override
     public List<SMS> getSmsByCellphoneAndValidationCode(String cellphone, String validationCode) {
-        return smsRepository.getSmsByCellphoneAndValidationCode(cellphone, validationCode);
+        SMS sms = new SMS();
+        sms.setCellphone(cellphone);
+        sms.setSmsValidationCode(validationCode);
+        return smsRepository.getSmsByCellphoneAndValidationCode(sms);
     }
 
     public boolean generateCode(HttpServletRequest request) {

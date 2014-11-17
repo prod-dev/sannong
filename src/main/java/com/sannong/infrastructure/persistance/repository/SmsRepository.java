@@ -18,5 +18,5 @@ public interface SmsRepository {
 	
     void updateSmsByCellphone(SMS sms);
     
-    List<SMS> getSmsByCellphoneAndValidationCode(String cellphone, String validationCode);
+    List<SMS> getSmsByCellphoneAndValidationCode(SMS sms);
 }
