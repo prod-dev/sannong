@@ -17,6 +17,7 @@ public class PasswordGenerator {
         String seed = "0123456789";
         Random random = new Random();
 
+        /*
         //TODO: Just for test purpose, will replace it by commentted code below after test.
         if (length == 4){
             return "1234";
@@ -25,8 +26,8 @@ public class PasswordGenerator {
         }
 
         return "";
+        */
 
-        /*
         if (length == 0) {
             return "";
         }
@@ -36,7 +37,6 @@ public class PasswordGenerator {
             buf[i] = seed.charAt(random.nextInt(seed.length()));
         }
         return new String(buf);
-        */
     }
 
     public static String encryptPassword(String password, String salt){

@@ -5,6 +5,7 @@ import com.sannong.domain.factories.RegionFactory;
 import com.sannong.domain.valuetypes.Region;
 import com.sannong.domain.valuetypes.RoleType;
 import com.sannong.infrastructure.mail.EmailSender;
+import com.sannong.infrastructure.mail.MailAsyncSender;
 import com.sannong.infrastructure.persistance.entity.Answer;
 import com.sannong.infrastructure.persistance.entity.Application;
 import com.sannong.infrastructure.persistance.entity.Question;
@@ -58,6 +59,8 @@ public class ProjectServiceImpl implements IProjectService {
     private MailContentFactory mailContentFactory;
     @Autowired
     private QuestionRepository questionRepository;
+    @Autowired
+    private MailAsyncSender mailAsyncSender;
 
 
     public boolean checkUserNameAvailable(HttpServletRequest request) {
@@ -125,10 +128,8 @@ public class ProjectServiceImpl implements IProjectService {
 
     public void sendMailToAdmin(Region region, String applicantName, String timeOfSubmission, String cellphone) {
 
-        String mailAddresses = appConfig.getProperty("newApp-admin-email");
         String mailContent = mailContentFactory.build(region, applicantName, timeOfSubmission, cellphone);
-
-        new EmailSender().sendMail(mailAddresses, "new application", mailContent, false);
+        mailAsyncSender.sendMail(mailContent);
     }
 
     public boolean projectApplication(HttpServletRequest request, Application application) {

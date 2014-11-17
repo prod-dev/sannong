@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.service.ISmsService;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,11 +57,13 @@ public class ProjectApplicationController {
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
-    public ModelAndView apply(HttpServletRequest request, @ModelAttribute("applicationForm") Application application)
-            throws Exception {
+    public ModelAndView apply(HttpServletRequest request,
+                              @ModelAttribute("applicationForm") @Valid Application application,
+                              BindingResult result) throws Exception {
+
         Map<String, Object> models = new HashMap<String, Object>();
 
-        Boolean result = projectService.projectApplication(request, application);
+        projectService.projectApplication(request, application);
         models.put("completion", new Object());
         return new ModelAndView(COMPLETION_PAGE, models);
     }

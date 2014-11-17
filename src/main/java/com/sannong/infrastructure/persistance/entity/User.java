@@ -7,6 +7,8 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.sannong.infrastructure.util.CustomDateSerializer;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * create user class
  * @author william zhang
@@ -16,7 +18,9 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 4891642085331481252L;
 	
 	private Long userId;
+    @NotNull(message = "{user.userName.null}")
 	private String userName;
+    @NotNull(message = "{user.cellphone.null}")
 	private String cellphone;
 	private String password;
 	private String mailbox;
