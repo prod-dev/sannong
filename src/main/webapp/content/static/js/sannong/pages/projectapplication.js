@@ -25,6 +25,16 @@ require(['../main'], function () {
         projectApplication.View.cellphone.addClass("error");
     }
 
+    function enableSubmitButton(){
+        $("#applicationSubmit").removeAttr("disabled");
+        $("#applicationSubmit").removeClass().addClass("btn btn-success");
+    }
+
+    function disableSubmitButton(){
+        $("#applicationSubmit").attr({disabled: "disabled"});
+        $("#applicationSubmit").removeClass().addClass("btn btn-default");
+    }
+
     function sendValidationCode(){
         var options = {
             url: 'sendValidationCode',
@@ -33,66 +43,68 @@ require(['../main'], function () {
             success: function(data){
                 if (data != "") {
                     $("#validationCode").removeAttr("disabled");
+                    enableSubmitButton();
                 } else {
                     $("#validationCode").attr({disabled: "disabled"});
+                    disableSubmitButton();
                 }
             },
             fail: function(data){
                 $("#validationCode").attr({disabled: "disabled"});
+                disableSubmitButton();
             }
 
         }
         ajaxHandler.sendRequest(options);
     }
 
-    projectApplication.Controller = {
-        addEventListener: function(){
-            $("#provinceSelect").change(function(event){
-                region.Controller.addCities();
-            });
+    function addEventListener() {
+        $("#provinceSelect").change(function(event){
+            region.Controller.addCities();
+        });
 
-            $("#citySelect").change(function(event){
-                $('#districtSelect option').remove();
-                region.Controller.addDistricts();
-            });
+        $("#citySelect").change(function(event){
+            $('#districtSelect option').remove();
+            region.Controller.addDistricts();
+        });
 
-            $("#applicationSubmit").click(function(event){
-                if ((formValidator.getValidator("#applicationForm").form() == true) && $("#applicationSubmit").attr("disabled") != "disabled"){
-                    $("#myModalTrigger").click();
-                }
-            });
+        $("#applicationSubmit").click(function(event){
+            if ((formValidator.getValidator("#applicationForm").form() == true) && $("#applicationSubmit").attr("disabled") != "disabled"){
+                $("#myModalTrigger").click();
+            }
+        });
 
-            $("#confirmedSubmit").click(function(event){
-                $("#applicationForm").submit();
-            });
+        $("#confirmedSubmit").click(function(event){
+            $("#applicationForm").submit();
+        });
 
-            $("#action-send-code").click(function(event){
-                ajaxHandler.sendRequest({
-                    type: "GET",
-                    url: "validateUniqueCellphone",
-                    data:{cellphone: $("#cellphone").val()},
-                    success: function(response){
-                        if (response == true){
-                            if (formValidator.getValidator("#applicationForm").form() == true ){
-                                additionalMethods.updateTimeLabel("#action-send-code", "验证码");
-                                sendValidationCode();
-                            }
-                        }else{
-                            showValidationError();
+        $("#action-send-code").click(function(event){
+            ajaxHandler.sendRequest({
+                type: "GET",
+                url: "validateUniqueCellphone",
+                data:{cellphone: $("#cellphone").val()},
+                success: function(response){
+                    if (response == true){
+                        if (formValidator.getValidator("#applicationForm").form() == true ){
+                            additionalMethods.updateTimeLabel("#action-send-code", "验证码");
+                            sendValidationCode();
                         }
-                    },
-                    fail: function(){
+                    }else{
                         showValidationError();
                     }
-                });
+                },
+                fail: function(){
+                    showValidationError();
+                }
             });
-      }
-    };
+        });
+    }
+
 
     $(function() {
         questionnaire.showQuestions(1);
         region.Controller.addProvinces();
-        projectApplication.Controller.addEventListener();
+        addEventListener();
 
     });
 

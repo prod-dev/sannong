@@ -54,24 +54,9 @@ public class ProjectApplicationController {
     public ModelAndView apply(HttpServletRequest request, @ModelAttribute("applicationForm") Application application)
             throws Exception {
         Map<String, Object> models = new HashMap<String, Object>();
-
         Boolean result = projectService.projectApplication(request, application);
-        ModelAndView modelAndView = null;
-
-        /*
-        if (result == true){
-            models.put("completion", new Object());
-            modelAndView =  new ModelAndView(COMPLETION_PAGE, models);
-        }else {
-            models.put("error", new Object());
-            modelAndView = new ModelAndView(ERROR_PAGE, models);
-        }
-        */
-
         models.put("completion", new Object());
-        modelAndView =  new ModelAndView(COMPLETION_PAGE, models);
-        
-        return modelAndView;
+        return new ModelAndView(COMPLETION_PAGE, models);
     }
 
     @RequestMapping(value = "useravail", method = RequestMethod.GET)

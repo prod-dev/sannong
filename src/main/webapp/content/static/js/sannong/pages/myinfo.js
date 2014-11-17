@@ -41,8 +41,8 @@ require(['../main'], function () {
             function showValidationError(){
                 myInfo.View.newCellphoneError.remove();
                 myInfo.View.newCellphone.removeClass("error");
-                myInfo.View.newCellphone..after(myInfo.Model.newCellphoneError);
-                myInfo.View.newCellphone..addClass("error");
+                myInfo.View.newCellphone.after(myInfo.Model.newCellphoneError);
+                myInfo.View.newCellphone.addClass("error");
             }
 
             function addEventListener(){
