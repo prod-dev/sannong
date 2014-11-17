@@ -119,12 +119,12 @@ public class ProjectApplicationController {
     	return answer;
     }
 
-
     @RequestMapping(value = "validateUniqueCellphone",method = RequestMethod.GET)
     public @ResponseBody boolean validateUniqueCellphone(HttpServletRequest request){
         String cellphone = request.getParameter("applicant.cellphone");
-
+        if (org.apache.commons.lang3.StringUtils.isBlank(cellphone)){
+            cellphone = request.getParameter("cellphone");
+        }
         return projectService.validateUniqueCellphone(cellphone);
     }
-
 }

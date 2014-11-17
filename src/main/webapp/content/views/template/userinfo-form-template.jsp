@@ -60,7 +60,7 @@
                     <input type="hidden"  id="oldCellphone" value="${myinfo.cellphone}">
                     <input type="text" class="form-control" id="newCellphone" name="newCellphone" placeholder="新手机号码" autocomplete="off">
                     <input type="button" id="action-send-code" data-url="regcode" data-type="1" class="btn btn-sm btn-warning" value="发送验证码">
-                    <input type="text" class="form-control" name="validationcode"  disabled="true" id="validationcode" placeholder="验证码" autocomplete="off">
+                    <input type="text" class="form-control" name="validationCode"  disabled="true" id="validationCode" placeholder="验证码" autocomplete="off">
                     <div class="errorDiv"></div>
                 </div>
             </div>

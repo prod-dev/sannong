@@ -157,7 +157,7 @@ define(['jquery', 'sannong'], function($, sannong) {
                 newCellphone: {
                     required: "必填",
                     isCellphone: "请正确填写您的手机号码",
-                    remote: "姓名或手机号码不存在"
+                    remote: "此手机号码已经被使用"
                 },
                 j_username: {
                     required: "必填",

@@ -208,7 +208,7 @@ public class PersonalCenterController {
     @RequestMapping(value = {"updateMyInfo"}, method = RequestMethod.POST)
 	public ModelAndView updateMyInfo(HttpServletRequest request, @ModelAttribute("myinfo") User user) {
         String newCellphone = request.getParameter("newCellphone");
-        String validationCode = request.getParameter("validationcode");
+        String validationCode = request.getParameter("validationCode");
 
         Map<String, Object> models = new HashMap<String, Object>();
         if (StringUtils.isNotBlank(newCellphone) && StringUtils.isNotBlank(validationCode)){

@@ -9,90 +9,105 @@ require(['../main'], function () {
             "use strict";
 
             var myInfo = {};
-            myInfo.Model = {}
-            myInfo.View = {};
-
-            myInfo.Controller = {
-                addEventListener: function(){
-                    $("#provinceSelect").change(function(event){
-                        region.Controller.addCities();
-                    });
-
-                    $("#citySelect").change(function(event){
-                        $('#districtSelect option').remove();
-                        region.Controller.addDistricts();
-                    });
-
-
-                    $("#confirmedSubmit").click(function(event){
-                        $("#myInfoForm").submit();
-                    });
-
-                    /*
-                    $("#validationCode").keyup(function(){
-                        if (formValidator.getValidator("#myInfoForm").element($("#validationCode")) == true && $("#validationCode").val() != ""){
-                            $("#applicationSubmit").removeAttr("disabled");
-                            $("#applicationSubmit").removeClass().addClass("btn btn-success");
-                        } else {
-                            $("#applicationSubmit").attr({disabled: "disabled"});
-                            $("#applicationSubmit").removeClass().addClass("btn btn-default");
-                        }
-
-                    });
-                    */
-
-                    $("#action-send-code").click(function(event){
-                        var validator = formValidator.getValidator("#myInfoForm");
-                        if (validator.form() == true && validator.element($("#newCellphone")) == true ){
-                            additionalMethods.updateTimeLabel("#action-send-code", "验证码");
-                            var options = {
-                                url: 'sendValidationCode',
-                                type: 'POST',
-                                data: {
-                                    newCellphone: $("#newCellphone").val(),
-                                    smstype: $("#action-send-code").attr("data-type")
-                                },
-                                success: function(data){
-                                    if (data != "") {
-                                        $("#validationCode").removeAttr("disabled");
-                                    } else {
-                                        $("#validationCode").attr({disabled: "disabled"});
-                                    }
-                                },
-                                fail: function(data){
-                                    $("#validationCode").attr({disabled: "disabled"});
-                                }
-                            }
-                            ajaxHandler.sendRequest(options);
-                        }
-                    });
-
-                    $("#myInfoSubmit").click(function(event){
-                        var validator = formValidator.getValidator("#myInfoForm");
-                        if (validator.form() == true){
-                            $("#myInfoForm").ajaxSubmit(function(message) {
-                                $("#return").after('<label id="jobTitle-error" class="error" for="jobTitle">已保存</label>');
-                                return false;
-                            });
-                        }
-                    });
-
-                    $("#userInfoSubmit").click(function(event){
-                        if (formValidator.getValidator("#userInfoForm").form() == true){
-                            $("#userInfoForm").ajaxSubmit(function(message) {
-                                $("#return").after('<label id="jobTitle-error" class="error" for="jobTitle">已保存</label>');
-                                return false;
-                            });
-                        }
-                    });
-                }
+            myInfo.Model = {
+                newCellphoneError: '<label id="newCellphone-error" class="error" for="newCellphone" style="display: inline-block;">手机号码已存在</label>'
+            }
+            myInfo.View = {
+                newCellphone: $("#newCellphone"),
+                newCellphoneError: $("#newCellphone-error")
             };
 
+            function sendValidationCode(){
+                var options = {
+                    url: 'sendValidationCode',
+                    type: 'POST',
+                    data: {
+                        newCellphone: $("#newCellphone").val()
+                    },
+                    success: function(response){
+                        if (response != "") {
+                            $("#validationCode").removeAttr("disabled");
+                        } else {
+                            $("#validationCode").attr({disabled: "disabled"});
+                        }
+                    },
+                    fail: function(response){
+                        $("#validationCode").attr({disabled: "disabled"});
+                    }
+                }
+                ajaxHandler.sendRequest(options);
+            }
+
+            function showValidationError(){
+                myInfo.View.newCellphoneError.remove();
+                myInfo.View.newCellphone.removeClass("error");
+                myInfo.View.newCellphone..after(myInfo.Model.newCellphoneError);
+                myInfo.View.newCellphone..addClass("error");
+            }
+
+            function addEventListener(){
+                $("#provinceSelect").change(function(event){
+                    region.Controller.addCities();
+                });
+
+                $("#citySelect").change(function(event){
+                    $('#districtSelect option').remove();
+                    region.Controller.addDistricts();
+                });
+
+                $("#confirmedSubmit").click(function(event){
+                    $("#myInfoForm").submit();
+                });
+
+                $("#myInfoSubmit").click(function(event){
+                    var validator = formValidator.getValidator("#myInfoForm");
+                    if (validator.form() == true){
+                        $("#myInfoForm").ajaxSubmit(function(message) {
+                            $("#return").after('<label id="jobTitle-error" class="error" for="jobTitle">已保存</label>');
+                            return false;
+                        });
+                    }
+                });
+
+                $("#userInfoSubmit").click(function(event){
+                    if (formValidator.getValidator("#userInfoForm").form() == true){
+                        $("#userInfoForm").ajaxSubmit(function(message) {
+                            $("#return").after('<label id="jobTitle-error" class="error" for="jobTitle">已保存</label>');
+                            return false;
+                        });
+                    }
+                });
+
+                $("#action-send-code").click(function(event){
+                    ajaxHandler.sendRequest({
+                        type: "GET",
+                        url: "validateUniqueCellphone",
+                        data:{cellphone: $("#newCellphone").val()},
+                        success: function(response){
+                            if (response == true){
+                                var validator = formValidator.getValidator("#myInfoForm");
+                                var newCellphoneValid = validator.element($("#newCellphone"));
+                                if (validator.form() == true && newCellphoneValid == true ){
+                                    additionalMethods.updateTimeLabel("#action-send-code", "验证码");
+                                    sendValidationCode();
+                                }
+                            }else{
+                                showValidationError();
+                            }
+                        },
+                        fail: function(){
+                            showValidationError();
+                        }
+                    });
+                });
+            }
+
+            myInfo.Controller = {};
 
             $(function() {
                 region.Controller.saveRegion();
                 region.Controller.addProvinces();
-                myInfo.Controller.addEventListener();
+                addEventListener();
 
             });
 

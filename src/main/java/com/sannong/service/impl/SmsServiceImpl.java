@@ -64,7 +64,7 @@ public class SmsServiceImpl implements ISmsService {
     }
 
     public int validateSMSCode(HttpServletRequest request) {
-        String smsCode = request.getParameter("validationcode");
+        String smsCode = request.getParameter("validationCode");
 
         if (StringUtils.isBlank(smsCode)) {
             return 0;
