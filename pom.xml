@@ -18,7 +18,7 @@
         <finalName>sannong</finalName>
         <defaultGoal>clean install</defaultGoal>
         <plugins>
-            <!--
+            <!-- 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -256,6 +256,12 @@
             <groupId>org.jodd</groupId>
             <artifactId>jodd-mail</artifactId>
             <version>3.6.1</version>
+        </dependency>
+        
+        <dependency>
+         <groupId>org.apache.velocity</groupId>
+         <artifactId>velocity</artifactId>
+         <version>1.7</version>
         </dependency>
 
     </dependencies>
