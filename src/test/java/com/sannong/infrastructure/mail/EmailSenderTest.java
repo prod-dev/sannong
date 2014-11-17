@@ -37,7 +37,7 @@ public class EmailSenderTest {
 	      velocityParameters.put("mobile", "13128818478");
 	      velocityParameters.put("time", getNow());
 	      VelocityTemplate vt=new VelocityTemplate();
-	      EmailSender.sendMail("techmio@qq.com", appConfig.getProperty("newApp-email-title"), vt.getTemplate(appConfig.getPath()+"../classes/template/", "newapp.html", velocityParameters),true);
+	      EmailSender.sendMail(appConfig.getProperty("newApp-admin-email"), appConfig.getProperty("newApp-email-title"), vt.getTemplate(appConfig.getPath()+"../classes/template/", "newapp.html", velocityParameters),true);
 
 	}
 	
