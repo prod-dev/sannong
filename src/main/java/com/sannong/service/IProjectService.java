@@ -12,7 +12,7 @@ public interface IProjectService {
 
     Answer getQuestionnaireAndAnswerByCondition(Map<String, Object> map);
 
-    boolean updateAnswers(Answer answer) throws Exception;
+    boolean updateAnswersAndComment(Answer answer) throws Exception;
 
     int getTotalQuestions();
 }

@@ -1,31 +1,37 @@
 package com.sannong.service.impl;
 
-import com.sannong.domain.factories.MailContentFactory;
-import com.sannong.domain.factories.RegionFactory;
-import com.sannong.domain.valuetypes.Region;
-import com.sannong.domain.valuetypes.RoleType;
-import com.sannong.infrastructure.mail.EmailSender;
-import com.sannong.infrastructure.mail.MailAsyncSender;
-import com.sannong.infrastructure.persistance.entity.Answer;
-import com.sannong.infrastructure.persistance.entity.Application;
-import com.sannong.infrastructure.persistance.entity.Question;
-import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.persistance.repository.*;
-import com.sannong.infrastructure.util.AppConfig;
-import com.sannong.infrastructure.util.PasswordGenerator;
-import com.sannong.service.IProjectService;
-import com.sannong.service.ISmsService;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.sannong.domain.factories.MailContentFactory;
+import com.sannong.domain.factories.RegionFactory;
+import com.sannong.domain.valuetypes.Region;
+import com.sannong.domain.valuetypes.RoleType;
+import com.sannong.infrastructure.mail.MailAsyncSender;
+import com.sannong.infrastructure.persistance.entity.Answer;
+import com.sannong.infrastructure.persistance.entity.Application;
+import com.sannong.infrastructure.persistance.entity.Comment;
+import com.sannong.infrastructure.persistance.entity.Question;
+import com.sannong.infrastructure.persistance.repository.AnswerRepository;
+import com.sannong.infrastructure.persistance.repository.ApplicationRepository;
+import com.sannong.infrastructure.persistance.repository.AuthorityRepository;
+import com.sannong.infrastructure.persistance.repository.CommentRepository;
+import com.sannong.infrastructure.persistance.repository.QuestionRepository;
+import com.sannong.infrastructure.persistance.repository.QuestionnaireRepository;
+import com.sannong.infrastructure.persistance.repository.UserRepository;
+import com.sannong.infrastructure.util.PasswordGenerator;
+import com.sannong.service.IProjectService;
+import com.sannong.service.ISmsService;
 
 
 /**
@@ -50,8 +56,6 @@ public class ProjectServiceImpl implements IProjectService {
     @Autowired
     private AnswerRepository answerRepository;
     @Autowired
-    private AppConfig appConfig;
-    @Autowired
     private ISmsService smsService;
     @Autowired
     private RegionFactory regionFactory;
@@ -61,6 +65,8 @@ public class ProjectServiceImpl implements IProjectService {
     private QuestionRepository questionRepository;
     @Autowired
     private MailAsyncSender mailAsyncSender;
+    @Autowired
+    private CommentRepository commentRepository;
 
     /**
      * Update answers to answer fields relatively
@@ -101,12 +107,18 @@ public class ProjectServiceImpl implements IProjectService {
         }
     }
 
-    public boolean updateAnswers(Answer answer) throws Exception {
+    public boolean updateAnswersAndComment(Answer answer) throws Exception {
 
         boolean result = true;
         setAnswers(answer);
         try {
             answerRepository.updateAnswers(answer);
+            
+            if (answer.getComment() != null && answer.getComment().getContent() != null){
+            	Timestamp createTime = new Timestamp(System.currentTimeMillis());
+            	answer.getComment().setCreateTime(createTime);
+            	commentRepository.addComment(answer);
+            }
         } catch (Exception e) {
             result = false;
         }
@@ -208,6 +220,11 @@ public class ProjectServiceImpl implements IProjectService {
             answer = new Answer();
         }
         answer.setQuestions(questions);
+        
+        //get comment
+        String comment = commentRepository.getCommentByCondition(map);
+        
+        answer.setComment(new Comment(comment));
 
         return answer;
     }
