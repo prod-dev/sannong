@@ -11,6 +11,9 @@
         <result property="questionnaire4Answers" column="questionnaire4_answers" />
         <result property="questionnaire5Answers" column="questionnaire5_answers" />
         <result property="answerStatus" column="answer_status" />
+        <association property="application" column="application_id" javaType="Application" >
+        	<result property="applicationId" column="application_id" />
+        </association>
      </resultMap>
 	
 	<update id="updateAnswers" parameterType="Answer" >
@@ -47,7 +50,7 @@
     
     <select id="getAnswerByUserName" parameterType="String" resultMap="answerResultMap">
         <![CDATA[
-        	select questionnaire1_answers,questionnaire2_answers,questionnaire3_answers,questionnaire4_answers,questionnaire5_answers,answer_status from answers where username=#{userName}
+        	select questionnaire1_answers,questionnaire2_answers,questionnaire3_answers,questionnaire4_answers,questionnaire5_answers,answer_status,application_id from answers where username=#{userName}
         ]]>
     </select>
 </mapper>

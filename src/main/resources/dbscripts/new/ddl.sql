@@ -231,3 +231,26 @@ CHANGE COLUMN `user_id` `user_id` BIGINT(20) NULL ;
 -- Added by William 2014-11-11
 ALTER TABLE `sannong`.`questions` 
 ADD COLUMN `is_single` CHAR NULL COMMENT '1:single choice\n0:multiple choice' AFTER `questionnaire_number`;
+
+-- Added by William 2014-11-17
+CREATE TABLE `sannong`.`comments` (
+  `comments_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `questionnaire_number` BIGINT NOT NULL,
+  `content` VARCHAR(4000) NOT NULL,
+  `application_id` BIGINT NOT NULL,
+  `create_time` DATETIME NOT NULL,
+  `username` VARCHAR(45) NOT NULL AFTER `create_time`,
+  PRIMARY KEY (`comments_id`),
+  INDEX `fk_comments_application_id_idx` (`application_id` ASC),
+  INDEX `fk_comments_username_idx` (`username` ASC)
+  CONSTRAINT `fk_comments_application_id`
+    FOREIGN KEY (`application_id`)
+    REFERENCES `sannong`.`applications` (`application_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+ALTER TABLE `sannong`.`comments` 
+ADD CONSTRAINT `fk_comments_username`
+  FOREIGN KEY (`username`)
+  REFERENCES `sannong`.`users` (`username`)
+  ON DELETE NO ACTION

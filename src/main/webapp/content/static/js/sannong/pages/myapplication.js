@@ -43,6 +43,10 @@ require(['../main'], function () {
                         //更新成功重新加载questionnaire and answer
                         var questionnaireNo = $("#questionnaireNo").val();
                         questionnaire.showQuestions(questionnaireNo);
+                        
+                        //show comment
+                        $("#questionnaireStatus").children().text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
+                        $("#questionnaireStatus").show();
                     }else{
                     	if ($("#save-success") != null){
                             $("#save-success").remove();
@@ -59,7 +63,8 @@ require(['../main'], function () {
 
             $(function() {
                 questionnaire.showQuestions(1);
-
+                
+                $("#questionnaireStatus").show();
 
                 $("#save").click(function(){
                     myApplication.submitForm(0);

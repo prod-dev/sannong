@@ -23,7 +23,14 @@ public class Answer implements Serializable{
 	private List<String> answers;
 	private int questionnaireNo;
 	private List<Question> questions;
+	private Comment comment;
 	
+	public Comment getComment() {
+		return comment;
+	}
+	public void setComment(Comment comment) {
+		this.comment = comment;
+	}
 	public List<Question> getQuestions() {
 		return questions;
 	}

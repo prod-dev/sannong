@@ -30,7 +30,7 @@
 
             <!-- Tab panes -->
             <div class="tab-content">
-                <form id="answerForm" role="form" action="updateAnswers" method="post">
+                <form id="answerForm" role="form" action="updateAnswersAndComment" method="post">
 	                <div class="tab-pane active" id="questionnaire"></div>
 	                <input type="hidden" name="answerStatus" id="answerStatus" > 
 	                <input type="hidden" name="questionnaireNo" id="questionnaireNo" >
@@ -41,7 +41,8 @@
 	            <button id="save" type="button" class="btn btn-primary" onclick="Sannong.MyApplication.submitForm(0)">暂存</button>
 	            <button id="submit" type="button" class="btn btn-primary" onclick="Sannong.MyApplication.submitForm(1)">提交</button>
             </div>
-            
+            <br>
+	        <div id="questionnaireStatus" style="display:none">状态：<div>如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员</div></div>
             <!-- Button trigger modal -->
             <button type="button" id="myModalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
             <div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -31,18 +31,20 @@ require(['../main'], function () {
             }
 
             applicants.update = function () {
-                $("#myModalTrigger").click();
+            	if (formValidator.getValidator("#answerForm").form() == true){
+            		$("#myModalTrigger").click();
+            
+            	}
             }
 
             $("#submit").click(function(event){
-                //$("#answerForm").submit();
-                $("#answerForm").ajaxSubmit(function(message) {
-                    if (message.result == true){
-                        $("#return").click();
-                    }else{
-                        alert("更新失败！");
-                    }
-                });
+        		$("#answerForm").ajaxSubmit(function(message) {
+        			if (message.result == true){
+        				$("#return").click();
+        			}else{
+        				alert("更新失败！");
+        			}
+        		});
                 return false;
             });
 
@@ -215,6 +217,26 @@ require(['../main'], function () {
                                     }
                                 });
                             }
+                        }
+                        
+                        //comment service
+                        if ($("#applicationId")){
+                        	$("#applicationId").val(data.application.applicationId);
+                        }
+                        if (data.comment != null && data.comment.content != null){
+                        	var comment = data.comment.content;
+                        	$("#questionnaireStatus").children().attr("placeholder",comment);
+                        	
+                        	if($("#questionnaireStatus").hide()){
+                        		$("#questionnaireStatus").show();
+                        	}
+                        } else if (answerString == null || answerString == ""){
+                        	$("#questionnaireStatus").hide();
+                        } else {
+                        	if($("#questionnaireStatus")){
+                        		$("#questionnaireStatus").children().attr("placeholder","如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
+                        		$("#questionnaireStatus").show();
+                        	}
                         }
                     }
                 });

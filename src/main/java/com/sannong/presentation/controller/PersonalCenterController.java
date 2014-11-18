@@ -334,8 +334,8 @@ public class PersonalCenterController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "updateAnswers", method = RequestMethod.POST)
-    public @ResponseBody DTO updateAnswers(@ModelAttribute("answerForm") Answer answer) throws Exception{
+    @RequestMapping(value = "updateAnswersAndComment", method = RequestMethod.POST)
+    public @ResponseBody DTO updateAnswersAndComment(@ModelAttribute("answerForm") Answer answer) throws Exception{
     	
     	String userName = null;
         Boolean result = true;
@@ -362,7 +362,7 @@ public class PersonalCenterController {
         User applicant = new User();
         applicant.setUserName(userName);
         answer.setApplicant(applicant);
-        result = projectService.updateAnswers(answer);
+        result = projectService.updateAnswersAndComment(answer);
     	
         return new DTO(result,null);
     }
