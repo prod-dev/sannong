@@ -21,7 +21,7 @@ require(['../main'], function () {
 
     };
 
-    function showCellphoneError(){
+    function showUniqueCellphoneError(){
         projectApplication.View.cellphoneError.remove();
         projectApplication.View.cellphone.removeClass("error");
         projectApplication.View.cellphone.after(projectApplication.Model.cellphoneErrorMsg);
@@ -84,19 +84,22 @@ require(['../main'], function () {
 
                 ajaxHandler.sendRequest({
                     type: "GET",
-                    url: "validateValidationCode",
+                    url: "validateFormOnSubmit",
+                    dataType: "json",
                     data:{
                         cellphone: $("#cellphone").val(),
                         validationCode: $("#validationCode").val()
                     },
                     success: function(response){
-                        if (response == true){
+                        if (response.valid == true){
                             $("#myModalTrigger").click();
-                        }else{
+                        }else if (response.uniqueCellphoneValid == false){
+                            showUniqueCellphoneError();
+                        }else if (response.validationCodeValid == false){
                             showValidationCodeError();
                         }
                     },
-                    fail: function(){
+                    fail: function(response){
                         showValidationCodeError();
                     }
                 });
@@ -119,11 +122,11 @@ require(['../main'], function () {
                             sendValidationCode();
                         }
                     }else{
-                        showCellphoneError();
+                        showUniqueCellphoneError();
                     }
                 },
                 fail: function(){
-                    showCellphoneError();
+                    showUniqueCellphoneError();
                 }
             });
         });

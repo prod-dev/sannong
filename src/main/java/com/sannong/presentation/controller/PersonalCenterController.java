@@ -54,8 +54,6 @@ public class PersonalCenterController {
     private ISmsService smsService;
     @Resource
     private IProjectService projectService;
-    @Resource
-    private AppConfig appConfig;
 
     /**
      * Determine which page will be shown when user login. If user is admin, show applicants page,

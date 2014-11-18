@@ -62,19 +62,6 @@ public class ProjectServiceImpl implements IProjectService {
     @Autowired
     private MailAsyncSender mailAsyncSender;
 
-
-    public boolean checkUserNameAvailable(HttpServletRequest request) {
-        String username = request.getParameter("username");
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userName", username);
-        List<User> li = userRepository.getUserByCondition(map);
-        if (li.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Update answers to answer fields relatively
      *
@@ -223,17 +210,6 @@ public class ProjectServiceImpl implements IProjectService {
         answer.setQuestions(questions);
 
         return answer;
-    }
-
-    @Override
-    public boolean validateUniqueCellphone(String cellphone) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("cellphone", cellphone);
-        List<User> users = userRepository.getUserByCondition(map);
-        if (users.size() > 0) {
-            return false;
-        }
-        return true;
     }
 
     public int getTotalQuestions() {

@@ -1,15 +1,14 @@
 package com.sannong.presentation.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
-import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.service.ISmsService;
+import com.mysql.jdbc.StringUtils;
+import com.sannong.infrastructure.persistance.entity.Answer;
+import com.sannong.infrastructure.persistance.entity.Application;
+import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.infrastructure.util.AppConfig;
+import com.sannong.presentation.utils.JsonConvertor;
+import com.sannong.service.IProjectService;
+import com.sannong.service.IUserService;
+import com.sannong.service.IValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.jdbc.StringUtils;
-import com.sannong.infrastructure.persistance.entity.Answer;
-import com.sannong.infrastructure.persistance.entity.Application;
-import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.util.AppConfig;
-import com.sannong.service.IProjectService;
-import com.sannong.service.IUserService;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -37,20 +36,19 @@ import com.sannong.service.IUserService;
 public class ProjectApplicationController {
     private static final String APPLICATION_PAGE = "projectapplication";
     private static final String COMPLETION_PAGE = "completion";
-    private static final String ERROR_PAGE = "error";
-    
+
+    @Autowired
+    private AppConfig appConfig;
     @Resource
     private IProjectService projectService;
     @Resource
     private IUserService userService;
-    @Resource
-    private ISmsService smsService;
     @Autowired
-    private AppConfig appConfig;
+    private IValidationService validationService;
 
     @RequestMapping(value = "applicationpage", method = RequestMethod.GET)
-    public ModelAndView show(HttpServletRequest request) {
-    	request.getSession().setAttribute(appConfig.getSessionSmsCodes(), null); //clear sms code session
+    public ModelAndView showPage(HttpServletRequest request) {
+        request.getSession().setAttribute(appConfig.getSessionSmsCodes(), null);
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("projectapplication", new Object());
         return new ModelAndView(APPLICATION_PAGE, models);
@@ -68,68 +66,67 @@ public class ProjectApplicationController {
         return new ModelAndView(COMPLETION_PAGE, models);
     }
 
-    @RequestMapping(value = "useravail", method = RequestMethod.GET)
-    public @ResponseBody boolean checkUsernameAvail(HttpServletRequest request) {
-    	return projectService.checkUserNameAvailable(request);
-    }
+    @RequestMapping(value = "questionAndAnswer", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    Answer getQuestionnaireAndAnswerByCondition(HttpServletRequest request) throws Exception {
 
-    @RequestMapping(value = "questionAndAnswer",method = RequestMethod.GET)
-    public @ResponseBody Answer getQuestionnaireAndAnswerByCondition(HttpServletRequest request) throws Exception {
-        
-    	String questionnaireNo = request.getParameter("questionnaireNo");
-    	String cellphone = request.getParameter("cellphone");
-    	String userName = null;
-    	String realName = null;
-    	
-    	if (cellphone != null) {
-    		Map<String, Object> map = new HashMap<String, Object>();
-    		map.put("cellphone", cellphone);
-    		List<User> userList = userService.getUserByCondition(map);
-    		
-    		if (userList != null &&  userList.get(0) != null) {
-    			userName = userList.get(0).getUserName();
-    			realName = userList.get(0).getRealName();
-    		}
-    	} else if (StringUtils.isNullOrEmpty(userName)) {
-    	    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    	        
-	        if (principal instanceof UserDetails) {
-	        	userName = ((UserDetails) principal).getUsername();
-	        } else {
-	        	userName = principal.toString();
-	        }
-    	}
-    	
-        Map<String,Object> map = new HashMap<String,Object>();
+        String questionnaireNo = request.getParameter("questionnaireNo");
+        String cellphone = request.getParameter("cellphone");
+        String userName = null;
+        String realName = null;
+
+        if (cellphone != null) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("cellphone", cellphone);
+            List<User> userList = userService.getUserByCondition(map);
+
+            if (userList != null && userList.get(0) != null) {
+                userName = userList.get(0).getUserName();
+                realName = userList.get(0).getRealName();
+            }
+        } else if (StringUtils.isNullOrEmpty(userName)) {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            if (principal instanceof UserDetails) {
+                userName = ((UserDetails) principal).getUsername();
+            } else {
+                userName = principal.toString();
+            }
+        }
+
+        Map<String, Object> map = new HashMap<String, Object>();
         map.put("questionnaireNo", questionnaireNo);
         map.put("userName", userName);
-        
-    	Answer answer = projectService.getQuestionnaireAndAnswerByCondition(map);
-    	User user = new User();
-    	user.setUserName(userName);
-    	user.setRealName(realName);
-    	answer.setApplicant(user);
-    	
-    	return answer;
+
+        Answer answer = projectService.getQuestionnaireAndAnswerByCondition(map);
+        User user = new User();
+        user.setUserName(userName);
+        user.setRealName(realName);
+        answer.setApplicant(user);
+
+        return answer;
     }
 
-    @RequestMapping(value = "validateUniqueCellphone",method = RequestMethod.GET)
-    public @ResponseBody boolean validateUniqueCellphone(HttpServletRequest request){
-        String cellphone = request.getParameter("applicant.cellphone");
-        if (org.apache.commons.lang3.StringUtils.isBlank(cellphone)){
-            cellphone = request.getParameter("cellphone");
-        }
-        return projectService.validateUniqueCellphone(cellphone);
-    }
-
-    @RequestMapping(value = "validateValidationCode",method = RequestMethod.GET)
-    public @ResponseBody boolean validateValidationCode(HttpServletRequest request){
+    @RequestMapping(value = "validateFormOnSubmit", method = RequestMethod.GET)
+    public @ResponseBody String validateForm(HttpServletRequest request) throws IOException {
         String cellphone = request.getParameter("cellphone");
         String validationCode = request.getParameter("validationCode");
-        List<SMS> smsList = smsService.getSmsByCellphoneAndValidationCode(cellphone, validationCode);
-        if (!smsList.isEmpty()){
-            return true;
-        }
-        return false;
+
+        boolean uniqueCellphoneValid = validationService.validateUniqueCellphone(cellphone);
+        boolean validationCodeValid = validationService.validateValidationCode(cellphone, validationCode);
+
+        boolean valid = validationCodeValid && uniqueCellphoneValid;
+
+        Map<String, Object> resultMap = new HashMap();
+        resultMap.put("valid", valid);
+        resultMap.put("uniqueCellphoneValid", uniqueCellphoneValid);
+        resultMap.put("validationCodeValid", validationCodeValid);
+
+        String result = JsonConvertor.toJSON(resultMap);
+
+        return result;
     }
+
+
 }

@@ -28,8 +28,6 @@ public class SmsController {
     private ISmsService smsService;
     @Resource
     private IUserService userService;
-    @Autowired
-    private SmsUrlFactory smsUrlFactory;
 
     @RequestMapping(value = "updatesms", method = RequestMethod.GET)
     public @ResponseBody boolean updateSMS(HttpServletRequest request) {
