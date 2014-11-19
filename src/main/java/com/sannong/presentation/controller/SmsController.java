@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,11 +108,12 @@ public class SmsController {
                 return false;
             }
             String password = PasswordGenerator.generatePassword(6);
-            String encryptedPassword = PasswordGenerator.encryptPassword(password, cellphone);
             String smsResponse = smsService.sendNewPasswordMessage(cellphone, password);
             if (StringUtils.isNotBlank(smsResponse)){
-                user.setPassword(encryptedPassword);
-                return userService.updateUser(user);
+                user.setPassword(PasswordGenerator.encryptPassword(password, cellphone));
+                user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+                
+                return userService.updatePassword(user);
             } else {
                 return false;
             }
