@@ -39,7 +39,6 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 	$("#questionnaire").append(html);
                 }
 
-                //remove extra checkbox and radio button
                 $("#questionnaire").find(".checkbox-inline").each(function(){
                     var checkbox = $(this).text();
                     if (checkbox.trim() == ""){

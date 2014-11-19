@@ -141,7 +141,6 @@ require(['../main'], function () {
         questionnaire.showQuestionnaire();
         region.Controller.addProvinces();
         addEventListener();
-
     });
 
     sannong.ProjectApplication = projectApplication;
