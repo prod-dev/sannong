@@ -45,6 +45,10 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 var saveOrSubmit = answerStatusStr.substring(1,2);
                 var currentQuestionnaireNo = questionnaireNo;
                 var radioStatus = 1;  //1:submit 0:save 默认提交状态，radio不可用
+                
+                if ($("#questionnaireStatus")){
+                	$("#questionnaireStatus").hide();
+                }
 
                 if (currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0){
                     radioStatus = 0;
@@ -205,18 +209,20 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                     }
                 }
                 //comment service
-                if (answerString == null || answerString == ""){
-                	$("#questionnaireStatus").hide();
-                } else if (data.comment != null && data.comment.content != null){
+                if (data.comment != null && data.comment.content != null){
                 	var comment = data.comment.content;
                 	if($("#questionnaireStatus")){
                 		$("#questionnaireStatus").children().text(comment);
                 		$("#questionnaireStatus").show();
                 	}
+                } else if (answerString == null || answerString == ""){
+                	$("#questionnaireStatus").hide();
                 } else{
                 	if($("#questionnaireStatus")){
-                		$("#questionnaireStatus").children().text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
-                		$("#questionnaireStatus").show();
+                		if (!(currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0)){
+                			$("#questionnaireStatus").children().text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
+                			$("#questionnaireStatus").show();
+                		}
                 	}
                 }
             }

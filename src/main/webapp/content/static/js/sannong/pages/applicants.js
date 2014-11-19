@@ -234,6 +234,7 @@ require(['../main'], function () {
                         	$("#questionnaireStatus").hide();
                         } else {
                         	if($("#questionnaireStatus")){
+                        		$("#questionnaireStatus").children().val("");
                         		$("#questionnaireStatus").children().attr("placeholder","如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
                         		$("#questionnaireStatus").show();
                         	}
