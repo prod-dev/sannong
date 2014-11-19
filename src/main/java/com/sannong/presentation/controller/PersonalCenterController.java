@@ -106,10 +106,10 @@ public class PersonalCenterController {
         Map<String, Object> map = new HashMap<String,Object>();
         String pageIndex = request.getParameter("pageIndex");
         String cellphone = request.getParameter("cellphone");
-    	String realName = request.getParameter("realName") == null ? null : new String(request.getParameter("realName").getBytes(ISO),UTF8);
-    	String company = request.getParameter("company") == null ? null : new String(request.getParameter("company").getBytes(ISO),UTF8);
-    	String jobTitle = request.getParameter("jobTitle") == null ? null : new String(request.getParameter("jobTitle").getBytes(ISO),UTF8);
-    	String companyAddress = request.getParameter("companyAddress") == null ? null : new String(request.getParameter("companyAddress").getBytes(ISO),UTF8);
+    	String realName = request.getParameter("realName");
+    	String company = request.getParameter("company");
+    	String jobTitle = request.getParameter("jobTitle");
+    	String companyAddress = request.getParameter("companyAddress");
     	String mailbox = request.getParameter("mailbox");
     	String provinceIndex = request.getParameter("provinceIndex");
     	String cityIndex = request.getParameter("cityIndex");
@@ -247,10 +247,10 @@ public class PersonalCenterController {
 
     	Map<String, Object> map = new HashMap<String,Object>();
     	String cellphone = request.getParameter("cellphone");
-    	String realName = request.getParameter("realName") == null ? null : new String(request.getParameter("realName").getBytes(ISO),UTF8);
-    	String company = request.getParameter("company") == null ? null : new String(request.getParameter("company").getBytes(ISO),UTF8);
-    	String jobTitle = request.getParameter("jobTitle") == null ? null : new String(request.getParameter("jobTitle").getBytes(ISO),UTF8);
-    	String companyAddress = request.getParameter("companyAddress") == null ? null : new String(request.getParameter("companyAddress").getBytes(ISO),UTF8);
+    	String realName = request.getParameter("realName");
+    	String company = request.getParameter("company");
+    	String jobTitle = request.getParameter("jobTitle");
+    	String companyAddress = request.getParameter("companyAddress");
     	String mailbox = request.getParameter("mailbox");
     	String provinceIndex = request.getParameter("provinceIndex");
     	String cityIndex = request.getParameter("cityIndex");
@@ -381,10 +381,10 @@ public class PersonalCenterController {
     	
         Map<String, Object> map = new HashMap<String,Object>();
         String cellphone = request.getParameter("cellphone");
-    	String realName = request.getParameter("realName") == null ? null : new String(request.getParameter("realName").getBytes(ISO),UTF8);
-    	String company = request.getParameter("company") == null ? null : new String(request.getParameter("company").getBytes(ISO),UTF8);
-    	String jobTitle = request.getParameter("jobTitle") == null ? null : new String(request.getParameter("jobTitle").getBytes(ISO),UTF8);
-    	String companyAddress = request.getParameter("companyAddress") == null ? null : new String(request.getParameter("companyAddress").getBytes(ISO),UTF8);
+    	String realName = request.getParameter("realName");
+    	String company = request.getParameter("company");
+    	String jobTitle = request.getParameter("jobTitle");
+    	String companyAddress = request.getParameter("companyAddress");
         String mailbox = request.getParameter("mailbox");
         String provinceIndex = request.getParameter("provinceIndex");
         String cityIndex = request.getParameter("cityIndex");
