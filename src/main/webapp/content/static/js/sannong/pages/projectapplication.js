@@ -138,7 +138,7 @@ require(['../main'], function () {
 
 
     $(function() {
-        questionnaire.showQuestions(1);
+        questionnaire.showQuestionnaire();
         region.Controller.addProvinces();
         addEventListener();
 

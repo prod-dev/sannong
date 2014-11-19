@@ -8,6 +8,54 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
 
     var questionnaire = {};
 
+    questionnaire.showQuestionnaire = function(){
+    	$.ajax({
+            type: "get",
+            dataType: "json",
+            url: 'questionAndAnswer',
+            data: "questionnaireNo=1",
+            success: function(data) {
+            	//fill out questionnaire
+                var handleCheckbox = handlebars.compile($("#question-template-checkbox").html());
+                var handleRadio = handlebars.compile($("#question-template-radio").html());
+                var questionObject = null;
+                var html = null;
+                
+                $("#questionnaire").empty();
+                for (var i = 0; i < data.questions.length; i++){
+                	 handlebars.registerHelper("fromOne",function(){
+                         return i+1;
+                     });
+                     handlebars.registerHelper("fromZero",function(){
+                         return i;
+                     });
+                     
+                	questionObject = data.questions[i];
+                	if (questionObject.isSingle == 1){
+                		html = handleRadio(questionObject);
+                	}else{
+                		html = handleCheckbox(questionObject);
+                	}
+                	$("#questionnaire").append(html);
+                }
+
+                //remove extra checkbox and radio button
+                $("#questionnaire").find(".checkbox-inline").each(function(){
+                    var checkbox = $(this).text();
+                    if (checkbox.trim() == ""){
+                        $(this).remove();
+                    }
+                });
+                $("#questionnaire").find(".radio-inline").each(function(){
+                    var radio = $(this).text();
+                    if (radio.trim() == ""){
+                        $(this).remove();
+                    }
+                });
+            }
+    	});
+    }
+    
     questionnaire.showQuestions = function(questionnaireNo){
 
         $("#buttonGroup").show();
