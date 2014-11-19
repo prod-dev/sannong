@@ -1,5 +1,6 @@
 package com.sannong.presentation.controller;
 
+import java.io.*;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
@@ -7,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.sannong.infrastructure.persistance.entity.SMS;
 import org.apache.commons.lang3.StringUtils;
@@ -373,7 +376,7 @@ public class PersonalCenterController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/exportCSV")
+    @RequestMapping(value = "exportCSV", method = RequestMethod.POST)
     public @ResponseBody DTO exportAll(HttpServletRequest request) throws Exception {
     	
         Map<String, Object> map = new HashMap<String,Object>();
@@ -404,7 +407,50 @@ public class PersonalCenterController {
         List<User> applicants = userService.getUserByFuzzyMatch(map);
         int questionSum = projectService.getTotalQuestions();
         String filePath = CsvExporter.export(applicants,questionSum);
+
+        String[] filePathSplit = filePath.split("/");
+        String fileName = filePathSplit[3];
         
-        return new DTO(true,filePath);
+        return new DTO(true,fileName);
+    }
+
+
+    @RequestMapping(value = "downloadCsv", method = RequestMethod.GET)
+    public void downloadCsv(HttpServletRequest request, HttpServletResponse response) throws IOException{
+
+        String fileName = request.getParameter("csvFileName");
+
+        java.io.BufferedInputStream bufferInputStream = null;
+        java.io.BufferedOutputStream bufferOutputStream = null;
+
+        String ctxPath = request.getSession().getServletContext().getRealPath("/") + "csvfiles/";
+        String downLoadPath = ctxPath + fileName;
+
+        try {
+            long fileLength = new File(downLoadPath).length();
+
+            response.setContentType("text/csv");
+            response.setHeader("Content-Disposition", "attachment; filename=" + new String(fileName.getBytes("utf-8"), "ISO8859-1"));
+            response.setHeader("Content-Length", String.valueOf(fileLength));
+
+            bufferInputStream = new BufferedInputStream(new FileInputStream(downLoadPath));
+            bufferOutputStream = new BufferedOutputStream(response.getOutputStream());
+
+            byte[] buff = new byte[2048];
+            int bytesRead;
+            while (-1 != (bytesRead = bufferInputStream.read(buff, 0, buff.length))) {
+                bufferOutputStream.write(buff, 0, bytesRead);
+            }
+
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        } finally {
+            if (bufferInputStream != null){
+                bufferInputStream.close();
+            }
+            if (bufferOutputStream != null){
+                bufferOutputStream.close();
+            }
+        }
     }
 }

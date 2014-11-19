@@ -239,10 +239,10 @@ CREATE TABLE `sannong`.`comments` (
   `content` VARCHAR(4000) NOT NULL,
   `application_id` BIGINT NOT NULL,
   `create_time` DATETIME NOT NULL,
-  `username` VARCHAR(45) NOT NULL AFTER `create_time`,
+  `username` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`comments_id`),
   INDEX `fk_comments_application_id_idx` (`application_id` ASC),
-  INDEX `fk_comments_username_idx` (`username` ASC)
+  INDEX `fk_comments_username_idx` (`username` ASC),
   CONSTRAINT `fk_comments_application_id`
     FOREIGN KEY (`application_id`)
     REFERENCES `sannong`.`applications` (`application_id`)

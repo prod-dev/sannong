@@ -324,16 +324,16 @@ require(['../main'], function () {
                     parameter = parameter + "&provinceIndex=" + provinceIndex + "&cityIndex=" + cityIndex + "&districtIndex=" + districtIndex;
 
                     $.ajax({
-                        type : "get",
+                        type : "post",
                         dataType : "json",
                         url : "exportCSV",
                         data : parameter,
                         success : function(data) {
                         	$('#exportModal').modal('hide');
-                        	location.href = data.returnValue;
+                        	location.href = "/sannong/downloadCsv?csvFileName=" + data.returnValue;
                         }
                     });
-                    
+
                 })
             }
 
