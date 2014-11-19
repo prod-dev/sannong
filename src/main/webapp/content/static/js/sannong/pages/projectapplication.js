@@ -111,24 +111,28 @@ require(['../main'], function () {
         });
 
         $("#action-send-code").click(function(event){
-            ajaxHandler.sendRequest({
-                type: "GET",
-                url: "validateUniqueCellphone",
-                data:{cellphone: $("#cellphone").val()},
-                success: function(response){
-                    if (response == true){
-                        if (formValidator.getValidator("#applicationForm").form() == true ){
-                            additionalMethods.updateTimeLabel("#action-send-code", "验证码");
-                            sendValidationCode();
+            if (formValidator.getValidator("#applicationForm").element($("#cellphone")) == false){
+                return;
+            } else {
+                ajaxHandler.sendRequest({
+                    type: "GET",
+                    url: "validateUniqueCellphone",
+                    data:{cellphone: $("#cellphone").val()},
+                    success: function(response){
+                        if (response == true){
+                            if (formValidator.getValidator("#applicationForm").form() == true ){
+                                additionalMethods.updateTimeLabel("#action-send-code", "验证码");
+                                sendValidationCode();
+                            }
+                        }else{
+                            showUniqueCellphoneError();
                         }
-                    }else{
+                    },
+                    fail: function(){
                         showUniqueCellphoneError();
                     }
-                },
-                fail: function(){
-                    showUniqueCellphoneError();
-                }
-            });
+                });
+            }
         });
     }
 
