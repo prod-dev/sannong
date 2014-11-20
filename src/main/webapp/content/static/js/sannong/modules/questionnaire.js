@@ -72,6 +72,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
         if ($("#q" + questionnaireNo).parent().hasClass("disabled")) {
             $("#questionnaire").empty();
             $("#buttonGroup").hide();
+            $("#questionnaireStatus").hide();
             return false;
         }
 
