@@ -36,6 +36,7 @@ import java.util.Map;
 public class ProjectApplicationController {
     private static final String APPLICATION_PAGE = "projectapplication";
     private static final String COMPLETION_PAGE = "completion";
+    private static final String PROJECT_APPLICATION_PAGE = "/pages/project-application";
 
     @Autowired
     private AppConfig appConfig;
@@ -45,6 +46,17 @@ public class ProjectApplicationController {
     private IUserService userService;
     @Autowired
     private IValidationService validationService;
+
+
+
+    @RequestMapping(value = "project-application", method = RequestMethod.GET)
+    public ModelAndView showProjectApplicationPage(HttpServletRequest request) {
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("project-application", new Object());
+        return new ModelAndView(PROJECT_APPLICATION_PAGE, models);
+    }
+
+
 
     @RequestMapping(value = "applicationpage", method = RequestMethod.GET)
     public ModelAndView showPage(HttpServletRequest request) {
