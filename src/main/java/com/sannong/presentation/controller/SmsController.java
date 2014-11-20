@@ -110,7 +110,7 @@ public class SmsController {
             String password = PasswordGenerator.generatePassword(6);
             String smsResponse = smsService.sendNewPasswordMessage(cellphone, password);
             if (StringUtils.isNotBlank(smsResponse)){
-                user.setPassword(PasswordGenerator.encryptPassword(password, cellphone));
+                user.setPassword(PasswordGenerator.encryptPassword(password, user.getUserName()));
                 user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
                 
                 return userService.updatePassword(user);

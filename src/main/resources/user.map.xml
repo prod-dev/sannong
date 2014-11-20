@@ -197,4 +197,11 @@
             </if>
        	</where>
     </select>
+
+
+    <select id="getUserNameByCellphone" parameterType="String" resultType="String">
+        select username from users where cellphone = #{cellphone}
+
+    </select>
+
 </mapper>

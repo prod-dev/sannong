@@ -26,5 +26,7 @@ public interface UserRepository {
     List<User> getUserByFuzzyMatch(Map<String,Object> map);
     
     String getUserTotalCount(Map<String,Object> map);
+
+    String getUserNameByCellphone(String cellphone);
 }
 
