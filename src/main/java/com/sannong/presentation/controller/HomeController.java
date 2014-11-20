@@ -16,6 +16,7 @@ public class HomeController {
 
 	private static final String HOME_PAGE = "home";
     private static final String FAQ_PAGE = "faq";
+    private static final String LANDING_PAGE = "landing";
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
