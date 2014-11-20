@@ -1,8 +1,8 @@
 package com.sannong.domain.factories;
 
-import com.sannong.domain.valuetypes.Region;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
+
+import com.sannong.domain.valuetypes.Region;
 
 /**
  * Created by Bright Huang on 11/14/14.

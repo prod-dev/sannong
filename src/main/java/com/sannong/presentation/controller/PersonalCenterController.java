@@ -1,6 +1,10 @@
 package com.sannong.presentation.controller;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,11 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sannong.infrastructure.persistance.entity.SMS;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -30,8 +32,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sannong.infrastructure.dataexport.CsvExporter;
 import com.sannong.infrastructure.persistance.entity.Answer;
+import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.presentation.model.DTO;
 import com.sannong.service.IProjectService;
 import com.sannong.service.ISmsService;
@@ -47,8 +49,6 @@ public class PersonalCenterController {
     private static final String MY_PASSWORD_PAGE = "mypassword";
     private static final String APPLICANTS_PAGE = "applicants";
     private static final String LOGIN_PAGE = "login";
-    private static final String ISO = "iso8859-1";
-    private static final String UTF8 = "UTF-8";
     private static final long pageSum = 10;
 
     @Resource
