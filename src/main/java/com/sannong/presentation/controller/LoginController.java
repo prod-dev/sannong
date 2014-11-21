@@ -1,6 +1,12 @@
 package com.sannong.presentation.controller;
 
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,16 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * Created by Bright Huang on 10/14/14.
  */
 @Controller
 public class LoginController {
+	
     private static final String LOGIN_PAGE = "login";
     private static final String FORGOT_PASSWORD_PAGE = "forgotpassword";
     private static final String MY_APPLICATION_PAGE = "myapplication";
@@ -26,9 +28,7 @@ public class LoginController {
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public ModelAndView showLoginPage() {
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("login", new Object());
-        return new ModelAndView(LOGIN_PAGE, models);
+        return new ModelAndView(LOGIN_PAGE);
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
@@ -38,9 +38,7 @@ public class LoginController {
 
     @RequestMapping(value = "forgotpassword", method = RequestMethod.GET)
     public ModelAndView forgotPassword() {
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("forgotpassword", new Object());
-        return new ModelAndView(FORGOT_PASSWORD_PAGE, models);
+        return new ModelAndView(FORGOT_PASSWORD_PAGE);
     }
 
     @RequestMapping(value = "authentication-success", method = RequestMethod.GET)

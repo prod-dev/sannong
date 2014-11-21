@@ -88,10 +88,7 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "applicants", method = RequestMethod.GET)
     public ModelAndView showList() {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("applicants", new Object());
-        return new ModelAndView(APPLICANTS_PAGE, models);
+        return new ModelAndView(APPLICANTS_PAGE);
     }
 
     /**
@@ -143,11 +140,7 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "myapplication", method = RequestMethod.GET)
     public ModelAndView myApplication() {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("myapplication", new Object());
-
-        return new ModelAndView(MY_APPLICATION_PAGE, models);
+        return new ModelAndView(MY_APPLICATION_PAGE);
     }
 
     /**
@@ -196,8 +189,6 @@ public class PersonalCenterController {
         models.put("myinfo", user);
         models.put("status", "saved");
         return new ModelAndView(MY_INFO_PAGE, models);
-
-
     }
 
     /**
@@ -275,11 +266,7 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "mypassword", method = RequestMethod.GET)
     public ModelAndView myPassword() {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("mypassword", new Object());
-
-        return new ModelAndView(MY_PASSWORD_PAGE, models);
+        return new ModelAndView(MY_PASSWORD_PAGE);
     }
 
     /**
