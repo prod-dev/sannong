@@ -45,16 +45,44 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                         $(this).remove();
                     }
                 });
+
                 $("#questionnaire").find(".radio-inline").each(function(){
                     var radio = $(this).text();
                     if (radio.trim() == ""){
                         $(this).remove();
                     }
                 });
+
+                $("#questionnaire").find(".checkboxCustom").each(function(){
+                    var checkbox = $(this).text();
+                    if (checkbox.trim() == ""){
+                        $(this).remove();
+                    }
+                });
+
+                $("#questionnaire").find(".radioCustom").each(function(){
+                    var radio = $(this).text();
+                    if (radio.trim() == ""){
+                        $(this).remove();
+                    }
+                });
+
+                $('.radioCustom input').click(function () {
+                    $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
+                    $(this).parent(".radioCustom").addClass("radioCustom-checked");
+                });
+
+                $('.checkboxCustom').click(function () {
+                    $(this).toggleClass('checkboxCustom-checked');
+                    var $checkbox = $(this).find(':checkbox');
+                    $checkbox.attr('checked', !$checkbox.attr('checked'));
+                });
+
             }
     	});
     }
-    
+
+
     questionnaire.showQuestions = function(questionnaireNo){
 
         $("#buttonGroup").show();

@@ -51,12 +51,62 @@ public class PersonalCenterController {
     private static final String UTF8 = "UTF-8";
     private static final long pageSum = 10;
 
+    private static final String PAGE_MY_APPLICATION = "/pages/user-application-form";
+    private static final String PAGE_USER_PROFILE = "/pages/user-profile";
+    private static final String PAGE_USER_PASSWORD = "/pages/user-password";
+    private static final String PAGE_USER_MANAGEMENT = "/pages/user-management";
+    private static final String PAGE_POPUPS = "/pages/popups";
+    private static final String PAGE_POST_APPLICATION = "/pages/post-application";
+
+
+
     @Resource
     private IUserService userService;
     @Resource
     private ISmsService smsService;
     @Resource
     private IProjectService projectService;
+
+    @RequestMapping(value = "my-application", method = RequestMethod.GET)
+    public ModelAndView showUserApplicationForm() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("user-application-form", new Object());
+        return new ModelAndView(PAGE_MY_APPLICATION, models);
+    }
+
+    @RequestMapping(value = "user-profile", method = RequestMethod.GET)
+    public ModelAndView showUserProfile() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("user-profile", new Object());
+        return new ModelAndView(PAGE_USER_PROFILE, models);
+    }
+
+    @RequestMapping(value = "user-management", method = RequestMethod.GET)
+    public ModelAndView showUserManagement() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("user-management", new Object());
+        return new ModelAndView(PAGE_USER_MANAGEMENT, models);
+    }
+
+    @RequestMapping(value = "popups", method = RequestMethod.GET)
+    public ModelAndView showPopups() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("popups", new Object());
+        return new ModelAndView(PAGE_POPUPS, models);
+    }
+
+    @RequestMapping(value = "post-application", method = RequestMethod.GET)
+    public ModelAndView showPostApplication() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("post-application", new Object());
+        return new ModelAndView(PAGE_POST_APPLICATION, models);
+    }
+
 
     /**
      * Determine which page will be shown when user login. If user is admin, show applicants page,

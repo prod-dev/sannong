@@ -34,61 +34,9 @@
     <![endif]-->
     
 	</head>
-      <!-- HEADER -->
-    <header>    	
-    	<div class="topbar">
-      	<div class="container">
-        	<div class="row">
-          	<span class="col-sm-12">
-              <ul>
-                <li><a href="#">个人信息</a></li>
-                <li><a href="#">我的项目</a></li>
-                <li><a href="#">登录</a></li>
-              </ul>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="logoContainer">
-      	<div class="container">
-        	<div class="row">
-            <span class="col-sm-4 logoCol">
-              <h1><a href="#"><img src="images/logo.png" alt="Benefitting Agriculture"/></a></h1>
-            </span>
-            <span class="col-sm-4 topNo">
-              电话: <span>0800 556 2540</span>
-            </span>
-            <span class="col-sm-4">
-              <form class="topSearch">
-                <input type="text" placeholder="搜索"/>
-                <a href="" class="glyphicon glyphicon-search"></a>
-              </form>
-            </span>
-          </div>
-        </div>
-      </div>
-      <nav>
-      	<div class="container">
-        	<div class="row">
-          	<span class="col-sm-12">
-            	<span class="mobileMenuIcon">菜单<a class="glyphicon glyphicon-align-justify"></a></span>
-            	<ul>
-              	<li><a href="#">三农快报</a></li>
-                <li><a href="#">招商代理</a></li>
-                <li><a href="#">科技展示</a></li>
-                <li><a href="#">产业行情</a></li>
-                <li><a href="#">行业专题</a></li>
-                <li><a href="#">服务商城</a></li>
-                <li><a href="#">文化专题</a></li>
-                <li><a href="#">医疗快线</a></li>
-                <li class="current"><a href="#">项目合作</a></li>
-              </ul>
-            </span>
-          </div>
-        </div>
-      </nav>      
-    </header>
-    <!-- /HEADER -->
+    <body>
+    <jsp:include page='header.jsp'/>
+    <jsp:include page='nav.jsp'/>
     
        <!-- PAGE TITLE -->
     <div class="page-title home_title">
@@ -100,7 +48,7 @@
                 </div>
                 <div class="col-sm-4 right_link">
                 
-                <a class="orange-bt" href="project-application">立即申请</a>
+                <a class="orange-bt" href="landing">立即申请</a>
                 </div>
               
             </div>
@@ -313,35 +261,12 @@
       </div>
     </section>
     <!-- /CONTENT SECTION -->
-    
-    
-    
-    
-    
-     <!-- FOOTER -->
-    <footer>
-    	<div class="container">
-        <div class="row">          
-          <span class="col-sm-5 copyright">
-            Copyright © 2000-2015 XXXX.com. All Rights Reserved. B2-20052010-6
-          </span>
-          <span class="col-sm-7">
-            <ul>
-            	<li><a href="#">关于我们</a></li>
-              <li><a href="#">联系我们</a></li>
-              <li><a href="#">网站地图</a></li>
-              <li><a href="#">免责条款</a></li>
-              <li><a href="#">应用服务</a></li>
-              <li><a href="#">招聘信息</a></li>
-            </ul>
-          </span>          
-        </div>
-      </div>
-      <div class="logosRow">
-      	<img src="images/footer-logos.jpg"/>
-      </div>
-    </footer>
-    <!-- /FOOTER -->
+
+
+
+
+
+    <jsp:include page='footer.jsp'/>
     
    
    <script type="text/javascript" src="js/jquery.js"></script>
@@ -349,6 +274,6 @@
     <script src="js/owl.carousel.js"></script>
   
 
-	<body>
+
     </body>
 </html>

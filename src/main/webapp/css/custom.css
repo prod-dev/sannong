@@ -543,6 +543,16 @@ h3.borderBottom {
 	margin-bottom:28px;
 	font-size:20px;
 }
+
+.projectAppForm > ul > div > li {
+	float:left;
+	width:100%;
+	border-bottom:1px solid #e8e8e8;
+	padding-bottom:28px;
+	margin-bottom:28px;
+	font-size:20px;
+}
+
 .radioRow {
 	float:left;
 	width:100%;
@@ -556,7 +566,6 @@ h3.borderBottom {
 	margin:0 35px 0 0;
 }
 .radioCustom input {
-	/*visibility:hidden;*/
 	float:left;	
 	margin:0 0 0 -35px !important;
 	width:27px;
@@ -575,6 +584,36 @@ h3.borderBottom {
 	margin-top:25px;
 	font-size:17px;
 }
+
+.projectAppForm .checkboxRow {
+	margin-top:25px;
+	font-size:17px;
+}
+.checkboxCustom {
+	float:left;
+	background:url(../images/checkbox.png) no-repeat left center;
+	height:26px;
+	cursor:pointer;
+	line-height:26px;
+	padding-left:38px;
+	margin:0 15px 0 0;
+}
+
+.checkboxCustom input {
+	/*display:none;*/
+	float:left;
+	margin:0 0 0 -35px !important;
+	width:27px;
+	height:27px;
+	opacity:0;
+	cursor:pointer;
+}
+
+.checkboxCustom-checked {
+	background:url(../images/checkbox-checked.png) no-repeat	left center;
+}
+
+
 .tab-content {
 	display:table;
 	width:100%;
@@ -1226,17 +1265,4 @@ width:100%;
 	}
 }
 
-.checkboxCustom {
-	float:left;
-	background:url(../images/checkbox.png) no-repeat left center;	
-	height:26px;	
-	cursor:pointer;
-	line-height:26px;
-	padding-left:38px;
-}
-.checkboxCustom input {
-	display:none;
-}
-.checkboxCustom-checked {
-	background:url(../images/checkbox-checked.png) no-repeat	left center;
-}
+

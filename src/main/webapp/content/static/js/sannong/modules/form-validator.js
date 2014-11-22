@@ -194,10 +194,8 @@ define(['jquery', 'sannong'], function($, sannong) {
             errorPlacement:function(error,element) {
                 if ( element.is(":radio") ) {
                     error.appendTo(element.parent().parent());
-
                 }else if ( element.is(":checkbox") ) {
                     error.appendTo(element.parent().parent());
-
                 }else if (element.attr("name") == "cellphone") {
                     error.appendTo(element.next().next());
                 } else{
