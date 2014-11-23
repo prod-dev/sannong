@@ -20,7 +20,7 @@
                   <li><a href="project-landing">项目主页</a></li>
                   <li><a href="project-application">项目申请</a></li>
                   <li><a href="user-management">用户管理</a></li>
-                  <li class="current"><a href="my-application">我的项目</a></li>
+                  <li><a href="my-application">我的项目</a></li>
                   <li><a href="user-profile">个人信息</a></li>
                   <li><a href="user-password">更改密码</a></li>
                   <li><a href="faq">常见问题</a></li>

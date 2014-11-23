@@ -47,23 +47,16 @@ public class ProjectApplicationController {
     @Autowired
     private IValidationService validationService;
 
-
-
     @RequestMapping(value = "project-application", method = RequestMethod.GET)
     public ModelAndView showProjectApplicationPage(HttpServletRequest request) {
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("project-application", new Object());
-        return new ModelAndView(PROJECT_APPLICATION_PAGE, models);
+        return new ModelAndView(PROJECT_APPLICATION_PAGE);
     }
-
-
 
     @RequestMapping(value = "applicationpage", method = RequestMethod.GET)
     public ModelAndView showPage(HttpServletRequest request) {
+    	
         request.getSession().setAttribute(appConfig.getSessionSmsCodes(), null);
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("projectapplication", new Object());
-        return new ModelAndView(APPLICATION_PAGE, models);
+        return new ModelAndView(APPLICATION_PAGE);
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
@@ -71,17 +64,12 @@ public class ProjectApplicationController {
                               @ModelAttribute("applicationForm") @Valid Application application,
                               BindingResult result) throws Exception {
 
-        Map<String, Object> models = new HashMap<String, Object>();
-
         projectService.projectApplication(request, application);
-        models.put("completion", new Object());
-        return new ModelAndView(COMPLETION_PAGE, models);
+        return new ModelAndView(COMPLETION_PAGE);
     }
 
     @RequestMapping(value = "questionAndAnswer", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Answer getQuestionnaireAndAnswerByCondition(HttpServletRequest request) throws Exception {
+    public @ResponseBody Answer getQuestionnaireAndAnswerByCondition(HttpServletRequest request) throws Exception{
 
         String questionnaireNo = request.getParameter("questionnaireNo");
         String cellphone = request.getParameter("cellphone");
@@ -130,7 +118,7 @@ public class ProjectApplicationController {
 
         boolean valid = validationCodeValid && uniqueCellphoneValid;
 
-        Map<String, Object> resultMap = new HashMap();
+        Map<String, Object> resultMap = new HashMap<String,Object>();
         resultMap.put("valid", valid);
         resultMap.put("uniqueCellphoneValid", uniqueCellphoneValid);
         resultMap.put("validationCodeValid", validationCodeValid);
@@ -139,6 +127,4 @@ public class ProjectApplicationController {
 
         return result;
     }
-
-
 }

@@ -41,9 +41,6 @@
        <property name="configLocation" value="/WEB-INF/ehcache.xml" />
    </bean>
 
-
-    <bean id="unifiedExceptionResolver" class="com.sannong.presentation.exception.UnifiedExceptionResolver"/>
-
     <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name="corePoolSize" value="5" />
         <property name="maxPoolSize" value="10" />

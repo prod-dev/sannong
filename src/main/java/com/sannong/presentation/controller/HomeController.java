@@ -1,12 +1,12 @@
 package com.sannong.presentation.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,19 +22,13 @@ public class HomeController {
 
 	@RequestMapping(value = "home", method = RequestMethod.GET)
 	public ModelAndView show(HttpServletRequest request, HttpServletResponse response) {
-
-		Map<String, Object> models = new HashMap<String, Object>();
-		models.put("home", new Object());
-		return new ModelAndView(HOME_PAGE, models);
+		return new ModelAndView(HOME_PAGE);
 	}
 
     /*
     @RequestMapping(value = "faq", method = RequestMethod.GET)
     public ModelAndView faq(HttpServletRequest request, HttpServletResponse response) {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("faq", new Object());
-        return new ModelAndView(FAQ_PAGE, models);
+        return new ModelAndView(FAQ_PAGE);
     }
     */
 
@@ -48,7 +42,6 @@ public class HomeController {
 
     @RequestMapping(value = "project-landing", method = RequestMethod.GET)
     public ModelAndView showLandingPage(HttpServletRequest request, HttpServletResponse response) {
-
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("project-landing", new Object());
         return new ModelAndView(PAGE_PROJECT_LANDING, models);

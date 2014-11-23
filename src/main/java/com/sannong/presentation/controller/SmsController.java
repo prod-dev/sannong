@@ -1,25 +1,24 @@
 package com.sannong.presentation.controller;
 
-import com.sannong.domain.factories.SmsUrlFactory;
-import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.util.PasswordGenerator;
-import com.sannong.service.ISmsService;
-import com.sannong.service.IUserService;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.sannong.infrastructure.persistance.entity.SMS;
+import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.infrastructure.util.PasswordGenerator;
+import com.sannong.service.ISmsService;
+import com.sannong.service.IUserService;
 
 /**
  * Created by Bright Huang on 11/9/14.
@@ -119,5 +118,4 @@ public class SmsController {
             }
         }
     }
-
 }

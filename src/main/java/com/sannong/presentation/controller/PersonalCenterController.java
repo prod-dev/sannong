@@ -1,6 +1,10 @@
 package com.sannong.presentation.controller;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,11 +12,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sannong.infrastructure.persistance.entity.SMS;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
@@ -30,8 +32,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sannong.infrastructure.dataexport.CsvExporter;
 import com.sannong.infrastructure.persistance.entity.Answer;
+import com.sannong.infrastructure.persistance.entity.SMS;
 import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.presentation.model.DTO;
 import com.sannong.service.IProjectService;
 import com.sannong.service.ISmsService;
@@ -47,8 +49,6 @@ public class PersonalCenterController {
     private static final String MY_PASSWORD_PAGE = "mypassword";
     private static final String APPLICANTS_PAGE = "applicants";
     private static final String LOGIN_PAGE = "login";
-    private static final String ISO = "iso8859-1";
-    private static final String UTF8 = "UTF-8";
     private static final long pageSum = 10;
 
     private static final String PAGE_MY_APPLICATION = "/pages/user-application-form";
@@ -58,14 +58,14 @@ public class PersonalCenterController {
     private static final String PAGE_POPUPS = "/pages/popups";
     private static final String PAGE_POST_APPLICATION = "/pages/post-application";
 
-
-
     @Resource
     private IUserService userService;
     @Resource
     private ISmsService smsService;
     @Resource
     private IProjectService projectService;
+
+
 
     @RequestMapping(value = "my-application", method = RequestMethod.GET)
     public ModelAndView showUserApplicationForm() {
@@ -138,17 +138,14 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "applicants", method = RequestMethod.GET)
     public ModelAndView showList() {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("applicants", new Object());
-        return new ModelAndView(APPLICANTS_PAGE, models);
+        return new ModelAndView(APPLICANTS_PAGE);
     }
 
     /**
      * Show applicants page
      * @param request
      * @return
-     * @throws Exception 
+     * @throws Exception
      */
     @RequestMapping(value = "showApplicants", method = RequestMethod.GET)
     public @ResponseBody List<User> showList(HttpServletRequest request) throws Exception {
@@ -193,11 +190,7 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "myapplication", method = RequestMethod.GET)
     public ModelAndView myApplication() {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("myapplication", new Object());
-
-        return new ModelAndView(MY_APPLICATION_PAGE, models);
+        return new ModelAndView(MY_APPLICATION_PAGE);
     }
 
     /**
@@ -246,8 +239,6 @@ public class PersonalCenterController {
         models.put("myinfo", user);
         models.put("status", "saved");
         return new ModelAndView(MY_INFO_PAGE, models);
-
-
     }
 
     /**
@@ -305,7 +296,7 @@ public class PersonalCenterController {
     	String provinceIndex = request.getParameter("provinceIndex");
     	String cityIndex = request.getParameter("cityIndex");
     	String districtIndex = request.getParameter("districtIndex");
-    	
+
     	map.put("cellphone", cellphone);
     	map.put("realName", realName);
     	map.put("company", company);
@@ -315,7 +306,7 @@ public class PersonalCenterController {
     	map.put("companyProvince", provinceIndex);
     	map.put("companyCity", cityIndex);
     	map.put("companyDistrict", districtIndex);
-    	
+
     	return userService.getUserTotalCount(map);
     }
 
@@ -325,11 +316,7 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "mypassword", method = RequestMethod.GET)
     public ModelAndView myPassword() {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("mypassword", new Object());
-
-        return new ModelAndView(MY_PASSWORD_PAGE, models);
+        return new ModelAndView(MY_PASSWORD_PAGE);
     }
 
     /**
@@ -345,7 +332,7 @@ public class PersonalCenterController {
         Md5PasswordEncoder md5 = new Md5PasswordEncoder();
         String userName = null;;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        
+
         if (principal instanceof UserDetails) {
         	userName = ((UserDetails) principal).getUsername();
         } else {
@@ -360,10 +347,10 @@ public class PersonalCenterController {
         map.put("userName", userName);
         List<User> userList = userService.getUserByCondition(map);
         User user = null;
-        
+
         if (userList != null && userList.get(0) != null){
         	user = userList.get(0);
-        	
+
 			if (!user.getPassword().equals(md5.encodePassword(oldPassword, userName))){
 			    models.put("myPasswordAuth", "oldPasswordAuthFailure");
 			    return new ModelAndView(MY_PASSWORD_PAGE, models);
@@ -389,20 +376,20 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "updateAnswersAndComment", method = RequestMethod.POST)
     public @ResponseBody DTO updateAnswersAndComment(@ModelAttribute("answerForm") Answer answer) throws Exception{
-    	
+
     	String userName = null;
         Boolean result = true;
-        
+
     	if (answer.getAnswers() == null){
     		result = false;
     		return new DTO(result,null);
     	}
-        
+
         if (answer.getApplicant() != null){
         	userName = answer.getApplicant().getUserName();
         }else {
         	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        	
+
         	if (principal instanceof UserDetails) {
         		SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             	userName = ((UserDetails) principal).getUsername();
@@ -411,12 +398,12 @@ public class PersonalCenterController {
             	userName = principal.toString();
         	}
         }
-        	
+
         User applicant = new User();
         applicant.setUserName(userName);
         answer.setApplicant(applicant);
         result = projectService.updateAnswersAndComment(answer);
-    	
+
         return new DTO(result,null);
     }
 
@@ -428,7 +415,7 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "exportCSV", method = RequestMethod.POST)
     public @ResponseBody DTO exportAll(HttpServletRequest request) throws Exception {
-    	
+
         Map<String, Object> map = new HashMap<String,Object>();
         String cellphone = request.getParameter("cellphone");
     	String realName = request.getParameter("realName");
@@ -460,7 +447,7 @@ public class PersonalCenterController {
 
         String[] filePathSplit = filePath.split("/");
         String fileName = filePathSplit[3];
-        
+
         return new DTO(true,fileName);
     }
 
