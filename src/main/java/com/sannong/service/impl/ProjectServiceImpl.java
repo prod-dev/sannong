@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,80 +129,69 @@ public class ProjectServiceImpl implements IProjectService {
         mailAsyncSender.sendMail(mailContent);
     }
 
-    public boolean projectApplication(HttpServletRequest request, Application application) {
+    public void projectApplication(Application application) {
 
-        boolean result = true;
+        //set user information
+        Timestamp createTime = new Timestamp(System.currentTimeMillis());
+        application.getApplicant().setUpdateTime(createTime);
+        application.getApplicant().setCreateTime(createTime);
 
-        try {
-            //set user information
-            Timestamp createTime = new Timestamp(System.currentTimeMillis());
-            application.getApplicant().setUpdateTime(createTime);
-            application.getApplicant().setCreateTime(createTime);
+        String password = PasswordGenerator.generatePassword(6);
+        String cellphone = application.getApplicant().getCellphone();
+        String encryptedPassword = PasswordGenerator.encryptPassword(password, cellphone);
 
-            String password = PasswordGenerator.generatePassword(6);
-            String cellphone = application.getApplicant().getCellphone();
-            String encryptedPassword = PasswordGenerator.encryptPassword(password, cellphone);
+        application.getApplicant().setPassword(encryptedPassword);
+        application.getApplicant().setUserName(cellphone);
 
-            application.getApplicant().setPassword(encryptedPassword);
-            application.getApplicant().setUserName(cellphone);
+        userRepository.addUserInfo(application.getApplicant());
 
-            userRepository.addUserInfo(application.getApplicant());
+        // set authorities
+        Map<String, Object> authorityMap = new HashMap<String, Object>();
+        authorityMap.put("userName", cellphone);
+        authorityMap.put("authority", RoleType.ROLE_USER.toString());
+        authorityRepository.addUserAuthority(authorityMap);
 
-            // set authorities
-            Map<String, Object> authorityMap = new HashMap<String, Object>();
-            authorityMap.put("userName", cellphone);
-            authorityMap.put("authority", RoleType.ROLE_USER.toString());
-            authorityRepository.addUserAuthority(authorityMap);
+        //retrieve applicant id and add to application
+        Long applicantId = userRepository.getIdByCellphone(application
+                .getApplicant().getCellphone());
+        application.getApplicant().setUserId(applicantId);
 
-            //retrieve applicant id and add to application
-            Long applicantId = userRepository.getIdByCellphone(application
-                    .getApplicant().getCellphone());
-            application.getApplicant().setUserId(applicantId);
+        // set application info
+        application.setApplicationDate(createTime);
+        applicationRepository.addProjectApplicationInfo(application);
 
-            // set application info
-            application.setApplicationDate(createTime);
-            applicationRepository.addProjectApplicationInfo(application);
+        //set answers to answer object
+        Answer answer = new Answer();
+        answer.setAnswers(application.getAnswers());
+        answer.setQuestionnaireNo(1);  //project application just have questionnaire number one
+        answer.setApplicant(application.getApplicant());
+        answer.setAnswerStatus(11);  //the first applicantion submit
+        answer.setApplication(application);  //set application_id in answers
+        setAnswers(answer);
 
-            //set answers to answer object
-            Answer answer = new Answer();
-            answer.setAnswers(application.getAnswers());
-            answer.setQuestionnaireNo(1);  //project application just have questionnaire number one
-            answer.setApplicant(application.getApplicant());
-            answer.setAnswerStatus(11);  //the first applicantion submit
-            answer.setApplication(application);  //set application_id in answers
-            setAnswers(answer);
+        // set answers info
+        answerRepository.addAnswers(answer);
 
-            // set answers info
-            answerRepository.addAnswers(answer);
+        // Send email to admin
+        Long provinceIndex = application.getApplicant().getCompanyProvince();
+        Long cityIndex = application.getApplicant().getCompanyCity();
+        Long districtIndex = application.getApplicant().getCompanyDistrict();
+        Region region = regionFactory.build(provinceIndex, cityIndex, districtIndex);
 
-            // Send email to admin
-            Long provinceIndex = application.getApplicant().getCompanyProvince();
-            Long cityIndex = application.getApplicant().getCompanyCity();
-            Long districtIndex = application.getApplicant().getCompanyDistrict();
-            Region region = regionFactory.build(provinceIndex, cityIndex, districtIndex);
+        String realName = application.getApplicant().getRealName();
+        String timeOfSubmission = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒").format(createTime);
 
-            String realName = application.getApplicant().getRealName();
-            String timeOfSubmission = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒").format(createTime);
+        sendMailToAdmin(region, realName, timeOfSubmission, cellphone);
 
-            sendMailToAdmin(region, realName, timeOfSubmission, cellphone);
-
-            // send sms message
-            smsService.sendLoginMessage(cellphone, password);
-
-        } catch (Exception e) {
-
-            logger.error(e.getMessage());
-
-            result = false;
-        }
-
-        return result;
+        // send sms message
+        smsService.sendLoginMessage(cellphone, password);
     }
 
     public Answer getQuestionnaireAndAnswerByCondition(Map<String, Object> map) {
 
         int questionnaireNo = 1;
         String userName = "";
+        Answer answer = null;
 
         if (map.get("questionnaireNo") != null) {
             questionnaireNo = Integer.parseInt(map.get("questionnaireNo").toString());
@@ -215,16 +202,19 @@ public class ProjectServiceImpl implements IProjectService {
             userName = map.get("userName").toString();
         }
 
-        Answer answer = answerRepository.getAnswerByUserName(userName);
-        if (answer == null) {
-            answer = new Answer();
+        if (map.get("isOnlyShowQuestions") == null || map.get("isOnlyShowQuestions") == "") {
+        	answer = answerRepository.getAnswerByUserName(userName);
+        	if (answer == null) {
+        		answer = new Answer();
+        	}
+        	
+        	String comment = commentRepository.getCommentByCondition(map);
+        	answer.setComment(new Comment(comment));
+        } else {
+        	answer = new Answer();
         }
+        
         answer.setQuestions(questions);
-        
-        //get comment
-        String comment = commentRepository.getCommentByCondition(map);
-        
-        answer.setComment(new Comment(comment));
 
         return answer;
     }

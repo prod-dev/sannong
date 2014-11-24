@@ -1,5 +1,24 @@
 package com.sannong.presentation.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.mysql.jdbc.StringUtils;
 import com.sannong.infrastructure.persistance.entity.Answer;
 import com.sannong.infrastructure.persistance.entity.Application;
@@ -9,24 +28,6 @@ import com.sannong.presentation.utils.JsonConvertor;
 import com.sannong.service.IProjectService;
 import com.sannong.service.IUserService;
 import com.sannong.service.IValidationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -34,6 +35,9 @@ import java.util.Map;
  */
 @Controller
 public class ProjectApplicationController {
+	
+	private static final Logger logger = Logger.getLogger(ProjectApplicationController.class);
+	
     private static final String APPLICATION_PAGE = "projectapplication";
     private static final String COMPLETION_PAGE = "completion";
     private static final String PROJECT_APPLICATION_PAGE = "/pages/project-application";
@@ -60,19 +64,21 @@ public class ProjectApplicationController {
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
-    public ModelAndView apply(HttpServletRequest request,
-                              @ModelAttribute("applicationForm") @Valid Application application,
-                              BindingResult result) throws Exception {
+    public ModelAndView apply(@ModelAttribute("applicationForm") Application application) throws Exception {
 
-        projectService.projectApplication(request, application);
+        projectService.projectApplication(application);
         return new ModelAndView(COMPLETION_PAGE);
     }
 
     @RequestMapping(value = "questionAndAnswer", method = RequestMethod.GET)
     public @ResponseBody Answer getQuestionnaireAndAnswerByCondition(HttpServletRequest request) throws Exception{
 
+    	Long startTime = System.currentTimeMillis();
+    	logger.info("--------------start time:" + startTime);
+    	
         String questionnaireNo = request.getParameter("questionnaireNo");
         String cellphone = request.getParameter("cellphone");
+        String isOnlyShowQuestions = request.getParameter("flag");
         String userName = null;
         String realName = null;
 
@@ -98,6 +104,7 @@ public class ProjectApplicationController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("questionnaireNo", questionnaireNo);
         map.put("userName", userName);
+        map.put("isOnlyShowQuestions", isOnlyShowQuestions);
 
         Answer answer = projectService.getQuestionnaireAndAnswerByCondition(map);
         User user = new User();
@@ -105,6 +112,8 @@ public class ProjectApplicationController {
         user.setRealName(realName);
         answer.setApplicant(user);
 
+        logger.info("----------------------need time:" + (System.currentTimeMillis() - startTime));
+        
         return answer;
     }
 

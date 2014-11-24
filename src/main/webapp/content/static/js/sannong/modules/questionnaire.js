@@ -13,7 +13,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             type: "get",
             dataType: "json",
             url: 'questionAndAnswer',
-            data: "questionnaireNo=1",
+            data: "questionnaireNo=1&flag=1",
             success: function(data) {
             	//fill out questionnaire
                 var handleCheckbox = handlebars.compile($("#question-template-checkbox").html());
@@ -86,6 +86,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
     questionnaire.showQuestions = function(questionnaireNo){
 
         $("#buttonGroup").show();
+        $("#submitStatus").show();
         $("#save").removeAttr("disabled");
         $("#submit").removeAttr("disabled");
         
@@ -101,6 +102,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             $("#questionnaire").empty();
             $("#buttonGroup").hide();
             $("#questionnaireStatus").hide();
+            $("#submitStatus").hide();
             return false;
         }
 
@@ -122,10 +124,6 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 var currentQuestionnaireNo = questionnaireNo;
                 var radioStatus = 1;  //1:submit 0:save 默认提交状态，radio不可用
                 
-                if ($("#questionnaireStatus")){
-                	$("#questionnaireStatus").hide();
-                }
-
                 if (currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0){
                     radioStatus = 0;
 
@@ -301,6 +299,11 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 		}
                 	}
                 }
+                if (answerStatusStr == "51"){
+                	$("#submitStatus").children().text("您的申请正在审核中。请保存手机畅通，我们的工作人员会尽快联系您。");
+                }
+                
+                $("#submitStatus").show();
             }
         });
 

@@ -27,7 +27,7 @@
                 <li><a href="javascript:void(0)"  role="tab" data-toggle="tab" id="q4">问卷题集四</a></li>
                 <li><a href="javascript:void(0)"  role="tab" data-toggle="tab" id="q5">问卷题集五</a></li>
             </ul>
-
+            <div id="submitStatus">状态：<div>请完成所有问卷调查，然后我们的工作人员会第一时间联系您。</div></div>
             <!-- Tab panes -->
             <div class="tab-content">
                 <form id="answerForm" role="form" action="updateAnswersAndComment" method="post">
