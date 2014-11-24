@@ -64,8 +64,6 @@ require(['../main'], function () {
             $(function() {
                 questionnaire.showQuestions(1);
                 
-                $("#questionnaireStatus").show();
-
                 $("#save").click(function(){
                     myApplication.submitForm(0);
                 });
