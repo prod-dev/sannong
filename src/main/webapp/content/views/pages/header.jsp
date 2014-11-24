@@ -19,13 +19,13 @@
                   <li><a href="homepage">网站主页</a></li>
                   <li><a href="project-landing">项目主页</a></li>
                   <li><a href="project-application">项目申请</a></li>
+                  <li><a href="project-application-completion">申请完成</a></li>
                   <li><a href="user-management">用户管理</a></li>
-                  <li><a href="my-application">我的项目</a></li>
+                  <li><a href="user-application-form">我的项目</a></li>
                   <li><a href="user-profile">个人信息</a></li>
                   <li><a href="user-password">更改密码</a></li>
                   <li><a href="faq">常见问题</a></li>
                   <li><a href="popups">Popups</a></li>
-                  <li><a href="post-application">申请完成</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#LoginModel">登录</a></li>
               </ul>
             </span>

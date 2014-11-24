@@ -56,7 +56,7 @@ public class PersonalCenterController {
     private static final String PAGE_USER_PASSWORD = "/pages/user-password";
     private static final String PAGE_USER_MANAGEMENT = "/pages/user-management";
     private static final String PAGE_POPUPS = "/pages/popups";
-    private static final String PAGE_POST_APPLICATION = "/pages/post-application";
+    private static final String PAGE_PROJECT_APPLICATION_COMPLETION = "/pages/project-application-completion";
 
     @Resource
     private IUserService userService;
@@ -67,7 +67,7 @@ public class PersonalCenterController {
 
 
 
-    @RequestMapping(value = "my-application", method = RequestMethod.GET)
+    @RequestMapping(value = "user-application-form", method = RequestMethod.GET)
     public ModelAndView showUserApplicationForm() {
 
         Map<String, Object> models = new HashMap<String, Object>();
@@ -91,6 +91,14 @@ public class PersonalCenterController {
         return new ModelAndView(PAGE_USER_MANAGEMENT, models);
     }
 
+    @RequestMapping(value = "user-password", method = RequestMethod.GET)
+    public ModelAndView showUserPassword() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("user-password", new Object());
+        return new ModelAndView(PAGE_USER_PASSWORD, models);
+    }
+
     @RequestMapping(value = "popups", method = RequestMethod.GET)
     public ModelAndView showPopups() {
 
@@ -99,12 +107,12 @@ public class PersonalCenterController {
         return new ModelAndView(PAGE_POPUPS, models);
     }
 
-    @RequestMapping(value = "post-application", method = RequestMethod.GET)
-    public ModelAndView showPostApplication() {
+    @RequestMapping(value = "project-application-completion", method = RequestMethod.GET)
+    public ModelAndView showProjectApplicationCompletion() {
 
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("post-application", new Object());
-        return new ModelAndView(PAGE_POST_APPLICATION, models);
+        models.put("project-application-completion", new Object());
+        return new ModelAndView(PAGE_PROJECT_APPLICATION_COMPLETION, models);
     }
 
 
