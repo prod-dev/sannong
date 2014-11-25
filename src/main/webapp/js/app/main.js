@@ -2,7 +2,7 @@
  * Created by Bright Huang on 10/9/14.
  */
 requirejs.config({
-    baseUrl : 'content/static/js',
+    baseUrl : 'js',
     paths: {
         "jquery" : "lib/jquery-2.1.1.min",
         "bootstrap" : "lib/bootstrap-3.0.3.min",
@@ -12,12 +12,12 @@ requirejs.config({
         "methods": "lib/additional-methods-1.13.1",
         "message_zh": "lib/message_zh.1.13.1",
         "jqueryForm": "lib/jquery-form",
-        "sannong" : "sannong/app",
-        "ajaxHandler" : "sannong/modules/ajax-handler",
-        "questionnaire": "sannong/modules/questionnaire",
-        "formValidator": "sannong/modules/form-validator",
-        "region": "sannong/modules/region",
-        "additionalMethods": "sannong/modules/additional-methods"
+        "app" : "app/app",
+        "ajaxHandler" : "app/modules/ajax-handler",
+        "questionnaire": "app/modules/questionnaire",
+        "formValidator": "app/modules/form-validator",
+        "region": "app/modules/region",
+        "additionalMethods": "app/modules/additional-methods"
     },
     shim: {
         'bootstrap' : {
@@ -68,8 +68,6 @@ requirejs.config({
             deps :['jquery'],
             exports : "region"
         }
-
-
     }
 });
 
