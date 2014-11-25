@@ -33,6 +33,10 @@
         <url-pattern>*.csv</url-pattern>
         <url-pattern>*.png</url-pattern>
         <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.woff</url-pattern>
+        <url-pattern>*.woff2</url-pattern>
+        <url-pattern>*.ttf</url-pattern>
+        <url-pattern>*.svg</url-pattern>
     </servlet-mapping>
 
     <servlet>

@@ -12,7 +12,7 @@ requirejs.config({
         "methods": "lib/additional-methods-1.13.1",
         "message_zh": "lib/message_zh.1.13.1",
         "jqueryForm": "lib/jquery-form",
-        "app" : "app/app",
+        "sannong" : "app/app",
         "ajaxHandler" : "app/modules/ajax-handler",
         "questionnaire": "app/modules/questionnaire",
         "formValidator": "app/modules/form-validator",
