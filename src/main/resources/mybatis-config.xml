@@ -14,6 +14,7 @@
         <typeAlias type="com.sannong.infrastructure.persistance.entity.District" alias="District" />
         <typeAlias type="com.sannong.infrastructure.persistance.entity.Question" alias="Question" />
         <typeAlias type="com.sannong.infrastructure.persistance.entity.Answer" alias="Answer" />
+        <typeAlias type="com.sannong.infrastructure.persistance.entity.Comment" alias="Comment" />
     </typeAliases>
     
     <mappers>
@@ -24,5 +25,7 @@
     	<mapper resource="questionnaire.map.xml"/>
         <mapper resource="region.map.xml"/>
         <mapper resource="answer.map.xml"/>
+        <mapper resource="question.map.xml"/>
+        <mapper resource="comment.map.xml"/>
     </mappers>
 </configuration>

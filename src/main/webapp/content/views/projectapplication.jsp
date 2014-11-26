@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: apple
+  User: Bright Huang
   Date: 10/14/14
   Time: 9:52
   To change this template use File | Settings | File Templates.
@@ -24,28 +24,46 @@
         <div class="col-md-8 column">
            <form id="applicationForm" role="form" action="apply" method="post">
                <div id="questionnaire">
-                   <script id="question-template" type="text/x-handlebars-template">
-                       {{#questions}}
-                       <div class="J_group_radio">
-                           <h5>{{fromOne @index}}. {{questionContent}}</h5>
-                           <label class="radio-inline">
-                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio31" value="{{questionNumber}}:a"> {{option1}}
+                   <script id="question-template-checkbox" type="text/x-handlebars-template">
+                       <div class="J_group_choice">
+                           <h5>{{fromOne}}. {{questionContent}}</h5>
+                           <label class="checkbox-inline">
+	                           <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:a"> {{option1}}
                            </label>
-                           <label class="radio-inline">
-                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio32" value="{{questionNumber}}:b"> {{option2}}
-                           </label>
-                           <label class="radio-inline">
-                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio33" value="{{questionNumber}}:c"> {{option3}}
-                           </label>
-                           <label class="radio-inline">
-                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio34" value="{{questionNumber}}:d"> {{option4}}
-                           </label>
-                           <label class="radio-inline">
-                               <input type="radio" name="answers[{{fromZero @index}}]" id="inlineRadio35" value="{{questionNumber}}:e"> {{option5}}
-                           </label>
+                           <label class="checkbox-inline">
+                               <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:b"> {{option2}}
+                           </label>                 	
+                           <label class="checkbox-inline">
+                               <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:c"> {{option3}}
+	                       </label>
+                           <label class="checkbox-inline">
+                               <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:d"> {{option4}}
+	                       </label>
+                           <label class="checkbox-inline">
+                               <input type="checkbox" name="answers[{{fromZero}}]"  value="{{questionId}}:e"> {{option5}}
+	                       </label>
                        </div>
-                       {{/questions}}
-                   </script>
+                  </script>
+                  <script id="question-template-radio" type="text/x-handlebars-template">
+					    <div class="J_group_choice">
+					        <h5>{{fromOne}}. {{questionContent}}</h5>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:a"> {{option1}}
+					        </label>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:b"> {{option2}}
+					        </label>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:c"> {{option3}}
+					        </label>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:d"> {{option4}}
+					        </label>
+					        <label class="radio-inline">
+					            <input type="radio" name="answers[{{fromZero}}]"  value="{{questionId}}:e"> {{option5}}
+					        </label>
+					    </div>
+                  </script>
                </div>
                <hr>
                <div class="row">
@@ -53,36 +71,27 @@
                    <div class="col-xs-10 col-sm-10">
                        <div>
                            <div class="form-group">
-                               <!--<label for="userRealName">姓名</label>-->
                                <input type="text" class="form-control" id="userRealName" name="applicant.realName" placeholder="姓名">
                            </div>
                            <div class="form-group">
-                               <!--<label for="jobTitle">职务</label>-->
                                <input type="text" class="form-control" id="jobTitle" name="applicant.jobTitle" placeholder="职务">
                            </div>
                            <div class="form-group">
-                               <!--<label for="company">工作单位</label>-->
                                <input type="text" class="form-control" id="company" name="applicant.company" placeholder="工作单位">
                            </div>
                            <div class="form-group form-inline">
-                               <!--<label for="jobAddress">单位地址</label>-->
                                 <select id="provinceSelect" class="form-control" name="applicant.companyProvince" >
-                                <option></option>
                                </select>
                                <select id="citySelect" class="form-control" name="applicant.companyCity">
-                               <option></option>
                                </select>
                                <select id="districtSelect" class="form-control" name="applicant.companyDistrict">
-                               <option></option>
                                </select>
                                <input type="text" class="form-control" id="jobAddress" name="applicant.companyAddress" placeholder="单位地址">
                            </div>
                            <div class="form-group">
-                               <!--<label for="deskPhone">工作电话</label>-->
                                <input type="text" class="form-control" id="deskPhone" name="applicant.deskPhone" placeholder="工作电话">
                            </div>
                            <div class="form-group">
-                               <!--<label for="mailBox">电子邮箱</label>-->
                                <input type="text" class="form-control" id="mailbox" name="applicant.mailbox" placeholder="电子邮箱">
                                 <div class="errorDiv"></div>
                            </div>
@@ -123,8 +132,6 @@
                                </div>
                            </div>
                        </div>
-
-
                    </div>
                    <div class="col-xs-1 col-sm-1"></div>
                </div>
@@ -160,12 +167,7 @@
         <jsp:include page='footer.jsp'/>
     </div>
 </div>
-<!--
-<script src="content/static/js/sannong/myinfo.js?v=201410201404"> </script>
--->
-<script src="content/static/js/sannong/projectapplication.js"></script>
-<script src="content/static/js/sannong/personal-center/questionnaire.js"></script>
-
+<script data-main="content/static/js/sannong/pages/projectapplication" src="content/static/js/lib/require-2.1.15.js"></script>
 
 </body>
 </html>

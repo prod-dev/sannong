@@ -1,71 +1,44 @@
 package com.sannong.infrastructure.sms;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.Random;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 
 public class SmsSender {
-    private static Integer x_eid = 11996;
-    private static String x_uid = "techmio";
-    private static String x_pwd_md5 = "e10adc3949ba59abbe56e057f20f883e";
-    private static Integer x_gate_id = 300;
+    private static final Logger logger = Logger.getLogger(SmsSender.class);
 
-    public static String sendSms(String mobile, String content) throws UnsupportedEncodingException {
-        Integer x_ac = 10;//������Ϣ
-        HttpURLConnection httpconn = null;
-        String result = "-20";
-        String memo = content.length() < 70 ? content.trim() : content.trim().substring(0, 70);
-        StringBuilder sb = new StringBuilder();
-        sb.append("http://gateway.woxp.cn:6630/utf8/web_api/?x_eid=");
-        sb.append(x_eid);
-        sb.append("&x_uid=").append(x_uid);
-        sb.append("&x_pwd_md5=").append(x_pwd_md5);
-        sb.append("&x_ac=").append(x_ac);
-        sb.append("&x_gate_id=").append(x_gate_id);
-        sb.append("&x_target_no=").append(mobile);
-        sb.append("&x_memo=").append(URLEncoder.encode(memo, "utf-8"));
+    public String sendSms(String smsUrl) {
+        String result = null;
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse httpResponse = null;
         try {
-            URL url = new URL(sb.toString());
-            httpconn = (HttpURLConnection) url.openConnection();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(httpconn.getInputStream()));
-            result = rd.readLine();
-            rd.close();
-        } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } finally {
-            if (httpconn != null) {
-                httpconn.disconnect();
-                httpconn = null;
+            httpClient = HttpClients.createDefault();
+            //HttpGet httpGet = new HttpGet(smsUrl);
+            HttpPost httpPost = new HttpPost(smsUrl);
+            httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            if (httpEntity != null) {
+                result = EntityUtils.toString(httpEntity);
             }
-
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        } finally {
+            try {
+                if (httpResponse != null) {
+                    httpResponse.close();
+                }
+                if (httpClient != null) {
+                    httpClient.close();
+                }
+            } catch (Exception ex) {
+                logger.error(ex.getMessage());
+            }
         }
         return result;
     }
-
-    private static String chars = "0123456789";
-    private static Random rnd = new Random();
-
-    // auto generate register code
-    public static String generateCode(int length) {
-        /*if (length == 0) return "";
-        char[] buf = new char[length];
-        for (int i = 0; i < buf.length; i++) {
-            buf[i] = chars.charAt(rnd.nextInt(chars.length()));
-        }
-        return new String(buf);*/
-    	return "1234";
-    }
-
-
 }
 

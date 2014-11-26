@@ -24,27 +24,25 @@
     <div class="row clearfix">
         <div class="col-md-4 column"></div>
         <div class="col-md-6 column">
-            <form  id="confirmPasswordForm" role="form" action="confirmpassword" method="post">
+            <form  id="forgotPasswordForm" role="form" action="j_spring_security_check" method="POST">
                 <div  class="form-group">
                     <label for="realName">姓名</label>
                     <div>
-                        <input type="text" name="realName" class="input-short"  id="realName" placeholder="姓名">
+                        <input type="text" name="realName" class="input-short" id="realName" placeholder="姓名">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="cellPhone">手机号</label>
+                    <label for="cellphone">手机号</label>
                     <div>
-                        <input type="text" class="input-short" id="cellphone" name="cellphone" placeholder="手机号码" value="${myinfo.cellphone}">
-                        <input type="hidden" id="token_id" name="token_id" value="10">
-                        <input type="hidden" id="token" name="token" value="2379839e12f6f183bf0737ba4f6d1b75">
-                        <button type="button" id="action-send-code" data-url="regcode" data-type="2" class="btn btn-sm btn-warning">发送新密码</button>
-                        <div class="errorDiv"></div>
+                        <input type="text" name="j_username" class="input-short" id="cellphone" placeholder="手机号码" >
+                        <input type="button" id="action-send-code" data-url="regcode" data-type="2" class="btn btn-sm btn-warning" value="发送新密码">
                     </div>
+
                 </div>
                 <div class="form-group">
                     <label for="password">新密码</label>
                     <div>
-                        <input type="password" name="password" class="input-short" id="password" placeholder="新密码">
+                        <input type="password" name="j_password" class="input-short" id="password" placeholder="新密码">
                     </div>
                 </div>
 
@@ -53,7 +51,7 @@
                     <a href="login"> 返回登录页面</a>
                 </div>
 
-                <div class="errorDiv" style="display: none" status="${forgetPassword}"></div>
+                <div class="hidden" id="authentication" status="${authentication}"></div>
             </form>
 
         </div>
@@ -66,10 +64,7 @@
     </div>
 
 </div>
-<script src="content/static/js/sannong/forgotpassword.js"></script>
-<!--
-<script src="content/static/js/sannong/myinfo.js?v=201410211111"> </script>
-<script src="content/static/js/sannong/jquery.weebox.js?v=201410211946"></script>
--->
+<script data-main="content/static/js/sannong/pages/forgotpassword" src="content/static/js/lib/require-2.1.15.js"></script>
+
 </body>
 </html>

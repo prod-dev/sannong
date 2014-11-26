@@ -7,6 +7,7 @@ import com.sannong.infrastructure.persistance.repository.RegionRepository;
 import com.sannong.service.IRegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,7 +15,8 @@ import java.util.List;
  * Created by Bright Huang on 10/26/14.
  */
 @Service
-public class RegionServiceImpl implements IRegionService{
+@Transactional(rollbackFor = Exception.class)
+public class RegionServiceImpl implements IRegionService {
     @Autowired
     private RegionRepository regionRepository;
 
@@ -33,6 +35,20 @@ public class RegionServiceImpl implements IRegionService{
         return regionRepository.getDistrictByCityIndex(cityIndex);
     }
 
+    @Override
+    public Province getProvince(long provinceIndex) {
+        return null;
+    }
+
+    @Override
+    public City getCity(long cityIndex) {
+        return null;
+    }
+
+    @Override
+    public District getDistrict(long districtIndex) {
+        return null;
+    }
 
 
 }

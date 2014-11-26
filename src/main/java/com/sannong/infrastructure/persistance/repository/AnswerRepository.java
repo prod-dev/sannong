@@ -5,9 +5,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sannong.infrastructure.persistance.entity.Answer;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * answer reporitory
  * @author william zhang
@@ -21,9 +18,4 @@ public interface AnswerRepository {
 	void addAnswers(Answer answer);
 	
 	void updateAnswers(Answer answer);
-
-    public List<Answer> getAnswer(Map<String, Object> map);
-
-    public String getQuestionContent(long questionId );
-	
 }

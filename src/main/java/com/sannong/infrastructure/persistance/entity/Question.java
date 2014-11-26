@@ -1,7 +1,6 @@
 package com.sannong.infrastructure.persistance.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * create question class
@@ -19,7 +18,14 @@ public class Question implements Serializable{
 	private String option5;
 	private String questionContent;
 	private String questionNumber;
+	private int isSingle;
 	
+	public int getIsSingle() {
+		return isSingle;
+	}
+	public void setIsSingle(int isSingle) {
+		this.isSingle = isSingle;
+	}
 	public Long getQuestionId() {
 		return questionId;
 	}
