@@ -1,12 +1,17 @@
 package com.sannong.service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
+import com.sannong.infrastructure.persistance.entity.Answer;
 import com.sannong.infrastructure.persistance.entity.Application;
 
 public interface IProjectService {
-	
-	public boolean projectApplication(Application application);
-	public boolean checkUserNameAvailable(HttpServletRequest request);
-	
+
+    void projectApplication(Application application) throws Exception;
+
+    Answer getQuestionnaireAndAnswerByCondition(Map<String, Object> map);
+
+    boolean updateAnswersAndComment(Answer answer) throws Exception;
+
+    int getTotalQuestions();
 }

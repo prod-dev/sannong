@@ -1,27 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
                            http://www.springframework.org/schema/context
                            http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd
                            http://www.springframework.org/schema/mvc
                            http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
                            
     <import resource="applicationContext-security.xml" />
-                           
-   <context:property-placeholder location="/WEB-INF/mysql.properties" /> 
-   <context:annotation-config />
-   <context:component-scan base-package="com.sannong" /> 
-   
-   <!-- bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" destroy-method="close"-->
-   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
-	   <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-	   <property name="url" value="jdbc:mysql://localhost:3306/sannong"/>
-	   <property name="username" value="sannong"/>
-	   <property name="password" value="sannong"/>
-   </bean> 
+    <mvc:annotation-driven />
+    <tx:annotation-driven/>
+    <context:property-placeholder location="/WEB-INF/mysql.properties" />
+    
+    <context:component-scan base-package="com.sannong" >
+        <context:exclude-filter type="annotation"  expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+    
+   <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sannong?useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="username" value="sannong"/>
+        <property name="password" value="sannong"/>
+        <property name="partitionCount" value="3"/>
+        <property name="maxConnectionsPerPartition" value="60"/>
+        <property name="minConnectionsPerPartition" value="10"/>
+        <property name="poolAvailabilityThreshold" value="20"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="statementsCacheSize" value="100"/>
+        <property name="closeConnectionWatch" value="false"/>
+        <property name="logStatementsEnabled" value="false"/>
+    </bean>
    
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
        <property name="dataSource" ref="dataSource" /> 
@@ -38,11 +51,34 @@
        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
    </bean>
 
-   <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-       <property name="configLocation" value="/WEB-INF/ehcache.xml" />
-   </bean>
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5" />
+        <property name="maxPoolSize" value="10" />
+        <property name="queueCapacity" value="25" />
+    </bean>
 
+    <!-- 指定自己定义的validator -->
+    <mvc:annotation-driven validator="validator"/>
 
+    <!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
 
+    <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找  -->
+                <value>messages</value>
+                <value>org/hibernate/validator/ValidationMessages</value>
+            </list>
+        </property>
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
 
 </beans>

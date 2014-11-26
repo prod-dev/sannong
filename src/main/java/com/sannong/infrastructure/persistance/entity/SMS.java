@@ -1,6 +1,7 @@
 package com.sannong.infrastructure.persistance.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
  * @author william zhang
@@ -13,7 +14,7 @@ public class SMS implements Serializable {
 	private Long smsId;
 	private Long userId;
 	private String smsValidationCode;
-	private String sendTime;
+	private Timestamp sendTime;
 	private String cellphone;
 	private String smsContent;
 	private int smsStatus;
@@ -36,10 +37,10 @@ public class SMS implements Serializable {
 	public void setSmsValidationCode(String smsValidationCode) {
 		this.smsValidationCode = smsValidationCode;
 	}
-	public String getSendTime() {
+	public Timestamp getSendTime() {
 		return sendTime;
 	}
-	public void setSendTime(String sendTime) {
+	public void setSendTime(Timestamp sendTime) {
 		this.sendTime = sendTime;
 	}
 	public String getCellphone() {

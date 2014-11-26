@@ -9,8 +9,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
     <title></title>
+    <link href="content/static/css/bootstrap-3.2.0/bootstrap.css" rel="stylesheet">
+    <link href="content/static/css/sannong/validation.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
@@ -24,7 +25,7 @@
             <jsp:include page='sidebar.jsp'/>
         </div>
         <div class="col-md-6 column">
-            <form role="formPassword" action="updatepassword" method="post">
+            <form id="myPasswordForm" role="formPassword" action="updatepassword" method="post">
                 <div>
                     <div class="form-group">
                         <label for="oldPassword">旧密码</label>
@@ -39,19 +40,9 @@
                         <input type="password" class="form-control" id="confirmedPassword" name="confirmedPassword" placeholder="确认新密码">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" id="submit" class="btn btn-success">更新</button>
             </form>
             <c:choose>
-                <c:when test="${myPasswordAuth == 'oldPasswordAuthFailure'}">
-                    <div id="authMsg1"  style="display: block;color: red">
-                        旧密码不匹配, 请重新输入.
-                    </div>
-                </c:when>
-                <c:when test="${myPasswordAuth == 'newPasswordAuthFailure'}">
-                    <div id="authMsg2"  style="display: block;color: red">
-                        新密码与确认密码不匹配, 请重新输入.
-                    </div>
-                </c:when>
                 <c:when test="${myPasswordAuth == 'passwordChanged'}">
                     <div id="authMsg2"  style="display: block;color: blue">
                         密码修改成功.
@@ -71,5 +62,7 @@
         <jsp:include page='footer.jsp'/>
     </div>
 </div>
+<script data-main="content/static/js/sannong/pages/mypassword" src="content/static/js/lib/require-2.1.15.js"></script>
+
 </body>
 </html>

@@ -20,13 +20,13 @@ public class Application implements Serializable{
 	private Questionnaire questionnaire;
 	private Timestamp applicationDate;
 	private SMS sms;
-	private String questionnaireAnswer;
+	private Answer answer;  //one application ->the first questionnaire -> mutiple answers -> one anser object
 	
-	public String getQuestionnaireAnswer() {
-		return questionnaireAnswer;
+	public Answer getAnswer() {
+		return answer;
 	}
-	public void setQuestionnaireAnswer(String questionnaireAnswer) {
-		this.questionnaireAnswer = questionnaireAnswer;
+	public void setAnswer(Answer answer) {
+		this.answer = answer;
 	}
 	public Questionnaire getQuestionnaire() {
 		return questionnaire;

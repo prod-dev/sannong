@@ -13,7 +13,7 @@ public class EmailSenderTest {
 		sb.append("this is line 1");
 		sb.append("\n");
 		sb.append("this is line 2");
-		EmailSender.sendMail("techmio@qq.com", "mail test", sb.toString(), false);
+	    new EmailSender().sendMail("techmio@qq.com", "mail test", sb.toString(), false);
 		
 	}
 	
