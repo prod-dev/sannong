@@ -19,13 +19,13 @@
             <h3>菜单</h3>
             <ul>
                 <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-                    <li class="active"><a href="#">用户管理<span></span></a></li>
+                    <li class="active"><a href="user-management">用户管理<span></span></a></li>
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-                    <li class="active"><a href="#">项目申请<span></span></a></li>
+                    <li class="active"><a href="project-application">项目申请<span></span></a></li>
                 </sec:authorize>
-                <li><a href="#">个人信息<span></span></a></li>
-                <li><a href="#">更新密码<span></span></a></li>
+                <li><a href="user-profile">个人信息<span></span></a></li>
+                <li><a href="user-password">更新密码<span></span></a></li>
             </ul>
         </c:if>
     </span>

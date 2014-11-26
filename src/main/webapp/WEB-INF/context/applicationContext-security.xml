@@ -47,8 +47,8 @@
         <custom-filter before="FORM_LOGIN_FILTER" ref="loginFilter" />
 
         <sec:form-login login-page="/login"
-                    authentication-failure-url="/authentication-failure"
-                    default-target-url="/authentication-success"/>
+                    authentication-failure-url="/login-failure"
+                    default-target-url="/login-success"/>
 
         <sec:logout invalidate-session="true"
                     logout-url="/j_spring_security_logout" logout-success-url="/home"/>
@@ -78,13 +78,13 @@
              <!-- 自定义登录成功后的处理handler -->
              <b:bean class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
                  <!-- 登录成功后的默认url -->
-                 <b:property name="defaultTargetUrl" value="/authentication-success" />
+                 <b:property name="defaultTargetUrl" value="/login-success" />
              </b:bean>
         </b:property>
         <b:property name="authenticationFailureHandler">
              <b:bean class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
                  <!-- 登录失败后的默认Url -->
-                 <b:property name="defaultFailureUrl" value="/authentication-failure" />
+                 <b:property name="defaultFailureUrl" value="/login-failure" />
                  <b:property name="useForward" value="true" />
              </b:bean>
      </b:property>

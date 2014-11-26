@@ -39,20 +39,6 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 	$("#questionnaire").append(html);
                 }
 
-                $("#questionnaire").find(".checkbox-inline").each(function(){
-                    var checkbox = $(this).text();
-                    if (checkbox.trim() == ""){
-                        $(this).remove();
-                    }
-                });
-
-                $("#questionnaire").find(".radio-inline").each(function(){
-                    var radio = $(this).text();
-                    if (radio.trim() == ""){
-                        $(this).remove();
-                    }
-                });
-
                 $("#questionnaire").find(".checkboxCustom").each(function(){
                     var checkbox = $(this).text();
                     if (checkbox.trim() == ""){
@@ -85,19 +71,6 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
 
     questionnaire.showQuestions = function(questionnaireNo){
 
-        $("#buttonGroup").show();
-        $("#submitStatus").show();
-        $("#save").removeAttr("disabled");
-        $("#submit").removeAttr("disabled");
-        
-        if ($("#save-success") != null){
-        	$("#save-success").remove();
-        }
-        
-        if ($("#update-success") != null){
-        	$("#update-success").remove();
-        }
-
         if ($("#q" + questionnaireNo).parent().hasClass("disabled")) {
             $("#questionnaire").empty();
             $("#buttonGroup").hide();
@@ -105,7 +78,30 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             $("#submitStatus").hide();
             return false;
         }
+        
+        $("#buttonGroup").show();
+        $("#submitStatus").show();
+        $("#save").removeAttr("disabled");
+        $("#submit").removeAttr("disabled");
+        
+        if ($("#save-success")){
+        	$("#save-success").remove();
+        }
+        
+        if ($("#update-success")){
+        	$("#update-success").remove();
+        }
 
+        if ($(".steps")){
+        	$(".no").each(function(){
+        		$(this).parent().removeClass("active");
+        		
+        		if ($(this).text() == questionnaireNo){
+        			$(this).parent().addClass("active");
+        		}
+        	})
+        }
+        
         $("#questionnaireNo").val(questionnaireNo);
         var questionnaireNo = parseInt(questionnaireNo);
 
@@ -230,19 +226,30 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 }
 
                 //remove extra checkbox and radio button
-                $("#questionnaire").find(".checkbox-inline").each(function(){
+                $("#questionnaire").find(".checkboxCustom").each(function(){
                     var checkbox = $(this).text();
                     if (checkbox.trim() == ""){
                         $(this).remove();
                     }
                 });
-                $("#questionnaire").find(".radio-inline").each(function(){
+                $("#questionnaire").find(".radioCustom").each(function(){
                     var radio = $(this).text();
                     if (radio.trim() == ""){
                         $(this).remove();
                     }
                 });
 
+                $('.radioCustom input').click(function () {
+                    $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
+                    $(this).parent(".radioCustom").addClass("radioCustom-checked");
+                });
+                
+                $('.checkboxCustom').click(function () {
+                    $(this).toggleClass('checkboxCustom-checked');
+                    var $checkbox = $(this).find(':checkbox');
+                    $checkbox.attr('checked', !$checkbox.attr('checked'));
+                });
+                
                 //fill out answers in questionnaire relatively
                 var answerString = "";
                 switch (questionnaireNo){
@@ -286,7 +293,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 if (data.comment != null && data.comment.content != null){
                 	var comment = data.comment.content;
                 	if($("#questionnaireStatus")){
-                		$("#questionnaireStatus").children().text(comment);
+                		$("#questionnaireStatus").text(comment);
                 		$("#questionnaireStatus").show();
                 	}
                 } else if (answerString == null || answerString == ""){
@@ -294,7 +301,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 } else{
                 	if($("#questionnaireStatus")){
                 		if (!(currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0)){
-                			$("#questionnaireStatus").children().text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
+                			$("#questionnaireStatus").text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
                 			$("#questionnaireStatus").show();
                 		}
                 	}

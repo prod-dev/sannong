@@ -65,8 +65,6 @@ public class PersonalCenterController {
     @Resource
     private IProjectService projectService;
 
-
-
     @RequestMapping(value = "user-application-form", method = RequestMethod.GET)
     public ModelAndView showUserApplicationForm() {
 
@@ -198,7 +196,7 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "myapplication", method = RequestMethod.GET)
     public ModelAndView myApplication() {
-        return new ModelAndView(MY_APPLICATION_PAGE);
+        return new ModelAndView(PAGE_MY_APPLICATION);
     }
 
     /**

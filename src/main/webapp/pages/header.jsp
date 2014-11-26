@@ -16,6 +16,7 @@
       <div class="row">
           	<span class="col-sm-12">
               <ul>
+                  <!--
                   <li><a href="project-landing">项目主页</a></li>
                   <li><a href="project-application">项目申请</a></li>
                   <li><a href="project-application-completion">申请完成</a></li>
@@ -25,6 +26,7 @@
                   <li><a href="user-password">更改密码</a></li>
                   <li><a href="faq">常见问题</a></li>
                   <li><a href="popups">Popups</a></li>
+                  -->
                 <li><a href="#" data-toggle="modal" data-target="#LoginModel">登录</a></li>
                   <li><a href="j_spring_security_logout">退出</a></li>
               </ul>
