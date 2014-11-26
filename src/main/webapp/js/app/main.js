@@ -17,7 +17,8 @@ requirejs.config({
         "questionnaire": "app/modules/questionnaire",
         "formValidator": "app/modules/form-validator",
         "region": "app/modules/region",
-        "additionalMethods": "app/modules/additional-methods"
+        "additionalMethods": "app/modules/additional-methods",
+        "login": "app/modules/login"
     },
     shim: {
         'bootstrap' : {
@@ -67,6 +68,10 @@ requirejs.config({
         "region": {
             deps :['jquery'],
             exports : "region"
+        },
+        "login": {
+            deps :['jquery'],
+            exports : "login"
         }
     }
 });

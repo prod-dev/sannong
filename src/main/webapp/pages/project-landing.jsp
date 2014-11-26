@@ -16,23 +16,12 @@
 
   <link href="css/custom.css" rel="stylesheet" type="text/css">
   <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-
-  <script src="js/custom.js"></script>
-
-  <!--[if lt IE 9]>
-  <script src="js/html5shiv.min.js"></script>
-  <script src="js/respond.min.js"></script>
-  <![endif]-->
-
+  <link href="css/validation.css" rel="stylesheet">
 </head>
 
 <body>
 
 <jsp:include page='header.jsp'/>
-<jsp:include page='nav.jsp'/>
 
 <!-- CONTENT SECTION -->
 <section class="contentSection fullBgImage">
@@ -58,7 +47,19 @@
 </section>
 <!-- /CONTENT SECTION -->
 
+<script data-main="js/app/pages/project-landing" src="content/static/js/lib/require-2.1.15.js"></script>
+
 <jsp:include page='footer.jsp'/>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/custom.js"></script>
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+
 
 </body>
 </html>

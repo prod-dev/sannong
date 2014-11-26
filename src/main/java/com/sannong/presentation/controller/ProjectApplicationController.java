@@ -39,8 +39,8 @@ public class ProjectApplicationController {
 	private static final Logger logger = Logger.getLogger(ProjectApplicationController.class);
 	
     private static final String APPLICATION_PAGE = "projectapplication";
-    private static final String COMPLETION_PAGE = "completion";
-    private static final String PROJECT_APPLICATION_PAGE = "/pages/project-application";
+    private static final String PROJECT_APPLICATION_COMPLETION_PAGE = "project-application-completion";
+    private static final String PROJECT_APPLICATION_PAGE = "project-application";
 
     @Autowired
     private AppConfig appConfig;
@@ -64,10 +64,10 @@ public class ProjectApplicationController {
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)
-    public ModelAndView apply(@ModelAttribute("applicationForm") Application application) throws Exception {
+    public ModelAndView apply(@ModelAttribute("projectAppForm") Application application) throws Exception {
 
         projectService.projectApplication(application);
-        return new ModelAndView(COMPLETION_PAGE);
+        return new ModelAndView(PROJECT_APPLICATION_COMPLETION_PAGE);
     }
 
     @RequestMapping(value = "questionAndAnswer", method = RequestMethod.GET)

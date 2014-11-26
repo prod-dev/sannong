@@ -43,20 +43,13 @@
 <section class="contentSection">
     <div class="container">
         <div class="row">
-        	<span class="col-sm-3 sidebar equalCol">
-          	<h3>菜单</h3>
-            <ul>
-                <li><a href="#">项目申请<span></span></a></li>
-                <li><a href="#">用户配置文件<span></span></a></li>
-                <li><a href="#">更新密码<span></span></a></li>
-                <li class="active"><a href="#">用户管理<span></span></a></li>
-            </ul>
-          </span>          
-          <span class="col-sm-9 leftBorder equalCol umList">
-						<h3>
-                            <span>用户管理</span>
-                            <a href="#" class="orange-bt-small float-right">导出问卷调查结果</a>
-                        </h3>
+
+            <jsp:include page='sidebar.jsp'/>
+          <span class="col-sm-10 leftBorder equalCol umList">
+                <h3>
+                    <span>用户管理</span>
+                    <a href="#" class="orange-bt-small float-right">导出问卷调查结果</a>
+                </h3>
             <form>
                 <div class="searchRow">
                     <div class="left">

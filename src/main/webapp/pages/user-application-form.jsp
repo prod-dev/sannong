@@ -46,14 +46,7 @@
 <section class="contentSection">
   <div class="container">
     <div class="row">
-        	<span class="col-sm-3 sidebar equalCol">
-          	<h3>菜单</h3>
-            <ul>
-              <li class="active"><a href="#">项目申请<span></span></a></li>
-              <li><a href="#">用户配置文件<span></span></a></li>
-              <li><a href="#">更新密码<span></span></a></li>
-            </ul>
-          </span>
+        <jsp:include page='sidebar.jsp'/>
           <span class="col-sm-9 leftBorder equalCol">
 						<!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">

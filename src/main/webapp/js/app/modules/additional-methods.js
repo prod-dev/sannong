@@ -37,7 +37,8 @@ define(['jquery', 'sannong', 'formValidator'], function($, sannong, formValidato
             if (timeRemained == 0) {
                 window.clearInterval(timer);
                 $(elementId).removeAttr("disabled");
-                $(elementId).val("重新发送" + text);
+                //$(elementId).val("重新发送" + text);
+                $(elementId).text("重新发送" + text);
             }
             else {
                 timeRemained --;

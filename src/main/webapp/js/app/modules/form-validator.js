@@ -8,6 +8,45 @@ define(['jquery', 'sannong'], function($, sannong) {
 
     var formValidator = {};
 
+    formValidator.getLoginValidator = function(formName){
+        var validator = $(formName).validate({
+            rules: {
+
+                j_username: {
+                    required: true,
+                    isCellphone: true
+                },
+                j_password: {
+                    required: true,
+                    minlength: 6
+                }
+            },
+            messages: {
+                j_username: {
+                    required: "必填",
+                    remote: "姓名或手机号码不存在",
+                    isCellphone: "请正确填写您的手机号码"
+                },
+                j_password: {
+                    required: "必填",
+                    minlength: $.validator.format("密码不能小于{0}个字符")
+                }
+            },
+            success: function(label) {
+            },
+            errorPlacement:function(error,element) {
+                error.insertAfter(element);
+            },
+            errorContainer: "#errorMsgContainer",
+            errorLabelContainer: $("#errorMsgContainer"),
+            submitHandler:function(form){
+                form.submit();
+            }
+        });
+        return validator;
+
+    }
+
     formValidator.getValidator = function(formName){
         var validator = $(formName).validate({
             rules: {

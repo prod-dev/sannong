@@ -3,8 +3,8 @@
  */
 
 require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'questionnaire', 'jqueryForm', 'formValidator', 'region', 'additionalMethods'],
-        function($, bootstrap, handlebars, sannong, validate, ajaxHandler, questionnaire, jqueryForm, formValidator, region, additionalMethods) {
+    require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'login', 'validate', 'ajaxHandler', 'questionnaire', 'jqueryForm', 'formValidator', 'region', 'additionalMethods'],
+        function($, bootstrap, handlebars, sannong, login, validate, ajaxHandler, questionnaire, jqueryForm, formValidator, region, additionalMethods) {
 
             "use strict";
 
@@ -36,13 +36,13 @@ require(['../main'], function () {
             }
 
             function enableSubmitButton() {
-                $("#applicationSubmit").removeAttr("disabled");
-                $("#applicationSubmit").removeClass().addClass("btn btn-success");
+                $("#projectApplicationFormSubmit").removeAttr("disabled");
+                $("#projectApplicationFormSubmit").removeClass().addClass("btn btn-success");
             }
 
             function disableSubmitButton() {
-                $("#applicationSubmit").attr({disabled: "disabled"});
-                $("#applicationSubmit").removeClass().addClass("btn btn-default");
+                $("#projectApplicationFormSubmit").attr({disabled: "disabled"});
+                $("#projectApplicationFormSubmit").removeClass().addClass("btn btn-default");
             }
 
             function sendValidationCode() {
@@ -78,37 +78,8 @@ require(['../main'], function () {
                     region.Controller.addDistricts();
                 });
 
-
                 $("#projectApplicationFormSubmit").click(function (event) {
-                    var validator = formValidator.getValidator("#projectApplicationForm");
-                    if (validator.form() == true){
-
-                        ajaxHandler.sendRequest({
-                            type: "GET",
-                            url: "validateFormOnSubmit",
-                            dataType: "json",
-                            data: {
-                                cellphone: $("#cellphone").val(),
-                                validationCode: $("#validationCode").val()
-                            },
-                            success: function (response) {
-                                if (response.valid == true) {
-                                    $("#myModalTrigger").click();
-                                } else if (response.uniqueCellphoneValid == false) {
-                                    showUniqueCellphoneError();
-                                } else if (response.validationCodeValid == false) {
-                                    showValidationCodeError();
-                                }
-                            },
-                            fail: function (response) {
-                                showValidationCodeError();
-                            }
-                        });
-                    }
-                });
-
-                $("#applicationSubmit").click(function (event) {
-                    if ((formValidator.getValidator("#applicationForm").form() == true)
+                    if ((formValidator.getValidator("#projectApplicationForm").form() == true)
                         && $("#applicationSubmit").attr("disabled") != "disabled") {
 
                         ajaxHandler.sendRequest({
@@ -121,7 +92,7 @@ require(['../main'], function () {
                             },
                             success: function (response) {
                                 if (response.valid == true) {
-                                    $("#myModalTrigger").click();
+                                    $("#projectAppModelTrigger").click();
                                 } else if (response.uniqueCellphoneValid == false) {
                                     showUniqueCellphoneError();
                                 } else if (response.validationCodeValid == false) {
@@ -136,11 +107,11 @@ require(['../main'], function () {
                 });
 
                 $("#confirmedSubmit").click(function (event) {
-                    $("#applicationForm").submit();
+                    $("#projectApplicationForm").submit();
                 });
 
                 $("#action-send-code").click(function (event) {
-                    if (formValidator.getValidator("#applicationForm").element($("#cellphone")) == false) {
+                    if (formValidator.getValidator("#projectApplicationForm").element($("#cellphone")) == false) {
                         return;
                     } else {
                         ajaxHandler.sendRequest({
@@ -149,7 +120,7 @@ require(['../main'], function () {
                             data: {cellphone: $("#cellphone").val()},
                             success: function (response) {
                                 if (response == true) {
-                                    if (formValidator.getValidator("#applicationForm").form() == true) {
+                                    if (formValidator.getValidator("#projectApplicationForm").form() == true) {
                                         additionalMethods.updateTimeLabel("#action-send-code", "验证码");
                                         sendValidationCode();
                                     }

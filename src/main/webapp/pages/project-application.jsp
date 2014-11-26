@@ -10,7 +10,7 @@
     
 		<link href="css/custom.css" rel="stylesheet" type="text/css">
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-        <link href="content/static/css/sannong/validation.css" rel="stylesheet">
+        <link href="css/validation.css" rel="stylesheet">
 	</head>
 
 	<body>
@@ -27,7 +27,7 @@
             <div class="row">
                 <span class="col-sm-9 rightBorder equalCol">
                     <h3 class="borderBottom">申报项目</h3>
-                    <form class="projectAppForm" id="projectApplicationForm">
+                    <form class="projectAppForm" id="projectApplicationForm" role="form" action="apply" method="post">
                         <ul>
                             <div id="questionnaire">
                                 <script id="question-template-radio" type="text/x-handlebars-template">
@@ -151,7 +151,11 @@
                             <aside class="userFormCol-1">手机号码</aside>
                             <aside class="userFormCol-right">
                                 <input type="text" class="width-281" id="cellphone" name="applicant.cellphone">
+                                <a href="#" class="btn btn-default vcode-btn" role="button" id="action-send-code" name="action-send-code">获取验证码</a>
+                                <!--
+                                <input class="btn btn-default " type="button" value="获取验证码" id="action-send-code" name="action-send-code">
                                 <a href="#" class="white-bt" id="action-send-code" name="action-send-code">获取验证码</a>
+                                -->
                             </aside>
                         </div>
                         <div class="row">
@@ -163,11 +167,33 @@
                             </aside>
                         </div>
                         <div class="row">
-                            <input type="submit" id="projectApplicationFormSubmit" value="提交"/>
+                            <input type="button" id="projectApplicationFormSubmit" value="提交"/>
                         </div>
 
                     </form>
                 </span>
+
+                <!-- Button trigger modal -->
+                <button type="button" id="projectAppModelTrigger" data-toggle="modal" data-target="#projectAppModel" style="display:none"></button>
+
+                <!-- Project Application Page-Confirm Modal -->
+                <div class="modal fade" id="projectAppModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">确认提交之前，以下信息</h4>
+                            </div>
+                            <div class="modal-body">
+                                请确认是否提交?
+                            </div>
+                            <div class="buttonsRow">
+                                <button type="button" class="orange-bt" data-dismiss="modal">取消</button>
+                                <button type="submit" id="confirmedSubmit" class="white-bt">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <span class="col-sm-3 sidebar equalCol">
                     <h3>常见问题</h3>
@@ -222,6 +248,8 @@
     <!-- /CONTENT SECTION -->
 
     <jsp:include page='footer.jsp'/>
+    <script data-main="js/app/pages/project-application" src="content/static/js/lib/require-2.1.15.js"></script>
+
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
@@ -233,6 +261,5 @@
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    <script data-main="content/static/js/sannong/pages/projectapplication" src="content/static/js/lib/require-2.1.15.js"></script>
     </body>
 </html>

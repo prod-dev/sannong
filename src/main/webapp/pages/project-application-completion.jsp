@@ -32,7 +32,6 @@
 <body>
 
 <jsp:include page='header.jsp'/>
-<jsp:include page='nav.jsp'/>
 
 <!-- PAGE TITLE -->
 <div class="page-title">
@@ -55,7 +54,7 @@
             你可以登录我们的网站查询查询申报审批的进度和状态。登录的用户名和密码将会以短信的形式发送给您。<br /><br />
 						<em>如果需要修改您的问卷调查答案，请拨打 0800 556 2540 联系我们的工作人员。</em><br /><br />
 						<hr/>
-            <a href="#" class="orange-bt">返回首页</a>
+            <a href="project-landing" class="orange-bt">返回首页</a>
           </span>
     </div>
   </div>

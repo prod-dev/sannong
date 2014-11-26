@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -84,6 +85,35 @@ public class LoginController {
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("access-denied", "access-denied");
         return new ModelAndView(LOGIN_PAGE, models);
+    }
+
+    @RequestMapping(value = "login-success", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Object> handleLoginSuccess(HttpServletRequest request) {
+        Map<String, Object> models = new HashMap<String, Object>();
+
+        Collection<SimpleGrantedAuthority> authorities =
+                (Collection<SimpleGrantedAuthority>)
+                        SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        for (GrantedAuthority authority : authorities) {
+            String role = authority.getAuthority();
+            if (role.equals("ROLE_USER")) {
+                models.put("redirect", MY_APPLICATION_PAGE);
+            } else if (role.equals("ROLE_ADMIN")) {
+                models.put("redirect", APPLICANTS_PAGE);
+            }
+        }
+        models.put("authentication", true);
+        return models;
+    }
+
+    @RequestMapping(value = "login-failure", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Object> handleLoginFailure(HttpServletRequest request) {
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("authentication", false);
+        return models;
     }
 
 }

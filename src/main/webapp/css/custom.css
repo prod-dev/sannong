@@ -345,10 +345,28 @@ input[type="submit"], .orange-bt-small {
 	text-shadow:2px 2px 2px #db391c;
 	outline:none;
 }
+input[type="button"], .orange-bt-small {
+	color:#ffffff;
+	background:#e6552e;
+	float:left;
+	font-size:18px;
+	line-height:38px;
+	height:38px;
+	border:0;
+	padding:0 40px;
+	border-radius:30px;
+	text-shadow:2px 2px 2px #db391c;
+	outline:none;
+}
 .orange-bt-small {
 	padding:0 27px;
 }
 input[type="submit"]:hover, .orange-bt-small:hover {
+	color:#fff;
+	background:#cd431e;
+	text-decoration:none;
+}
+input[type="button"]:hover, .orange-bt-small:hover {
 	color:#fff;
 	background:#cd431e;
 	text-decoration:none;
@@ -474,6 +492,7 @@ a:hover h4 {
 }
 .white-bt {
 	float:left;
+	background-color: #ffffff;
 	color:#77c354;
 	font-size:18px;
 	border:1px solid #d7dde1;
@@ -493,10 +512,28 @@ a:hover h4 {
 	margin-left:15px;
 	line-height:36px;
 }
+
+.projectAppForm .vcode-btn {
+	background-color: #ffffff;
+	color:#77c354;
+	margin-left:10px;
+	border:1px solid #d7dde1;
+	border-radius:30px;
+}
+.projectAppForm .vcode-btn:hover {
+	color:#5da73c;
+	text-decoration:none;
+}
+
 .userForm input[type="submit"], .projectAppForm input[type="submit"] {
 	margin-left:18px;
 	margin-top:15px;
 }
+.userForm input[type="button"], .projectAppForm input[type="button"] {
+	margin-left:18px;
+	margin-top:15px;
+}
+
 .rightBorder {
 	border-right:1px solid #dedede;
 	padding-right:36px !important;

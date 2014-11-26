@@ -16,7 +16,6 @@
       <div class="row">
           	<span class="col-sm-12">
               <ul>
-                  <li><a href="homepage">网站主页</a></li>
                   <li><a href="project-landing">项目主页</a></li>
                   <li><a href="project-application">项目申请</a></li>
                   <li><a href="project-application-completion">申请完成</a></li>
@@ -27,6 +26,7 @@
                   <li><a href="faq">常见问题</a></li>
                   <li><a href="popups">Popups</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#LoginModel">登录</a></li>
+                  <li><a href="j_spring_security_logout">退出</a></li>
               </ul>
             </span>
       </div>
@@ -38,15 +38,19 @@
             <span class="col-sm-4 logoCol">
               <h1><a href="homepage"><img src="images/logo.png" alt="Benefitting Agriculture"/></a></h1>
             </span>
+            <span class="col-sm-4">
+            </span>
             <span class="col-sm-4 topNo">
               电话: <span>0800 556 2540</span>
             </span>
+          <!--
             <span class="col-sm-4">
               <form class="topSearch">
                 <input type="text" placeholder="搜索"/>
                 <a href="" class="glyphicon glyphicon-search"></a>
               </form>
             </span>
+            -->
       </div>
     </div>
   </div>
@@ -82,12 +86,12 @@
                 <h4 class="modal-title" id="myModalLabel">忘记密码</h4>
             </div>
             <div class="modal-body">
-                <form>
-                    <span class="errorMsg"><span>Error message shows here</span></span>
-                    <input type="text" placeholder="用户名/电话号码" class="model-input" />
-                    <input type="password" placeholder="密码" class="model-input" />
-                    <span class="checkboxCustom"><input type="checkbox"/>自动登录</span> <a href="#" class="leftBorderLink">忘记密码</a>
-                    <input type="submit" value="登录" class="orange-bt"/>
+                <form id="loginForm" role="form" action="j_spring_security_check" method="GET">
+                    <span class="errorMsg"><span id="errorMsgContainer"></span></span>
+                    <input type="text" id="j_username" name='j_username' placeholder="用户名/电话号码" class="model-input" />
+                    <input type="password" id="j_password" name='j_password' placeholder="密码" class="model-input" />
+                    <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span> <a href="#" class="leftBorderLink">忘记密码</a>
+                    <input id="loginFormSubmit" type="button" value="登录" class="orange-bt"/>
                 </form>
             </div>
         </div>

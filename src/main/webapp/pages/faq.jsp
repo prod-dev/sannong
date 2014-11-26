@@ -32,7 +32,6 @@
 <body>
 
 <jsp:include page='header.jsp'/>
-<jsp:include page='nav.jsp'/>
 
 <!-- PAGE TITLE -->
 <div class="page-title">
