@@ -51,10 +51,10 @@ public class PersonalCenterController {
     private static final String LOGIN_PAGE = "login";
     private static final long pageSum = 10;
 
-    private static final String PAGE_MY_APPLICATION = "/pages/user-application-form";
-    private static final String PAGE_USER_PROFILE = "/pages/user-profile";
-    private static final String PAGE_USER_PASSWORD = "/pages/user-password";
-    private static final String PAGE_USER_MANAGEMENT = "/pages/user-management";
+    private static final String PAGE_MY_APPLICATION = "user-application-form";
+    private static final String PAGE_USER_PROFILE = "user-profile";
+    private static final String PAGE_USER_PASSWORD = "user-password";
+    private static final String PAGE_USER_MANAGEMENT = "user-management";
     private static final String PAGE_POPUPS = "/pages/popups";
     private static final String PAGE_PROJECT_APPLICATION_COMPLETION = "/pages/project-application-completion";
 
@@ -361,10 +361,10 @@ public class PersonalCenterController {
 
 			if (!user.getPassword().equals(md5.encodePassword(oldPassword, userName))){
 			    models.put("myPasswordAuth", "oldPasswordAuthFailure");
-			    return new ModelAndView(MY_PASSWORD_PAGE, models);
+			    return new ModelAndView(PAGE_USER_PASSWORD, models);
 			}else if (!newPassword.equals(confirmedPassword) ){
 			    models.put("myPasswordAuth", "newPasswordAuthFailure");
-			    return new ModelAndView(MY_PASSWORD_PAGE, models);
+			    return new ModelAndView(PAGE_USER_PASSWORD, models);
 			}
         }
 
@@ -373,7 +373,7 @@ public class PersonalCenterController {
         userService.updatePassword(user);
 
         models.put("myPasswordAuth", "passwordChanged");
-        return new ModelAndView(MY_PASSWORD_PAGE, models);
+        return new ModelAndView(PAGE_USER_PASSWORD, models);
     }
 
     /**

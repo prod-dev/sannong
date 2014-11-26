@@ -52,6 +52,6 @@ public class HomeController {
 
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("faq", new Object());
-        return new ModelAndView(PAGE_FAQ, models);
+        return new ModelAndView(FAQ_PAGE, models);
     }
 }
