@@ -51,12 +51,12 @@ public class PersonalCenterController {
     private static final String LOGIN_PAGE = "login";
     private static final long pageSum = 10;
 
-    private static final String PAGE_MY_APPLICATION = "/pages/user-application-form";
-    private static final String PAGE_USER_PROFILE = "/pages/user-profile";
-    private static final String PAGE_USER_PASSWORD = "/pages/user-password";
-    private static final String PAGE_USER_MANAGEMENT = "/pages/user-management";
-    private static final String PAGE_POPUPS = "/pages/popups";
-    private static final String PAGE_PROJECT_APPLICATION_COMPLETION = "/pages/project-application-completion";
+    private static final String PAGE_MY_APPLICATION = "user-application-form";
+    private static final String PAGE_USER_PROFILE = "user-profile";
+    private static final String PAGE_USER_PASSWORD = "user-password";
+    private static final String PAGE_USER_MANAGEMENT = "user-management";
+    private static final String PAGE_POPUPS = "popups";
+    private static final String PAGE_PROJECT_APPLICATION_COMPLETION = "project-application-completion";
 
     @Resource
     private IUserService userService;
@@ -64,8 +64,6 @@ public class PersonalCenterController {
     private ISmsService smsService;
     @Resource
     private IProjectService projectService;
-
-
 
     @RequestMapping(value = "user-application-form", method = RequestMethod.GET)
     public ModelAndView showUserApplicationForm() {
@@ -198,7 +196,7 @@ public class PersonalCenterController {
      */
     @RequestMapping(value = "myapplication", method = RequestMethod.GET)
     public ModelAndView myApplication() {
-        return new ModelAndView(MY_APPLICATION_PAGE);
+        return new ModelAndView(PAGE_MY_APPLICATION);
     }
 
     /**

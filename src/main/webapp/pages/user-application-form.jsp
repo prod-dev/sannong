@@ -18,13 +18,13 @@
   <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
   <link href="css/validation.css" rel="stylesheet">
   
-  <%--<script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>--%>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 
   <script src="js/custom.js"></script>
   <script src="js/select.js"></script>
   
-  <script data-main="js/sannong/pages/myapplication" src="js/lib/require-2.1.15.js"></script>
+  <script data-main="js/app/pages/myapplication" src="js/lib/require-2.1.15.js"></script>
 
   <!--[if lt IE 9]>
   <script src="js/html5shiv.min.js"></script>
@@ -91,8 +91,8 @@
                 </ul>
                 <div id="submitStatus" class="brown-bg">项目状态：<div>请完成所有问卷调查，然后我们的工作人员会第一时间联系您。</div></div>
                 <ul class="step-1-listing">
-	                <form id="answerForm" role="form" action="updateAnswersAndComment" method="post">
-		                <div class="tab-pane active" id="questionnaire"></div>
+	                <form id="answerForm" class="projectAppForm" role="form" action="updateAnswersAndComment" method="post">
+		                <div id="questionnaire"></div>
 		                <input type="hidden" name="answerStatus" id="answerStatus" > 
 		                <input type="hidden" name="questionnaireNo" id="questionnaireNo" >
 		            </form>
@@ -103,8 +103,8 @@
                 </div>
                 
                 <div id="buttonGroup" class="float-right step-1-bts">
-                  <a href="javascript:void(0);" class="orange-bt-small" onclick="Sannong.MyApplication.submitForm(0)">保存</a>
-                  <a href="javascript:void(0);" class="orange-bt-small" onclick="Sannong.MyApplication.submitForm(1)">提交</a>
+                  <a id="save" href="javascript:void(0);" class="orange-bt-small">保存</a>
+                  <a id="submit" href="javascript:void(0);" class="orange-bt-small">提交</a>
                 </div>
               </div>
               <!-- Button trigger modal -->
@@ -159,45 +159,30 @@
   </div>
 </footer>
 <!-- /FOOTER -->
+
 <script id="question-template-checkbox" type="text/x-handlebars-template">
-    <div class="J_group_choice">
-      <h5>{{fromOne}}. {{questionContent}}</h5>
-      <label class="checkbox-inline">
-        <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:a"> {{option1}}
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:b"> {{option2}}
-      </label>                 	
-      <label class="checkbox-inline">
-        <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:c"> {{option3}}
-      </label>
-            <label class="checkbox-inline">
-        <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:d"> {{option4}}
-      </label>
-      <label class="checkbox-inline">
-        <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:e"> {{option5}}
-      </label>
+  <li class="J_group_choice">
+    {{fromOne}}. {{questionContent}}
+    <div class="checkboxRow">
+        <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:a"><label>{{option1}}</label></span>
+        <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:b"><label>{{option2}}</label></span>
+        <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:c"><label>{{option3}}</label></span>
+        <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:d"><label>{{option4}}</label></span>
+        <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:e"><label>{{option5}}</label></span>
     </div>
+  </li>
 </script>
 <script id="question-template-radio" type="text/x-handlebars-template">
-    <div class="J_group_choice">
-      <h5>{{fromOne}}. {{questionContent}}</h5>
-      <label class="radio-inline">
-        <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:a"> {{option1}}
-      </label>
-      <label class="radio-inline">
-           <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:b"> {{option2}}
-            </label>
-      <label class="radio-inline">
-        <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:c"> {{option3}}
-      </label>
-      <label class="radio-inline">
-              <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:d"> {{option4}}
-            </label>
-      <label class="radio-inline">
-        <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:e"> {{option5}}
-      </label>
+  <li class="J_group_choice">
+    {{fromOne}}. {{questionContent}}
+    <div class="radioRow">
+      <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:a"><label>{{option1}}</label></span>
+      <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:b"><label>{{option2}}</label></span>
+      <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:c"><label>{{option3}}</label></span>
+      <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:d"><label>{{option4}}</label></span>
+      <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:e"><label>{{option5}}</label></span>
     </div>
+  </li>
 </script>
 </body>
 </html>
