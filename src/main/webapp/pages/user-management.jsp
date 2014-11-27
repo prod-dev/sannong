@@ -21,7 +21,9 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script src="js/custom.js"></script>
-    <script src="js/select.js"></script>
+    <%--<script src="js/select.js"></script>
+    
+    --%><script data-main="js/app/pages/applicants" src="js/lib/require-2.1.15.js"></script>
 
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
@@ -43,7 +45,7 @@
 <section class="contentSection">
     <div class="container">
         <div class="row">
-        	<span class="col-sm-3 sidebar equalCol">
+        	<span class="col-sm-2 sidebar equalCol">
           	<h3>菜单</h3>
             <ul>
                 <li><a href="#">项目申请<span></span></a></li>
@@ -52,203 +54,68 @@
                 <li class="active"><a href="#">用户管理<span></span></a></li>
             </ul>
           </span>          
-          <span class="col-sm-9 leftBorder equalCol umList">
-						<h3>
-                            <span>用户管理</span>
-                            <a href="#" class="orange-bt-small float-right">导出问卷调查结果</a>
-                        </h3>
+          <span class="col-sm-10 leftBorder equalCol umList">
+			<h3>
+                <span>用户管理</span>
+                <a href="#" class="orange-bt-small float-right" data-toggle="modal" data-target="#exportModal">导出问卷调查结果</a>
+                <div id="exportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		            <div class="modal-dialog">
+			            <div class="modal-content">
+				            <div class="modal-header">
+					            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					            <h4 class="modal-title" id="myModalLabel">确定导出问卷调查结果?</h4>
+				            </div>
+				            <div class="modal-footer">
+					            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					            <a href="javascript:void(0)" class="btn btn-success" id="exportCSV">确定</a>
+				            </div>
+			            </div>
+		            </div>
+	            </div>
+            </h3>
             <form>
-                <div class="searchRow">
-                    <div class="left">
-                        <label>查询条件</label>
-                        <div class="width-71">
-                            <select>
-                                <option>姓名</option>
-                                <option>姓名1</option>
-                                <option>姓名2</option>
-                            </select>
-                        </div>
-                        <div class="width-137">
-                            <input type="text"/>
-                        </div>
-                    </div>
-                    <div class="right">
-                        <label>地址</label>
-                        <div class="width-152"><input type="text"/></div>
-                        <div class="width-47"><input type="text"/></div>
-                        <div class="width-65"><input type="text"/></div>
-                        <a href="" class="glyphicon glyphicon-search"></a>
-                    </div>
+                <div id="searchBar" class="searchRow">
+                    <div class="form-group form-inline">
+						<label>查询条件</label>
+						<select class="form-control">
+						    <option>姓名</option>
+						    <option>手机号</option>
+						    <option>工作单位</option>
+						    <option>职位</option>
+						    <option>电子邮箱</option>
+						    <option>单位地址</option>
+						</select>
+					    <input type="text" class="form-control" id="searchValue">
+						<select id="provinceSelect" class="form-control"
+							name="applicant.companyProvince">
+							<option>省/直辖市</option>
+						</select>
+						<select id="citySelect" class="form-control"
+							name="applicant.companyCity">
+							<option>市</option>
+						</select>
+						<select id="districtSelect" class="form-control"
+							name="applicant.companyDistrict">
+							<option>县/市辖区</option>
+						</select>
+						<a id="retrieve" href="javascript:void(0);" class="glyphicon glyphicon-search"></a>
+					</div>
                 </div>
                 <ul class="umListGrid">
                     <li class="head">
                         <div class="col-small">姓名</div>
                         <div class="col-small">注册日期</div>
                         <div class="col-small">手机号码</div>
-                        <div class="col-medium">工作单位</div>
-                        <div class="col-large">职位</div>
+                        <div class="col-large">工作单位</div>
+                        <div class="col-small">职位</div>
+                        <div class="col-medium">电子邮箱</div>
+                        <div class="col-small"></div>
                     </li>
                     <li>
-                        <div class="col-small">
-                            <span class="umListGridTitle">姓名</span>
-                            名字
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">注册日期</span>
-                            1970 / 4 / 26
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">手机号码</span>
-                            21456186544
-                        </div>
-                        <div class="col-medium">
-                            <span class="umListGridTitle">工作单位</span>
-                            这是一个虚拟的文本
-                        </div>
-                        <div class="col-large">
-                            <span class="umListGridTitle">职位</span>
-                            <a href="#">链接</a>
-                    <span class="bts">
-                    	<a href="#" class="edit">Edit</a>
-                      <a href="#" class="help">Help</a>
-                    </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="col-small">
-                            <span class="umListGridTitle">姓名</span>
-                            名字
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">注册日期</span>
-                            1970 / 4 / 26
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">手机号码</span>
-                            21456186544
-                        </div>
-                        <div class="col-medium">
-                            <span class="umListGridTitle">工作单位</span>
-                            这是一个虚拟的文本
-                        </div>
-                        <div class="col-large">
-                            <span class="umListGridTitle">职位</span>
-                            <a href="#">链接</a>
-                    <span class="bts">
-                    	<a href="#" class="edit">Edit</a>
-                      <a href="#" class="help">Help</a>
-                    </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="col-small">
-                            <span class="umListGridTitle">姓名</span>
-                            名字
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">注册日期</span>
-                            1970 / 4 / 26
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">手机号码</span>
-                            21456186544
-                        </div>
-                        <div class="col-medium">
-                            <span class="umListGridTitle">工作单位</span>
-                            这是一个虚拟的文本
-                        </div>
-                        <div class="col-large">
-                            <span class="umListGridTitle">职位</span>
-                            <a href="#">链接</a>
-                    <span class="bts">
-                    	<a href="#" class="edit">Edit</a>
-                      <a href="#" class="help">Help</a>
-                    </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="col-small">
-                            <span class="umListGridTitle">姓名</span>
-                            名字
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">注册日期</span>
-                            1970 / 4 / 26
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">手机号码</span>
-                            21456186544
-                        </div>
-                        <div class="col-medium">
-                            <span class="umListGridTitle">工作单位</span>
-                            这是一个虚拟的文本
-                        </div>
-                        <div class="col-large">
-                            <span class="umListGridTitle">职位</span>
-                            <a href="#">链接</a>
-                    <span class="bts">
-                    	<a href="#" class="edit">Edit</a>
-                      <a href="#" class="help">Help</a>
-                    </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="col-small">
-                            <span class="umListGridTitle">姓名</span>
-                            名字
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">注册日期</span>
-                            1970 / 4 / 26
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">手机号码</span>
-                            21456186544
-                        </div>
-                        <div class="col-medium">
-                            <span class="umListGridTitle">工作单位</span>
-                            这是一个虚拟的文本
-                        </div>
-                        <div class="col-large">
-                            <span class="umListGridTitle">职位</span>
-                            <a href="#">链接</a>
-                    <span class="bts">
-                    	<a href="#" class="edit">Edit</a>
-                      <a href="#" class="help">Help</a>
-                    </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="col-small">
-                            <span class="umListGridTitle">姓名</span>
-                            名字
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">注册日期</span>
-                            1970 / 4 / 26
-                        </div>
-                        <div class="col-small">
-                            <span class="umListGridTitle">手机号码</span>
-                            21456186544
-                        </div>
-                        <div class="col-medium">
-                            <span class="umListGridTitle">工作单位</span>
-                            这是一个虚拟的文本
-                        </div>
-                        <div class="col-large">
-                            <span class="umListGridTitle">职位</span>
-                            <a href="#">链接</a>
-                    <span class="bts">
-                    	<a href="#" class="edit">Edit</a>
-                      <a href="#" class="help">Help</a>
-                    </span>
-                        </div>
+                        <div id="userList">
                     </li>
                 </ul>
-                <ul class="customPagination">
-                    <li><a href="#" class="bt back"></a></li>
-                    <li>1/6</li>
-                    <li><a href="#" class="bt next activeBt"></a></li>
+                <ul id="pagination" class="customPagination">
                 </ul>
             </form>
           </span>
@@ -281,6 +148,25 @@
     </div>
 </footer>
 <!-- /FOOTER -->
+
+<script id="table-template" type="text/x-handlebars-template">
+    {{#each this}}
+        <li>
+            <div class="col-small">{{realName}}</div>
+			<div class="col-small">{{createTime}}</div>
+			<div class="col-small" id="cell{{addOne @index}}">{{cellphone}}</div>
+			<div class="col-large">{{company}}</div>
+			<div class="col-small">{{jobTitle}}</div>
+			<div class="col-medium">{{mailbox}}</div>
+            <div class="col-small">
+              <span class="bts">
+                <a href="javascript:void(0);" class="edit" onclick="Sannong.Applicants.edit('{{userName}}')">Edit</a>
+                <a href="javascript:void(0);" class="help" onclick="Sannong.Applicants.showQuestionnaireAnswers(1,{{cellphone}})">Help</a>
+              </span>
+            </div>
+       </li>
+    {{/each}}
+</script>
 
 </body>
 </html>
