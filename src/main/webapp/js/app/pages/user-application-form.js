@@ -2,8 +2,8 @@
  * Created by Bright Huang on 11/6/14.
  */
 require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire', 'jqueryForm'],
-        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire, jqueryForm) {
+    require(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire', 'jqueryForm', 'sidebar'],
+        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire, jqueryForm, sidebar) {
 
             "use strict";
 

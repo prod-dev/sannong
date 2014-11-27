@@ -31,18 +31,14 @@
         <sec:intercept-url pattern="/horizontalQuery" access="ROLE_PLATFORMADMIN"/>
 
         <!--intercept-url pattern="/login" access="ROLE_USER, ROLE_ANONYMOUS"/-->
-        <sec:intercept-url pattern="/myinfo" access="ROLE_USER, ROLE_ADMIN"/>
-        <sec:intercept-url pattern="/mypassword" access="ROLE_USER, ROLE_ADMIN"/>
-
-        <!--
-        <sec:intercept-url pattern="/questionnaire" access="ROLE_USER, ROLE_ADMIN"/>
-        -->
+        <sec:intercept-url pattern="/user-profile" access="ROLE_USER, ROLE_ADMIN"/>
+        <sec:intercept-url pattern="/user-password" access="ROLE_USER, ROLE_ADMIN"/>
 
         <!-- user enabled="true"></user -->
-        <sec:intercept-url pattern="/myapplication" access="ROLE_USER"/>
+        <sec:intercept-url pattern="/user-application-form" access="ROLE_USER"/>
 
         <!-- admin enabled="true"></admin -->
-        <sec:intercept-url pattern="/applicants" access="ROLE_ADMIN"/>
+        <sec:intercept-url pattern="/user-management" access="ROLE_ADMIN"/>
 
         <custom-filter before="FORM_LOGIN_FILTER" ref="loginFilter" />
 
@@ -51,11 +47,11 @@
                     default-target-url="/login-success"/>
 
         <sec:logout invalidate-session="true"
-                    logout-url="/j_spring_security_logout" logout-success-url="/home"/>
+                    logout-url="/j_spring_security_logout" logout-success-url="/project-landing"/>
 
         <sec:remember-me data-source-ref="dataSource" user-service-ref="userDetailsManager"/>
 
-        <sec:session-management invalid-session-url="/home"/>
+        <sec:session-management invalid-session-url="/project-landing"/>
 
     </sec:http>
 

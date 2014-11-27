@@ -1,0 +1,91 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Bright Huang
+  Date: 11/27/14
+  Time: 21:32
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Benefitting Agriculture - User Management List Page</title>
+
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/validation.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<jsp:include page='header.jsp'/>
+
+<!-- PAGE TITLE -->
+<div class="page-title withOutTitle">
+</div>
+<!-- /PAGE TITLE -->
+
+<!-- CONTENT SECTION -->
+<section class="contentSection">
+    <div class="container">
+        <div class="row">
+            <span class="col-sm-2 sidebar equalCol">
+            <h3>菜单</h3>
+                <ul class="nav nav-tabs-justified" role="tablist">
+                    <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+                        <li class="active"><a href="#user-management-tab" role="tab" data-toggle="tab">用户管理<span></span></a></li>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+                        <li class="active"><a href="#user-application-form-tab" role="tab" data-toggle="tab">项目申请<span></span></a></li>
+                    </sec:authorize>
+                    <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
+                        <li><a href="#user-profile-tab" role="tab" data-toggle="tab">个人信息<span></span></a></li>
+                        <li><a href="#user-password-tab" role="tab" data-toggle="tab">更新密码<span></span></a></li>
+                    </sec:authorize>
+                </ul>
+            </span>
+            <span class="col-sm-10 leftBorder equalCol ">
+                <div class="tab-content">
+                    <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+                        <div role="tabpane" class="tab-pane active" id="user-management-tab">
+                            <jsp:include page='user-management.jsp'/>
+                        </div>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+                        <div role="tabpane" class="tab-pane active" id="user-application-form-tab">
+                            <jsp:include page='user-application-form.jsp'/>
+                        </div>
+                    </sec:authorize>
+                    <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
+                        <div role="tabpane" class="tab-pane" id="user-profile-tab">
+                            <jsp:include page='user-profile.jsp'/>
+                        </div>
+                        <div role="tabpane" class="tab-pane" id="user-password-tab">
+                            <jsp:include page='user-password.jsp'/>
+                        </div>
+                    </sec:authorize>
+                </div>
+            </span>
+        </div>
+    </div>
+</section>
+<!-- /CONTENT SECTION -->
+
+<jsp:include page='footer.jsp'/>
+<script data-main="js/app/pages/user-personal-center" src="content/static/js/lib/require-2.1.15.js"></script>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/custom.js"></script>
+<script src="js/select.js"></script>
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
+</body>
+</html>

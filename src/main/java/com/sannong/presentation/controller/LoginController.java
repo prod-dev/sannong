@@ -29,6 +29,7 @@ public class LoginController {
 
     private static final String USER_MANAGEMENT_PAGE = "user-management";
     private static final String USER_APPLICATION_FORM_PAGE = "user-application-form";
+    private static final String USER_PERSONAL_CENTER_PAGE = "user-personal-center";
 
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -56,9 +57,9 @@ public class LoginController {
         for (GrantedAuthority authority : authorities) {
             String role = authority.getAuthority();
             if (role.equals("ROLE_USER")) {
-                return new ModelAndView("redirect:" + MY_APPLICATION_PAGE);
+                return new ModelAndView("redirect:" + USER_PERSONAL_CENTER_PAGE);
             } else if (role.equals("ROLE_ADMIN")) {
-                return new ModelAndView("redirect:" + APPLICANTS_PAGE);
+                return new ModelAndView("redirect:" + USER_PERSONAL_CENTER_PAGE);
             }
         }
         return showLoginPage();
@@ -103,9 +104,9 @@ public class LoginController {
         for (GrantedAuthority authority : authorities) {
             String role = authority.getAuthority();
             if (role.equals("ROLE_USER")) {
-                models.put("redirect", USER_APPLICATION_FORM_PAGE);
+                models.put("redirect", USER_PERSONAL_CENTER_PAGE);
             } else if (role.equals("ROLE_ADMIN")) {
-                models.put("redirect", USER_MANAGEMENT_PAGE);
+                models.put("redirect", USER_PERSONAL_CENTER_PAGE);
             }
         }
         models.put("authentication", true);

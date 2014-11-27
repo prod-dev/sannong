@@ -58,12 +58,23 @@ public class PersonalCenterController {
     private static final String PAGE_POPUPS = "popups";
     private static final String PAGE_PROJECT_APPLICATION_COMPLETION = "project-application-completion";
 
+    private static final String USER_PERSONAL_CENTER_PAGE = "user-personal-center";
+
     @Resource
     private IUserService userService;
     @Resource
     private ISmsService smsService;
     @Resource
     private IProjectService projectService;
+
+
+    @RequestMapping(value = "user-personal-center", method = RequestMethod.GET)
+    public ModelAndView showUserPersonalCenter() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("user-personal-center", new Object());
+        return new ModelAndView(USER_PERSONAL_CENTER_PAGE, models);
+    }
 
     @RequestMapping(value = "user-application-form", method = RequestMethod.GET)
     public ModelAndView showUserApplicationForm() {
