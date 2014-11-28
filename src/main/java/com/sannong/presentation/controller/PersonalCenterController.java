@@ -80,6 +80,14 @@ public class PersonalCenterController {
     @RequestMapping(value = {"user-personal-center/user-profile"}, method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> userProfile(HttpServletRequest request) {
         String userName = request.getParameter("userName");
+        if (userName == null){
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                userName = ((UserDetails) principal).getUsername();
+            } else {
+                userName = principal.toString();
+            }
+        }
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userName", userName);

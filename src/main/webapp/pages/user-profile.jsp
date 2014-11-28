@@ -19,10 +19,11 @@
   <link href="css/custom.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <h3>我的个人信息</h3>
     <div id="userProfileView">
-      <script id="user-profile-template" type="text/x-handlebars-template">
-        <form class="userForm" role="form" id="userInfoForm" action="updateUserInfo" method="post">
+    </div>
+    <script id="user-profile-template" type="text/x-handlebars-template">
+      <h3>个人信息</h3>
+      <form class="userForm" role="form" id="userInfoForm" action="updateUserInfo" method="post">
         <div class="row">
           <aside class="userFormCol-1">姓名</aside>
           <aside class="userFormCol-right">{{userProfile.realName}}</aside>
@@ -83,7 +84,6 @@
           <input type="submit" id="userInfoSubmit" value="提交"/>
         </div>
       </form>
-      </script>
-    </div>
+    </script>
 </body>
 </html>

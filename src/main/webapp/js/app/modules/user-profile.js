@@ -2,8 +2,10 @@
  * Created by Bright Huang on 11/1/14.
  */
 
-define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'jqueryForm', 'formValidator', 'region', 'additionalMethods', 'sidebar'],
-        function($, bootstrap, sannong, validate, ajaxHandler, jqueryForm, formValidator, region, additionalMethods, sidebar) {
+define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'jqueryForm', 'formValidator',
+        'region', 'additionalMethods'],
+        function($, bootstrap, handlebars, sannong, validate, ajaxHandler, jqueryForm, formValidator,
+                 region, additionalMethods) {
 
     "use strict";
 
@@ -12,6 +14,11 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'jqueryForm
         newCellphoneError: '<label id="newCellphone-error" class="error" for="newCellphone" style="display: inline-block;">手机号码已存在</label>'
     }
     userProfile.View = {
+        userProfileView: $("#userProfileView"),
+        sideBar: $(".sidebar"),
+        userManagementTab: $("#userManagementTab"),
+        userProfileTab: $("#userProfileTab"),
+        userPasswordTab: $("#userPasswordTab"),
         newCellphone: $("#newCellphone"),
         newCellphoneError: $("#newCellphone-error")
     };
@@ -101,7 +108,35 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'jqueryForm
         });
     }
 
-    userProfile.Controller = {};
+    userProfile.show = function(userName){
+        ajaxHandler.sendRequest({
+            type: "GET",
+            url: "user-personal-center/user-profile",
+            data:{userName: userName},
+            success: function(response){
+                if (response){
+                    userProfile.Controller.renderUserProfileView(response);
+                }
+            },
+            fail: function(){
+            }
+        });
+    };
+
+    userProfile.edit = function(userName){
+        $("#userProfileEditTab").click();
+        userProfile.show(userName);
+    };
+
+    userProfile.Controller = {
+        renderUserProfileView: function(data){
+            var userProfileViewHandler = handlebars.compile($("#user-profile-template").html());
+            var html = userProfileViewHandler(data);
+            userProfile.View.userProfileView.empty();
+            userProfile.View.userProfileView.append(html);
+        }
+
+    };
 
     $(function() {
         region.Controller.saveRegion();

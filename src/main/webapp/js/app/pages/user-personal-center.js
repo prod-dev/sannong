@@ -16,62 +16,26 @@ require(['../main'], function () {
             var userPersonalCenter = {};
             userPersonalCenter.Model = {};
             userPersonalCenter.View = {
-                userProfileView: $("#userProfileView")
             };
 
-            userPersonalCenter.Controller = {
-                renderUserProfileView: function(data){
-                    var userProfileViewHandler = handlebars.compile($("#user-profile-template").html());
-                    var html = userProfileViewHandler(data);
-                    userPersonalCenter.View.userProfileView.empty();
-                    userPersonalCenter.View.userProfileView.append(html);
-                }
+            userPersonalCenter.init = function(){
 
-            };
+                $("#userManagementTab").click(function(){
 
-            userPersonalCenter.edit = function(userName){
-                $("#userProfileTab").click();
-                //$(".sidebar").hide();
+                });
+                $("#userAppFormTab").click(function(){
 
-                ajaxHandler.sendRequest({
-                    type: "GET",
-                    url: "user-personal-center/user-profile",
-                    data:{userName: userName},
-                    success: function(response){
-                        if (response){
-                            userPersonalCenter.Controller.renderUserProfileView(response);
-                        }
-                    },
-                    fail: function(){
-                    }
+                });
+                $("#userProfileTab").click(function(){
+                    userProfile.show();
+                });
+                $("#userPasswordTab").click(function(){
+
                 });
             }
 
-            userPersonalCenter.changeContent = function(dropdownName){
-                var searchKey = $("#searchKey").text();
-                var dropDownNameText = $("#" + dropdownName).text();
-
-                $("#" + dropdownName).text(searchKey);
-                $("#searchKey").html(dropDownNameText + '<span class="caret">');
-            }
-
-            userPersonalCenter.cancel = function () {
-                $("#userTextShow").hide();
-                $("#questionnaireTable").hide();
-                $("#applicantsTable").show();
-                $("#searchBar").show();
-            }
-
-            userPersonalCenter.update = function () {
-                if (formValidator.getValidator("#answerForm").form() == true){
-                    $("#myModalTrigger").click();
-
-                }
-            }
-
-
             $(function() {
-
+                userPersonalCenter.init();
             })
 
             sannong.UserPersonalCenter = userPersonalCenter;

@@ -1,8 +1,8 @@
 /**
  * Created by Bright Huang on 11/6/14.
  */
-define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire', 'jqueryForm', 'sidebar'],
-        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire, jqueryForm, sidebar) {
+define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire', 'jqueryForm'],
+        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire, jqueryForm) {
 
             "use strict";
 

@@ -35,7 +35,7 @@
         <div class="container">
             <div class="row">
                 <span class="col-sm-2 sidebar equalCol">
-                <h3>菜单</h3>
+                    <h3>菜单</h3>
                     <ul class="nav nav-tabs-justified" role="tablist">
                         <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
                             <li class="active"><a id="userManagementTab" href="#userManagementTabPane"  role="tab" data-toggle="tab">用户管理<span></span></a></li>
@@ -45,7 +45,8 @@
                         </sec:authorize>
                         <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
                             <li><a id="userProfileTab" href="#userProfileTabPane" role="tab" data-toggle="tab">个人信息<span></span></a></li>
-                            <li><a id="userPasswordTab" href="#userPasswordTabPane"  role="tab" data-toggle="tab">更新密码<span></span></a></li>
+                            <li class="hidden"><a id="userProfileEditTab" href="#userProfileTabPane" role="tab" data-toggle="tab">编辑个人信息<span></span></a></li>
+                            <li><a id="userPasswordTab" href="#userPasswordTabPane" role="tab" data-toggle="tab">更新密码<span></span></a></li>
                         </sec:authorize>
                     </ul>
                 </span>
