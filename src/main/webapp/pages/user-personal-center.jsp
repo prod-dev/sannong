@@ -14,13 +14,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Benefitting Agriculture - User Management List Page</title>
+    <title>Benefitting Agriculture - Personal Center</title>
 
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/validation.css" rel="stylesheet" type="text/css">
-    <link href="css/custom.css" rel="stylesheet" type="text/css">
-
 </head>
+
 <body>
 <jsp:include page='header.jsp'/>
 
@@ -65,6 +65,8 @@
                         </sec:authorize>
                         <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
                             <div id="userProfileTabPane" role="tabpane" class="tab-pane">
+                                <div id="userProfileView">
+                                </div>
                                 <jsp:include page='user-profile.jsp'/>
                             </div>
                             <div id="userPasswordTabPane" role="tabpane" class="tab-pane">
@@ -81,15 +83,15 @@
 
 <jsp:include page='footer.jsp'/>
 
-<script data-main="js/app/pages/user-personal-center" src="js/lib/require-2.1.15.js""></script>
-
+<script data-main="js/app/pages/user-personal-center" src="js/lib/require-2.1.15.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 
 <script src="js/custom.js"></script>
-<%--<script src="js/select.js"></script>
-
---%><!--[if lt IE 9]>
+<!--
+<script src="js/select.js"></script>
+-->
+<!--[if lt IE 9]>
 <script src="js/html5shiv.min.js"></script>
 <script src="js/respond.min.js"></script>
 <![endif]-->

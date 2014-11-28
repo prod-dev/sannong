@@ -123,11 +123,6 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
         });
     };
 
-    userProfile.edit = function(userName){
-        $("#userProfileEditTab").click();
-        userProfile.show(userName);
-    };
-
     userProfile.Controller = {
         renderUserProfileView: function(data){
             var userProfileViewHandler = handlebars.compile($("#user-profile-template").html());

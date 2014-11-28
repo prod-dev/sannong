@@ -2,20 +2,62 @@
  * Created by Bright Huang on 11/6/14.
  */
 
-define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods', 'pagination', 'region', 'jqueryForm'],
-        function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator, additionalMethods, pagination, region, jqueryForm) {
+define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator',
+        'additionalMethods', 'pagination', 'region', 'jqueryForm'],
+        function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator,
+                 additionalMethods, pagination, region, jqueryForm) {
 
             "use strict";
 
             var userManagement = {};
+            userManagement.View = {
+                userProfile: $("#userProfileEditView"),
+                questionnaireTable: $("#questionnaireTable"),
+                searchBar: $("#searchBar"),
+                userManagementTitle: $("#user-management-title"),
+                userTextShow: $("#userTextShow"),
+                userManagementTable: $("#userManagementTable"),
+                userProfileCancel: $("#userProfileCancel")
+            };
+
             var searchParams = "";
 
             userManagement.edit = function(userName){
-                location.href = "userinfo?userName=" + userName;
+                userManagement.showUserProfileView();
+
+                ajaxHandler.sendRequest({
+                    type: "GET",
+                    url: "user-personal-center/user-profile",
+                    data:{userName: userName},
+                    success: function(response){
+                        if (response != undefined){
+                            userManagement.Controller.renderUserProfileView(response);
+                        }
+                    },
+                    fail: function(){
+                    }
+                });
+            }
+
+            userManagement.showUserProfileView = function(){
+                userManagement.View.questionnaireTable.hide();
+                userManagement.View.userManagementTitle.hide();
+                userManagement.View.userTextShow.hide();
+                userManagement.View.searchBar.hide();
+                userManagement.View.userManagementTable.hide();
+                userManagement.View.userProfile.show();
+            }
+            userManagement.resetView = function(){
+                userManagement.View.userManagementTitle.show();
+                userManagement.View.userManagementTable.show();
+                userManagement.View.searchBar.show();
+                userManagement.View.questionnaireTable.hide();
+                userManagement.View.userTextShow.hide();
+                userManagement.View.userProfile.hide();
             }
 
             $("#cancel").click(function () {
-                $("#userTextShow").hide();
+                userManagement.View.userTextShow.hide();
                 $("#questionnaireTable").hide();
                 $("#userManagementTable").show();
                 $("#searchBar").show();
@@ -86,7 +128,16 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                          $('#districtSelect option').remove();
                          region.Controller.addDistrictSelectionsOnly();
                      });
-            	 }
+            	 },
+                renderUserProfileView: function(data){
+                    var userProfileViewHandler = handlebars.compile($("#user-profile-template").html());
+                    var html = userProfileViewHandler(data);
+                    userManagement.View.userProfile.empty();
+                    userManagement.View.userProfile.append(html);
+                    $("#userProfileCancel").click(function () {
+                        userManagement.resetView();
+                    });
+                }
             }
             
             userManagement.showQuestionnaireAnswers = function (questionnaireNo, cellphone) {

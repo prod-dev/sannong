@@ -16,7 +16,7 @@
 
   <link href="css/custom.css" rel="stylesheet" type="text/css">
   <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-  <link href="css/validation.css" rel="stylesheet">
+  <link href="css/validation.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>

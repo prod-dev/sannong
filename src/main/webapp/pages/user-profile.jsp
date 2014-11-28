@@ -14,13 +14,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benefitting Agriculture - End User Profile</title>
-  <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
-  <link href="css/validation.css" rel="stylesheet" type="text/css">
-  <link href="css/custom.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div id="userProfileView">
-    </div>
     <script id="user-profile-template" type="text/x-handlebars-template">
       <h3>个人信息</h3>
       <form class="userForm" role="form" id="userInfoForm" action="updateUserInfo" method="post">
@@ -82,6 +77,7 @@
         </div>
         <div class="row">
           <input type="submit" id="userInfoSubmit" value="提交"/>
+          <a href="#" id="userProfileCancel" class="white-bt">返回</a>
         </div>
       </form>
     </script>
