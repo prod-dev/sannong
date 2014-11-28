@@ -13,6 +13,23 @@ define(['jquery', 'sannong', 'ajaxHandler', 'formValidator'], function($, sannon
     }
 
     function addEventListener(){
+
+        $('.radioCustom input').click(function () {
+            $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
+            $(this).parent(".radioCustom").addClass("radioCustom-checked");
+        });
+
+        $('.checkboxCustom').click(function () {
+            $(this).toggleClass('checkboxCustom-checked');
+            var $checkbox = $(this).find(':checkbox');
+            $checkbox.attr('checked', !$checkbox.attr('checked'));
+        });
+
+        $('#forgotPasswordLink').click(function () {
+            $('#loginModalCloseBtn').click();
+        });
+
+
         $("#loginFormSubmit").click(function () {
             var validator = formValidator.getValidator("#loginForm");
 

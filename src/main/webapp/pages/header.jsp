@@ -84,7 +84,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <button id="loginModalCloseBtn" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">忘记密码</h4>
             </div>
             <div class="modal-body">
@@ -92,12 +92,42 @@
                     <span class="errorMsg"><span id="errorMsgContainer"></span></span>
                     <input type="text" id="j_username" name='j_username' placeholder="用户名/电话号码" class="model-input" />
                     <input type="password" id="j_password" name='j_password' placeholder="密码" class="model-input" />
-                    <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span> <a href="#" class="leftBorderLink">忘记密码</a>
+                    <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span>
+                    <a href="#" class="leftBorderLink" id="forgotPasswordLink" data-toggle="modal" data-target="#ForgotPasswordModel">忘记密码</a>
                     <input id="loginFormSubmit" type="button" value="登录" class="orange-bt"/>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
+<!-- Forgot Password Modal -->
+<div class="modal fade" id="ForgotPasswordModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="forgotPasswordModalLabel">忘记密码</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <span class="errorMsg"><span>Error message shows here</span></span>
+                    <input type="text" placeholder="新手机号码" class="model-input" />
+                    <input type="text" placeholder="新手机号码" class="model-input-75" />
+                    <a href="#" class="white-bt">获取验证码</a>
+                    <input type="text" placeholder="新手机号码" class="model-input margin-top-15" />
+                    <span class="checkboxCustom"><input type="checkbox"/>自动登录</span>
+                    <input type="submit" value="登录" class="orange-bt"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                返回登录页面
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </body>
 </html>
