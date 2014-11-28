@@ -47,7 +47,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button id="loginModalCloseBtn" type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">忘记密码</h4>
+                <h4 class="modal-title" id="myModalLabel">登录</h4>
             </div>
             <div class="modal-body">
                 <form id="loginForm" role="form" action="j_spring_security_check" method="GET">

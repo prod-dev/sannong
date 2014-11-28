@@ -8,33 +8,25 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             "use strict";
 
             var userManagement = {};
-
+            var searchParams = "";
 
             userManagement.edit = function(userName){
                 location.href = "userinfo?userName=" + userName;
             }
 
-            userManagement.changeContent = function(dropdownName){
-                var searchKey = $("#searchKey").text();
-                var dropDownNameText = $("#" + dropdownName).text();
-
-                $("#" + dropdownName).text(searchKey);
-                $("#searchKey").html(dropDownNameText + '<span class="caret">');
-            }
-
-            userManagement.cancel = function () {
+            $("#cancel").click(function () {
                 $("#userTextShow").hide();
                 $("#questionnaireTable").hide();
                 $("#userManagementTable").show();
                 $("#searchBar").show();
-            }
+                $("#user-management-title").show();
+            })
 
-            userManagement.update = function () {
+            $("#update").click(function () {
             	if (formValidator.getValidator("#answerForm").form() == true){
             		$("#myModalTrigger").click();
-            
             	}
-            }
+            })
 
             $("#submit").click(function(event){
         		$("#answerForm").ajaxSubmit(function(message) {
@@ -48,7 +40,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             });
 
             $("#retrieve").click(function() {
-                var searchKey = $("#searchKey").text().trim();
+                var searchKey = $("#searchKey").val();
                 var searchValue = $("#searchValue").val();
 
                 var parameter;
@@ -70,7 +62,8 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
         		var districtIndex = $("#districtSelect").val();
         		
         		parameter = parameter + "&provinceIndex=" + provinceIndex + "&cityIndex=" + cityIndex + "&districtIndex=" + districtIndex;
-
+                searchParams = parameter;
+                
                 $.ajax({
                     type : "get",
                     dataType : "text",
@@ -97,9 +90,27 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             }
             
             userManagement.showQuestionnaireAnswers = function (questionnaireNo, cellphone) {
-                $("#questionnaireNo").val(questionnaireNo);
+            	// before initial table
+            	$("#questionnaireNo").val(questionnaireNo);
                 $("#answerStatus").val(questionnaireNo + '1');
-                $("#userTextShow").hide();
+                $("#userTextShow").show();
+                $("#user-management-title").hide();
+                $("#userManagementTable").hide();
+                $("#questionnaireTable").show();
+            
+                if ($("#questionnaireTable").show()) {
+                	$("#questionList").empty();
+                }
+                
+                if ($(".steps")){
+                	$(".no").each(function(){
+                		$(this).parent().removeClass("active");
+                		
+                		if ($(this).text() == questionnaireNo){
+                			$(this).parent().addClass("active");
+                		}
+                	})
+                }
 
                 var userCellphone = cellphone;
                 if (userCellphone != "") {
@@ -132,17 +143,6 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                             $("#userTextShow").show();
                         }
                         
-                        // before initial table
-                        if ($("#questionnaireTable").is(":hidden")) {
-                            $("#questionnaireTable").show();
-                        } else {
-                            $("#userManagementTable").hide();
-                            $("#questionList").empty();
-                        }
-                        $("#userManagementTable").hide();
-                        $("#searchBar").hide();
-                        $("#questionList").empty();
-                        
                         //fill out questionnaire
                         var handleCheckbox = handlebars.compile($("#question-template-checkbox").html());
                         var handleRadio = handlebars.compile($("#question-template-radio").html());
@@ -168,17 +168,28 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         }
 
                         //remove extra checkbox and radio button
-                        $("#questionnaireTable").find(".checkbox-inline").each(function(){
+                        $("#questionnaireTable").find(".checkboxCustom").each(function(){
                             var checkbox = $(this).text();
                             if (checkbox.trim() == ""){
                                 $(this).remove();
                             }
                         });
-                        $("#questionnaireTable").find(".radio-inline").each(function(){
+                        $("#questionnaireTable").find(".radioCustom").each(function(){
                             var radio = $(this).text();
                             if (radio.trim() == ""){
                                 $(this).remove();
                             }
+                        });
+                        
+                        $('.radioCustom input').click(function () {
+                            $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
+                            $(this).parent(".radioCustom").addClass("radioCustom-checked");
+                        });
+                        
+                        $('.checkboxCustom').click(function () {
+                            $(this).toggleClass('checkboxCustom-checked');
+                            var $checkbox = $(this).find(':checkbox');
+                            $checkbox.attr('checked', !$checkbox.attr('checked'));
                         });
                         
                         // fill out answers in questionnaire relatively
@@ -258,49 +269,76 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             }
 
             function pageinationHandle(totalCount, parameter) {
-                var pageIndex = 0; // 页面索引初始值
-                var pageSize = 10; // 每页显示条数初始化，修改显示条数，修改这里即可
+                var pageIndex = 0; 
+                var pageSize = 10; 
 
-                InitTable(0, parameter); // Load事件，初始化表格数据，页面索引为0（第一页）
-
-                // 分页，PageCount是总条目数，这是必选参数，其它参数都是可选
-                $("#pagination").pagination(totalCount, {
-                    callback : PageCallback,
-                    prev_text : '上一页', // 上一页按钮里text
-                    next_text : '下一页', // 下一页按钮里text
-                    items_per_page : pageSize, // 显示条数
-                    num_display_entries : 6, // 连续分页主体部分分页条目数
-                    current_page : pageIndex, // 当前页索引
-                    num_edge_entries : 2
-                    // 两侧首尾分页条目数
+                 //初始化分页
+                $("#totalPage").text(Math.ceil(totalCount/pageSize));
+                
+                //加载表格数据
+                InitTable(1, parameter);
+            }
+            
+            function InitTable(pageIndex, parameter) {
+                $.ajax({
+                    type : "get",
+                    dataType : "json",
+                    url : 'showApplicants',
+                    data : "pageIndex=" + pageIndex + "&" + parameter,
+                    success : function(data) {
+                        var handleHelper = handlebars.registerHelper("addOne",
+                            function(index) {
+                                return index + 1;
+                            });
+                        var handle = handlebars.compile($("#table-template").html());
+                        var html = handle(data);
+                        $("#userList").empty();
+                        $("#userList").append(html);
+                    }
                 });
-
-                // 翻页调用
-                function PageCallback(index, jq) {
-                    InitTable(index);
-                }
-                // 请求数据
-                function InitTable(pageIndex, parameter) {
-                    $.ajax({
-                        type : "get",
-                        dataType : "json",
-                        url : 'showApplicants',
-                        data : "pageIndex=" + (pageIndex + 1) + "&" + parameter,
-                        success : function(data) {
-                            var handleHelper = handlebars.registerHelper("addOne",
-                                function(index) {
-                                    return index + 1;
-                                });
-                            var handle = handlebars.compile($("#table-template").html());
-                            var html = handle(data);
-                            $("#userList").empty();
-                            $("#userList").append(html);
-                        }
-                    });
-                }
-
-                $("#exportCSV").click(function() {
-                    var searchKey = $("#searchKey").text().trim();
+            }
+            
+            $("#previous").click(function(){
+            	$("#previous").addClass("activeBt");
+            	$("#next").addClass("activeBt");
+            	var currentPage = $("#currentPage").text();
+            	var previousPage = parseInt(currentPage) - 1;
+            	
+            	if (currentPage == 1){
+            		$("#previous").removeClass("activeBt");
+            		return;
+            	}
+            	if (previousPage == 1){
+            		$("#previous").removeClass("activeBt");
+            	}
+            	
+            	var pageIndex = parseInt(currentPage) - 1;
+            	$("#currentPage").text(pageIndex);
+            	InitTable(pageIndex, searchParams);
+            })
+            
+            $("#next").click(function(){
+            	$("#previous").addClass("activeBt");
+            	$("#next").addClass("activeBt");
+            	var currentPage = $("#currentPage").text();
+            	var nextPage = parseInt(currentPage) + 1;
+            	var totalPage = $("#totalPage").text();
+            	
+            	if (currentPage == totalPage){
+            		$("#next").removeClass("activeBt");
+            		return;
+            	}
+            	if (nextPage == totalPage){
+            		$("#next").removeClass("activeBt");
+            	}
+            	
+            	var pageIndex = parseInt(currentPage) + 1;
+            	$("#currentPage").text(pageIndex);
+            	InitTable(pageIndex, searchParams);
+            })
+            
+            $("#exportCSV").click(function() {
+                    var searchKey = $("#searchKey").val();
                     var searchValue = $("#searchValue").val();
                     var provinceIndex = $("#provinceSelect").val();
                     var cityIndex = $("#citySelect").val();
@@ -333,14 +371,28 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         	location.href = "/sannong/downloadCsv?csvFileName=" + data.returnValue;
                         }
                     });
-
-                })
-            }
-
+            })
+            
             $(function() {
             	region.Controller.addProvinceSelectionsOnly();
             	userManagement.Controller.addEventListener();
                 show(1);
+                
+                $("#q1").click(function(){
+                	userManagement.showQuestionnaireAnswers(1,"");
+                });
+                $("#q2").click(function(){
+                	userManagement.showQuestionnaireAnswers(2,"");
+                });
+                $("#q3").click(function(){
+                	userManagement.showQuestionnaireAnswers(3,"");
+                });
+                $("#q4").click(function(){
+                	userManagement.showQuestionnaireAnswers(4,"");
+                });
+                $("#q5").click(function(){
+                	userManagement.showQuestionnaireAnswers(5,"");
+                });
             })
 
             sannong.UserManagement = userManagement;
