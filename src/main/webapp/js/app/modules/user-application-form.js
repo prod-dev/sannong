@@ -1,15 +1,14 @@
 /**
  * Created by Bright Huang on 11/6/14.
  */
-require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire', 'jqueryForm', 'sidebar'],
+define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire', 'jqueryForm', 'sidebar'],
         function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire, jqueryForm, sidebar) {
 
             "use strict";
 
-            var myApplication = {};
+            var userApplicationForm = {};
 
-            myApplication.submitForm = function (saveOrSubmit){
+            userApplicationForm.submitForm = function (saveOrSubmit){
                 if (formValidator.getValidator("#answerForm").form() == true){
                     var questionnaireNo = $("#questionnaireNo").val();
                     var answerStatus = questionnaireNo + saveOrSubmit;
@@ -65,11 +64,11 @@ require(['../main'], function () {
                 questionnaire.showQuestions(1);
                 
                 $("#save").click(function(){
-                    myApplication.submitForm(0);
+                    userApplicationForm.submitForm(0);
                 });
 
                 $("#submit").click(function(){
-                    myApplication.submitForm(1);
+                    userApplicationForm.submitForm(1);
                 });
 
                 $("#q1").click(function(){
@@ -90,7 +89,7 @@ require(['../main'], function () {
 
             });
 
-            sannong.MyApplication = myApplication;
-            return myApplication;
-        });
+            sannong.UserApplicationForm = userApplicationForm;
+            return userApplicationForm;
+
 });

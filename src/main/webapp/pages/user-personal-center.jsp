@@ -38,14 +38,14 @@
                 <h3>菜单</h3>
                     <ul class="nav nav-tabs-justified" role="tablist">
                         <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-                            <li class="active"><a href="#user-management-tab" role="tab" data-toggle="tab">用户管理<span></span></a></li>
+                            <li class="active"><a id="userManagementTab" href="#userManagementTabPane"  role="tab" data-toggle="tab">用户管理<span></span></a></li>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-                            <li class="active"><a href="#user-application-form-tab" role="tab" data-toggle="tab">项目申请<span></span></a></li>
+                            <li class="active"><a id="userAppFormTab" href="#userAppFormTabPane" role="tab" data-toggle="tab">项目申请<span></span></a></li>
                         </sec:authorize>
                         <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
-                            <li><a href="#user-profile-tab" role="tab" data-toggle="tab">个人信息<span></span></a></li>
-                            <li><a href="#user-password-tab" role="tab" data-toggle="tab">更新密码<span></span></a></li>
+                            <li><a id="userProfileTab" href="#userProfileTabPane" role="tab" data-toggle="tab">个人信息<span></span></a></li>
+                            <li><a id="userPasswordTab" href="#userPasswordTabPane"  role="tab" data-toggle="tab">更新密码<span></span></a></li>
                         </sec:authorize>
                     </ul>
                 </span>
@@ -53,20 +53,20 @@
                 <span class="col-sm-10 leftBorder equalCol umList">
                     <div class="tab-content">
                         <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-                            <div role="tabpane" class="tab-pane active" id="user-management-tab">
+                            <div id="userManagementTabPane" role="tabpane" class="tab-pane active">
                                 <jsp:include page='user-management.jsp'/>
                             </div>
                         </sec:authorize>
                         <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-                            <div role="tabpane" class="tab-pane active" id="user-application-form-tab">
+                            <div id="userAppFormTabPane" role="tabpane" class="tab-pane active">
                                 <jsp:include page='user-application-form.jsp'/>
                             </div>
                         </sec:authorize>
                         <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
-                            <div role="tabpane" class="tab-pane" id="user-profile-tab">
+                            <div id="userProfileTabPane" role="tabpane" class="tab-pane">
                                 <jsp:include page='user-profile.jsp'/>
                             </div>
-                            <div role="tabpane" class="tab-pane" id="user-password-tab">
+                            <div id="userPasswordTabPane" role="tabpane" class="tab-pane">
                                 <jsp:include page='user-password.jsp'/>
                             </div>
                         </sec:authorize>

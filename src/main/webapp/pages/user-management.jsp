@@ -93,8 +93,8 @@
                 <div class="col-medium">{{mailbox}}</div>
                 <div class="col-small">
                   <span class="bts">
-                    <a href="javascript:void(0);" class="edit" onclick="Sannong.Applicants.edit('{{userName}}')">Edit</a>
-                    <a href="javascript:void(0);" class="help" onclick="Sannong.Applicants.showQuestionnaireAnswers(1,'{{cellphone}}')">Help</a>
+                    <a href="javascript:void(0);" class="edit" onclick="Sannong.UserManagement.edit('{{userName}}')">Edit</a>
+                    <a href="javascript:void(0);" class="help" onclick="Sannong.UserManagement.showQuestionnaireAnswers(1,'{{cellphone}}')">Help</a>
                   </span>
                 </div>
            </li>

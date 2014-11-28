@@ -18,7 +18,14 @@ requirejs.config({
         "formValidator": "app/modules/form-validator",
         "region": "app/modules/region",
         "additionalMethods": "app/modules/additional-methods",
-        "login": "app/modules/login"
+        "login": "app/modules/login",
+        "clickHandler": "app/modules/click-handler",
+        "userManagement": "app/modules/user-management",
+        "forgotPassword": "app/modules/forgot-password",
+        "userApplicationForm": "app/modules/user-application-form",
+        "userPassword": "app/modules/user-password",
+        "userProfile": "app/modules/user-profile"
+
     },
     shim: {
         'bootstrap' : {
@@ -72,6 +79,30 @@ requirejs.config({
         "login": {
             deps :['jquery'],
             exports : "login"
+        },
+        "clickHandler": {
+            deps :['jquery'],
+            exports : "clickHandler"
+        },
+        "userManagement": {
+            deps :['jquery'],
+            exports : "userManagement"
+        },
+        "forgotPassword": {
+            deps :['jquery'],
+            exports : "forgotPassword"
+        },
+        "userApplicationForm": {
+            deps :['jquery'],
+            exports : "userApplicationForm"
+        },
+        "userPassword": {
+            deps :['jquery'],
+            exports : "userPassword"
+        },
+        "userProfile": {
+            deps :['jquery'],
+            exports : "userProfile"
         }
     }
 });

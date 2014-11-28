@@ -2,20 +2,19 @@
  * Created by Bright Huang on 11/6/14.
  */
 
-require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods', 'pagination', 'region', 'jqueryForm'],
+define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods', 'pagination', 'region', 'jqueryForm'],
         function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator, additionalMethods, pagination, region, jqueryForm) {
 
             "use strict";
 
-            var applicants = {};
+            var userManagement = {};
 
 
-            applicants.edit = function(userName){
+            userManagement.edit = function(userName){
                 location.href = "userinfo?userName=" + userName;
             }
 
-            applicants.changeContent = function(dropdownName){
+            userManagement.changeContent = function(dropdownName){
                 var searchKey = $("#searchKey").text();
                 var dropDownNameText = $("#" + dropdownName).text();
 
@@ -23,14 +22,14 @@ require(['../main'], function () {
                 $("#searchKey").html(dropDownNameText + '<span class="caret">');
             }
 
-            applicants.cancel = function () {
+            userManagement.cancel = function () {
                 $("#userTextShow").hide();
                 $("#questionnaireTable").hide();
-                $("#applicantsTable").show();
+                $("#userManagementTable").show();
                 $("#searchBar").show();
             }
 
-            applicants.update = function () {
+            userManagement.update = function () {
             	if (formValidator.getValidator("#answerForm").form() == true){
             		$("#myModalTrigger").click();
             
@@ -84,7 +83,7 @@ require(['../main'], function () {
                 });
             })
 
-            applicants.Controller = {
+            userManagement.Controller = {
             	 addEventListener: function(){
                      $("#provinceSelect").change(function(event){
                          region.Controller.addCitySelectionsOnly();
@@ -97,7 +96,7 @@ require(['../main'], function () {
             	 }
             }
             
-            applicants.showQuestionnaireAnswers = function (questionnaireNo, cellphone) {
+            userManagement.showQuestionnaireAnswers = function (questionnaireNo, cellphone) {
                 $("#questionnaireNo").val(questionnaireNo);
                 $("#answerStatus").val(questionnaireNo + '1');
                 $("#userTextShow").hide();
@@ -137,10 +136,10 @@ require(['../main'], function () {
                         if ($("#questionnaireTable").is(":hidden")) {
                             $("#questionnaireTable").show();
                         } else {
-                            $("#applicantsTable").hide();
+                            $("#userManagementTable").hide();
                             $("#questionList").empty();
                         }
-                        $("#applicantsTable").hide();
+                        $("#userManagementTable").hide();
                         $("#searchBar").hide();
                         $("#questionList").empty();
                         
@@ -340,11 +339,10 @@ require(['../main'], function () {
 
             $(function() {
             	region.Controller.addProvinceSelectionsOnly();
-            	applicants.Controller.addEventListener();
+            	userManagement.Controller.addEventListener();
                 show(1);
             })
 
-            sannong.Applicants = applicants;
-            return applicants;
-        });
+            sannong.UserManagement = userManagement;
+            return userManagement;
 });

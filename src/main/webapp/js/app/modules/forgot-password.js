@@ -2,8 +2,7 @@
  * Created by Bright Huang on 10/29/14.
  */
 
-require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods'],
+define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods'],
         function($, bootstrap, sannong, validate, ajaxHandler, formValidator, additionalMethods) {
 
         "use strict";
@@ -67,5 +66,5 @@ require(['../main'], function () {
 
         sannong.ForgotPassword = forgotPassword;
         return forgotPassword;
-    });
+
 });

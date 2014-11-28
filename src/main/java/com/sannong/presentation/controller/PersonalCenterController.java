@@ -76,6 +76,22 @@ public class PersonalCenterController {
         return new ModelAndView(USER_PERSONAL_CENTER_PAGE, models);
     }
 
+
+    @RequestMapping(value = {"user-personal-center/user-profile"}, method = RequestMethod.GET)
+    public @ResponseBody Map<String, Object> userProfile(HttpServletRequest request) {
+        String userName = request.getParameter("userName");
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("userName", userName);
+        List<User> users = userService.getUserByCondition(map);
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("userProfile", users.get(0));
+
+        return models;
+    }
+
+
     @RequestMapping(value = "user-application-form", method = RequestMethod.GET)
     public ModelAndView showUserApplicationForm() {
 
