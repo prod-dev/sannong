@@ -30,6 +30,10 @@
         <sec:intercept-url pattern="/usersManager" access="ROLE_PLATFORMADMIN"/>
         <sec:intercept-url pattern="/horizontalQuery" access="ROLE_PLATFORMADMIN"/>
 
+
+        <sec:intercept-url pattern="/user-personal-center" access="ROLE_USER, ROLE_ADMIN"/>
+
+
         <!--intercept-url pattern="/login" access="ROLE_USER, ROLE_ANONYMOUS"/-->
         <sec:intercept-url pattern="/user-profile" access="ROLE_USER, ROLE_ADMIN"/>
         <sec:intercept-url pattern="/user-password" access="ROLE_USER, ROLE_ADMIN"/>
@@ -42,7 +46,7 @@
 
         <custom-filter before="FORM_LOGIN_FILTER" ref="loginFilter" />
 
-        <sec:form-login login-page="/login"
+        <sec:form-login login-page="/project-landing"
                     authentication-failure-url="/login-failure"
                     default-target-url="/login-success"/>
 

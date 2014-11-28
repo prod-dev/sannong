@@ -16,9 +16,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Benefitting Agriculture - User Management List Page</title>
 
-    <link href="css/custom.css" rel="stylesheet" type="text/css">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/validation.css" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <jsp:include page='header.jsp'/>
@@ -29,49 +30,52 @@
 <!-- /PAGE TITLE -->
 
 <!-- CONTENT SECTION -->
-<section class="contentSection">
-    <div class="container">
-        <div class="row">
-            <span class="col-sm-2 sidebar equalCol">
-            <h3>菜单</h3>
-                <ul class="nav nav-tabs-justified" role="tablist">
-                    <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-                        <li class="active"><a href="#user-management-tab" role="tab" data-toggle="tab">用户管理<span></span></a></li>
-                    </sec:authorize>
-                    <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-                        <li class="active"><a href="#user-application-form-tab" role="tab" data-toggle="tab">项目申请<span></span></a></li>
-                    </sec:authorize>
-                    <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
-                        <li><a href="#user-profile-tab" role="tab" data-toggle="tab">个人信息<span></span></a></li>
-                        <li><a href="#user-password-tab" role="tab" data-toggle="tab">更新密码<span></span></a></li>
-                    </sec:authorize>
-                </ul>
-            </span>
-            <span class="col-sm-10 leftBorder equalCol ">
-                <div class="tab-content">
-                    <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-                        <div role="tabpane" class="tab-pane active" id="user-management-tab">
-                            <jsp:include page='user-management.jsp'/>
-                        </div>
-                    </sec:authorize>
-                    <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-                        <div role="tabpane" class="tab-pane active" id="user-application-form-tab">
-                            <jsp:include page='user-application-form.jsp'/>
-                        </div>
-                    </sec:authorize>
-                    <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
-                        <div role="tabpane" class="tab-pane" id="user-profile-tab">
-                            <jsp:include page='user-profile.jsp'/>
-                        </div>
-                        <div role="tabpane" class="tab-pane" id="user-password-tab">
-                            <jsp:include page='user-password.jsp'/>
-                        </div>
-                    </sec:authorize>
-                </div>
-            </span>
+<div class="containerDiv">
+    <section class="contentSection">
+        <div class="container">
+            <div class="row">
+                <span class="col-sm-2 sidebar equalCol">
+                <h3>菜单</h3>
+                    <ul class="nav nav-tabs-justified" role="tablist">
+                        <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+                            <li class="active"><a href="#user-management-tab" role="tab" data-toggle="tab">用户管理<span></span></a></li>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+                            <li class="active"><a href="#user-application-form-tab" role="tab" data-toggle="tab">项目申请<span></span></a></li>
+                        </sec:authorize>
+                        <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
+                            <li><a href="#user-profile-tab" role="tab" data-toggle="tab">个人信息<span></span></a></li>
+                            <li><a href="#user-password-tab" role="tab" data-toggle="tab">更新密码<span></span></a></li>
+                        </sec:authorize>
+                    </ul>
+                </span>
+
+                <span class="col-sm-10 leftBorder equalCol umList">
+                    <div class="tab-content">
+                        <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+                            <div role="tabpane" class="tab-pane active" id="user-management-tab">
+                                <jsp:include page='user-management.jsp'/>
+                            </div>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+                            <div role="tabpane" class="tab-pane active" id="user-application-form-tab">
+                                <jsp:include page='user-application-form.jsp'/>
+                            </div>
+                        </sec:authorize>
+                        <sec:authorize access="(hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')) and isAuthenticated()">
+                            <div role="tabpane" class="tab-pane" id="user-profile-tab">
+                                <jsp:include page='user-profile.jsp'/>
+                            </div>
+                            <div role="tabpane" class="tab-pane" id="user-password-tab">
+                                <jsp:include page='user-password.jsp'/>
+                            </div>
+                        </sec:authorize>
+                    </div>
+                </span>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+</div>
 <!-- /CONTENT SECTION -->
 
 <jsp:include page='footer.jsp'/>

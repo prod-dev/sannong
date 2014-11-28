@@ -840,19 +840,31 @@ h3.borderBottom {
 }
 .umListGrid li .col-small, .umListGrid li .col-medium, .umListGrid li .col-large {
 	float:left;
-	width:17%;
+	width:12%;
 	padding:12px;
 	font-size:14px;
 	line-height:24px;
 }
-.umListGrid li .col-medium {
-	width:24%;
+#userList li .col-small{
+	width:12%;
 }
-.umListGrid li .col-large {
-	width:25%;
+#userList li .col-medium{
+	width:17%;
 }
-.umListGrid li.head .col-small, .umListGrid li.head .col-medium {
+#userList li .col-large{
+	width:23%;
+}
+.umListGrid li.head .col-small, .umListGrid li.head .col-medium, .umListGrid li.head .col-large{
 	border-right:1px solid #cde0e8;
+}
+.umListGrid li.head .col-small {
+	width:12%;
+}
+.umListGrid li.head .col-medium {
+	width:17%;
+}
+.umListGrid li.head .col-large {
+	width:23%;
 }
 .umListGrid li a {
 	color:#77c354;
@@ -898,6 +910,9 @@ h3.borderBottom {
 	background-color:#e8edf0;
 	border-radius:20px;
 	cursor:default;
+}
+.containerDiv .contentSection .container{
+	width: 90%;
 }
 .contentSection .container .row.home_inner_ccontainer .col-sm-12 h3{
  color: #4c5256;

@@ -16,19 +16,39 @@
 </head>
 
 <body>
+
     <h3>
         <span>用户管理</span>
-        <a href="#" class="orange-bt-small float-right">导出问卷调查结果</a>
+        <a href="#" class="orange-bt-small float-right" data-toggle="modal" data-target="#exportModal">导出问卷调查结果</a>
     </h3>
+
+    <div id="exportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">确定导出问卷调查结果?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <a href="javascript:void(0)" class="btn btn-success" id="exportCSV">确定</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <form>
-        <div class="searchRow">
+        <div id="searchBar" class="searchRow">
             <div class="left">
                 <label>查询条件</label>
                 <div class="width-71">
                     <select>
                         <option>姓名</option>
-                        <option>姓名1</option>
-                        <option>姓名2</option>
+                        <option>手机号</option>
+                        <option>工作单位</option>
+                        <option>职位</option>
+                        <option>电子邮箱</option>
+                        <option>单位地址</option>
                     </select>
                 </div>
                 <div class="width-137">
@@ -43,238 +63,43 @@
                 <a href="" class="glyphicon glyphicon-search"></a>
             </div>
         </div>
+
         <ul class="umListGrid">
             <li class="head">
                 <div class="col-small">姓名</div>
                 <div class="col-small">注册日期</div>
                 <div class="col-small">手机号码</div>
-                <div class="col-medium">工作单位</div>
-                <div class="col-large">职位</div>
+                <div class="col-large">工作单位</div>
+                <div class="col-small">职位</div>
+                <div class="col-medium">电子邮箱</div>
+                <div class="col-small"></div>
             </li>
             <li>
-                <div class="col-small">
-                    <span class="umListGridTitle">姓名</span>
-                    名字
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">注册日期</span>
-                    1970 / 4 / 26
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">手机号码</span>
-                    21456186544
-                </div>
-                <div class="col-medium">
-                    <span class="umListGridTitle">工作单位</span>
-                    这是一个虚拟的文本
-                </div>
-                <div class="col-large">
-                    <span class="umListGridTitle">职位</span>
-                    <a href="#">链接</a>
-            <span class="bts">
-                <a href="#" class="edit">Edit</a>
-              <a href="#" class="help">Help</a>
-            </span>
-                </div>
-            </li>
-            <li>
-                <div class="col-small">
-                    <span class="umListGridTitle">姓名</span>
-                    名字
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">注册日期</span>
-                    1970 / 4 / 26
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">手机号码</span>
-                    21456186544
-                </div>
-                <div class="col-medium">
-                    <span class="umListGridTitle">工作单位</span>
-                    这是一个虚拟的文本
-                </div>
-                <div class="col-large">
-                    <span class="umListGridTitle">职位</span>
-                    <a href="#">链接</a>
-            <span class="bts">
-                <a href="#" class="edit">Edit</a>
-              <a href="#" class="help">Help</a>
-            </span>
-                </div>
-            </li>
-            <li>
-                <div class="col-small">
-                    <span class="umListGridTitle">姓名</span>
-                    名字
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">注册日期</span>
-                    1970 / 4 / 26
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">手机号码</span>
-                    21456186544
-                </div>
-                <div class="col-medium">
-                    <span class="umListGridTitle">工作单位</span>
-                    这是一个虚拟的文本
-                </div>
-                <div class="col-large">
-                    <span class="umListGridTitle">职位</span>
-                    <a href="#">链接</a>
-            <span class="bts">
-                <a href="#" class="edit">Edit</a>
-              <a href="#" class="help">Help</a>
-            </span>
-                </div>
-            </li>
-            <li>
-                <div class="col-small">
-                    <span class="umListGridTitle">姓名</span>
-                    名字
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">注册日期</span>
-                    1970 / 4 / 26
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">手机号码</span>
-                    21456186544
-                </div>
-                <div class="col-medium">
-                    <span class="umListGridTitle">工作单位</span>
-                    这是一个虚拟的文本
-                </div>
-                <div class="col-large">
-                    <span class="umListGridTitle">职位</span>
-                    <a href="#">链接</a>
-            <span class="bts">
-                <a href="#" class="edit">Edit</a>
-              <a href="#" class="help">Help</a>
-            </span>
-                </div>
-            </li>
-            <li>
-                <div class="col-small">
-                    <span class="umListGridTitle">姓名</span>
-                    名字
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">注册日期</span>
-                    1970 / 4 / 26
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">手机号码</span>
-                    21456186544
-                </div>
-                <div class="col-medium">
-                    <span class="umListGridTitle">工作单位</span>
-                    这是一个虚拟的文本
-                </div>
-                <div class="col-large">
-                    <span class="umListGridTitle">职位</span>
-                    <a href="#">链接</a>
-            <span class="bts">
-                <a href="#" class="edit">Edit</a>
-              <a href="#" class="help">Help</a>
-            </span>
-                </div>
-            </li>
-            <li>
-                <div class="col-small">
-                    <span class="umListGridTitle">姓名</span>
-                    名字
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">注册日期</span>
-                    1970 / 4 / 26
-                </div>
-                <div class="col-small">
-                    <span class="umListGridTitle">手机号码</span>
-                    21456186544
-                </div>
-                <div class="col-medium">
-                    <span class="umListGridTitle">工作单位</span>
-                    这是一个虚拟的文本
-                </div>
-                <div class="col-large">
-                    <span class="umListGridTitle">职位</span>
-                    <a href="#">链接</a>
-            <span class="bts">
-                <a href="#" class="edit">Edit</a>
-              <a href="#" class="help">Help</a>
-            </span>
-                </div>
+                <div id="userList"></div>
             </li>
         </ul>
-        <ul class="customPagination">
-            <li><a href="#" class="bt back"></a></li>
-            <li>1/6</li>
-            <li><a href="#" class="bt next activeBt"></a></li>
+        <ul id="pagination" class="customPagination">
         </ul>
     </form>
+
+    <script id="table-template" type="text/x-handlebars-template">
+        {{#each this}}
+            <li>
+                <div class="col-small">{{realName}}</div>
+                <div class="col-small">{{createTime}}</div>
+                <div class="col-small" id="cell{{addOne @index}}">{{cellphone}}</div>
+                <div class="col-large">{{company}}</div>
+                <div class="col-small">{{jobTitle}}</div>
+                <div class="col-medium">{{mailbox}}</div>
+                <div class="col-small">
+                  <span class="bts">
+                    <a href="javascript:void(0);" class="edit" onclick="Sannong.Applicants.edit('{{userName}}')">Edit</a>
+                    <a href="javascript:void(0);" class="help" onclick="Sannong.Applicants.showQuestionnaireAnswers(1,'{{cellphone}}')">Help</a>
+                  </span>
+                </div>
+           </li>
+        {{/each}}
+    </script>
+
 </body>
-<script data-main="content/static/js/sannong/pages/applicants"
-        src="content/static/js/lib/require-2.1.15.js"></script>
-<script id="table-template" type="text/x-handlebars-template">
-    {{#each this}}
-    <tr>
-        <td>{{addOne @index}}</td>
-        <td>{{realName}}</td>
-        <td>{{createTime}}</td>
-        <td id="cell{{addOne @index}}">{{cellphone}}</td>
-        <td>{{company}}</td>
-        <td>{{jobTitle}}</td>
-        <td>{{mailbox}}</td>
-        <td>
-            <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="Sannong.Applicants.edit('{{userName}}')">编辑</a>
-        </td>
-        <td>
-            <a class="btn btn-sm btn-success" href="javascript:void(0)" onclick="Sannong.Applicants.showQuestionnaireAnswers(1,{{cellphone}})">问卷调查</a>
-        </td>
-    </tr>
-    {{/each}}
-</script>
-<script id="question-template-checkbox"
-        type="text/x-handlebars-template">
-    <div class="J_group_choice">
-        <h5>{{fromOne}}. {{questionContent}}</h5>
-        <label class="checkbox-inline">
-            <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:a"> {{option1}}
-        </label>
-        <label class="checkbox-inline">
-            <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:b"> {{option2}}
-        </label>
-        <label class="checkbox-inline">
-            <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:c"> {{option3}}
-        </label>
-        <label class="checkbox-inline">
-            <input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:d"> {{option4}}
-        </label>
-        <label class="checkbox-inline">
-            <input type="checkbox" name="answers[{{fromZero}}]"  value="{{questionId}}:e"> {{option5}}
-        </label>
-    </div>
-</script>
-<script id="question-template-radio" type="text/x-handlebars-template">
-    <div class="J_group_choice">
-        <h5>{{fromOne}}. {{questionContent}}</h5>
-        <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:a"> {{option1}}
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:b"> {{option2}}
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:c"> {{option3}}
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:d"> {{option4}}
-        </label>
-        <label class="radio-inline">
-            <input type="radio" name="answers[{{fromZero}}]"  value="{{questionId}}:e"> {{option5}}
-        </label>
-    </div>
-</script>
 </html>

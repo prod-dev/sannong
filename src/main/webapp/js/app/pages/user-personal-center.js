@@ -514,7 +514,7 @@ require(['../main'], function () {
                 applicants.Controller.addEventListener();
                 show(1);
 
-                // user-application-form.js
+                /******* user-application-form.js *********/
                 questionnaire.showQuestions(1);
 
                 $("#save").click(function(){
