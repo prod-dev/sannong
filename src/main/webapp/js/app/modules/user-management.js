@@ -3,9 +3,9 @@
  */
 
 define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator',
-        'additionalMethods', 'pagination', 'region', 'jqueryForm'],
+        'additionalMethods', 'pagination', 'region', 'jqueryForm', 'userProfile'],
         function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator,
-                 additionalMethods, pagination, region, jqueryForm) {
+                 additionalMethods, pagination, region, jqueryForm, userProfile) {
 
             "use strict";
 
@@ -134,6 +134,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     var html = userProfileViewHandler(data);
                     userManagement.View.userProfile.empty();
                     userManagement.View.userProfile.append(html);
+                    userProfile.addEventListener();
                     $("#userProfileCancel").click(function () {
                         userManagement.resetView();
                     });

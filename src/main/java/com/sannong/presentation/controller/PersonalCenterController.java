@@ -288,8 +288,8 @@ public class PersonalCenterController {
      * @param user
      * @return
      */
-    @RequestMapping(value = {"updateMyInfo"}, method = RequestMethod.POST)
-	public ModelAndView updateMyInfo(HttpServletRequest request, @ModelAttribute("myinfo") User user) {
+    @RequestMapping(value = {"updateUserProfile"}, method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> updateUserProfile(HttpServletRequest request, @ModelAttribute("userProfile") User user) {
         String newCellphone = request.getParameter("newCellphone");
         String validationCode = request.getParameter("validationCode");
 
@@ -298,8 +298,8 @@ public class PersonalCenterController {
             List<SMS> smsList = smsService.getSmsByCellphoneAndValidationCode(newCellphone, validationCode);
             if (smsList.isEmpty()){
                 models.put("status", "error");
-                models.put("myinfo", user);
-                return new ModelAndView(MY_INFO_PAGE, models);
+                models.put("userProfile", user);
+                return models;
             }else{
                 user.setCellphone(newCellphone);
             }
@@ -313,9 +313,9 @@ public class PersonalCenterController {
 			logger.error(e.getMessage());
             models.put("status", "error");
 		}
-		models.put("myinfo", user);
+		models.put("userProfile", user);
 		models.put("status", "saved");
-        return new ModelAndView(MY_INFO_PAGE, models);
+        return models;
 	}
 
     /**

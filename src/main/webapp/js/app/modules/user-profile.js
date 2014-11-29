@@ -50,8 +50,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
         userProfile.View.newCellphone.after(userProfile.Model.newCellphoneError);
         userProfile.View.newCellphone.addClass("error");
     }
-
-    function addEventListener(){
+            userProfile.addEventListener = function (){
         $("#provinceSelect").change(function(event){
             region.Controller.addCities();
         });
@@ -136,7 +135,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
     $(function() {
         region.Controller.saveRegion();
         region.Controller.addProvinces();
-        addEventListener();
+        userProfile.addEventListener();
 
     });
 
