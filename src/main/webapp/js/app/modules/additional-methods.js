@@ -31,7 +31,8 @@ define(['jquery', 'sannong', 'formValidator'], function($, sannong, formValidato
         timeRemained = duration;
 
         $(elementId).attr("disabled", "true");
-        $(elementId).val("请在" + timeRemained + "秒内输入" + text);
+        //$(elementId).val("请在" + timeRemained + "秒内输入" + text);
+        $(elementId).text("请在" + timeRemained + "秒内输入" + text);
 
         timer = window.setInterval(function setRemainTime() {
             if (timeRemained == 0) {
@@ -42,7 +43,8 @@ define(['jquery', 'sannong', 'formValidator'], function($, sannong, formValidato
             }
             else {
                 timeRemained --;
-                $(elementId).val("请在" + timeRemained + "秒内输入" + text);
+                //$(elementId).val("请在" + timeRemained + "秒内输入" + text);
+                $(elementId).text("请在" + timeRemained + "秒内输入" + text);
             }
         }, 1000);
     }

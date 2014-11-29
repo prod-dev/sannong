@@ -61,30 +61,17 @@
 </section>
 <!-- /CONTENT SECTION -->
 
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="row">
-          <span class="col-sm-5 copyright">
-            Copyright © 2000-2015 XXXX.com. All Rights Reserved. B2-20052010-6
-          </span>
-          <span class="col-sm-7">
-            <ul>
-              <li><a href="#">关于我们</a></li>
-              <li><a href="#">联系我们</a></li>
-              <li><a href="#">网站地图</a></li>
-              <li><a href="#">免责条款</a></li>
-              <li><a href="#">应用服务</a></li>
-              <li><a href="#">招聘信息</a></li>
-            </ul>
-          </span>
-    </div>
-  </div>
-  <div class="logosRow">
-    <img src="images/footer-logos.jpg"/>
-  </div>
-</footer>
-<!-- /FOOTER -->
+<jsp:include page='footer.jsp'/>
+<script data-main="js/app/pages/project-landing" src="content/static/js/lib/require-2.1.15.js"></script>
 
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+<script src="js/custom.js"></script>
+
+<!--[if lt IE 9]>
+<script src="js/html5shiv.min.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
 </body>
 </html>

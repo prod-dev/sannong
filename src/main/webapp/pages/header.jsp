@@ -50,7 +50,7 @@
                     <h4 class="modal-title" id="myModalLabel">登录</h4>
                 </div>
                 <div class="modal-body">
-                    <form id="loginForm" role="form" action="j_spring_security_check" method="GET">
+                    <form id="loginForm" role="form" action="j_spring_security_check" method="POST">
                         <span class="errorMsg"><span id="errorMsgContainer"></span></span>
                         <input type="text" id="j_username" name='j_username' placeholder="用户名/电话号码" class="model-input" />
                         <input type="password" id="j_password" name='j_password' placeholder="密码" class="model-input" />
@@ -74,14 +74,14 @@
                 <h4 class="modal-title" id="forgotPasswordModalLabel">忘记密码</h4>
             </div>
             <div class="modal-body">
-                <form id="forgotPasswordForm" role="form" action="j_spring_security_check" method="GET">
+                <form id="forgotPasswordForm" role="form" action="j_spring_security_check" method="POST">
                     <span class="errorMsg"><span>Error message shows here</span></span>
-                    <input type="text" placeholder="姓名" class="model-input" />
-                    <input type="text" placeholder="手机号码" class="model-input-75" />
-                    <a href="#" class="white-bt">获取新密码</a>
-                    <input type="text" placeholder="新密码" class="model-input margin-top-15" />
+                    <input type="text" name="realName" id="realName" placeholder="姓名" class="model-input" />
+                    <input type="text" name='j_username' id="cellphone" placeholder="手机号码" class="model-input-75" />
+                    <a href="#" id="sendNewPasswordLink" class="white-bt">获取新密码</a>
+                    <input type="text" name="j_password" id="password" placeholder="新密码" class="model-input margin-top-15" />
                     <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span>
-                    <input id="forgotPasswordFormSubmit" type="submit" value="登录" class="orange-bt"/>
+                    <input id="forgotPasswordFormSubmit" type="button" value="登录" class="orange-bt"/>
                 </form>
             </div>
             <div class="modal-footer">

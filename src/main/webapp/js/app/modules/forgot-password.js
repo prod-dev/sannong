@@ -15,11 +15,16 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
         };
 
         forgotPassword.View = {
-
+            sendNewPasswordLink: $("#sendNewPasswordLink")
         };
 
+
+        function showError(){
+
+        }
+
         function addEventListener(){
-            $("#action-send-code").click(function(element){
+            $("#sendNewPasswordLink").click(function(element){
                 var validator = formValidator.getValidator("#forgotPasswordForm");
                 validator.resetForm();
                 var realNameValid = validator.element($("#realName"));
@@ -35,20 +40,46 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         },
                         success: function(data){
                             if (data == false){
-                                $("#action-send-code").after(forgotPassword.Model.cellphoneErrorMsg);
+                                forgotPassword.View.sendNewPasswordLink.after(forgotPassword.Model.cellphoneErrorMsg);
                             }else{
-                                additionalMethods.updateTimeLabel("#action-send-code", "密码");
+                                additionalMethods.updateTimeLabel("#sendNewPasswordLink", "密码");
                             }
                         },
                         fail: function(data){
                             if (data == false){
-                                $("#action-send-code").after(forgotPassword.Model.cellphoneErrorMsg);
+                                forgotPassword.View.sendNewPasswordLink.after(forgotPassword.Model.cellphoneErrorMsg);
                             }
                         }
                     }
                     ajaxHandler.sendRequest(options);
                 }
            });
+
+            $("#forgotPasswordFormSubmit").click(function () {
+                var validator = formValidator.getValidator("#forgotPasswordForm");
+
+                if (validator.form() == true){
+                    ajaxHandler.sendRequest({
+                        type: "POST",
+                        url: "j_spring_security_check",
+                        dataType: "json",
+                        data: {
+                            j_username: $("#cellphone").val(),
+                            j_password: $("#password").val()
+                        },
+                        success: function (response) {
+                            if (response.authentication == true) {
+                                window.location.href = response.redirect;
+                            } else {
+                                showError();
+                            }
+                        },
+                        fail: function (response) {
+                            showError();
+                        }
+                    });
+                }
+            });
         }
 
         function checkAuthenticationStatus(){
