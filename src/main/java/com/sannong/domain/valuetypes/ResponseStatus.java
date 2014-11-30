@@ -4,11 +4,19 @@ package com.sannong.domain.valuetypes;
  * Created by Bright Huang on 11/29/14.
  */
 public enum ResponseStatus {
-    PASSWORD_UPDATED(1000, "密码已更新"),
-    USER_NOT_FOUND(2000, "用户不存在"),
-    PASSWORD_MISMATCH(2001, "密码不正确"),
-    OLD_PASSWORD_MISMATCH(2002, "当前密码不匹配"),
-    CONFIRMED_PASSWORD_MISMATCH(2003, "新密码与确认密码不匹配");
+    /**
+     * 1000 - 1999, success status
+     */
+    SUCCESS(1000, "成功"),
+    PASSWORD_UPDATED(1001, "密码已更新"),
+    /**
+     * 2000 - 2999, failure status
+     */
+    FAILURE(2000, "失败"),
+    USER_NOT_FOUND(2001, "用户不存在"),
+    PASSWORD_MISMATCH(2002, "密码不正确"),
+    OLD_PASSWORD_MISMATCH(2003, "旧密码不匹配"),
+    CONFIRMED_PASSWORD_MISMATCH(2004, "新密码与确认密码不匹配");
 
     private int statusCode;
     private String statusDescription;
