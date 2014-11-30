@@ -35,15 +35,11 @@ import com.sannong.service.IValidationService;
  */
 @Controller
 public class ProjectApplicationController {
-	
 	private static final Logger logger = Logger.getLogger(ProjectApplicationController.class);
 	
-    private static final String APPLICATION_PAGE = "projectapplication";
     private static final String PROJECT_APPLICATION_COMPLETION_PAGE = "project-application-completion";
     private static final String PROJECT_APPLICATION_PAGE = "project-application";
 
-    @Autowired
-    private AppConfig appConfig;
     @Resource
     private IProjectService projectService;
     @Resource
@@ -52,15 +48,16 @@ public class ProjectApplicationController {
     private IValidationService validationService;
 
     @RequestMapping(value = "project-application", method = RequestMethod.GET)
-    public ModelAndView showProjectApplicationPage(HttpServletRequest request) {
+    public ModelAndView showProjectApplicationPage() {
         return new ModelAndView(PROJECT_APPLICATION_PAGE);
     }
 
-    @RequestMapping(value = "applicationpage", method = RequestMethod.GET)
-    public ModelAndView showPage(HttpServletRequest request) {
-    	
-        request.getSession().setAttribute(appConfig.getSessionSmsCodes(), null);
-        return new ModelAndView(APPLICATION_PAGE);
+    @RequestMapping(value = "project-application-completion", method = RequestMethod.GET)
+    public ModelAndView showProjectApplicationCompletion() {
+
+        Map<String, Object> models = new HashMap<String, Object>();
+        models.put("project-application-completion", new Object());
+        return new ModelAndView(PROJECT_APPLICATION_COMPLETION_PAGE, models);
     }
 
     @RequestMapping(value = "apply", method = RequestMethod.POST)

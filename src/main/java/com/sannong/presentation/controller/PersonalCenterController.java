@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +14,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sannong.domain.valuetypes.ResponseStatus;
+import com.sannong.infrastructure.util.PasswordGenerator;
+import com.sannong.presentation.model.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sannong.infrastructure.dataexport.CsvExporter;
@@ -40,24 +38,14 @@ import com.sannong.service.ISmsService;
 import com.sannong.service.IUserService;
 
 @Controller
-@SessionAttributes("myinfo")
 public class PersonalCenterController {
     private static final Logger logger = Logger.getLogger(PersonalCenterController.class);
-    private static final String MY_APPLICATION_PAGE = "myapplication";
-    private static final String MY_INFO_PAGE = "myinfo";
-    private static final String USER_INFO_PAGE = "userinfo";
-    private static final String MY_PASSWORD_PAGE = "mypassword";
-    private static final String APPLICANTS_PAGE = "applicants";
-    private static final String LOGIN_PAGE = "login";
     private static final long pageSum = 10;
 
-    private static final String PAGE_MY_APPLICATION = "user-application-form";
+    private static final String PAGE_USER_APPLICATION_FORM = "user-application-form";
     private static final String PAGE_USER_PROFILE = "user-profile";
     private static final String PAGE_USER_PASSWORD = "user-password";
     private static final String PAGE_USER_MANAGEMENT = "user-management";
-    private static final String PAGE_POPUPS = "popups";
-    private static final String PAGE_PROJECT_APPLICATION_COMPLETION = "project-application-completion";
-
     private static final String USER_PERSONAL_CENTER_PAGE = "user-personal-center";
 
     @Resource
@@ -75,7 +63,6 @@ public class PersonalCenterController {
         models.put("user-personal-center", new Object());
         return new ModelAndView(USER_PERSONAL_CENTER_PAGE, models);
     }
-
 
     @RequestMapping(value = {"user-personal-center/user-profile"}, method = RequestMethod.GET)
     public @ResponseBody Map<String, Object> userProfile(HttpServletRequest request) {
@@ -99,18 +86,15 @@ public class PersonalCenterController {
         return models;
     }
 
-
     @RequestMapping(value = "user-application-form", method = RequestMethod.GET)
     public ModelAndView showUserApplicationForm() {
-
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("user-application-form", new Object());
-        return new ModelAndView(PAGE_MY_APPLICATION, models);
+        return new ModelAndView(PAGE_USER_APPLICATION_FORM, models);
     }
 
     @RequestMapping(value = "user-profile", method = RequestMethod.GET)
     public ModelAndView showUserProfile() {
-
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("user-profile", new Object());
         return new ModelAndView(PAGE_USER_PROFILE, models);
@@ -118,7 +102,6 @@ public class PersonalCenterController {
 
     @RequestMapping(value = "user-management", method = RequestMethod.GET)
     public ModelAndView showUserManagement() {
-
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("user-management", new Object());
         return new ModelAndView(PAGE_USER_MANAGEMENT, models);
@@ -126,68 +109,17 @@ public class PersonalCenterController {
 
     @RequestMapping(value = "user-password", method = RequestMethod.GET)
     public ModelAndView showUserPassword() {
-
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("user-password", new Object());
         return new ModelAndView(PAGE_USER_PASSWORD, models);
     }
 
-    @RequestMapping(value = "popups", method = RequestMethod.GET)
-    public ModelAndView showPopups() {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("popups", new Object());
-        return new ModelAndView(PAGE_POPUPS, models);
-    }
-
-    @RequestMapping(value = "project-application-completion", method = RequestMethod.GET)
-    public ModelAndView showProjectApplicationCompletion() {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("project-application-completion", new Object());
-        return new ModelAndView(PAGE_PROJECT_APPLICATION_COMPLETION, models);
-    }
-
-
-    /**
-     * Determine which page will be shown when user login. If user is admin, show applicants page,
-     * if user is ordinary user, show myapplication page.
-     * @param
-     * @return
-     * @throws Exception
-     */
-    @RequestMapping(value = "myaccount", method = RequestMethod.GET)
-    public ModelAndView loginMyAccount() throws Exception {
-        Collection<SimpleGrantedAuthority> authorities =
-                (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-
-        String role;
-        for (GrantedAuthority authority : authorities){
-            role = authority.getAuthority();
-            if (role.equals("ROLE_USER")){
-                return new ModelAndView("redirect:" + MY_APPLICATION_PAGE);
-            } else if(role.equals("ROLE_ADMIN")){
-                return new ModelAndView("redirect:" + APPLICANTS_PAGE);
-            }
-        }
-        return new ModelAndView("redirect:" + LOGIN_PAGE);
-    }
-
-    /**
-     * Show applicants page.
-     * @return
-     */
-    @RequestMapping(value = "applicants", method = RequestMethod.GET)
-    public ModelAndView showList() {
-        return new ModelAndView(APPLICANTS_PAGE);
-    }
-
-    /**
+    /********************************
      * Show applicants page
      * @param request
      * @return
      * @throws Exception
-     */
+     ********************************/
     @RequestMapping(value = "showApplicants", method = RequestMethod.GET)
     public @ResponseBody List<User> showList(HttpServletRequest request) throws Exception {
 
@@ -225,69 +157,12 @@ public class PersonalCenterController {
         return applicants;
     }
 
-    /**
-     * Show my application page.
-     * @return
-     */
-    @RequestMapping(value = "myapplication", method = RequestMethod.GET)
-    public ModelAndView myApplication() {
-        return new ModelAndView(PAGE_MY_APPLICATION);
-    }
-
-    /**
-     * Show myinfo page.
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = {"myinfo", "userinfo"}, method = RequestMethod.GET)
-    public ModelAndView myInfo(HttpServletRequest request) {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        String userName = request.getParameter("userName");
-        if (userName == null){
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                userName = ((UserDetails) principal).getUsername();
-            } else {
-                userName = principal.toString();
-            }
-        }
-
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userName", userName);
-        List<User> users = userService.getUserByCondition(map);
-        models.put("myinfo", users.get(0));
-
-        String servletPath = request.getServletPath();
-        if (servletPath.equals("/myinfo")){
-            return new ModelAndView(MY_INFO_PAGE, models);
-        }
-
-        return new ModelAndView(USER_INFO_PAGE, models);
-    }
-
-    @RequestMapping(value = {"updateUserInfo"}, method = RequestMethod.POST)
-    public ModelAndView updateUserInfo(HttpServletRequest request, @ModelAttribute("myinfo") User user) {
-        Map<String, Object> models = new HashMap<String, Object>();
-        Timestamp ts = new Timestamp(System.currentTimeMillis());
-        user.setUpdateTime(ts);
-        try {
-            userService.updateUser(user);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            models.put("status", "error");
-        }
-        models.put("myinfo", user);
-        models.put("status", "saved");
-        return new ModelAndView(MY_INFO_PAGE, models);
-    }
-
-    /**
+    /************************************
      * Update user's information.
      * @param request
      * @param user
      * @return
-     */
+     ************************************/
     @RequestMapping(value = {"updateUserProfile"}, method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> updateUserProfile(HttpServletRequest request, @ModelAttribute("userProfile") User user) {
         String newCellphone = request.getParameter("newCellphone");
@@ -318,12 +193,12 @@ public class PersonalCenterController {
         return models;
 	}
 
-    /**
+    /**************************************
      * Get user total count.
      * @param request
      * @return
      * @throws Exception
-     */
+     **************************************/
     @RequestMapping(value = "userTotalCount", method = RequestMethod.GET)
     public @ResponseBody String getUserTotalCount(HttpServletRequest request) throws Exception {
 
@@ -351,70 +226,64 @@ public class PersonalCenterController {
     	return userService.getUserTotalCount(map);
     }
 
-    /**
-     * Show mypassword page.
-     * @return
-     */
-    @RequestMapping(value = "mypassword", method = RequestMethod.GET)
-    public ModelAndView myPassword() {
-        return new ModelAndView(MY_PASSWORD_PAGE);
-    }
-
-    /**
-     * Update password from mypassword page.
+    /*************************************
+     * Update user's password.
      * @param request
      * @return
      * @throws Exception
-     */
-    @RequestMapping(value = "updatepassword", method = RequestMethod.POST)
-    public ModelAndView updatePassword(HttpServletRequest request) throws Exception {
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        Md5PasswordEncoder md5 = new Md5PasswordEncoder();
-        String userName = null;;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserDetails) {
-        	userName = ((UserDetails) principal).getUsername();
-        } else {
-        	userName = principal.toString();
-        }
-
+     **************************************/
+    @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
+    public @ResponseBody
+    Response updatePassword(HttpServletRequest request) throws Exception {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String confirmedPassword = request.getParameter("confirmedPassword");
+        String userName = request.getParameter("userName");
+
+        if (StringUtils.isBlank(userName)){
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof UserDetails) {
+                userName = ((UserDetails) principal).getUsername();
+            } else {
+                userName = principal.toString();
+            }
+        }
 
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("userName", userName);
-        List<User> userList = userService.getUserByCondition(map);
-        User user = null;
+        List<User> users = userService.getUserByCondition(map);
+        if ( ! (users.isEmpty()) ){
+            User user = users.get(0);
+            String encryptOldPassword = PasswordGenerator.encryptPassword(oldPassword, userName);
+            if ( ! (user.getPassword().equals(encryptOldPassword))){
+                return new Response(
+                        ResponseStatus.OLD_PASSWORD_MISMATCH.getStatusCode(),
+                        ResponseStatus.OLD_PASSWORD_MISMATCH.getStatusDescription());
+            }else if ( ! (newPassword.equals(confirmedPassword)) ){
+                return new Response(
+                        ResponseStatus.CONFIRMED_PASSWORD_MISMATCH.getStatusCode(),
+                        ResponseStatus.CONFIRMED_PASSWORD_MISMATCH.getStatusDescription());
+            }
+            String encryptedNewPassword = PasswordGenerator.encryptPassword(newPassword, userName);
+            user.setPassword(encryptedNewPassword);
+            userService.updatePassword(user);
 
-        if (userList != null && userList.get(0) != null){
-        	user = userList.get(0);
-
-			if (!user.getPassword().equals(md5.encodePassword(oldPassword, userName))){
-			    models.put("myPasswordAuth", "oldPasswordAuthFailure");
-			    return new ModelAndView(MY_PASSWORD_PAGE, models);
-			}else if (!newPassword.equals(confirmedPassword) ){
-			    models.put("myPasswordAuth", "newPasswordAuthFailure");
-			    return new ModelAndView(MY_PASSWORD_PAGE, models);
-			}
+            return new Response(
+                    ResponseStatus.PASSWORD_UPDATED.getStatusCode(),
+                    ResponseStatus.PASSWORD_UPDATED.getStatusDescription());
+        }else{
+            return new Response(
+                    ResponseStatus.USER_NOT_FOUND.getStatusCode(),
+                    ResponseStatus.USER_NOT_FOUND.getStatusDescription());
         }
-
-        String encryptedNewPassword = md5.encodePassword(newPassword, userName);
-        user.setPassword(encryptedNewPassword);
-        userService.updatePassword(user);
-
-        models.put("myPasswordAuth", "passwordChanged");
-        return new ModelAndView(MY_PASSWORD_PAGE, models);
     }
 
-    /**
+    /************************************************
      * Update answers from questionnaire page.
      * @param answer
      * @return
      * @throws Exception
-     */
+     ************************************************/
     @RequestMapping(value = "updateAnswersAndComment", method = RequestMethod.POST)
     public @ResponseBody DTO updateAnswersAndComment(@ModelAttribute("answerForm") Answer answer) throws Exception{
 
@@ -448,12 +317,12 @@ public class PersonalCenterController {
         return new DTO(result,null);
     }
 
-    /**
+    /**************************************
      * Export answers to CSV file.
      * @param request
      * @return
      * @throws Exception
-     */
+     ***************************************/
     @RequestMapping(value = "exportCSV", method = RequestMethod.POST)
     public @ResponseBody DTO exportAll(HttpServletRequest request) throws Exception {
 

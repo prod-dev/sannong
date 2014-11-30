@@ -18,7 +18,7 @@
 </head>
 <body>
     <h3>更新密码</h3>
-    <form id="myPasswordForm" role="formPassword" action="updatepassword" method="post">
+    <form id="userPasswordForm" role="formPassword" action="updatePassword" method="post">
       <div class="row">
         <aside class="userFormCol-1" for="oldPassword">旧密码</aside>
         <aside class="userFormCol-right"><input type="password" class="width-281" id="oldPassword" name="oldPassword" placeholder="旧密码"></aside>
@@ -32,22 +32,8 @@
         <aside class="userFormCol-right"><input type="password" class="width-281" id="confirmedPassword" name="confirmedPassword" placeholder="确认新密码"></aside>
       </div><br>
       <div class="row">
-        <input type="submit" id="userPasswordSubmit" value="更新"/>
+        <input type="button" id="userPasswordSubmit" value="更新"/>
       </div>
     </form>
-   <c:choose>
-     <c:when test="${myPasswordAuth == 'passwordChanged'}">
-       <div id="authMsg2"  style="display: block;color: blue">
-         密码修改成功.
-       </div>
-     </c:when>
-     <c:when test="${myPasswordAuth == 'oldPasswordAuthFailure'}">
-       <div id="authMsg2"  style="display: block;color: red">
-         旧密码认证失败.
-       </div>
-     </c:when>
-     <c:otherwise>
-     </c:otherwise>
-   </c:choose>
 </body>
 </html>

@@ -5,5 +5,5 @@ package com.sannong.domain.valuetypes;
  * @author william zhang
  */
 public enum RoleType {
-	ROLE_USER, ROLE_ADMIM;
+	ROLE_USER, ROLE_ADMIN;
 }

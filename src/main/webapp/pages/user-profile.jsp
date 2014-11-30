@@ -1,7 +1,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
-  User: apple
+  User: Bright Huang
   Date: 11/22/14
   Time: 21:30
   To change this template use File | Settings | File Templates.
@@ -97,38 +97,10 @@
         <div class="row">
           <input type="button" id="userProfileSubmit" value="提交"/>
           <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-          <a href="#" id="userProfileCancel" class="white-bt">返回</a>
+          <a href="#" id="userProfileCancel" class="white-bt hidden">返回</a>
           </sec:authorize>
         </div>
       </form>
     </script>
-
-
-    <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-      <!-- Update Cellphone Modal -->
-      <!--
-      <div class="modal fade" id="updateCellphoneModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title" id="changeCellphoneModalLabel">更新手机号码</h4>
-            </div>
-            <div class="modal-body">
-              <form id="updateCellphoneForm" role="form" method="POST">
-                <span class="errorMsg"><span>Error message shows here</span></span>
-                <input type="text" name='newCellphone' id="newCellphone" placeholder="新手机号码" class="model-input-75" />
-                <a href="#" id="sendValidationCodeLink" class="white-bt">获取验证码</a>
-                <input type="text" name="validationCode" id="validationCode" placeholder="验证码" class="model-input margin-top-15" />
-                <input id="updateCellphoneFormSubmit" type="button" value="更新" class="orange-bt"/>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      -->
-      <!-- /Update Cellphone Modal -->
-    </sec:authorize>
-
 </body>
 </html>

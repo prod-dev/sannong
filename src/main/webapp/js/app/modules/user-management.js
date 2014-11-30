@@ -138,6 +138,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     $("#userProfileCancel").click(function () {
                         userManagement.resetView();
                     });
+                    $("#userProfileCancel").removeClass("hidden");
                 }
             }
             

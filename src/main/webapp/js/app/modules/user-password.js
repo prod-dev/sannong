@@ -1,20 +1,29 @@
 /**
  * Created by Bright Huang on 10/22/14.
  */
-define(['jquery', 'bootstrap', 'sannong', 'validate', 'formValidator'],
-function($, bootstrap, sannong, validate, formValidator) {
+define(['jquery', 'bootstrap', 'sannong', 'validate', 'formValidator', 'jqueryForm'],
+function($, bootstrap, sannong, validate, formValidator, jqueryForm) {
 
     "use strict";
 
-    var myPassword = {};
+    var userPassword = {};
+
+    userPassword.addEventListener = function (){
+        $("#userPasswordSubmit").click(function(event){
+            $("#userPasswordForm").ajaxSubmit(function(response) {
+                if (response != undefined){
+
+                }
+            });
+        });
+    }
 
     $(function() {
-        formValidator.getValidator("#myPasswordForm");
-
+        userPassword.addEventListener();
     });
 
-    sannong.MyPassword = myPassword;
-    return myPassword;
+    sannong.UserPassword = userPassword;
+    return userPassword;
 
 });
 
