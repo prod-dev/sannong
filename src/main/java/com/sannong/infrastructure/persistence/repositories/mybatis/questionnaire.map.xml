@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sannong.domain.repositories.QuestionnaireRepository">
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
+
+	<resultMap type="Question" id="questionnaireResultMap">
+        <id property="questionId" column="question_id" />
+        <result property="option1" column="option1" />
+        <result property="option2" column="option2" />
+        <result property="option3" column="option3" />
+        <result property="option4" column="option4" />
+        <result property="option5" column="option5" />
+        <result property="questionContent" column="question_content" />
+        <result property="isSingle" column="is_single" />
+    </resultMap>
+    
+	<select id="getQuestionnaireByNo" parameterType="int" resultMap="questionnaireResultMap">
+     	<![CDATA[
+     		select question_id,option1,option2,option3,option4,option5,question_content,is_single from questions where questionnaire_number = #{questionnaireNo}
+     	]]>
+	</select>
+</mapper>
+

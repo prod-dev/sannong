@@ -2,8 +2,8 @@ package com.sannong.service.impl;
 
 
 import com.sannong.domain.factories.SmsUrlFactory;
-import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.infrastructure.persistance.repository.SmsRepository;
+import com.sannong.domain.entities.SMS;
+import com.sannong.domain.repositories.SmsRepository;
 import com.sannong.infrastructure.sms.SmsSender;
 import com.sannong.infrastructure.util.AppConfig;
 import com.sannong.infrastructure.util.PasswordGenerator;

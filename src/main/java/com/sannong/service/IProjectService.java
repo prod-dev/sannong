@@ -2,8 +2,8 @@ package com.sannong.service;
 
 import java.util.Map;
 
-import com.sannong.infrastructure.persistance.entity.Answer;
-import com.sannong.infrastructure.persistance.entity.Application;
+import com.sannong.domain.entities.Answer;
+import com.sannong.domain.entities.Application;
 
 public interface IProjectService {
 

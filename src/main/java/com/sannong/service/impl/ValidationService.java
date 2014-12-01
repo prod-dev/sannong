@@ -1,9 +1,9 @@
 package com.sannong.service.impl;
 
-import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.persistance.repository.SmsRepository;
-import com.sannong.infrastructure.persistance.repository.UserRepository;
+import com.sannong.domain.entities.SMS;
+import com.sannong.domain.entities.User;
+import com.sannong.domain.repositories.SmsRepository;
+import com.sannong.domain.repositories.UserRepository;
 import com.sannong.service.IValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

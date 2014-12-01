@@ -3,7 +3,7 @@ package com.sannong.service;
 import java.util.List;
 import java.util.Map;
 
-import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.domain.entities.User;
 
 public interface IUserService {
 	

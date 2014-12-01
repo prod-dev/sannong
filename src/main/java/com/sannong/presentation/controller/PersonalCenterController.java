@@ -29,9 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sannong.infrastructure.dataexport.CsvExporter;
-import com.sannong.infrastructure.persistance.entity.Answer;
-import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.domain.entities.Answer;
+import com.sannong.domain.entities.SMS;
+import com.sannong.domain.entities.User;
 import com.sannong.presentation.model.DTO;
 import com.sannong.service.IProjectService;
 import com.sannong.service.ISmsService;

@@ -55,7 +55,7 @@
                         <input type="text" id="j_username" name='j_username' placeholder="用户名/电话号码" class="model-input" />
                         <input type="password" id="j_password" name='j_password' placeholder="密码" class="model-input" />
                         <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span>
-                        <a href="#" class="leftBorderLink" id="forgotPasswordLink" data-toggle="modal" data-target="#ForgotPasswordModel">忘记密码</a>
+                        <a href="#" class="leftBorderLink" id="forgotPasswordLink" data-toggle="modal" data-target="#forgotPasswordModel">忘记密码</a>
                         <input id="loginFormSubmit" type="button" value="登录" class="orange-bt"/>
                     </form>
                 </div>
@@ -66,7 +66,7 @@
 
 
 <!-- Forgot Password Modal -->
-<div class="modal fade" id="ForgotPasswordModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="forgotPasswordModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
