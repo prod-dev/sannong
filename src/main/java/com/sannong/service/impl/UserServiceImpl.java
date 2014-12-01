@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.persistance.repository.UserRepository;
+import com.sannong.domain.entities.User;
+import com.sannong.domain.repositories.UserRepository;
 import com.sannong.service.IUserService;
 
 @Service

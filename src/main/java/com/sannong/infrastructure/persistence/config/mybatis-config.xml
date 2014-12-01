@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+	    <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+	<typeAliases>
+    	<typeAlias type="com.sannong.domain.entities.User" alias="User" />
+    	<typeAlias type="com.sannong.domain.entities.Application" alias="Application" />
+        <typeAlias type="com.sannong.domain.entities.SMS" alias="SMS" />
+        <typeAlias type="com.sannong.domain.entities.Province" alias="Province" />
+        <typeAlias type="com.sannong.domain.entities.City" alias="City" />
+        <typeAlias type="com.sannong.domain.entities.District" alias="District" />
+        <typeAlias type="com.sannong.domain.entities.Question" alias="Question" />
+        <typeAlias type="com.sannong.domain.entities.Answer" alias="Answer" />
+        <typeAlias type="com.sannong.domain.entities.Comment" alias="Comment" />
+    </typeAliases>
+    
+    <mappers>
+    	<mapper resource="com/sannong/infrastructure/persistence/repositories/mybatis/user.map.xml"/>
+    	<mapper resource="com/sannong/infrastructure/persistence/repositories/mybatis/application.map.xml"/>
+    	<mapper resource="com/sannong/infrastructure/persistence/repositories/mybatis/sms.map.xml"/>
+    	<mapper resource="com/sannong/infrastructure/persistence/repositories/mybatis/authority.map.xml"/>
+    	<mapper resource="com/sannong/infrastructure/persistence/repositories/mybatis/questionnaire.map.xml"/>
+        <mapper resource="com/sannong/infrastructure/persistence/repositories/mybatis/region.map.xml"/>
+        <mapper resource="com/sannong/infrastructure/persistence/repositories/mybatis/answer.map.xml"/>
+        <mapper resource="com/sannong/infrastructure/persistence/repositories/mybatis/question.map.xml"/>
+        <mapper resource="com/sannong/infrastructure/persistence/repositories/mybatis/comment.map.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sannong.domain.repositories.RegionRepository">
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
+
+    <resultMap type="Province" id="provinceResultMap">
+        <id property="provinceId" column="province_id" />
+        <result property="provinceIndex" column="province_index" />
+        <result property="provinceName" column="province_name" />
+        <result property="provinceCode" column="province_code" />
+        <result property="countryCode" column="country_code" />
+    </resultMap>
+
+    <resultMap type="City" id="cityResultMap">
+        <id property="cityId" column="city_id" />
+        <result property="cityIndex" column="city_index" />
+        <result property="cityName" column="city_name" />
+        <result property="cityCode" column="city_code" />
+        <result property="provinceIndex" column="province_index" />
+    </resultMap>
+
+    <resultMap type="District" id="districtResultMap">
+        <id property="districtId" column="district_id" />
+        <result property="districtIndex" column="district_index" />
+        <result property="districtName" column="district_name" />
+        <result property="districtCode" column="district_code" />
+        <result property="cityIndex" column="city_index" />
+    </resultMap>
+
+    <select id="getProvinces" resultMap="provinceResultMap">
+        <![CDATA[
+     		select * from provinces;
+     	]]>
+    </select>
+
+    <select id="getProvinceByCountryCode" parameterType="String" resultMap="provinceResultMap">
+        <![CDATA[
+     		select * from provinces where country_code = #{countryCode}
+     	]]>
+    </select>
+
+    <select id="getCityByProvinceIndex" parameterType="Long" resultMap="cityResultMap">
+        <![CDATA[
+     		select * from cities where province_index = #{provinceIndex}
+     	]]>
+    </select>
+
+    <select id="getDistrictByCityIndex" parameterType="Long" resultMap="districtResultMap">
+        <![CDATA[
+     		select * from districts where city_index = #{cityIndex}
+     	]]>
+    </select>
+
+    <select id="getProvince" parameterType="Long" resultMap="provinceResultMap">
+        <![CDATA[
+     		select * from provinces where province_index = #{provinceIndex}
+     	]]>
+    </select>
+
+    <select id="getCity" parameterType="Long" resultMap="cityResultMap">
+        <![CDATA[
+     		select * from cities where city_index = #{cityIndex}
+     	]]>
+    </select>
+
+    <select id="getDistrict" parameterType="Long" resultMap="districtResultMap">
+        <![CDATA[
+     		select * from districts where district_index = #{districtIndex}
+     	]]>
+    </select>
+
+</mapper>

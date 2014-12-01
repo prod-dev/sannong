@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sannong.domain.repositories.AnswerRepository">
+	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
+
+     <resultMap type="Answer" id="answerResultMap">
+        <result property="questionnaire1Answers" column="questionnaire1_answers" />
+        <result property="questionnaire2Answers" column="questionnaire2_answers" />
+        <result property="questionnaire3Answers" column="questionnaire3_answers" />
+        <result property="questionnaire4Answers" column="questionnaire4_answers" />
+        <result property="questionnaire5Answers" column="questionnaire5_answers" />
+        <result property="answerStatus" column="answer_status" />
+        <association property="application" column="application_id" javaType="Application" >
+        	<result property="applicationId" column="application_id" />
+        </association>
+     </resultMap>
+	
+	<update id="updateAnswers" parameterType="Answer" >
+        update answers  
+        <set>  
+            <if test="questionnaire1Answers != null">  
+                questionnaire1_answers = #{questionnaire1Answers},  
+            </if>  
+	        <if test="questionnaire2Answers != null">  
+	            questionnaire2_answers = #{questionnaire2Answers},  
+	        </if>  
+	        <if test="questionnaire3Answers != null">  
+	            questionnaire3_answers = #{questionnaire3Answers},  
+	        </if>
+	        <if test="questionnaire4Answers != null">  
+	            questionnaire4_answers = #{questionnaire4Answers},  
+	        </if>
+	        <if test="questionnaire5Answers != null">  
+	            questionnaire5_answers = #{questionnaire5Answers},  
+	        </if>
+	         <if test="answerStatus != null">  
+	            answer_status = #{answerStatus}  
+	        </if>
+   	    </set>  
+        where username = #{applicant.userName}  
+    </update>
+    
+    <insert id="addAnswers" parameterType="Answer" >
+    	<![CDATA[
+	    	insert into answers(questionnaire1_answers,questionnaire2_answers,questionnaire3_answers,questionnaire4_answers,questionnaire5_answers,answer_status,username,application_id)
+	    	values (#{questionnaire1Answers},#{questionnaire2Answers},#{questionnaire3Answers},#{questionnaire4Answers},#{questionnaire5Answers},#{answerStatus},#{applicant.userName},#{application.applicationId})
+    	]]>
+    </insert>
+    
+    <select id="getAnswerByUserName" parameterType="String" resultMap="answerResultMap">
+        <![CDATA[
+        	select questionnaire1_answers,questionnaire2_answers,questionnaire3_answers,questionnaire4_answers,questionnaire5_answers,answer_status,application_id from answers where username=#{userName}
+        ]]>
+    </select>
+</mapper>
+

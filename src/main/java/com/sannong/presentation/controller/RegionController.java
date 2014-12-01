@@ -1,8 +1,8 @@
 package com.sannong.presentation.controller;
 
-import com.sannong.infrastructure.persistance.entity.City;
-import com.sannong.infrastructure.persistance.entity.District;
-import com.sannong.infrastructure.persistance.entity.Province;
+import com.sannong.domain.entities.City;
+import com.sannong.domain.entities.District;
+import com.sannong.domain.entities.Province;
 import com.sannong.service.IRegionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

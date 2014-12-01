@@ -1,10 +1,10 @@
 package com.sannong.domain.factories;
 
 import com.sannong.domain.valuetypes.Region;
-import com.sannong.infrastructure.persistance.entity.City;
-import com.sannong.infrastructure.persistance.entity.District;
-import com.sannong.infrastructure.persistance.entity.Province;
-import com.sannong.infrastructure.persistance.repository.RegionRepository;
+import com.sannong.domain.entities.City;
+import com.sannong.domain.entities.District;
+import com.sannong.domain.entities.Province;
+import com.sannong.domain.repositories.RegionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -20,10 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mysql.jdbc.StringUtils;
-import com.sannong.infrastructure.persistance.entity.Answer;
-import com.sannong.infrastructure.persistance.entity.Application;
-import com.sannong.infrastructure.persistance.entity.User;
-import com.sannong.infrastructure.util.AppConfig;
+import com.sannong.domain.entities.Answer;
+import com.sannong.domain.entities.Application;
+import com.sannong.domain.entities.User;
 import com.sannong.presentation.utils.JsonConvertor;
 import com.sannong.service.IProjectService;
 import com.sannong.service.IUserService;

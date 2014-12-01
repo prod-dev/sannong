@@ -1,9 +1,8 @@
 package com.sannong.service;
 
-import com.sannong.infrastructure.persistance.entity.SMS;
+import com.sannong.domain.entities.SMS;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**

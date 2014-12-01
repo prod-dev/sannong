@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sannong.infrastructure.persistance.entity.SMS;
-import com.sannong.infrastructure.persistance.entity.User;
+import com.sannong.domain.entities.SMS;
+import com.sannong.domain.entities.User;
 import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.service.ISmsService;
 import com.sannong.service.IUserService;

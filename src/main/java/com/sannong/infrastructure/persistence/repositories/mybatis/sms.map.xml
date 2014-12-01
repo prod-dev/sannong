@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.sannong.domain.repositories.SmsRepository">
+    <cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
+     
+    <resultMap type="SMS" id="smsMap">
+        <id property="smsId" column="sms_id" />
+        <result property="userid" column="user_id" />
+        <result property="smsValidationCode" column="sms_validation_code" />
+        <result property="sendTime" column="send_time" />
+        <result property="cellphone" column="cellphone" />
+        <result property="smsContent" column="sms_content" />
+        <result property="smsStatus" column="sms_status" />
+    </resultMap>
+     
+    <select id="getNewSMS" parameterType="Sms" resultMap="smsMap">
+     	<![CDATA[
+        	select * from sms where sms_status = 0
+        ]]>
+    </select>
+
+    <select id="getSmsByCellphoneAndValidationCode" parameterType="Sms" resultMap="smsMap">
+        <![CDATA[
+        	select * from sms where cellphone = #{cellphone} and sms_validation_code = #{smsValidationCode} and sms_status = 0
+        ]]>
+    </select>
+     
+    <insert id="addNewSMS" parameterType="SMS" useGeneratedKeys="true"  keyProperty="sms_Id">
+     	<![CDATA[
+        	insert into sms(sms_validation_code, cellphone, sms_content, sms_status, send_time)
+        	values(#{smsValidationCode} ,#{cellphone}, #{smsContent}, 0, #{sendTime})
+        ]]>
+    </insert>
+     
+    <update id="updateSMS"  parameterType="SMS">
+       	<![CDATA[
+        	update sms set send_time = #{sendTime},sms_status = #{smsStatus} where sms_id = #{smsId}
+        ]]>
+    </update>
+
+    <update id="updateSmsByCellphone"  parameterType="SMS">
+        <![CDATA[
+        	update sms set sms_validation_code = #{smsValidationCode}, send_time = #{sendTime}, sms_status = #{smsStatus}
+        	where cellphone = #{cellphone}
+        ]]>
+    </update>
+     
+</mapper>
+     
