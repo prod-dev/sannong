@@ -104,6 +104,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
         		var districtIndex = $("#districtSelect").val();
         		
         		parameter = parameter + "&provinceIndex=" + provinceIndex + "&cityIndex=" + cityIndex + "&districtIndex=" + districtIndex;
+        		//parameter = "realName=william&provinceIndex=&cityIndex=&districtIndex=";
                 searchParams = parameter;
                 
                 $.ajax({
@@ -145,7 +146,6 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             userManagement.showQuestionnaireAnswers = function (questionnaireNo, cellphone) {
             	// before initial table
             	$("#questionnaireNo").val(questionnaireNo);
-                $("#answerStatus").val(questionnaireNo + '1');
                 $("#userTextShow").show();
                 $("#user-management-title").hide();
                 $("#userManagementTable").hide();
@@ -270,12 +270,18 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                             var singleAnswer = "";
                             
                             for (var i = 0;i < answer.length;i++){
-                                var $_radios = $(".J_group_choice").eq(i).find("input");
-                                $_radios.each(function(){
+                                var $_radiosOrCheckboxs = $(".J_group_choice").eq(i).find("input");
+                                $_radiosOrCheckboxs.each(function(){
                                     singleAnswer = answer[i].split(",");
                                     for (var j = 0;j < singleAnswer.length;j++){
         	                            if($(this).val()===singleAnswer[j]){
-        	                                $(this).attr("checked","checked");
+        	                            	if ($(this).parent(".radioCustom")){
+        	                                    $(this).parent(".radioCustom").addClass("radioCustom-checked");
+        	                            	}
+        	                            	if ($(this).parent(".checkboxCustom")){
+        	                            		 $(this).parent(".checkboxCustom").toggleClass("checkboxCustom-checked");
+        	                            		 $(this).attr("checked", "checked");
+        	                            	}
         	                            }
                                     }
                                 });
@@ -288,6 +294,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         }
                         if (data.comment != null && data.comment.content != null){
                         	var comment = data.comment.content;
+                        	$("#questionnaireStatus").children().val("");
                         	$("#questionnaireStatus").children().attr("placeholder",comment);
                         	
                         	if($("#questionnaireStatus").hide()){

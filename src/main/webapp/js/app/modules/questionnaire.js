@@ -283,7 +283,13 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                             singleAnswer = answer[i].split(",");
                             for (var j = 0;j < singleAnswer.length;j++){
 	                            if($(this).val()===singleAnswer[j]){
-	                                $(this).attr("checked","checked");
+	                            	if ($(this).parent(".radioCustom")){
+	                                    $(this).parent(".radioCustom").addClass("radioCustom-checked");
+	                            	}
+	                            	if ($(this).parent(".checkboxCustom")){
+	                            		 $(this).parent(".checkboxCustom").toggleClass("checkboxCustom-checked");
+	                            		 $(this).attr("checked", "checked");
+	                            	}
 	                            }
                             }
                         });

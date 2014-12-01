@@ -64,8 +64,8 @@
         </div>
 
         <div id="buttonGroup" class="float-right step-1-bts">
-          <a id="save" href="javascript:void(0);" class="orange-bt-small">保存</a>
-          <a id="submit" href="javascript:void(0);" class="orange-bt-small">提交</a>
+          <button class="orange-bt-small" type="button" id="save">保存</button>
+          <button class="orange-bt-small" type="button" id="submit">提交</button>
         </div>
       </div>
       <!-- Button trigger modal -->

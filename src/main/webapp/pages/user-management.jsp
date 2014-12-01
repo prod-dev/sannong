@@ -42,24 +42,30 @@
 	<div id="userManagementTable">
 		<div id="searchBar" class="searchRow">
 			<div class="form-group form-inline">
-				<label>查询条件</label> <select id="searchKey" class="form-control">
+				<label>查询条件</label>
+				<select id="searchKey" class="form-control">
 					<option>姓名</option>
 					<option>手机号</option>
 					<option>工作单位</option>
 					<option>职位</option>
 					<option>电子邮箱</option>
 					<option>单位地址</option>
-				</select> <input type="text" class="form-control" id="searchValue"> <select
+				</select>
+				<input type="text" class="form-control" id="searchValue">
+				<select
 					id="provinceSelect" class="form-control"
 					name="applicant.companyProvince">
 					<option>省/直辖市</option>
-				</select> <select id="citySelect" class="form-control"
+				</select>
+				<select id="citySelect" class="form-control"
 					name="applicant.companyCity">
 					<option>市</option>
-				</select> <select id="districtSelect" class="form-control"
+				</select>
+				<select id="districtSelect" class="form-control"
 					name="applicant.companyDistrict">
 					<option>县/市辖区</option>
-				</select> <a id="retrieve" href="javascript:void(0);"
+				</select>
+				<a id="retrieve" href="javascript:void(0);"
 					class="glyphicon glyphicon-search"></a>
 			</div>
 		</div>
@@ -72,10 +78,9 @@
 				<div class="col-large">工作单位</div>
 				<div class="col-small">职位</div>
 				<div class="col-medium">电子邮箱</div>
-				<div class="col-small"></div>
-			</li>
+				<div class="col-small"></div></li>
 			<li>
-				<div id="userList"></div>
+			    <div id="userList"></div>
 			</li>
 		</ul>
 		<ul id="pagination" class="customPagination">
@@ -84,14 +89,14 @@
 			<li><label id="currentPage">1</label>/<label id="totalPage">6</label>
 			</li>
 			<li><a id="next" href="javascript:void(0);"
-				class="bt next activeBt"></a></li>
+				class="bt next activeBt"></a>
+			</li>
 		</ul>
 		<input type="hidden" id="cellphone">
 	</div>
 
-    <div id="userProfileEditView">
-    </div>
-    <jsp:include page='user-profile.jsp'/>
+	<div id="userProfileEditView"></div>
+	<jsp:include page='user-profile.jsp' />
 
 
 	<div id="questionnaireTable" style="display:none">
@@ -104,25 +109,21 @@
 
 		<ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a id="q1"
-				href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集</a>
-			</li>
+				href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集</a></li>
 			<li role="presentation"><a id="q2" href="javascript:void(0)"
-				role="tab" data-toggle="tab">问卷题集二</a>
-			</li>
+				role="tab" data-toggle="tab">问卷题集二</a></li>
 			<li role="presentation"><a id="q3" href="javascript:void(0)"
-				role="tab" data-toggle="tab">问卷题集三</a>
-			</li>
+				role="tab" data-toggle="tab">问卷题集三</a></li>
 			<li role="presentation"><a id="q4" href="javascript:void(0)"
-				role="tab" data-toggle="tab">问卷题集四</a>
-			</li>
+				role="tab" data-toggle="tab">问卷题集四</a></li>
 			<li role="presentation"><a id="q5" href="javascript:void(0)"
-				role="tab" data-toggle="tab">问卷题集五</a>
-			</li>
+				role="tab" data-toggle="tab">问卷题集五</a></li>
 		</ul>
 		<div class="tab-content">
 			<ul class="steps">
 				<li class="active"><span class="no">1</span> <span
-					class="stepHeading">问卷题集-</span></li>
+					class="stepHeading">问卷题集-</span>
+				</li>
 				<li><span class="no">2</span> <span class="stepHeading">问卷题集-</span>
 				</li>
 				<li><span class="no">3</span> <span class="stepHeading">问卷题集-</span>
@@ -136,7 +137,7 @@
 				<form id="answerForm" role="form" action="updateAnswersAndComment"
 					method="post">
 					<div id="questionList"></div>
-					<input type="hidden" name="answerStatus" id="answerStatus">
+					<div id="questionnaireStatus">状态<textarea class="form-control" name="comment.content" rows="3" placeholder="如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员" autofocus></textarea></div>
 					<input type="hidden" name="questionnaireNo" id="questionnaireNo">
 					<input type="hidden" name="applicant.userName" id="userName">
 					<input type="hidden" name="application.applicationId"
@@ -144,11 +145,11 @@
 				</form>
 			</ul>
 		</div>
-		<button class="btn btn-success" id="cancel">取消</button>
-		<button class="btn btn-success" id="update">更新</button>
+		<br>
+		<button class="orange-bt-small" id="cancel">取消</button>
+		<button class="orange-bt-small" id="update">更新</button>
 		<!-- Button trigger modal -->
-		<button type="button" id="myModalTrigger" class="btn btn-primary"
-			data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
+		<button type="button" id="myModalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
 		<div class="modal fade in" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
