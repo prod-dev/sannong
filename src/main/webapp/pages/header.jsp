@@ -51,7 +51,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="loginForm" role="form" action="j_spring_security_check" method="POST">
-                        <span class="errorMsg"><span id="errorMsgContainer"></span></span>
+                        <span class="errorMsg" id="loginErrorContainer"><span id="loginErrorMsg"></span></span>
                         <input type="text" id="j_username" name='j_username' placeholder="用户名/电话号码" class="model-input" />
                         <input type="password" id="j_password" name='j_password' placeholder="密码" class="model-input" />
                         <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span>
@@ -75,7 +75,7 @@
             </div>
             <div class="modal-body">
                 <form id="forgotPasswordForm" role="form" action="j_spring_security_check" method="POST">
-                    <span class="errorMsg"><span>Error message shows here</span></span>
+                    <span class="errorMsg" id="forgotPasswordErrorContainer"><span id="forgotPasswordErrorMsg"></span></span>
                     <input type="text" name="realName" id="realName" placeholder="姓名" class="model-input" />
                     <input type="text" name='j_username' id="cellphone" placeholder="手机号码" class="model-input-75" />
                     <a href="#" id="sendNewPasswordLink" class="white-bt">获取新密码</a>

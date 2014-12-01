@@ -8,8 +8,9 @@ define(['jquery', 'sannong', 'ajaxHandler', 'formValidator'], function($, sannon
 
     var login = {};
 
-    function showLoginError(){
-
+    function showLoginError(message){
+        $('#loginErrorMsg').remove();
+        $('#loginErrorContainer').append('<span id="loginErrorMsg">' + message + '</span>');
     }
 
     function addEventListener(){
@@ -43,14 +44,14 @@ define(['jquery', 'sannong', 'ajaxHandler', 'formValidator'], function($, sannon
                         j_username: $("#j_username").val()
                     },
                     success: function (response) {
-                        if (response.authentication == true) {
-                            window.location.href = response.redirect;
+                        if (response.statusCode < 2000) {
+                            window.location.href = response.models.redirect;
                         } else {
-                            showLoginError();
+                            showLoginError(response.statusDescription);
                         }
                     },
                     fail: function (response) {
-                        showLoginError();
+                        showLoginError("提交请求失败");
                     }
                 });
             }
