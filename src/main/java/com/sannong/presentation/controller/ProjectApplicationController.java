@@ -8,6 +8,11 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.sannong.domain.valuetypes.ResponseStatus;
+import com.sannong.infrastructure.util.PasswordGenerator;
+import com.sannong.presentation.model.Response;
+import com.sannong.service.ISmsService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,11 +24,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.jdbc.StringUtils;
 import com.sannong.domain.entities.Answer;
 import com.sannong.domain.entities.Application;
 import com.sannong.domain.entities.User;
-import com.sannong.presentation.utils.JsonConvertor;
 import com.sannong.service.IProjectService;
 import com.sannong.service.IUserService;
 import com.sannong.service.IValidationService;
@@ -45,6 +48,8 @@ public class ProjectApplicationController {
     private IUserService userService;
     @Autowired
     private IValidationService validationService;
+    @Autowired
+    private ISmsService smsService;
 
     @RequestMapping(value = "project-application", method = RequestMethod.GET)
     public ModelAndView showProjectApplicationPage() {
@@ -87,7 +92,7 @@ public class ProjectApplicationController {
                 userName = userList.get(0).getUserName();
                 realName = userList.get(0).getRealName();
             }
-        } else if (StringUtils.isNullOrEmpty(userName)) {
+        } else if (StringUtils.isBlank(userName)) {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
             if (principal instanceof UserDetails) {
@@ -113,23 +118,60 @@ public class ProjectApplicationController {
         return answer;
     }
 
-    @RequestMapping(value = "validateFormOnSubmit", method = RequestMethod.GET)
-    public @ResponseBody String validateForm(HttpServletRequest request) throws IOException {
+    @RequestMapping(value = "project-application/validate-application-form", method = RequestMethod.POST)
+    public @ResponseBody
+    Response validateForm(HttpServletRequest request) throws IOException {
         String cellphone = request.getParameter("cellphone");
         String validationCode = request.getParameter("validationCode");
 
-        boolean uniqueCellphoneValid = validationService.validateUniqueCellphone(cellphone);
-        boolean validationCodeValid = validationService.validateValidationCode(cellphone, validationCode);
+        if (validationService.validateUniqueCellphone(cellphone) == false){
+            return new Response(
+                    ResponseStatus.CELLPHONE_NOT_UNIQUE.getStatusCode(),
+                    ResponseStatus.CELLPHONE_NOT_UNIQUE.getStatusDescription());
+        }else if(validationService.validateValidationCode(cellphone, validationCode) == false){
+            return new Response(
+                    ResponseStatus.CAPTCHA_INCORRECT.getStatusCode(),
+                    ResponseStatus.CAPTCHA_INCORRECT.getStatusDescription());
+        }else{
+            return new Response(
+                    ResponseStatus.SUCCESS.getStatusCode(),
+                    ResponseStatus.SUCCESS.getStatusDescription());
 
-        boolean valid = validationCodeValid && uniqueCellphoneValid;
-
-        Map<String, Object> resultMap = new HashMap<String,Object>();
-        resultMap.put("valid", valid);
-        resultMap.put("uniqueCellphoneValid", uniqueCellphoneValid);
-        resultMap.put("validationCodeValid", validationCodeValid);
-
-        String result = JsonConvertor.toJSON(resultMap);
-
-        return result;
+        }
     }
+
+    @RequestMapping(value = "project-application/send-validation-code",method = RequestMethod.POST)
+    public @ResponseBody Response sendCaptchaCode(HttpServletRequest request){
+        String cellphone = request.getParameter("applicant.cellphone");
+        if (StringUtils.isBlank(cellphone)){
+            cellphone = request.getParameter("cellphone");
+        }
+
+        if (StringUtils.isBlank(cellphone)){
+            return new Response(
+                    ResponseStatus.CELLPHONE_IS_NULL.getStatusCode(),
+                    ResponseStatus.CELLPHONE_IS_NULL.getStatusDescription());
+        }
+
+        if (validationService.validateUniqueCellphone(cellphone) == false){
+            return new Response(
+                    ResponseStatus.CELLPHONE_NOT_UNIQUE.getStatusCode(),
+                    ResponseStatus.CELLPHONE_NOT_UNIQUE.getStatusDescription());
+        }else{
+            String validationCode = PasswordGenerator.generateValidationCode(4);
+            String result = smsService.sendValidationCode(cellphone, validationCode);
+            if (StringUtils.isNotBlank(result)){
+                return new Response(
+                        ResponseStatus.CAPTCHA_WAS_SENT.getStatusCode(),
+                        ResponseStatus.CAPTCHA_WAS_SENT.getStatusDescription());
+
+            }else{
+                return new Response(
+                        ResponseStatus.SMS_SEND_CAPTCHA_FAILURE.getStatusCode(),
+                        ResponseStatus.SMS_SEND_CAPTCHA_FAILURE.getStatusDescription());
+            }
+
+        }
+    }
+
 }

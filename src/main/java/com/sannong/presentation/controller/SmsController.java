@@ -8,13 +8,14 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.sannong.domain.valuetypes.ResponseStatus;
+import com.sannong.presentation.model.Response;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sannong.domain.entities.SMS;
 import com.sannong.domain.entities.User;
 import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.service.ISmsService;
@@ -30,20 +31,6 @@ public class SmsController {
     @Resource
     private IUserService userService;
 
-    @RequestMapping(value = "updatesms", method = RequestMethod.GET)
-    public @ResponseBody boolean updateSMS(HttpServletRequest request) {
-        return smsService.updateSMS(request);
-    }
-
-    @RequestMapping(value = "getnewsms", method = RequestMethod.GET)
-    public @ResponseBody List<SMS> getNewSMS() {
-        return smsService.getNewSMS();
-    }
-
-    @RequestMapping(value = "regcode", method = RequestMethod.GET)
-    public @ResponseBody boolean generateCode(HttpServletRequest request) {
-        return smsService.generateCode(request);
-    }
 
     @RequestMapping(value = "validateSMSCode")
     public @ResponseBody int validateRegcode(HttpServletRequest request) {
@@ -51,8 +38,8 @@ public class SmsController {
     }
 
     /**
-     * From projectapplication page, user need to get a validation code to verify the cellphone is his own.
-     * From myinfo page, user need to send a validation code to change his cellphone.
+     * From project-application page, user need to get a validation code to verify the cellphone is his own.
+     * From user-profile page, user need to send a validation code to change his cellphone.
      * @param request
      * @return
      * @throws Exception
@@ -84,13 +71,14 @@ public class SmsController {
     }
 
     /**
-     * From forgotpassword page, user try to get a new password to login.
+     * From forgot-password page, user try to get a new password to login.
      * @param request
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "sendNewPasswordMessage", method = RequestMethod.POST)
-    public @ResponseBody boolean sendNewPasswordMessage(HttpServletRequest request) throws Exception{
+    public @ResponseBody
+    Response sendNewPasswordMessage(HttpServletRequest request) throws Exception{
         String cellphone = request.getParameter("cellphone");
         String realName = request.getParameter("realName");
 
@@ -100,21 +88,29 @@ public class SmsController {
 
         List<User> users = userService.getUserByCondition(paramMap);
         if (users.isEmpty()) {
-            return false;
+            return new Response(
+                    ResponseStatus.NAME_OR_CELLPHONE_NOT_FOUND.getStatusCode(),
+                    ResponseStatus.NAME_OR_CELLPHONE_NOT_FOUND.getStatusDescription());
         } else {
             User user = users.get(0);
             if (!(user.getCellphone().equals(cellphone) && user.getRealName().equals(realName))) {
-                return false;
+                return new Response(
+                        ResponseStatus.NAME_OR_CELLPHONE_MISMATCH.getStatusCode(),
+                        ResponseStatus.NAME_OR_CELLPHONE_MISMATCH.getStatusDescription());
             }
             String password = PasswordGenerator.generatePassword(6);
             String smsResponse = smsService.sendNewPasswordMessage(cellphone, password);
             if (StringUtils.isNotBlank(smsResponse)){
                 user.setPassword(PasswordGenerator.encryptPassword(password, user.getUserName()));
                 user.setUpdateTime(new Timestamp(System.currentTimeMillis()));
-                
-                return userService.updatePassword(user);
+                userService.updatePassword(user);
+                return new Response(
+                        ResponseStatus.NEW_PASSWORD_WAS_SENT.getStatusCode(),
+                        ResponseStatus.NEW_PASSWORD_WAS_SENT.getStatusDescription());
             } else {
-                return false;
+                return new Response(
+                        ResponseStatus.SMS_SEND_NEW_PASSWORD_FAILURE.getStatusCode(),
+                        ResponseStatus.SMS_SEND_NEW_PASSWORD_FAILURE.getStatusDescription());
             }
         }
     }

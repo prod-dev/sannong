@@ -27,7 +27,7 @@
             <div class="row">
                 <span class="col-sm-9 rightBorder equalCol">
                     <h3 class="borderBottom">申报项目</h3>
-                    <form class="projectAppForm" id="projectApplicationForm" role="form" action="apply" method="post">
+                    <form class="projectAppForm" id="projectAppForm" role="form" action="apply" method="post">
                         <ul>
                             <div id="questionnaire">
                                 <script id="question-template-radio" type="text/x-handlebars-template">
@@ -59,21 +59,21 @@
 
                         <div class="row">
                             <aside class="userFormCol-1">姓名</aside>
-                            <aside class="userFormCol-right"><input type="text" class="width-172" id="userRealName" name="applicant.realName"></aside>
+                            <aside class="userFormCol-right"><input type="text" class="width-172" id="projectAppForm_userRealName" name="applicant.realName"></aside>
                         </div>
                         <div class="row">
                             <aside class="userFormCol-1">职位</aside>
-                            <aside class="userFormCol-right"><input type="text" class="width-172" id="jobTitle" name="applicant.jobTitle" ></aside>
+                            <aside class="userFormCol-right"><input type="text" class="width-172" id="projectAppForm_jobTitle" name="applicant.jobTitle" ></aside>
                         </div>
                         <div class="row">
                             <aside class="userFormCol-1">工作单位</aside>
-                            <aside class="userFormCol-right"><input type="text" class="width-281" id="company" name="applicant.company"></aside>
+                            <aside class="userFormCol-right"><input type="text" class="width-281" id="projectAppForm_company" name="applicant.company"></aside>
                         </div>
                         <div class="row">
                             <aside class="userFormCol-1">单位地址</aside>
                             <aside class="userFormCol-right">
                                 <div class="width-87">
-                                    <select id="provinceSelect" name="applicant.companyProvince">
+                                    <select id="projectAppForm_provinceSelect" name="applicant.companyProvince">
                                         <option value="1">北京市</option>
                                         <option value="2">天津市</option>
                                         <option value="3">河北省</option>
@@ -111,13 +111,13 @@
                                     </select>
                                 </div>
                                 <div class="width-87">
-                                    <select id="applicant.companyCity" name="applicant.companyCity">
+                                    <select id="projectAppForm_companyCity" name="applicant.companyCity">
                                         <option value="1">市辖区</option>
                                         <option value="2">县</option>
                                     </select>
                                 </div>
                                     <div class="width-87">
-                                    <select id="applicant.companyDistrict" name="applicant.companyDistrict">
+                                    <select id="projectAppForm_companyDistrict" name="applicant.companyDistrict">
                                         <option value='1'>东城区</option>
                                         <option value='2'>西城区</option>
                                         <option value='3'>崇文区</option>
@@ -136,38 +136,34 @@
                                         <option value='16'>平谷区</option>
                                     </select>
                                 </div>
-                                <input type="text" class="width-273" id="jobAddress" name="applicant.companyAddress">
+                                <input type="text" class="width-273" id="projectAppForm_jobAddress" name="applicant.companyAddress">
                             </aside>
                         </div>
                         <div class="row">
                             <aside class="userFormCol-1">工作电话</aside>
-                            <aside class="userFormCol-right"><input type="text" class="width-281" id="deskPhone" name="applicant.deskPhone"></aside>
+                            <aside class="userFormCol-right"><input type="text" class="width-281" id="projectAppForm_deskPhone" name="applicant.deskPhone"></aside>
                         </div>
                         <div class="row">
                             <aside class="userFormCol-1">电子邮件</aside>
-                            <aside class="userFormCol-right"><input type="text" class="width-281" id="mailbox" name="applicant.mailbox"></aside>
+                            <aside class="userFormCol-right"><input type="text" class="width-281" id="projectAppForm_mailbox" name="applicant.mailbox"></aside>
                         </div>
                         <div class="row">
                             <aside class="userFormCol-1">手机号码</aside>
                             <aside class="userFormCol-right">
-                                <input type="text" class="width-281" id="cellphone" name="applicant.cellphone">
-                                <a href="#" class="btn btn-default vcode-btn" role="button" id="action-send-code" name="action-send-code">获取验证码</a>
-                                <!--
-                                <input class="btn btn-default " type="button" value="获取验证码" id="action-send-code" name="action-send-code">
-                                <a href="#" class="white-bt" id="action-send-code" name="action-send-code">获取验证码</a>
-                                -->
+                                <input type="text" class="width-281" id="projectAppForm_cellphone" name="applicant.cellphone">
+                                <a href="#" class="white-bt" role="button" id="projectAppForm_validationBtn" name="validationBtn">获取验证码</a>
                             </aside>
                         </div>
                         <div class="row">
                             <aside class="userFormCol-1">验证码</aside>
                             <aside class="userFormCol-right">
                                 <div class="width-87">
-                                    <input type="text" id="validationCode" name="sms.smsValidationCode"/>
+                                    <input type="text" id="projectAppForm_validationCode" name="sms.smsValidationCode"/>
                                 </div>
                             </aside>
                         </div>
                         <div class="row">
-                            <input type="button" id="projectApplicationFormSubmit" value="提交"/>
+                            <input type="button" class="disabled" id="projectAppForm_submit" value="提交"/>
                         </div>
 
                     </form>

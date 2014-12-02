@@ -31,43 +31,25 @@ define(['jquery', 'sannong', 'formValidator'], function($, sannong, formValidato
         timeRemained = duration;
 
         $(elementId).attr("disabled", "true");
-        //$(elementId).val("请在" + timeRemained + "秒内输入" + text);
+        $(elementId).val("请在" + timeRemained + "秒内输入" + text);
         $(elementId).text("请在" + timeRemained + "秒内输入" + text);
 
         timer = window.setInterval(function setRemainTime() {
             if (timeRemained == 0) {
                 window.clearInterval(timer);
                 $(elementId).removeAttr("disabled");
-                //$(elementId).val("重新发送" + text);
+                $(elementId).removeClass("disabled");
+
+                $(elementId).val("重新发送" + text);
                 $(elementId).text("重新发送" + text);
             }
             else {
                 timeRemained --;
-                //$(elementId).val("请在" + timeRemained + "秒内输入" + text);
+                $(elementId).val("请在" + timeRemained + "秒内输入" + text);
                 $(elementId).text("请在" + timeRemained + "秒内输入" + text);
             }
         }, 1000);
     }
-
-    /*
-    additionalMethods.updateTimeLabel = function(duration, labelId) {
-
-        if(timeRemained > 0){
-            return;
-        }
-        timeRemained = duration;
-
-        var timer = setInterval(function() {
-            $(labelId).val( timeRemained + '秒后重新发送');
-            timeRemained = timeRemained - 1;
-            if ( timeRemained == -1) {
-                clearInterval(timer);
-                timeRemained = 0;
-                $(labelId).val('重新发送').removeAttr('disabled').removeClass("gray");
-            }
-        }, 1000);
-    }
-    */
 
     sannong.AdditionalMethods = additionalMethods;
     return additionalMethods;

@@ -9,90 +9,73 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
 
         var forgotPassword = {};
 
-        forgotPassword.Model = {
-            cellphoneErrorMsg: '<label id="cellphone-error" class="error" for="cellphone" style="display: inline-block;">姓名或手机号码不存在</label>',
-            passwordErrorMsg: '<label id="password-error" class="error" for="password" style="display: inline-block;">验证失败, 请重新输入</label>'
-        };
+        function showError(message){
+            $('#forgotPasswordErrorMsg').remove();
+            $('#forgotPasswordErrorContainer').append('<span id="forgotPasswordErrorMsg">' + message + '</span>');
+        }
 
-        forgotPassword.View = {
-            sendNewPasswordLink: $("#sendNewPasswordLink")
-        };
-
-
-        function showError(){
-
+        function showMessage(message){
+            showError(message);
         }
 
         function addEventListener(){
-            $("#sendNewPasswordLink").click(function(element){
+            $("#forgotPasswordForm_sendNewPasswordBtn").click(function(element){
                 var validator = formValidator.getValidator("#forgotPasswordForm");
                 validator.resetForm();
-                var realNameValid = validator.element($("#realName"));
-                var cellphoneValid = validator.element($("#cellphone"));
+                var realNameValid = validator.element($("#forgotPasswordForm_realName"));
+                var cellphoneValid = validator.element($("#forgotPasswordForm_cellphone"));
                 if ((cellphoneValid == true) && (realNameValid == true)){
-                    var options = {
+                    ajaxHandler.sendRequest({
                         url: 'sendNewPasswordMessage',
                         type: 'POST',
                         dataType: 'json',
                         data: {
-                            cellphone: $("#cellphone").val(),
-                            realName: $("#realName").val()
+                            cellphone: $("#forgotPasswordForm_cellphone").val(),
+                            realName: $("#forgotPasswordForm_realName").val()
                         },
-                        success: function(data){
-                            if (data == false){
-                                forgotPassword.View.sendNewPasswordLink.after(forgotPassword.Model.cellphoneErrorMsg);
+                        success: function(response){
+                            if (response.statusCode < 2000){
+                                showMessage(response.statusDescription)
+                                additionalMethods.updateTimeLabel("#forgotPasswordForm_sendNewPasswordBtn", "密码");
                             }else{
-                                additionalMethods.updateTimeLabel("#sendNewPasswordLink", "密码");
+                                showError(response.statusDescription)
                             }
                         },
-                        fail: function(data){
-                            if (data == false){
-                                forgotPassword.View.sendNewPasswordLink.after(forgotPassword.Model.cellphoneErrorMsg);
-                            }
+                        fail: function(response){
+                            showError("发送新密码失败")
                         }
-                    }
-                    ajaxHandler.sendRequest(options);
+                    });
                 }
            });
 
             $("#forgotPasswordFormSubmit").click(function () {
-                var validator = formValidator.getValidator("#forgotPasswordForm");
-
-                if (validator.form() == true){
+                if (formValidator.getValidator("#forgotPasswordForm").form() == true){
                     ajaxHandler.sendRequest({
                         type: "POST",
                         url: "j_spring_security_check",
                         dataType: "json",
                         data: {
-                            j_username: $("#cellphone").val(),
-                            j_password: $("#password").val()
+                            j_username: $("#forgotPasswordForm_cellphone").val(),
+                            j_password: $("#forgotPasswordForm_password").val()
                         },
                         success: function (response) {
-                            if (response.authentication == true) {
-                                window.location.href = response.redirect;
+                            if (response.statusCode < 2000) {
+                                window.location.href = response.models.redirect;
                             } else {
-                                showError();
+                                showError(response.statusDescription);
                             }
                         },
                         fail: function (response) {
-                            showError();
+                            showError("提交请求失败");
                         }
                     });
                 }
             });
         }
 
-        function checkAuthenticationStatus(){
-            var status = $("#authentication").attr("status");
-            if (status == "false"){
-                $("#password").after(forgotPassword.Model.passwordErrorMsg);
-            }
-        }
 
         $(function () {
             addEventListener();
-            formValidator.getValidator("#forgotPasswordForm");
-            checkAuthenticationStatus();
         });
 
         sannong.ForgotPassword = forgotPassword;
