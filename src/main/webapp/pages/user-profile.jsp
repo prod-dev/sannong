@@ -18,7 +18,7 @@
 <body>
     <script id="user-profile-template" type="text/x-handlebars-template">
       <h3>个人信息</h3>
-      <form class="userForm" role="form" id="userProfileForm" action="updateUserProfile" method="post">
+      <form class="userForm" role="form" id="userProfileForm" action="user-personal-center/user-profile" method="post">
         <input name="userName" type="hidden" value="{{userProfile.userName}}" >
         <div class="row">
           <aside class="userFormCol-1">姓名</aside>

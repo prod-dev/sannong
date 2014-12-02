@@ -18,7 +18,7 @@
 </head>
 <body>
     <h3>更新密码</h3>
-    <form id="userPasswordForm" role="formPassword" action="updatePassword" method="post">
+    <form id="userPasswordForm" role="formPassword" action="user-personal-center/updatePassword" method="post">
       <div class="row">
         <aside class="userFormCol-1" for="oldPassword">旧密码</aside>
         <aside class="userFormCol-right"><input type="password" class="width-281" id="oldPassword" name="oldPassword" placeholder="旧密码"></aside>
