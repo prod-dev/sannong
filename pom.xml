@@ -20,8 +20,13 @@
 			<resource>
 				<directory>src/main/java</directory>
 				<includes>
-					<include>**/*.properties</include>
 					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>*.properties</include>
 				</includes>
 			</resource>
 		</resources>
@@ -291,15 +296,6 @@
 			<id>mybatis-snapshot</id>
 			<name>MyBatis Snapshot Repository</name>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</repository>
-
-		<repository>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<id>bonecp-repo</id>
-			<name>BoneCP Repository</name>
-			<url>http://jolbox.com/bonecp/downloads/maven</url>
 		</repository>
 	</repositories>
 
