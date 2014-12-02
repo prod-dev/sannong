@@ -79,14 +79,7 @@ define(['jquery', 'sannong'], function($, sannong) {
                 },
                 "applicant.cellphone": {
                     required: true,
-                    isCellphone: true,
-                    remote:{
-                        type: "GET",
-                        url: "validateUniqueCellphone",
-                        data:{
-                            cellphone: $("#cellphone").val()
-                        }
-                    }
+                    isCellphone: true
                 },
                 "sms.smsValidationCode":{
                     digits: true,

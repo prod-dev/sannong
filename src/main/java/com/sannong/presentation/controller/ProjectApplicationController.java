@@ -140,7 +140,7 @@ public class ProjectApplicationController {
         }
     }
 
-    @RequestMapping(value = "project-application/send-validation-code",method = RequestMethod.POST)
+    @RequestMapping(value = "project-application/sendValidationCode",method = RequestMethod.POST)
     public @ResponseBody Response sendCaptchaCode(HttpServletRequest request){
         String cellphone = request.getParameter("applicant.cellphone");
         if (StringUtils.isBlank(cellphone)){

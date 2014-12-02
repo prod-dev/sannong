@@ -26,7 +26,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                 var cellphoneValid = validator.element($("#forgotPasswordForm_cellphone"));
                 if ((cellphoneValid == true) && (realNameValid == true)){
                     ajaxHandler.sendRequest({
-                        url: 'sendNewPasswordMessage',
+                        url: 'forgot-password/sendNewPasswordMessage',
                         type: 'POST',
                         dataType: 'json',
                         data: {

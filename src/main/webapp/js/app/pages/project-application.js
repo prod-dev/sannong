@@ -62,7 +62,7 @@ require(['../main'], function () {
                     }
                     if (formValidator.getValidator("#projectAppForm").form() == true) {
                         ajaxHandler.sendRequest({
-                            url: 'project-application/send-validation-code',
+                            url: 'project-application/sendValidationCode',
                             type: 'POST',
                             data: {cellphone: $("#projectAppForm_cellphone").val()},
                             success: function (response) {

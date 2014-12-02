@@ -17,8 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.sannong.domain.valuetypes.ResponseStatus;
 import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.presentation.model.Response;
+import com.sannong.service.IValidationService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -54,6 +56,8 @@ public class PersonalCenterController {
     private ISmsService smsService;
     @Resource
     private IProjectService projectService;
+    @Autowired
+    IValidationService validationService;
 
 
     @RequestMapping(value = "user-personal-center", method = RequestMethod.GET)
@@ -398,6 +402,26 @@ public class PersonalCenterController {
             if (bufferOutputStream != null){
                 bufferOutputStream.close();
             }
+        }
+    }
+
+
+    @RequestMapping(value = "user-profile/validateUniqueCellphone",method = RequestMethod.GET)
+    public @ResponseBody boolean validateUniqueCellphone(HttpServletRequest request){
+        String cellphone = request.getParameter("cellphone");
+        return validationService.validateUniqueCellphone(cellphone);
+    }
+
+    @RequestMapping(value = "user-profile/sendValidationCode", method = RequestMethod.POST)
+    public @ResponseBody String sendValidationCode(HttpServletRequest request) throws Exception {
+        String cellphone = request.getParameter("cellphone");
+        String newCellphone = request.getParameter("newCellphone");
+        String validationCode = PasswordGenerator.generateValidationCode(4);
+
+        if (StringUtils.isNotBlank(newCellphone)){
+            return smsService.sendValidationCode(newCellphone, validationCode);
+        } else{
+            return smsService.sendValidationCode(cellphone, validationCode);
         }
     }
 }

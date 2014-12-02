@@ -25,7 +25,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
 
     function sendValidationCode(){
         var options = {
-            url: 'sendValidationCode',
+            url: 'user-profile/sendValidationCode',
             type: 'POST',
             data: {
                 newCellphone: $("#newCellphone").val()
@@ -86,7 +86,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
         $("#action-send-code").click(function(event){
             ajaxHandler.sendRequest({
                 type: "GET",
-                url: "validateUniqueCellphone",
+                url: "user-profile/validateUniqueCellphone",
                 data:{cellphone: $("#newCellphone").val()},
                 success: function(response){
                     if (response == true){
