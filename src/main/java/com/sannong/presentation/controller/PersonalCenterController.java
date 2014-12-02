@@ -44,10 +44,6 @@ public class PersonalCenterController {
     private static final Logger logger = Logger.getLogger(PersonalCenterController.class);
     private static final long pageSum = 10;
 
-    private static final String PAGE_USER_APPLICATION_FORM = "user-application-form";
-    private static final String PAGE_USER_PROFILE = "user-profile";
-    private static final String PAGE_USER_PASSWORD = "user-password";
-    private static final String PAGE_USER_MANAGEMENT = "user-management";
     private static final String USER_PERSONAL_CENTER_PAGE = "user-personal-center";
 
     @Resource
@@ -69,7 +65,7 @@ public class PersonalCenterController {
     }
 
     @RequestMapping(value = {"user-personal-center/user-profile"}, method = RequestMethod.GET)
-    public @ResponseBody Map<String, Object> userProfile(HttpServletRequest request) {
+    public @ResponseBody Map<String, Object> showUserProfile(HttpServletRequest request) {
         String userName = request.getParameter("userName");
         if (userName == null){
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -90,33 +86,37 @@ public class PersonalCenterController {
         return models;
     }
 
-    @RequestMapping(value = "user-application-form", method = RequestMethod.GET)
-    public ModelAndView showUserApplicationForm() {
+    @RequestMapping(value = {"user-personal-center/user-profile"}, method = RequestMethod.POST)
+    public @ResponseBody Map<String, Object> updateUserProfile(HttpServletRequest request,
+                                                               @ModelAttribute("userProfile") User user) {
+        String newCellphone = request.getParameter("newCellphone");
+        String validationCode = request.getParameter("validationCode");
+
         Map<String, Object> models = new HashMap<String, Object>();
-        models.put("user-application-form", new Object());
-        return new ModelAndView(PAGE_USER_APPLICATION_FORM, models);
+        if (StringUtils.isNotBlank(newCellphone) && StringUtils.isNotBlank(validationCode)){
+            List<SMS> smsList = smsService.getSmsByCellphoneAndValidationCode(newCellphone, validationCode);
+            if (smsList.isEmpty()){
+                models.put("status", "error");
+                models.put("userProfile", user);
+                return models;
+            }else{
+                user.setCellphone(newCellphone);
+            }
+        }
+
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        user.setUpdateTime(ts);
+        try {
+            userService.updateUser(user);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            models.put("status", "error");
+        }
+        models.put("userProfile", user);
+        models.put("status", "saved");
+        return models;
     }
 
-    @RequestMapping(value = "user-profile", method = RequestMethod.GET)
-    public ModelAndView showUserProfile() {
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("user-profile", new Object());
-        return new ModelAndView(PAGE_USER_PROFILE, models);
-    }
-
-    @RequestMapping(value = "user-management", method = RequestMethod.GET)
-    public ModelAndView showUserManagement() {
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("user-management", new Object());
-        return new ModelAndView(PAGE_USER_MANAGEMENT, models);
-    }
-
-    @RequestMapping(value = "user-password", method = RequestMethod.GET)
-    public ModelAndView showUserPassword() {
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("user-password", new Object());
-        return new ModelAndView(PAGE_USER_PASSWORD, models);
-    }
 
     /********************************
      * Show applicants page
@@ -161,41 +161,6 @@ public class PersonalCenterController {
         return applicants;
     }
 
-    /************************************
-     * Update user's information.
-     * @param request
-     * @param user
-     * @return
-     ************************************/
-    @RequestMapping(value = {"updateUserProfile"}, method = RequestMethod.POST)
-	public @ResponseBody Map<String, Object> updateUserProfile(HttpServletRequest request, @ModelAttribute("userProfile") User user) {
-        String newCellphone = request.getParameter("newCellphone");
-        String validationCode = request.getParameter("validationCode");
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        if (StringUtils.isNotBlank(newCellphone) && StringUtils.isNotBlank(validationCode)){
-            List<SMS> smsList = smsService.getSmsByCellphoneAndValidationCode(newCellphone, validationCode);
-            if (smsList.isEmpty()){
-                models.put("status", "error");
-                models.put("userProfile", user);
-                return models;
-            }else{
-                user.setCellphone(newCellphone);
-            }
-        }
-
-    	Timestamp ts = new Timestamp(System.currentTimeMillis());
-		user.setUpdateTime(ts);
-		try {
-			userService.updateUser(user);
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-            models.put("status", "error");
-		}
-		models.put("userProfile", user);
-		models.put("status", "saved");
-        return models;
-	}
 
     /**************************************
      * Get user total count.
@@ -236,7 +201,7 @@ public class PersonalCenterController {
      * @return
      * @throws Exception
      **************************************/
-    @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
+    @RequestMapping(value = "user-personal-center/updatePassword", method = RequestMethod.POST)
     public @ResponseBody
     Response updatePassword(HttpServletRequest request) throws Exception {
         String oldPassword = request.getParameter("oldPassword");
