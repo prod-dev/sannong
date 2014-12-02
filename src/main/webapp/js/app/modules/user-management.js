@@ -433,26 +433,26 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     });
             })
             
+            $("#q1").click(function(){
+            	userManagement.showQuestionnaireAnswers(1,"");
+            });
+            $("#q2").click(function(){
+            	userManagement.showQuestionnaireAnswers(2,"");
+            });
+            $("#q3").click(function(){
+            	userManagement.showQuestionnaireAnswers(3,"");
+            });
+            $("#q4").click(function(){
+            	userManagement.showQuestionnaireAnswers(4,"");
+            });
+            $("#q5").click(function(){
+            	userManagement.showQuestionnaireAnswers(5,"");
+            });
+            
             $(function() {
             	region.Controller.addProvinceSelectionsOnly();
             	userManagement.Controller.addEventListener();
                 show(1);
-                
-                $("#q1").click(function(){
-                	userManagement.showQuestionnaireAnswers(1,"");
-                });
-                $("#q2").click(function(){
-                	userManagement.showQuestionnaireAnswers(2,"");
-                });
-                $("#q3").click(function(){
-                	userManagement.showQuestionnaireAnswers(3,"");
-                });
-                $("#q4").click(function(){
-                	userManagement.showQuestionnaireAnswers(4,"");
-                });
-                $("#q5").click(function(){
-                	userManagement.showQuestionnaireAnswers(5,"");
-                });
             })
 
             sannong.UserManagement = userManagement;

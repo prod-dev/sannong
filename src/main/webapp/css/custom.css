@@ -813,6 +813,17 @@ h3.borderBottom {
 .umList .searchRow a.glyphicon:hover {	
 	color:#cd431e;
 }
+
+#userManagementTable .searchRow label {
+	float:left;
+}
+#userManagementTable .searchRow #searchKey {
+	float:left;
+}
+#userManagementTable .searchRow #searchValue {
+	width:30%;
+}
+
 .umListGrid {
 	float:left;
 	width:100%;

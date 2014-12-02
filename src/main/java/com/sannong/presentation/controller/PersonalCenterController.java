@@ -204,7 +204,7 @@ public class PersonalCenterController {
      * @throws Exception
      **************************************/
     @RequestMapping(value = "userTotalCount", method = RequestMethod.GET)
-    public @ResponseBody String getUserTotalCount(HttpServletRequest request) throws Exception {
+    public @ResponseBody int getUserTotalCount(HttpServletRequest request) throws Exception {
 
     	Map<String, Object> map = new HashMap<String,Object>();
     	String cellphone = request.getParameter("cellphone");
@@ -352,8 +352,8 @@ public class PersonalCenterController {
         map.put("companyCity", cityIndex);
         map.put("companyDistrict", districtIndex);
 
-        String pageSum = userService.getUserTotalCount(map);
-        map.put("pageSum", Integer.parseInt(pageSum));
+        int pageSum = userService.getUserTotalCount(map);
+        map.put("pageSum", pageSum);
 
         List<User> applicants = userService.getUserByFuzzyMatch(map);
         int questionSum = projectService.getTotalQuestions();

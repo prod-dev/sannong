@@ -44,7 +44,7 @@ public class UserServiceImpl implements IUserService {
         return userRepository.getUserByFuzzyMatch(map);
     }
 
-    public String getUserTotalCount(Map<String, Object> map) throws Exception {
+    public int getUserTotalCount(Map<String, Object> map) throws Exception {
         return userRepository.getUserTotalCount(map);
     }
 

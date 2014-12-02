@@ -42,7 +42,7 @@
 	<div id="userManagementTable">
 		<div id="searchBar" class="searchRow">
 			<div class="form-group form-inline">
-				<label>查询条件</label>
+				<label>查询条件</label> 
 				<select id="searchKey" class="form-control">
 					<option>姓名</option>
 					<option>手机号</option>
@@ -51,22 +51,17 @@
 					<option>电子邮箱</option>
 					<option>单位地址</option>
 				</select>
-				<input type="text" class="form-control" id="searchValue">
-				<select
-					id="provinceSelect" class="form-control"
-					name="applicant.companyProvince">
+				<input id="searchValue" type="text"> 
+				<select id="provinceSelect" class="form-control" name="applicant.companyProvince">
 					<option>省/直辖市</option>
-				</select>
-				<select id="citySelect" class="form-control"
-					name="applicant.companyCity">
+				</select> 
+				<select id="citySelect" class="form-control" name="applicant.companyCity">
 					<option>市</option>
 				</select>
-				<select id="districtSelect" class="form-control"
-					name="applicant.companyDistrict">
+				<select id="districtSelect" class="form-control" name="applicant.companyDistrict">
 					<option>县/市辖区</option>
 				</select>
-				<a id="retrieve" href="javascript:void(0);"
-					class="glyphicon glyphicon-search"></a>
+				<a id="retrieve" href="javascript:void(0);" class="glyphicon glyphicon-search"></a>
 			</div>
 		</div>
 
@@ -80,7 +75,7 @@
 				<div class="col-medium">电子邮箱</div>
 				<div class="col-small"></div></li>
 			<li>
-			    <div id="userList"></div>
+				<div id="userList"></div>
 			</li>
 		</ul>
 		<ul id="pagination" class="customPagination">
@@ -97,7 +92,6 @@
 
 	<div id="userProfileEditView"></div>
 	<jsp:include page='user-profile.jsp' />
-
 
 	<div id="questionnaireTable" style="display:none">
 
@@ -137,7 +131,12 @@
 				<form id="answerForm" role="form" action="updateAnswersAndComment"
 					method="post">
 					<div id="questionList"></div>
-					<div id="questionnaireStatus">状态<textarea class="form-control" name="comment.content" rows="3" placeholder="如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员" autofocus></textarea></div>
+					<div id="questionnaireStatus">
+						状态
+						<textarea class="form-control" name="comment.content" rows="3"
+							placeholder="如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员"
+							autofocus></textarea>
+					</div>
 					<input type="hidden" name="questionnaireNo" id="questionnaireNo">
 					<input type="hidden" name="applicant.userName" id="userName">
 					<input type="hidden" name="application.applicationId"
@@ -149,7 +148,8 @@
 		<button class="orange-bt-small" id="cancel">取消</button>
 		<button class="orange-bt-small" id="update">更新</button>
 		<!-- Button trigger modal -->
-		<button type="button" id="myModalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
+		<button type="button" id="myModalTrigger" class="btn btn-primary"
+			data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
 		<div class="modal fade in" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">

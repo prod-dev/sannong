@@ -162,7 +162,7 @@
           ]]>
     </select>
 
-    <select id="getUserTotalCount" parameterType="Map" resultType="String">
+    <select id="getUserTotalCount" parameterType="Map" resultType="int">
         select count(*) from users
         <where>
 	       	<if test="realName != null and realName != '' ">  
