@@ -12,7 +12,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
     var userProfile = {};
     userProfile.Model = {
         newCellphoneError: '<label id="newCellphone-error" class="error" for="newCellphone" style="display: inline-block;">手机号码已存在</label>'
-    }
+    };
     userProfile.View = {
         userProfileView: $("#userProfileView"),
         sideBar: $(".sidebar"),

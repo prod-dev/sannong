@@ -38,8 +38,8 @@ public class SmsController {
     }
 
     /**
-     * From projectapplication page, user need to get a validation code to verify the cellphone is his own.
-     * From myinfo page, user need to send a validation code to change his cellphone.
+     * From project-application page, user need to get a validation code to verify the cellphone is his own.
+     * From user-profile page, user need to send a validation code to change his cellphone.
      * @param request
      * @return
      * @throws Exception

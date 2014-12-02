@@ -19,24 +19,24 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
         }
 
         function addEventListener(){
-            $("#sendNewPasswordLink").click(function(element){
+            $("#forgotPasswordForm_sendNewPasswordBtn").click(function(element){
                 var validator = formValidator.getValidator("#forgotPasswordForm");
                 validator.resetForm();
-                var realNameValid = validator.element($("#realName"));
-                var cellphoneValid = validator.element($("#cellphone"));
+                var realNameValid = validator.element($("#forgotPasswordForm_realName"));
+                var cellphoneValid = validator.element($("#forgotPasswordForm_cellphone"));
                 if ((cellphoneValid == true) && (realNameValid == true)){
                     ajaxHandler.sendRequest({
                         url: 'sendNewPasswordMessage',
                         type: 'POST',
                         dataType: 'json',
                         data: {
-                            cellphone: $("#cellphone").val(),
-                            realName: $("#realName").val()
+                            cellphone: $("#forgotPasswordForm_cellphone").val(),
+                            realName: $("#forgotPasswordForm_realName").val()
                         },
                         success: function(response){
                             if (response.statusCode < 2000){
                                 showMessage(response.statusDescription)
-                                additionalMethods.updateTimeLabel("#sendNewPasswordLink", "密码");
+                                additionalMethods.updateTimeLabel("#forgotPasswordForm_sendNewPasswordBtn", "密码");
                             }else{
                                 showError(response.statusDescription)
                             }
@@ -55,8 +55,8 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         url: "j_spring_security_check",
                         dataType: "json",
                         data: {
-                            j_username: $("#cellphone").val(),
-                            j_password: $("#password").val()
+                            j_username: $("#forgotPasswordForm_cellphone").val(),
+                            j_password: $("#forgotPasswordForm_password").val()
                         },
                         success: function (response) {
                             if (response.statusCode < 2000) {

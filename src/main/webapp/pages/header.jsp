@@ -76,10 +76,10 @@
             <div class="modal-body">
                 <form id="forgotPasswordForm" role="form" action="j_spring_security_check" method="POST">
                     <span class="errorMsg" id="forgotPasswordErrorContainer"><span id="forgotPasswordErrorMsg"></span></span>
-                    <input type="text" name="realName" id="realName" placeholder="姓名" class="model-input" />
-                    <input type="text" name='j_username' id="cellphone" placeholder="手机号码" class="model-input-75" />
-                    <a href="#" id="sendNewPasswordLink" class="white-bt">获取新密码</a>
-                    <input type="text" name="j_password" id="password" placeholder="新密码" class="model-input margin-top-15" />
+                    <input type="text" name="realName" id="forgotPasswordForm_realName" placeholder="姓名" class="model-input" />
+                    <input type="text" name='j_username' id="forgotPasswordForm_cellphone" placeholder="手机号码" class="model-input-75" />
+                    <a href="#" id="forgotPasswordForm_sendNewPasswordBtn" class="white-bt">获取新密码</a>
+                    <input type="text" name="j_password" id="forgotPasswordForm_password" placeholder="新密码" class="model-input margin-top-15" />
                     <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span>
                     <input id="forgotPasswordFormSubmit" type="button" value="登录" class="orange-bt"/>
                 </form>

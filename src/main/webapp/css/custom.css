@@ -358,6 +358,19 @@ input[type="button"], .orange-bt-small {
 	text-shadow:2px 2px 2px #db391c;
 	outline:none;
 }
+
+.projectAppForm input[type="button"].disabled{
+	color:#c0c0c0;
+	background:darkgray;
+	text-shadow:none;
+}
+.projectAppForm input[type="button"]:hover.disabled{
+	cursor:default;
+	color:#c0c0c0;
+	background:darkgray;
+	text-shadow:none;
+}
+
 .orange-bt-small {
 	padding:0 27px;
 }
@@ -371,6 +384,7 @@ input[type="button"]:hover, .orange-bt-small:hover {
 	background:#cd431e;
 	text-decoration:none;
 }
+
 h3 {
 	font-size:25px !important;
 	font-weight:bold !important;
@@ -512,17 +526,10 @@ a:hover h4 {
 	margin-left:15px;
 	line-height:36px;
 }
-
-.projectAppForm .vcode-btn {
-	background-color: #ffffff;
-	color:#77c354;
-	margin-left:10px;
-	border:1px solid #d7dde1;
-	border-radius:30px;
-}
-.projectAppForm .vcode-btn:hover {
-	color:#5da73c;
-	text-decoration:none;
+.projectAppForm .white-bt.disabled{
+	cursor: default;
+	color: #c0c0c0;
+	background-color: darkgray;
 }
 
 .userForm input[type="submit"], .projectAppForm input[type="submit"] {
