@@ -21,12 +21,17 @@ require(['../main'], function () {
             userPersonalCenter.init = function(){
 
                 $("#userManagementTab").click(function(){
-
+                    var currentEditUser = userManagement.Model.currentEditUser;
+                    if ( currentEditUser != ""){
+                        userProfile.Controller.emptyUserProfileView();
+                        userManagement.editUserProfile(currentEditUser);
+                    }
                 });
                 $("#userAppFormTab").click(function(){
 
                 });
                 $("#userProfileTab").click(function(){
+                    userManagement.Controller.emptyUserProfileEditView();
                     userProfile.show();
                 });
                 $("#userPasswordTab").click(function(){

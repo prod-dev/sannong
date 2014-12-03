@@ -254,3 +254,11 @@ ADD CONSTRAINT `fk_comments_username`
   FOREIGN KEY (`username`)
   REFERENCES `sannong`.`users` (`username`)
   ON DELETE NO ACTION
+
+ALTER TABLE `sannong`.`users`
+CHANGE COLUMN `company` `company` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `company_province` `company_province` BIGINT(20) NOT NULL ,
+CHANGE COLUMN `company_city` `company_city` BIGINT(20) NOT NULL ,
+CHANGE COLUMN `company_district` `company_district` BIGINT(20) NOT NULL ,
+CHANGE COLUMN `company_address` `company_address` VARCHAR(45) NOT NULL ,
+CHANGE COLUMN `job_title` `job_title` VARCHAR(45) NOT NULL ;
