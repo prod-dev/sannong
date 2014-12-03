@@ -309,6 +309,8 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 		if (!(currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0)){
                 			$("#questionnaireStatus").text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
                 			$("#questionnaireStatus").show();
+                		}else {
+                			$("#questionnaireStatus").hide();
                 		}
                 	}
                 }

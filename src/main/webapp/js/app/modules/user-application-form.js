@@ -15,7 +15,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                     $("#answerStatus").val(answerStatus);
 
                     if (saveOrSubmit == 1){
-                        $("#myModalTrigger").click();
+                    	$("#myModalTrigger").click();
                     }else{
                         $("#answerForm").ajaxSubmit(function(message) {
                             if (message.result == true){
@@ -25,9 +25,9 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                                 	$("#save-success").remove();
                                 }
                                 
-                                $("#submit").after('<label id="save-success" class="error" for="jobTitle">已保存</label>');
+                                $("#questionnaireSubmit").after('<label id="save-success" class="error" for="jobTitle">已保存</label>');
                             }else{
-                                $("#submit").after('<label id="save-error" class="error" for="jobTitle">保存失败</label>');
+                                $("#questionnaireSubmit").after('<label id="save-error" class="error" for="jobTitle">保存失败</label>');
                             }
                         });
                     }
@@ -53,40 +53,38 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                     	if ($("#update-error") != null){
                             $("#update-error").remove();
                         }
-                        $("#submit").after('<label id="update-error" class="error" for="jobTitle">更新失败</label>');
+                        $("#questionnaireSubmit").after('<label id="update-error" class="error" for="jobTitle">更新失败</label>');
                     }
                 });
                 return false;
             });
 
+            $("#save").click(function(){
+                userApplicationForm.submitForm(0);
+            });
 
+            $("#questionnaireSubmit").click(function(){
+                userApplicationForm.submitForm(1);
+            });
+
+            $("#q1").click(function(){
+                questionnaire.showQuestions(1);
+            });
+            $("#q2").click(function(){
+                questionnaire.showQuestions(2);
+            });
+            $("#q3").click(function(){
+                questionnaire.showQuestions(3);
+            });
+            $("#q4").click(function(){
+                questionnaire.showQuestions(4);
+            });
+            $("#q5").click(function(){
+                questionnaire.showQuestions(5);
+            });
+            
             $(function() {
                 questionnaire.showQuestions(1);
-                
-                $("#save").click(function(){
-                    userApplicationForm.submitForm(0);
-                });
-
-                $("#submit").click(function(){
-                    userApplicationForm.submitForm(1);
-                });
-
-                $("#q1").click(function(){
-                    questionnaire.showQuestions(1);
-                });
-                $("#q2").click(function(){
-                    questionnaire.showQuestions(2);
-                });
-                $("#q3").click(function(){
-                    questionnaire.showQuestions(3);
-                });
-                $("#q4").click(function(){
-                    questionnaire.showQuestions(4);
-                });
-                $("#q5").click(function(){
-                    questionnaire.showQuestions(5);
-                });
-
             });
 
             sannong.UserApplicationForm = userApplicationForm;
