@@ -22,13 +22,7 @@
         <result property="cellphone" column="cellphone" />
         <result property="updateTime" column="update_time" />
         <result property="createTime" column="create_time" />
-        <association property="answer" column="username" javaType="Answer" >
-        	<result property="questionnaire1Answers" column="questionnaire1_answers" />
-            <result property="questionnaire2Answers" column="questionnaire2_answers" />
-            <result property="questionnaire3Answers" column="questionnaire3_answers" />
-            <result property="questionnaire4Answers" column="questionnaire4_answers" />
-            <result property="questionnaire5Answers" column="questionnaire5_answers" />
-        </association>
+        <association property="answer" resultMap="com.sannong.domain.repositories.AnswerRepository.answerResultMap" />
      </resultMap>
      
      <select id="getUserByCondition"  parameterType="Map"  resultMap="userResultMap">

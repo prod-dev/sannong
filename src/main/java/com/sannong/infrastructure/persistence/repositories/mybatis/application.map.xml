@@ -4,6 +4,10 @@
 <mapper namespace="com.sannong.domain.repositories.ApplicationRepository">
 	<cache eviction="FIFO" flushInterval="60000" size="512" readOnly="true" />
 
+    <resultMap type="Application" id="applicationResultMap">
+        <id property="applicationId" column="application_id" />
+    </resultMap>
+
 	<insert id="addProjectApplicationInfo" useGeneratedKeys="true" keyProperty="applicationId" parameterType="Application">
      	<![CDATA[
      		insert into applications(user_id,application_date) values(#{applicant.userId},#{applicationDate})
