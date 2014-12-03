@@ -168,6 +168,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 $("#user-management-title").hide();
                 $("#userManagementTable").hide();
                 $("#questionnaireTable").show();
+                $("#questionnaireStatus").show();
             
                 if ($("#questionnaireTable").show()) {
                 	$("#questionList").empty();
@@ -181,6 +182,10 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 			$(this).parent().addClass("active");
                 		}
                 	})
+                }
+                
+                if ($(".error")) {
+                	$(".error").empty();
                 }
 
                 var userCellphone = cellphone;
