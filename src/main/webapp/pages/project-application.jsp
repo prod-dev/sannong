@@ -194,41 +194,42 @@
                 <span class="col-sm-3 sidebar equalCol">
                     <h3>常见问题</h3>
                     <div id="accordion" class="panel-group faqAccordion">
+
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a href="#collapseOne" data-parent="#accordion" data-toggle="collapse" class="panel-toggle">
-                                  这仅仅是一个虚拟的文字 内容使页面看起来实际
+                                <a href="#collapse1One" data-parent="#accordion" data-toggle="collapse" class="panel-toggle">
+                                    1.这个网站我们都可以上吗？
                                 </a>
                             </div><!-- end panel-heading -->
-                            <div class="panel-collapse in" id="collapseOne">
+                            <div class="panel-collapse in" id="collapse1One">
                                 <div class="panel-body">
-                                这仅仅是一个虚拟的文字，内容使页面看起来实际.  这 仅仅是一个虚拟的文字，内 容使页面
+                                    答：可以我们的网站是对公网开放的，任何人都可以通过个人身份证来进行注册，然后享受上面的服务。
                                 </div>
                             </div>
                         </div>
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a href="#collapseTwo" data-parent="#accordion" data-toggle="collapse" class="panel-toggle collapsed">
-                              拟的文字，内容使页
+                                <a href="#collapse1Two" data-parent="#accordion" data-toggle="collapse" class="panel-toggle collapsed">
+                                    2.每个村都可以建立这样的车站吗？
                                 </a>
                             </div><!-- end panel-heading -->
-                            <div class="panel-collapse collapse" id="collapseTwo">
+                            <div class="panel-collapse collapse" id="collapse1Two">
                                 <div class="panel-body">
-                                这仅仅是一个虚拟的文字，内容使页面看起来实际.  这仅仅是一个虚拟的文字，内容使页面看起来实 拟的文字，内容使页面看起来实际
+                                    答：不是，要以10个村为一个点建立一个基点设施，对基点设施的选择也有一定要求。
                                 </div>
                             </div>
                         </div>
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <a href="#collapseThree" data-parent="#accordion" data-toggle="collapse" class="panel-toggle collapsed">
-                                这仅仅是一个虚拟的文字内 容使页面看起来实际
+                                <a href="#collapse1Three" data-parent="#accordion" data-toggle="collapse" class="panel-toggle collapsed">
+                                    3.平台上什么都有吗？
                                 </a>
                             </div><!-- end panel-heading -->
-                            <div class="panel-collapse collapse" id="collapseThree">
+                            <div class="panel-collapse collapse" id="collapse1Three">
                                 <div class="panel-body">
-                                这仅仅是一个虚拟的文字，内容使页面看起来实际.  这仅仅是一个虚拟的文字，内容使页面看起来实 拟的文字，内容使页面看起来实际
+                                    答：只要是对农村有利的服务，我们里面都会有，杜绝不健康的资料出现在平台上，我们会严格审核。
                                 </div>
                             </div>
                         </div>
