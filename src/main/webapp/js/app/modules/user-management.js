@@ -10,8 +10,11 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             "use strict";
 
             var userManagement = {};
+            userManagement.Model = {
+                currentEditUser: ""
+            };
             userManagement.View = {
-                userProfile: $("#userProfileEditView"),
+                userProfileEditView: $("#userProfileEditView"),
                 questionnaireTable: $("#questionnaireTable"),
                 searchBar: $("#searchBar"),
                 userManagementTitle: $("#user-management-title"),
@@ -22,30 +25,20 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
 
             var searchParams = "";
 
-            userManagement.edit = function(userName){
-                userManagement.showUserProfileView();
-
-                ajaxHandler.sendRequest({
-                    type: "GET",
-                    url: "user-personal-center/user-profile",
-                    data:{userName: userName},
-                    success: function(response){
-                        if (response != undefined){
-                            userManagement.Controller.renderUserProfileView(response);
-                        }
-                    },
-                    fail: function(){
-                    }
-                });
+            userManagement.editUserProfile = function(userName){
+                userManagement.Model.currentEditUser = userName;
+                userManagement.showUserProfileEditView();
+                userManagement.Controller.renderUserProfileEditView(userName, "#userProfileEditView");
             }
 
-            userManagement.showUserProfileView = function(){
+            userManagement.showUserProfileEditView = function(){
                 userManagement.View.questionnaireTable.hide();
                 userManagement.View.userManagementTitle.hide();
                 userManagement.View.userTextShow.hide();
                 userManagement.View.searchBar.hide();
                 userManagement.View.userManagementTable.hide();
-                userManagement.View.userProfile.show();
+                userManagement.View.userProfileEditView.show();
+
             }
             userManagement.resetView = function(){
                 userManagement.View.userManagementTitle.show();
@@ -53,7 +46,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 userManagement.View.searchBar.show();
                 userManagement.View.questionnaireTable.hide();
                 userManagement.View.userTextShow.hide();
-                userManagement.View.userProfile.hide();
+                userManagement.View.userProfileEditView.hide();
             }
 
             $("#cancel").click(function () {
@@ -130,16 +123,41 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                          region.Controller.addDistrictSelectionsOnly();
                      });
             	 },
-                renderUserProfileView: function(data){
-                    var userProfileViewHandler = handlebars.compile($("#user-profile-template").html());
-                    var html = userProfileViewHandler(data);
-                    userManagement.View.userProfile.empty();
-                    userManagement.View.userProfile.append(html);
-                    userProfile.addEventListener();
-                    $("#userProfileCancel").click(function () {
-                        userManagement.resetView();
+                emptyUserProfileEditView: function(){
+                    $("#userProfileEditView").empty();
+                },
+                renderUserProfileEditView: function(userName, viewName){
+                    ajaxHandler.sendRequest({
+                        type: "GET",
+                        url: "user-personal-center/user-profile",
+                        data:{userName: userName},
+                        success: function(response){
+                            if (response.statusCode < 2000){
+                                var userProfileViewHandler = handlebars.compile($("#user-profile-template").html());
+                                var html = userProfileViewHandler(response.models.userProfile);
+                                $(viewName).empty();
+                                $(viewName).append(html);
+
+                                region.Controller.addCityOptions(viewName + " #citySelect", response.models.cities);
+                                region.Controller.addDistrictOptions(viewName + " #districtSelect", response.models.districts);
+                                region.Controller.selectOption(viewName + " #provinceSelect", response.models.userProfile.companyProvince);
+                                region.Controller.selectOption(viewName + " #citySelect", response.models.userProfile.companyCity);
+                                region.Controller.selectOption(viewName + " #districtSelect", response.models.userProfile.companyDistrict);
+
+                                if (viewName == "#userProfileEditView"){
+                                    $("#userProfileCancel").removeClass("hidden");
+                                    $("#userProfileCancel").click(function () {
+                                        userManagement.Model.currentEditUser = "";
+                                        userManagement.resetView();
+                                    });
+                                }
+
+                                userProfile.addEventListener();
+                            }
+                        },
+                        fail: function(){
+                        }
                     });
-                    $("#userProfileCancel").removeClass("hidden");
                 }
             }
             

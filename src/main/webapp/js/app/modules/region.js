@@ -10,6 +10,29 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
     region.Model = {companyProvince: "", companyCity: "", companyDistrict: ""};
 
     region.Controller = {
+        addCityOptions: function(select, options){
+            var citySelect = $(select);
+            $(select + ' option').remove();
+            for (var i in options){
+                var optionValue = options[i].cityIndex;
+                var optionText = options[i].cityName;
+                var option = "<option value=" + optionValue + ">" + optionText + "</option>";
+                citySelect.append(option);
+            }
+        },
+        addDistrictOptions: function(select, options){
+            var districtSelect = $(select);
+            $(select + ' option').remove();
+            for (var i in options){
+                var optionValue = options[i].districtIndex;
+                var optionText = options[i].districtName;
+                var option = "<option value=" + optionValue + ">" + optionText + "</option>";
+                districtSelect.append(option);
+            }
+        },
+        selectOption: function(select, optionVal){
+            $(select).val(optionVal);
+        },
         addProvinceSelectionsOnly: function(){
             var options = {
                 url: 'getProvinces',

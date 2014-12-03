@@ -14,10 +14,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sannong.domain.entities.*;
 import com.sannong.domain.valuetypes.ResponseStatus;
 import com.sannong.infrastructure.util.PasswordGenerator;
 import com.sannong.presentation.model.Response;
-import com.sannong.service.IValidationService;
+import com.sannong.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sannong.infrastructure.dataexport.CsvExporter;
-import com.sannong.domain.entities.Answer;
-import com.sannong.domain.entities.SMS;
-import com.sannong.domain.entities.User;
 import com.sannong.presentation.model.DTO;
-import com.sannong.service.IProjectService;
-import com.sannong.service.ISmsService;
-import com.sannong.service.IUserService;
 
 @Controller
 public class PersonalCenterController {
@@ -54,6 +49,9 @@ public class PersonalCenterController {
     private IProjectService projectService;
     @Autowired
     IValidationService validationService;
+    @Autowired
+    IRegionService regionService;
+
 
 
     @RequestMapping(value = "user-personal-center", method = RequestMethod.GET)
@@ -65,9 +63,9 @@ public class PersonalCenterController {
     }
 
     @RequestMapping(value = {"user-personal-center/user-profile"}, method = RequestMethod.GET)
-    public @ResponseBody Map<String, Object> showUserProfile(HttpServletRequest request) {
+    public @ResponseBody Response showUserProfile(HttpServletRequest request) {
         String userName = request.getParameter("userName");
-        if (userName == null){
+        if (StringUtils.isBlank(userName)){
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (principal instanceof UserDetails) {
                 userName = ((UserDetails) principal).getUsername();
@@ -79,11 +77,23 @@ public class PersonalCenterController {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("userName", userName);
         List<User> users = userService.getUserByCondition(map);
-
-        Map<String, Object> models = new HashMap<String, Object>();
-        models.put("userProfile", users.get(0));
-
-        return models;
+        if (!users.isEmpty()){
+            User user = users.get(0);
+            List<City> cities = regionService.getCities(user.getCompanyProvince());
+            List<District> districts = regionService.getDistricts(user.getCompanyCity());
+            Map<String, Object> models = new HashMap<String, Object>();
+            models.put("userProfile", users.get(0));
+            models.put("cities", cities);
+            models.put("districts", districts);
+            return new Response(
+                    ResponseStatus.SUCCESS.getStatusCode(),
+                    ResponseStatus.SUCCESS.getStatusDescription(),
+                    models);
+        }else{
+            return new Response(
+                    ResponseStatus.USER_NOT_FOUND.getStatusCode(),
+                    ResponseStatus.USER_NOT_FOUND.getStatusDescription());
+        }
     }
 
     @RequestMapping(value = {"user-personal-center/user-profile"}, method = RequestMethod.POST)
