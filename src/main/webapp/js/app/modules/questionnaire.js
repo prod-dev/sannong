@@ -82,7 +82,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
         $("#buttonGroup").show();
         $("#submitStatus").show();
         $("#save").removeAttr("disabled");
-        $("#submit").removeAttr("disabled");
+        $("#questionnaireSubmit").removeAttr("disabled");
         
         if ($("#save-success")){
         	$("#save-success").remove();
@@ -125,7 +125,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
 
                     //当前选项卡中的button enabled
                     $("#save").attr("disabled",false);
-                    $("#submit").attr("disabled",false);
+                    $("#questionnaireSubmit").attr("disabled",false);
 
                     //之后选项卡不可用
                     if (currentQuestionnaireNo != 5){
@@ -143,7 +143,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
 
                     //当前选项卡中的button disabled
                     $("#save").attr("disabled","disabled");
-                    $("#submit").attr("disabled","disabled");
+                    $("#questionnaireSubmit").attr("disabled","disabled");
 
                     //大于latestQuestionnaireNo之后的选项卡不可用
                     if (latestQuestionnaireNo != 5){
@@ -161,7 +161,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
 
                     //当前选项卡中的button disabled
                     $("#save").attr("disabled","disabled");
-                    $("#submit").attr("disabled","disabled");
+                    $("#questionnaireSubmit").attr("disabled","disabled");
 
                     //下一个选项卡可用
                     if ($("#q" + (currentQuestionnaireNo + 1).toString()).parent().hasClass("disabled")){
@@ -184,7 +184,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
 
                     //当前选项卡中的button disabled
                     $("#save").attr("disabled","disabled");
-                    $("#submit").attr("disabled","disabled");
+                    $("#questionnaireSubmit").attr("disabled","disabled");
 
                     //大于latestQuestionnaireNo(之后+1)的选项卡不可用
                     if (latestQuestionnaireNo != 5){

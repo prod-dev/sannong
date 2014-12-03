@@ -67,19 +67,19 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                 userApplicationForm.submitForm(1);
             });
 
-            $("#q1").click(function(){
+            $("#userApplicationQ1").click(function(){
                 questionnaire.showQuestions(1);
             });
-            $("#q2").click(function(){
+            $("#userApplicationQ2").click(function(){
                 questionnaire.showQuestions(2);
             });
-            $("#q3").click(function(){
+            $("#userApplicationQ3").click(function(){
                 questionnaire.showQuestions(3);
             });
-            $("#q4").click(function(){
+            $("#userApplicationQ4").click(function(){
                 questionnaire.showQuestions(4);
             });
-            $("#q5").click(function(){
+            $("#userApplicationQ5").click(function(){
                 questionnaire.showQuestions(5);
             });
             

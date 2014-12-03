@@ -18,11 +18,11 @@
 <body>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a id="q1" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集</a></li>
-      <li role="presentation"><a id="q2" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集二</a></li>
-      <li role="presentation"><a id="q3" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集三</a></li>
-      <li role="presentation"><a id="q4" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集四</a></li>
-      <li role="presentation"><a id="q5" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集五</a></li>
+      <li role="presentation" class="active"><a id="userApplicationQ1" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集</a></li>
+      <li role="presentation"><a id="userApplicationQ2" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集二</a></li>
+      <li role="presentation"><a id="userApplicationQ3" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集三</a></li>
+      <li role="presentation"><a id="userApplicationQ4" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集四</a></li>
+      <li role="presentation"><a id="userApplicationQ5" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集五</a></li>
     </ul>
 
     <!-- Tab panes -->
