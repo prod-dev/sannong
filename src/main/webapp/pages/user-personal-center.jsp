@@ -16,8 +16,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Benefitting Agriculture - Personal Center</title>
 
-    <link href="css/custom.css" rel="stylesheet" type="text/css">
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="css/custom.css" rel="stylesheet" type="text/css">
     <link href="css/validation.css" rel="stylesheet" type="text/css">
 </head>
 

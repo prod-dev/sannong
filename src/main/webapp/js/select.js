@@ -2,6 +2,7 @@ $(document).ready(function(){
 
 	$('select').each(function(){
 		var selectName = $(this).attr("name");
+		var selectId =  $(this).attr("id");
     	var $this = $(this), numberOfOptions = $(this).children('option').length;
 
 		$this.addClass('select-hidden');
@@ -15,7 +16,7 @@ $(document).ready(function(){
 		var styledSelectRel = $this.children('option').eq(0).text();
 		$styledSelect.attr("rel", styledSelectRel);
 
-		var $list = $('<ul />', {'class': 'select-options option_'+selectName+''}).insertAfter($styledSelect);
+		var $list = $('<ul />', {'class': 'select-options option_'+selectName+'', 'id': selectId + '_options'}).insertAfter($styledSelect);
 
 		for (var i = 0; i < numberOfOptions; i++) {
 			$('<li />', {

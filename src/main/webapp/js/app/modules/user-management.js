@@ -144,6 +144,21 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                                 region.Controller.selectOption(viewName + " #citySelect", response.models.userProfile.companyCity);
                                 region.Controller.selectOption(viewName + " #districtSelect", response.models.userProfile.companyDistrict);
 
+                                region.select('select', {
+                                    provinceOption: {
+                                        value: response.models.userProfile.companyProvince,
+                                        text: $("#provinceSelect option:selected").text()
+                                    },
+                                    cityOption: {
+                                        value: response.models.userProfile.companyCity,
+                                        text: $("#citySelect option:selected").text()
+                                    },
+                                    districtOption: {
+                                        value: response.models.userProfile.companyDistrict,
+                                        text: $("#districtSelect option:selected").text()
+                                    }
+                                });
+
                                 if (viewName == "#userProfileEditView"){
                                     $("#userProfileCancel").removeClass("hidden");
                                     $("#userProfileCancel").click(function () {
