@@ -3,6 +3,9 @@ html, body {
   width: auto !important;
   overflow-x: hidden !important;
 }
+label {
+	font-weight: normal;
+}
 input[type="text"], input[type="password"] {
 	background:#f7f9fa;
 	float:left;
@@ -349,7 +352,7 @@ input[type="submit"], .orange-bt-small {
 	text-shadow:2px 2px 2px #db391c;
 	outline:none;
 }
-input[type="button"], .orange-bt-small {
+input[type="button"], .orange-bt-small{
 	color:#ffffff;
 	background:#e6552e;
 	float:left;
@@ -364,15 +367,16 @@ input[type="button"], .orange-bt-small {
 }
 
 .projectAppForm input[type="button"].disabled{
-	color:#c0c0c0;
-	background:darkgray;
+	color:darkgray;
+	background:lightgray;
 	text-shadow:none;
 }
 .projectAppForm input[type="button"]:hover.disabled{
 	cursor:default;
-	color:#c0c0c0;
-	background:darkgray;
+	color:darkgray;
+	background:lightgray;
 	text-shadow:none;
+	outline: none;
 }
 
 .orange-bt-small {
@@ -525,6 +529,15 @@ a:hover h4 {
 .userForm .white-bt, .projectAppForm .white-bt {
 	margin-top:-7px;
 }
+.userForm #userProfileCancel.white-bt{
+	height: 38px;
+	padding: 0 40px;
+	border:1px solid #d7dde1;
+	outline: none;
+	margin-left: 18px;
+	margin-top: 15px;
+}
+
 .projectAppForm .white-bt {
 	margin-top:-2px;
 	margin-left:15px;

@@ -123,10 +123,12 @@
           </div>
         </sec:authorize>
         <div class="row">
+            <span>
           <input type="button" id="userProfileSubmit" value="提交"/>
           <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-          <a href="#" id="userProfileCancel" class="white-bt hidden">返回</a>
+            <a href="#" id="userProfileCancel" class="white-bt hidden">返回</a>
           </sec:authorize>
+                </span>
         </div>
       </form>
     </script>
