@@ -22,14 +22,13 @@
 			data-target="#exportModal">导出问卷调查结果</a>
 	</h3>
 
-	<div id="exportModal" class="modal fade" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="exportModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">确定导出问卷调查结果?</h4>
+					<h4 class="modal-title" id="myModalLabelTitle">确定导出问卷调查结果?</h4>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -44,13 +43,13 @@
 			<div class="left">
 				<label>查询条件</label>
 				<div class="width-137">
-					<select id="searchKey" name="searchKey" class="form-control">
-						<option value="1">姓名</option>
-						<option value="2">手机号</option>
-						<option value="3">工作单位</option>
-						<option value="4">职位</option>
-						<option value="5">电子邮箱</option>
-						<option value="6">单位地址</option>
+					<select id="searchKey" name="searchKey">
+						<option value="姓名">姓名</option>
+						<option value="手机号">手机号</option>
+						<option value="工作单位">工作单位</option>
+						<option value="职位">职位</option>
+						<option value="电子邮箱">电子邮箱</option>
+						<option value="单位地址">单位地址</option>
 					</select>
 				</div>
 				<div class="width-152">
@@ -59,9 +58,9 @@
 			</div>
 			<div class="right">
 				<label>地址</label>
-				<div class="width-152">
+				<div class="width-152" id="provinceQuerySelectDiv">
 					<select id="provinceQuerySelect" name="provinceQuerySelect">
-						<option value="0">省/直辖市</option>
+						<option value="">省/直辖市</option>
 						<option value="1">北京市</option>
 						<option value="2">天津市</option>
 						<option value="3">河北省</option>
@@ -98,14 +97,14 @@
 						<option value="34">澳门特别行政区</option>
 					</select>
 				</div>
-				<div class="width-152">
+				<div class="width-152" id="cityQuerySelectDiv">
 					<select id="cityQuerySelect" name="cityQuerySelect">
-						<option value="0">市</option>
+						<option value="">市</option>
 					</select>
 				</div>
-				<div class="width-152">
+				<div class="width-152" id="districtQuerySelectDiv">
 					<select id="districtQuerySelect" name="districtQuerySelect">
-						<option value="0">县/市辖区</option>
+						<option value="">县/市辖区</option>
 					</select>
 				</div>
 				<a id="retrieve" href="javascript:void(0);" class="glyphicon glyphicon-search"></a>

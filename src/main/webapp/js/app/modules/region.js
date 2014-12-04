@@ -309,6 +309,49 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                     });
                 }else if($this.attr("id") == "districtSelect"){
                     $("#districtSelect").val(parseInt(selectedRel, 10));
+                }else if($this.attr("id") == "provinceQuerySelect"){
+                    $("#provinceQuerySelect").val(parseInt(selectedRel, 10));
+                    ajaxHandler.sendRequest({
+                        url: 'getCitiesWithDistricts',
+                        type: 'POST',
+                        data: {'provinceIndex': parseInt(selectedRel, 10)},
+                        success: function(data){
+                            $("#wrap_cityQuerySelect").remove();
+                            $("#cityQuerySelectDiv").html('<select id="cityQuerySelect" name="cityQuerySelect" class="select-hidden"></select>');
+                            region.Controller.addCityOptions("#cityQuerySelect", data.cities);
+                            $("#cityQuerySelect").prepend('<option value="">市</option>');
+                            region.select('select[id=cityQuerySelect]');
+
+                            $("#wrap_districtQuerySelect").remove();
+                            $("#districtQuerySelectDiv").html('<select id="districtQuerySelect" name="districtQuerySelect" class="select-hidden"></select>');
+                            region.Controller.addDistrictOptions("#districtQuerySelect", data.districts);
+                            $("#districtQuerySelect").prepend('<option value="">县/市辖区</option>');
+                            region.select('select[id=districtQuerySelect]');
+
+                        },
+                        fail: function(data){
+                        }
+                    });
+                }else if($this.attr("id") == "cityQuerySelect"){
+                    $("#cityQuerySelect").val(parseInt(selectedRel, 10));
+                    ajaxHandler.sendRequest({
+                        url: 'getDistricts',
+                        type: 'POST',
+                        data: {'cityIndex': parseInt(selectedRel, 10)},
+                        success: function(data){
+                            $("#wrap_districtQuerySelect").remove();
+                            $("#districtQuerySelectDiv").html('<select id="districtQuerySelect" name="districtQuerySelect" class="select-hidden"></select>');
+                            region.Controller.addDistrictOptions("#districtQuerySelect", data);
+                            $("#districtQuerySelect").prepend('<option value="">县/市辖区</option>');
+                            region.select('select[id=districtQuerySelect]');
+                        },
+                        fail: function(data){
+                        }
+                    });
+                }else if($this.attr("id") == "districtQuerySelect"){
+                    $("#districtQuerySelect").val(parseInt(selectedRel, 10));
+                }else if($this.attr("id") == "searchKey"){
+                    $("#searchKey").val(selectedRel);
                 }
             });
 

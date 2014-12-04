@@ -92,9 +92,9 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 }else if (searchKey == "单位地址"){
                 	parameter = "companyAddress=" + searchValue;
                 }
-                var provinceIndex = $("#provinceSelect").val();
-        		var cityIndex = $("#citySelect").val();
-        		var districtIndex = $("#districtSelect").val();
+                var provinceIndex = $("#provinceQuerySelect").val();
+        		var cityIndex = $("#cityQuerySelect").val();
+        		var districtIndex = $("#districtQuerySelect").val();
         		
         		parameter = parameter + "&provinceIndex=" + provinceIndex + "&cityIndex=" + cityIndex + "&districtIndex=" + districtIndex;
         		//parameter = "realName=william&provinceIndex=&cityIndex=&districtIndex=";
