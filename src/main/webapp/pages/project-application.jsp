@@ -8,8 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Benefitting Agriculture - Project Application Page</title>
     
-		<link href="css/custom.css" rel="stylesheet" type="text/css">
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link href="css/custom.css" rel="stylesheet" type="text/css">
         <link href="css/validation.css" rel="stylesheet">
 	</head>
 
@@ -72,8 +72,8 @@
                         <div class="row">
                             <aside class="userFormCol-1">单位地址</aside>
                             <aside class="userFormCol-right">
-                                <div class="width-87">
-                                    <select id="projectAppForm_provinceSelect" name="applicant.companyProvince">
+                                <div class="width-87" id="provinceSelectDiv">
+                                    <select id="provinceSelect" name="applicant.companyProvince">
                                         <option value="1">北京市</option>
                                         <option value="2">天津市</option>
                                         <option value="3">河北省</option>
@@ -110,14 +110,14 @@
                                         <option value="34">澳门特别行政区</option>
                                     </select>
                                 </div>
-                                <div class="width-87">
-                                    <select id="projectAppForm_companyCity" name="applicant.companyCity">
+                                <div class="width-87" id="citySelectDiv">
+                                    <select id="citySelect" name="applicant.companyCity">
                                         <option value="1">市辖区</option>
                                         <option value="2">县</option>
                                     </select>
                                 </div>
-                                    <div class="width-87">
-                                    <select id="projectAppForm_companyDistrict" name="applicant.companyDistrict">
+                                    <div class="width-87" id="districtSelectDiv">
+                                    <select id="districtSelect" name="applicant.companyDistrict">
                                         <option value='1'>东城区</option>
                                         <option value='2'>西城区</option>
                                         <option value='3'>崇文区</option>
@@ -247,13 +247,15 @@
     <jsp:include page='footer.jsp'/>
     <script data-main="js/app/pages/project-application" src="content/static/js/lib/require-2.1.15.js"></script>
 
+
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
 
     <script src="js/custom.js"></script>
+    <!--
     <script src="js/select.js"></script>
-
+    -->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.min.js"></script>
     <script src="js/respond.min.js"></script>

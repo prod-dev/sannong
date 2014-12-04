@@ -36,8 +36,8 @@
         <div class="row">
           <aside class="userFormCol-1">单位地址</aside>
           <aside class="userFormCol-right">
-            <div class="width-87">
-              <select id="provinceSelect" name="companyProvince">
+            <div class="width-87" id="provinceSelectDiv">
+                <select id="provinceSelect" name="companyProvince">
                 <option value="1">北京市</option>
                 <option value="2">天津市</option>
                 <option value="3">河北省</option>
@@ -74,11 +74,11 @@
                 <option value="34">澳门特别行政区</option>
               </select>
             </div>
-            <div class="width-87">
+            <div class="width-87" id="citySelectDiv">
               <select id="citySelect" name="companyCity">
               </select>
             </div>
-            <div class="width-87">
+            <div class="width-87" id="districtSelectDiv">
               <select id="districtSelect" name="companyDistrict">
               </select>
             </div>

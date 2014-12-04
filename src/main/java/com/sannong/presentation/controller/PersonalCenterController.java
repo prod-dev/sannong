@@ -48,9 +48,9 @@ public class PersonalCenterController {
     @Resource
     private IProjectService projectService;
     @Autowired
-    IValidationService validationService;
+    private IValidationService validationService;
     @Autowired
-    IRegionService regionService;
+    private IRegionService regionService;
 
 
 

@@ -25,7 +25,6 @@ requirejs.config({
         "userApplicationForm": "app/modules/user-application-form",
         "userPassword": "app/modules/user-password",
         "userProfile": "app/modules/user-profile"
-
     },
     shim: {
         'bootstrap' : {

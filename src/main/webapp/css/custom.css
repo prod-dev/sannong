@@ -1,4 +1,8 @@
 @import url('font.css');
+html, body {
+  width: auto !important;
+  overflow-x: hidden !important;
+}
 input[type="text"], input[type="password"] {
 	background:#f7f9fa;
 	float:left;
@@ -579,6 +583,16 @@ h3.borderBottom {
 	padding:0;
 	margin:0;
 }
+.projectAppForm .userFormCol-right .width-87 ul, .userForm .userFormCol-right .width-87 ul, .managment_form .searchRow .width-71 ul{
+height: auto;
+    max-height: 266px;
+    overflow-x: hidden;
+}
+.searchRow .width-152 ul{
+	height: auto;
+	max-height: 266px;
+	overflow-x: hidden;
+}
 .projectAppForm > ul > li {
 	float:left;
 	width:100%;
@@ -760,10 +774,15 @@ h3.borderBottom {
 	line-height:30px;
 	background:#fff;
 }
-.umList .searchRow .left, .umList .searchRow .right {
+.umList .searchRow .left{
 	float:left;
-	width:284px;
+	width:384px;
 }
+.umList .searchRow .right {
+	float:right;
+	width:535px;
+}
+
 .umList .searchRow .left label, .umList .searchRow .right label {
 	float:left;
 	margin:0;
@@ -797,10 +816,7 @@ h3.borderBottom {
 	border-radius:0 5px 5px 0;
 	border-left:0;
 }
-.umList .searchRow .right {
-	float:right;
-	width:335px;
-}
+
 .umList .searchRow .right label {
 	width:36px;
 }
@@ -821,7 +837,7 @@ h3.borderBottom {
 	float:left;
 }
 #userManagementTable .searchRow #searchValue {
-	width:30%;
+	width:100%;
 }
 
 .umListGrid {
@@ -1265,6 +1281,7 @@ input.model-input-75, input.model-input {
 	border-radius:30px;
 	padding:0 20px;
 	width:75% !important;
+    height:47px !important;
 }
 .modal-body input.model-input-75 {
 	border-radius:30px 0 0 30px;
@@ -1288,11 +1305,20 @@ input.model-input-75, input.model-input {
 	height:45px;
 	color:#62686c;
 	text-shadow:none;
+    height:47px !important;
 }
 .modal-body .grayInputBt:hover {
 	background:#dde4e8 !important;
 	color:#62686c !important;
 }
+   .tabbable {
+          margin-bottom: 18px;
+      }
+      .tab-content {
+          padding: 15px;
+          border-bottom: 1px solid #ddd;
+      }
+
 @media all and (max-width:1000px){
 .page-title.home_title .col-sm-8 h2{
 font-size:96px;
@@ -1305,7 +1331,21 @@ padding:5px 32px;
 }
 
 }
+@media all and (max-width:992px){
+.nav-tabs > li > a{
+margin-right:2px !important;
+}
+.col-sm-10 .nav > li > a{
+padding: 11px 8px !important;
+}
+}
 @media all and (max-width:767px){
+.nav-tabs > li > a{
+margin-right:4px !important;
+}
+.col-sm-9 .nav > li > a{
+padding: 11px 10px !important;
+}
 .right_link a{
 margin-top:5px;
 float:none;
@@ -1336,4 +1376,100 @@ width:100%;
 	}
 }
 
+.checkboxCustom {
+    float:left;
+    background:url(../images/checkbox.png) no-repeat left center;
+    height:26px;
+    cursor:pointer;
+    line-height:26px;
+    padding-left:38px;
+}
+/*
+.checkboxCustom input {
+    display:none;
+}
+*/
+.checkboxCustom-checked {
+    background:url(../images/checkbox-checked.png) no-repeat    left center;
+}
 
+/* tab styles for small screen */
+      @media (max-width: 688px) {
+     .col-sm-10.leftBorder.equalCol .nav-tabs{
+     border-bottom:0px;
+     }
+
+          .tabbable.responsive .nav-tabs {
+              font-size: 16px;
+          }
+          .tabbable.responsive .nav-tabs ul {
+              margin: 0;
+          }
+          .tabbable.responsive .nav-tabs li {
+              /* box-sizing seems like the cleanest way to make sure width includes padding */
+              -webkit-box-sizing: border-box;
+                 -moz-box-sizing: border-box;
+                  -ms-box-sizing: border-box;
+                   -o-box-sizing: border-box;
+                      box-sizing: border-box;
+              display: inline-block;
+              width: 100%;
+              height: 44px;
+              line-height: 44px;
+              padding: 0 15px;
+             /* border: 1px solid #ddd;*/
+              overflow: hidden;
+               border-radius: 25px;
+               background:#083767
+          }
+          .tabbable.responsive .nav-tabs > li > a {
+              border-style: none;
+              display: inline-block;
+              margin: 0;
+              padding: 0;
+              background:#083767;
+              color:#fff;
+          }
+          /* include hover and active styling for links to override bootstrap defaults */
+          .tabbable.responsive .nav-tabs > li > a:hover {
+              border-style: none;
+              background-color: transparent;
+              color:#fff;}
+          .tabbable.responsive .nav-tabs > li > a:active,
+          .tabbable.responsive .nav-tabs > .active > a,
+          .tabbable.responsive .nav-tabs > .active > a:hover {
+              border-style: none;
+          }
+      }
+
+      /* sample styles for the tab controls on small screens  - start with left control and override for right */
+      .tabbable.responsive .nav-tabs > li > a.tab-control,
+      .tabbable.responsive .nav-tabs > li > span.tab-control-spacer {
+          float: left;
+          width: 36px;
+          height: 36px;
+          margin-top: 4px;
+          font-size: 36px;
+          font-weight: 100;
+          line-height: 10px;
+          color: #fff;
+          text-align: center;
+         /* background: #444;*/
+          -webkit-border-radius: 18px;
+             -moz-border-radius: 18px;
+                  border-radius: 18px;
+                  cursor: pointer;
+          }
+      .tabbable.responsive .nav-tabs > li > a.tab-control.right,
+      .tabbable.responsive .nav-tabs > li > span.tab-control-spacer.right {
+          float: right;
+      }
+      .tabbable.responsive .nav-tabs > li > a.tab-control:hover {
+          color: #fff;
+          /*background: #444;*/
+      }
+      .tabbable.responsive .nav-tabs > li > span.tab-control-spacer {
+          line-height: 28px;
+          color: transparent;
+          background: transparent;
+      }

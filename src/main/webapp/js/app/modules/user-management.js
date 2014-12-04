@@ -92,9 +92,9 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 }else if (searchKey == "单位地址"){
                 	parameter = "companyAddress=" + searchValue;
                 }
-                var provinceIndex = $("#provinceSelect").val();
-        		var cityIndex = $("#citySelect").val();
-        		var districtIndex = $("#districtSelect").val();
+                var provinceIndex = $("#provinceQuerySelect").val();
+        		var cityIndex = $("#cityQuerySelect").val();
+        		var districtIndex = $("#districtQuerySelect").val();
         		
         		parameter = parameter + "&provinceIndex=" + provinceIndex + "&cityIndex=" + cityIndex + "&districtIndex=" + districtIndex;
         		//parameter = "realName=william&provinceIndex=&cityIndex=&districtIndex=";
@@ -144,6 +144,21 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                                 region.Controller.selectOption(viewName + " #citySelect", response.models.userProfile.companyCity);
                                 region.Controller.selectOption(viewName + " #districtSelect", response.models.userProfile.companyDistrict);
 
+                                region.select('select', {
+                                    provinceOption: {
+                                        value: response.models.userProfile.companyProvince,
+                                        text: $("#provinceSelect option:selected").text()
+                                    },
+                                    cityOption: {
+                                        value: response.models.userProfile.companyCity,
+                                        text: $("#citySelect option:selected").text()
+                                    },
+                                    districtOption: {
+                                        value: response.models.userProfile.companyDistrict,
+                                        text: $("#districtSelect option:selected").text()
+                                    }
+                                });
+
                                 if (viewName == "#userProfileEditView"){
                                     $("#userProfileCancel").removeClass("hidden");
                                     $("#userProfileCancel").click(function () {
@@ -169,7 +184,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 $("#userManagementTable").hide();
                 $("#questionnaireTable").show();
                 $("#questionnaireStatus").show();
-            
+
                 if ($("#questionnaireTable").show()) {
                 	$("#questionList").empty();
                 }
@@ -183,7 +198,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 		}
                 	})
                 }
-                
+
                 if ($(".error")) {
                 	$(".error").empty();
                 }
