@@ -76,34 +76,34 @@
        	    <if test="1 == 1">  
 	            a.username = u.username 
 	        </if>
-	       	<if test="realName != null and realName != '' ">  
-	            and u.user_name like CONCAT('%',#{realName},'%')  
+	       	<if test="realName != null and realName != '' and realName != 'null' ">  
+	            and user_name like CONCAT('%',#{realName},'%')  
 	        </if>
-	        <if test="userName != null and userName != '' ">  
-	            and u.username like CONCAT('%',#{userName},'%')
+	        <if test="userName != null and userName != '' and userName != 'null' ">  
+	            and username like CONCAT('%',#{userName},'%')
 	        </if>
-	        <if test="cellphone != null and cellphone != '' ">  
-            	and u.cellphone like CONCAT('%',#{cellphone},'%') 
+	        <if test="cellphone != null and cellphone != '' and cellphone != 'null' ">  
+            	and cellphone like CONCAT('%',#{cellphone},'%') 
             </if>
-            <if test="company != null and company != '' ">  
-            	and u.company like CONCAT('%',#{company},'%') 
+            <if test="company != null and company != '' and company != 'null' ">  
+            	and company like CONCAT('%',#{company},'%') 
             </if>
-            <if test="jobTitle != null and jobTitle != '' ">  
-            	and u.job_title like CONCAT('%',#{jobTitle},'%') 
+            <if test="jobTitle != null and jobTitle != '' and jobTitle != 'null' ">  
+            	and job_title like CONCAT('%',#{jobTitle},'%') 
             </if>
-            <if test="mailbox != null and mailbox != '' ">  
-            	and u.mailbox like CONCAT('%',#{mailbox},'%') 
+            <if test="mailbox != null and mailbox != '' and mailbox != 'null' ">  
+            	and mailbox like CONCAT('%',#{mailbox},'%') 
             </if>
-            <if test="companyAddress != null and companyAddress != '' ">  
-            	and u.company_address like CONCAT('%',#{companyAddress},'%') 
+            <if test="companyAddress != null and companyAddress != '' and companyAddress != 'null' ">  
+            	and company_address like CONCAT('%',#{companyAddress},'%') 
             </if>
-            <if test="companyProvince != null and companyProvince != '' ">  
-            	and u.company_province = #{companyProvince}
+            <if test="companyProvince != null and companyProvince != '' and companyProvince != 'null' ">  
+            	and company_province = #{companyProvince}
             </if>
-            <if test="companyCity != null and companyCity != '' ">  
+            <if test="companyCity != null and companyCity != '' and companyCity != 'null' ">  
             	and company_city = #{companyCity}
             </if>
-            <if test="companyDistrict != null and companyDistrict != '' ">  
+            <if test="companyDistrict != null and companyDistrict != '' and companyDistrict != 'null' ">  
             	and company_district = #{companyDistrict}
             </if>
        	</where>
@@ -159,34 +159,34 @@
     <select id="getUserTotalCount" parameterType="Map" resultType="int">
         select count(*) from users
         <where>
-	       	<if test="realName != null and realName != '' ">  
+	       	<if test="realName != null and realName != '' and realName != 'null' ">  
 	            user_name like CONCAT('%',#{realName},'%')  
 	        </if>
-	        <if test="userName != null and userName != '' ">  
+	        <if test="userName != null and userName != '' and userName != 'null' ">  
 	            and username like CONCAT('%',#{userName},'%')
 	        </if>
-	        <if test="cellphone != null and cellphone != '' ">  
+	        <if test="cellphone != null and cellphone != '' and cellphone != 'null' ">  
             	and cellphone like CONCAT('%',#{cellphone},'%') 
             </if>
-            <if test="company != null and company != '' ">  
+            <if test="company != null and company != '' and company != 'null' ">  
             	and company like CONCAT('%',#{company},'%') 
             </if>
-            <if test="jobTitle != null and jobTitle != '' ">  
+            <if test="jobTitle != null and jobTitle != '' and jobTitle != 'null' ">  
             	and job_title like CONCAT('%',#{jobTitle},'%') 
             </if>
-            <if test="mailbox != null and mailbox != '' ">  
+            <if test="mailbox != null and mailbox != '' and mailbox != 'null' ">  
             	and mailbox like CONCAT('%',#{mailbox},'%') 
             </if>
-            <if test="companyAddress != null and companyAddress != '' ">  
+            <if test="companyAddress != null and companyAddress != '' and companyAddress != 'null' ">  
             	and company_address like CONCAT('%',#{companyAddress},'%') 
             </if>
-            <if test="companyProvince != null and companyProvince != '' ">  
+            <if test="companyProvince != null and companyProvince != '' and companyProvince != 'null' ">  
             	and company_province = #{companyProvince}
             </if>
-            <if test="companyCity != null and companyCity != '' ">  
+            <if test="companyCity != null and companyCity != '' and companyCity != 'null' ">  
             	and company_city = #{companyCity}
             </if>
-            <if test="companyDistrict != null and companyDistrict != '' ">  
+            <if test="companyDistrict != null and companyDistrict != '' and companyDistrict != 'null' ">  
             	and company_district = #{companyDistrict}
             </if>
        	</where>
