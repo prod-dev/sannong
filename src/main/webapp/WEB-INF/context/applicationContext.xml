@@ -15,25 +15,25 @@
     <import resource="applicationContext-security.xml" />
     <mvc:annotation-driven />
     <tx:annotation-driven/>
-    <context:property-placeholder location="/WEB-INF/mysql.properties" />
+    <context:property-placeholder location="/WEB-INF/jdbc.properties" />
     
     <context:component-scan base-package="com.sannong" >
         <context:exclude-filter type="annotation"  expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
     
    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/sannong?useUnicode=true&amp;characterEncoding=utf8"/>
-        <property name="username" value="sannong"/>
-        <property name="password" value="sannong"/>
-        <property name="partitionCount" value="3"/>
-        <property name="maxConnectionsPerPartition" value="60"/>
-        <property name="minConnectionsPerPartition" value="10"/>
-        <property name="poolAvailabilityThreshold" value="20"/>
-        <property name="acquireIncrement" value="5"/>
-        <property name="statementsCacheSize" value="100"/>
-        <property name="closeConnectionWatch" value="false"/>
-        <property name="logStatementsEnabled" value="false"/>
+        <property name="driverClass" value="${mysql.jdbc.driverClass}"/>
+        <property name="jdbcUrl" value="${mysql.jdbc.jdbcUrl}"/>
+        <property name="username" value="${mysql.jdbc.userName}"/>
+        <property name="password" value="${mysql.jdbc.password}"/>
+        <property name="partitionCount" value="${bonecp.partitionCount}"/>
+        <property name="maxConnectionsPerPartition" value="${bonecp.maxConnectionsPerPartition}"/>
+        <property name="minConnectionsPerPartition" value="${bonecp.minConnectionsPerPartition}"/>
+        <property name="poolAvailabilityThreshold" value="${bonecp.poolAvailabilityThreshold}"/>
+        <property name="acquireIncrement" value="${bonecp.acquireIncrement}"/>
+        <property name="statementsCacheSize" value="${bonecp.statementsCacheSize}"/>
+        <property name="closeConnectionWatch" value="${bonecp.closeConnectionWatch}"/>
+        <property name="logStatementsEnabled" value="${bonecp.logStatementsEnabled}"/>
     </bean>
    
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -48,7 +48,6 @@
    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
        <property name="basePackage" value="com.sannong"/>
-       <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
    </bean>
 
     <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
