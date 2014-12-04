@@ -438,9 +438,9 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             $("#exportCSV").click(function() {
                     var searchKey = $("#searchKey").val();
                     var searchValue = $("#searchValue").val();
-                    var provinceIndex = $("#provinceSelect").val();
-                    var cityIndex = $("#citySelect").val();
-                    var districtIndex = $("#districtSelect").val();
+                    var provinceIndex = $("#provinceQuerySelect").val();
+                    var cityIndex = $("#cityQuerySelect").val();
+                    var districtIndex = $("#districtQuerySelect").val();
                     var parameter;
                     
                     if (searchKey == "手机号"){
