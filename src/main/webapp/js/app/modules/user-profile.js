@@ -115,11 +115,11 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                             $(viewName).empty();
                             $(viewName).append(html);
 
-                            region.Controller.addCityOptions(viewName + " #citySelect", response.models.cities);
-                            region.Controller.addDistrictOptions(viewName + " #districtSelect", response.models.districts);
-                            region.Controller.selectOption(viewName + " #provinceSelect", response.models.userProfile.companyProvince);
-                            region.Controller.selectOption(viewName + " #citySelect", response.models.userProfile.companyCity);
-                            region.Controller.selectOption(viewName + " #districtSelect", response.models.userProfile.companyDistrict);
+                            region.View.addCityOptions(viewName + " #citySelect", response.models.cities);
+                            region.View.addDistrictOptions(viewName + " #districtSelect", response.models.districts);
+                            region.View.selectOption(viewName + " #provinceSelect", response.models.userProfile.companyProvince);
+                            region.View.selectOption(viewName + " #citySelect", response.models.userProfile.companyCity);
+                            region.View.selectOption(viewName + " #districtSelect", response.models.userProfile.companyDistrict);
 
                             region.select('select', {
                                 provinceOption: {

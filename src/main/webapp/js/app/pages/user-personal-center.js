@@ -31,7 +31,7 @@ require(['../main'], function () {
 
                 });
                 $("#userProfileTab").click(function(){
-                    userManagement.Controller.emptyUserProfileEditView();
+                    userManagement.View.emptyUserProfileEditView();
                     userProfile.show();
                 });
                 $("#userPasswordTab").click(function(){

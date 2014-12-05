@@ -8,8 +8,7 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
 
     var region = {};
     region.Model = {companyProvince: "", companyCity: "", companyDistrict: ""};
-
-    region.Controller = {
+    region.View = {
         addCityOptions: function(select, options){
             var citySelect = $(select);
             $(select + ' option').remove();
@@ -32,33 +31,10 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
         },
         selectOption: function(select, optionVal){
             $(select).val(optionVal);
-        },
-        addProvinceSelectionsOnly: function(){
-            var options = {
-                url: 'getProvinces',
-                type: 'POST',
-                success: function(provinces){
-                    var provinceSelect = $('#provinceSelect');
-                    $('#provinceSelect option').remove();
-                    $('#citySelect option').remove();
-                    $('#districtSelect option').remove();
+        }
+    };
 
-                    $('#provinceSelect').append('<option value="">省/直辖市</option>');
-                    $('#citySelect').append('<option value="">市</option>');
-                    $('#districtSelect').append('<option value="">县/市辖区</option>');
-
-                    for (var i in provinces){
-                        var optionValue = provinces[i].provinceIndex;
-                        var optionText = provinces[i].provinceName;
-                        var option = "<option value=" + optionValue + ">" + optionText + "</option>";
-                        provinceSelect.append(option);
-                    }
-                },
-                fail: function(error){
-                }
-            }
-            ajaxHandler.sendRequest(options);
-        },
+    region.Controller = {
         addCitySelectionsOnly: function() {
             var provinceIndex = $("#provinceSelect").val();
             var options = {
@@ -279,12 +255,12 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                         success: function(data){
                             $("#wrap_citySelect").remove();
                             $("#citySelectDiv").html('<select id="citySelect" name="companyCity" class="select-hidden"></select>');
-                            region.Controller.addCityOptions("#citySelect", data.cities);
+                            region.View.addCityOptions("#citySelect", data.cities);
                             region.select('select[id=citySelect]');
 
                             $("#wrap_districtSelect").remove();
                             $("#districtSelectDiv").html('<select id="districtSelect" name="companyDistrict" class="select-hidden"></select>');
-                            region.Controller.addDistrictOptions("#districtSelect", data.districts);
+                            region.View.addDistrictOptions("#districtSelect", data.districts);
                             region.select('select[id=districtSelect]');
 
                         },
@@ -301,7 +277,7 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                         success: function(data){
                             $("#wrap_districtSelect").remove();
                             $("#districtSelectDiv").html('<select id="districtSelect" name="companyDistrict" class="select-hidden"></select>');
-                            region.Controller.addDistrictOptions("#districtSelect", data);
+                            region.View.addDistrictOptions("#districtSelect", data);
                             region.select('select[id=districtSelect]');
                         },
                         fail: function(data){
@@ -318,13 +294,13 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                         success: function(data){
                             $("#wrap_cityQuerySelect").remove();
                             $("#cityQuerySelectDiv").html('<select id="cityQuerySelect" name="cityQuerySelect" class="select-hidden"></select>');
-                            region.Controller.addCityOptions("#cityQuerySelect", data.cities);
+                            region.View.addCityOptions("#cityQuerySelect", data.cities);
                             $("#cityQuerySelect").prepend('<option value="">市</option>');
                             region.select('select[id=cityQuerySelect]');
 
                             $("#wrap_districtQuerySelect").remove();
                             $("#districtQuerySelectDiv").html('<select id="districtQuerySelect" name="districtQuerySelect" class="select-hidden"></select>');
-                            region.Controller.addDistrictOptions("#districtQuerySelect", data.districts);
+                            region.View.addDistrictOptions("#districtQuerySelect", data.districts);
                             $("#districtQuerySelect").prepend('<option value="">县/市辖区</option>');
                             region.select('select[id=districtQuerySelect]');
 
@@ -341,7 +317,7 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                         success: function(data){
                             $("#wrap_districtQuerySelect").remove();
                             $("#districtQuerySelectDiv").html('<select id="districtQuerySelect" name="districtQuerySelect" class="select-hidden"></select>');
-                            region.Controller.addDistrictOptions("#districtQuerySelect", data);
+                            region.View.addDistrictOptions("#districtQuerySelect", data);
                             $("#districtQuerySelect").prepend('<option value="">县/市辖区</option>');
                             region.select('select[id=districtQuerySelect]');
                         },

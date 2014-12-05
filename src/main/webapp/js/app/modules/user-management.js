@@ -8,7 +8,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                  additionalMethods, pagination, region, jqueryForm, userProfile) {
 
             "use strict";
-
+            var searchParams = "";
             var userManagement = {};
             userManagement.Model = {
                 currentEditUser: ""
@@ -20,34 +20,35 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 userManagementTitle: $("#user-management-title"),
                 userTextShow: $("#userTextShow"),
                 userManagementTable: $("#userManagementTable"),
-                userProfileCancel: $("#userProfileCancel")
-            };
+                userProfileCancel: $("#userProfileCancel"),
+                emptyUserProfileEditView: function(){
+                    $("#userProfileEditView").empty();
+                },
+                showUserProfileEditView: function(){
+                    userManagement.View.questionnaireTable.hide();
+                    userManagement.View.userManagementTitle.hide();
+                    userManagement.View.userTextShow.hide();
+                    userManagement.View.searchBar.hide();
+                    userManagement.View.userManagementTable.hide();
+                    userManagement.View.userProfileEditView.show();
+                },
+                resetView: function(){
+                    userManagement.View.userManagementTitle.show();
+                    userManagement.View.userManagementTable.show();
+                    userManagement.View.searchBar.show();
+                    userManagement.View.questionnaireTable.hide();
+                    userManagement.View.userTextShow.hide();
+                    userManagement.View.userProfileEditView.hide();
+                }
 
-            var searchParams = "";
+            };
 
             userManagement.editUserProfile = function(userName){
                 userManagement.Model.currentEditUser = userName;
-                userManagement.showUserProfileEditView();
+                userManagement.View.showUserProfileEditView();
                 userManagement.Controller.renderUserProfileEditView(userName, "#userProfileEditView");
             }
 
-            userManagement.showUserProfileEditView = function(){
-                userManagement.View.questionnaireTable.hide();
-                userManagement.View.userManagementTitle.hide();
-                userManagement.View.userTextShow.hide();
-                userManagement.View.searchBar.hide();
-                userManagement.View.userManagementTable.hide();
-                userManagement.View.userProfileEditView.show();
-
-            }
-            userManagement.resetView = function(){
-                userManagement.View.userManagementTitle.show();
-                userManagement.View.userManagementTable.show();
-                userManagement.View.searchBar.show();
-                userManagement.View.questionnaireTable.hide();
-                userManagement.View.userTextShow.hide();
-                userManagement.View.userProfileEditView.hide();
-            }
 
             $("#cancel").click(function () {
                 userManagement.View.userTextShow.hide();
@@ -123,9 +124,6 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                          region.Controller.addDistrictSelectionsOnly();
                      });
             	 },
-                emptyUserProfileEditView: function(){
-                    $("#userProfileEditView").empty();
-                },
                 renderUserProfileEditView: function(userName, viewName){
                     ajaxHandler.sendRequest({
                         type: "GET",
@@ -138,11 +136,11 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                                 $(viewName).empty();
                                 $(viewName).append(html);
 
-                                region.Controller.addCityOptions(viewName + " #citySelect", response.models.cities);
-                                region.Controller.addDistrictOptions(viewName + " #districtSelect", response.models.districts);
-                                region.Controller.selectOption(viewName + " #provinceSelect", response.models.userProfile.companyProvince);
-                                region.Controller.selectOption(viewName + " #citySelect", response.models.userProfile.companyCity);
-                                region.Controller.selectOption(viewName + " #districtSelect", response.models.userProfile.companyDistrict);
+                                region.View.addCityOptions(viewName + " #citySelect", response.models.cities);
+                                region.View.addDistrictOptions(viewName + " #districtSelect", response.models.districts);
+                                region.View.selectOption(viewName + " #provinceSelect", response.models.userProfile.companyProvince);
+                                region.View.selectOption(viewName + " #citySelect", response.models.userProfile.companyCity);
+                                region.View.selectOption(viewName + " #districtSelect", response.models.userProfile.companyDistrict);
 
                                 region.select('select', {
                                     provinceOption: {
@@ -163,7 +161,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                                     $("#userProfileCancel").removeClass("hidden");
                                     $("#userProfileCancel").click(function () {
                                         userManagement.Model.currentEditUser = "";
-                                        userManagement.resetView();
+                                        userManagement.View.resetView();
                                     });
                                 }
 
@@ -488,7 +486,6 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             });
             
             $(function() {
-            	region.Controller.addProvinceSelectionsOnly();
             	userManagement.Controller.addEventListener();
                 show(1);
             })

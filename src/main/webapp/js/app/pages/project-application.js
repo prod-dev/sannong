@@ -53,7 +53,7 @@ require(['../main'], function () {
                         type: 'POST',
                         data: {'provinceIndex': $("#projectAppForm_provinceSelect").val()},
                         success: function(data){
-                            region.Controller.addCityOptions("#projectAppForm_citySelect", data);
+                            region.View.addCityOptions("#projectAppForm_citySelect", data);
                         },
                         fail: function(data){
                         }
@@ -192,12 +192,12 @@ require(['../main'], function () {
                                 success: function(data){
                                     $("#wrap_citySelect").remove();
                                     $("#citySelectDiv").html('<select id="citySelect" name="applicant.companyCity" class="select-hidden"></select>');
-                                    region.Controller.addCityOptions("#citySelect", data.cities);
+                                    region.View.addCityOptions("#citySelect", data.cities);
                                     projectApplication.select('select[id=citySelect]');
 
                                     $("#wrap_districtSelect").remove();
                                     $("#districtSelectDiv").html('<select id="districtSelect" name="applicant.companyDistrict" class="select-hidden"></select>');
-                                    region.Controller.addDistrictOptions("#districtSelect", data.districts);
+                                    region.View.addDistrictOptions("#districtSelect", data.districts);
                                     projectApplication.select('select[id=districtSelect]');
 
                                 },
@@ -214,7 +214,7 @@ require(['../main'], function () {
                                 success: function(data){
                                     $("#wrap_districtSelect").remove();
                                     $("#districtSelectDiv").html('<select id="districtSelect" name="applicant.companyDistrict" class="select-hidden"></select>');
-                                    region.Controller.addDistrictOptions("#districtSelect", data);
+                                    region.View.addDistrictOptions("#districtSelect", data);
                                     projectApplication.select('select[id=districtSelect]');
                                 },
                                 fail: function(data){
