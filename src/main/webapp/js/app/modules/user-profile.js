@@ -52,14 +52,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
         }
 
         userProfile.addEventListener = function(){
-            $("#provinceSelect").change(function(event){
-                region.Controller.addCities();
-            });
 
-            $("#citySelect").change(function(event){
-                $('#districtSelect option').remove();
-                region.Controller.addDistricts();
-            });
 
             $("#userProfileSubmit").click(function(event){
                 var validator = formValidator.getValidator("#userProfileForm");

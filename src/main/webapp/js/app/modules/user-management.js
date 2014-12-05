@@ -114,16 +114,6 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             })
 
             userManagement.Controller = {
-            	 addEventListener: function(){
-                     $("#provinceSelect").change(function(event){
-                         region.Controller.addCitySelectionsOnly();
-                     });
-
-                     $("#citySelect").change(function(event){
-                         $('#districtSelect option').remove();
-                         region.Controller.addDistrictSelectionsOnly();
-                     });
-            	 },
                 renderUserProfileEditView: function(userName, viewName){
                     ajaxHandler.sendRequest({
                         type: "GET",
@@ -486,7 +476,6 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             });
             
             $(function() {
-            	userManagement.Controller.addEventListener();
                 show(1);
             })
 

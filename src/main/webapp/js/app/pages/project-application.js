@@ -61,10 +61,6 @@ require(['../main'], function () {
 
                 });
 
-                $("#projectAppForm_citySelect").change(function() {
-                    $('#districtSelect option').remove();
-                    region.Controller.addDistricts();
-                });
 
                 $("#projectAppForm_validationBtn").click(function() {
                     if ($("#projectAppForm_validationBtn").hasClass("disabled")){
@@ -238,7 +234,6 @@ require(['../main'], function () {
             $(function() {
                 projectApplication.select('select');
                 questionnaire.showQuestionnaire();
-                region.Controller.addProvinces();
                 addEventListener();
             });
 
