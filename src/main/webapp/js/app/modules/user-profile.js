@@ -65,7 +65,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 var validator = formValidator.getValidator("#userProfileForm");
                 if (validator.form() == true){
                     $("#userProfileForm").ajaxSubmit(function(message) {
-                        $("#return").after('<label id="jobTitle-error" class="error" for="jobTitle">已保存</label>');
+                        $("#userProfileSubmit").after('<label id="jobTitle-error" class="error" for="jobTitle">已保存</label>');
                         return false;
                     });
                 }

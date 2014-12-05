@@ -184,8 +184,8 @@
                                 请确认是否提交?
                             </div>
                             <div class="buttonsRow">
-                                <button type="button" class="orange-bt" data-dismiss="modal">取消</button>
-                                <button type="submit" id="confirmedSubmit" class="white-bt">提交</button>
+                                <button type="submit" class="orange-bt" id="confirmedSubmit">提交</button>
+                                <button type="button" class="white-bt" data-dismiss="modal">取消</button>
                             </div>
                         </div>
                     </div>
