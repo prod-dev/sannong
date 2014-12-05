@@ -83,7 +83,7 @@
 
 <jsp:include page='footer.jsp'/>
 
-<script data-main="js/app/pages/user-personal-center" src="js/lib/require-2.1.15.js"></script>
+<script data-main="js/app/pages/user-personal-center" src="js/lib/require-2.1.15.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 

@@ -6,9 +6,9 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
 
     "use strict";
 
-    var region = {};
-    region.Model = {};
-    region.View = {
+    var selector = {};
+    selector.Model = {companyProvince: "", companyCity: "", companyDistrict: ""};
+    selector.View = {
         addCityOptions: function(select, options){
             var citySelect = $(select);
             $(select + ' option').remove();
@@ -34,11 +34,11 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
         }
     };
 
-    region.Controller = {
+    selector.Controller = {
 
     }
 
-    region.select = function(select, initOptions){
+    selector.initSelect = function(select, initOptions){
         $(select).each(function(){
             var selectName = $(this).attr("name");
             var selectId =  $(this).attr("id");
@@ -93,7 +93,47 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                 //alert($(this).text());
                 $list.hide();
                 //console.log($this.val());
-                if ($this.attr("id") == "provinceSelect"){
+
+                if ($this.attr("id") == "companyProvinceSelect"){
+                    $("#companyProvinceSelect").val(parseInt(selectedRel, 10));
+                    ajaxHandler.sendRequest({
+                        url: 'getCitiesWithDistricts',
+                        type: 'POST',
+                        data: {'provinceIndex': $("#companyProvinceSelect").val()},
+                        success: function(data){
+                            $("#wrap_citySelect").remove();
+                            $("#citySelectDiv").html('<select id="companyCitySelect" name="applicant.companyCity" class="select-hidden"></select>');
+                            selector.View.addCityOptions("#companyCitySelect", data.cities);
+                            selector.initSelect('select[id=companyCitySelect]');
+
+                            $("#wrap_districtSelect").remove();
+                            $("#districtSelectDiv").html('<select id="companyDistrictSelect" name="applicant.companyDistrict" class="select-hidden"></select>');
+                            selector.View.addDistrictOptions("#companyDistrictSelect", data.districts);
+                            selector.initSelect('select[id=companyDistrictSelect]');
+
+                        },
+                        fail: function(data){
+                        }
+                    });
+
+                }else if ($this.attr("id") == "companyCitySelect"){
+                    $("#companyCitySelect").val(parseInt(selectedRel, 10));
+                    ajaxHandler.sendRequest({
+                        url: 'getDistricts',
+                        type: 'POST',
+                        data: {'cityIndex': $("#companyCitySelect").val()},
+                        success: function(data){
+                            $("#wrap_districtSelect").remove();
+                            $("#districtSelectDiv").html('<select id="companyDistrictSelect" name="applicant.companyDistrict" class="select-hidden"></select>');
+                            selector.View.addDistrictOptions("#companyDistrictSelect", data);
+                            selector.initSelect('select[id=companyDistrictSelect]');
+                        },
+                        fail: function(data){
+                        }
+                    });
+                }else if($this.attr("id") == "companyDistrictSelect"){
+                    $("#companyDistrictSelect").val(parseInt(selectedRel, 10));
+                }else if ($this.attr("id") == "provinceSelect"){
                     $("#provinceSelect").val(parseInt(selectedRel, 10));
                     ajaxHandler.sendRequest({
                         url: 'getCitiesWithDistricts',
@@ -102,13 +142,13 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                         success: function(data){
                             $("#wrap_citySelect").remove();
                             $("#citySelectDiv").html('<select id="citySelect" name="companyCity" class="select-hidden"></select>');
-                            region.View.addCityOptions("#citySelect", data.cities);
-                            region.select('select[id=citySelect]');
+                            selector.View.addCityOptions("#citySelect", data.cities);
+                            selector.initSelect('select[id=citySelect]');
 
                             $("#wrap_districtSelect").remove();
                             $("#districtSelectDiv").html('<select id="districtSelect" name="companyDistrict" class="select-hidden"></select>');
-                            region.View.addDistrictOptions("#districtSelect", data.districts);
-                            region.select('select[id=districtSelect]');
+                            selector.View.addDistrictOptions("#districtSelect", data.districts);
+                            selector.initSelect('select[id=districtSelect]');
 
                         },
                         fail: function(data){
@@ -124,8 +164,8 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                         success: function(data){
                             $("#wrap_districtSelect").remove();
                             $("#districtSelectDiv").html('<select id="districtSelect" name="companyDistrict" class="select-hidden"></select>');
-                            region.View.addDistrictOptions("#districtSelect", data);
-                            region.select('select[id=districtSelect]');
+                            selector.View.addDistrictOptions("#districtSelect", data);
+                            selector.initSelect('select[id=districtSelect]');
                         },
                         fail: function(data){
                         }
@@ -141,15 +181,15 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                         success: function(data){
                             $("#wrap_cityQuerySelect").remove();
                             $("#cityQuerySelectDiv").html('<select id="cityQuerySelect" name="cityQuerySelect" class="select-hidden"></select>');
-                            region.View.addCityOptions("#cityQuerySelect", data.cities);
+                            selector.View.addCityOptions("#cityQuerySelect", data.cities);
                             $("#cityQuerySelect").prepend('<option value="">市</option>');
-                            region.select('select[id=cityQuerySelect]');
+                            selector.initSelect('select[id=cityQuerySelect]');
 
                             $("#wrap_districtQuerySelect").remove();
                             $("#districtQuerySelectDiv").html('<select id="districtQuerySelect" name="districtQuerySelect" class="select-hidden"></select>');
-                            region.View.addDistrictOptions("#districtQuerySelect", data.districts);
+                            selector.View.addDistrictOptions("#districtQuerySelect", data.districts);
                             $("#districtQuerySelect").prepend('<option value="">县/市辖区</option>');
-                            region.select('select[id=districtQuerySelect]');
+                            selector.initSelect('select[id=districtQuerySelect]');
 
                         },
                         fail: function(data){
@@ -164,9 +204,9 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
                         success: function(data){
                             $("#wrap_districtQuerySelect").remove();
                             $("#districtQuerySelectDiv").html('<select id="districtQuerySelect" name="districtQuerySelect" class="select-hidden"></select>');
-                            region.View.addDistrictOptions("#districtQuerySelect", data);
+                            selector.View.addDistrictOptions("#districtQuerySelect", data);
                             $("#districtQuerySelect").prepend('<option value="">县/市辖区</option>');
-                            region.select('select[id=districtQuerySelect]');
+                            selector.initSelect('select[id=districtQuerySelect]');
                         },
                         fail: function(data){
                         }
@@ -187,7 +227,7 @@ define(['jquery', 'sannong', 'ajaxHandler'], function($, sannong, ajaxHandler) {
 
     }
 
-    sannong.Region = region;
-    return region;
+    sannong.Selector = selector;
+    return selector;
 
 });

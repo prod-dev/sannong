@@ -73,7 +73,7 @@
                             <aside class="userFormCol-1">单位地址</aside>
                             <aside class="userFormCol-right">
                                 <div class="width-87" id="provinceSelectDiv">
-                                    <select id="provinceSelect" name="applicant.companyProvince">
+                                    <select id="companyProvinceSelect" name="applicant.companyProvince">
                                         <option value="1">北京市</option>
                                         <option value="2">天津市</option>
                                         <option value="3">河北省</option>
@@ -111,13 +111,13 @@
                                     </select>
                                 </div>
                                 <div class="width-87" id="citySelectDiv">
-                                    <select id="citySelect" name="applicant.companyCity">
+                                    <select id="companyCitySelect" name="applicant.companyCity">
                                         <option value="1">市辖区</option>
                                         <option value="2">县</option>
                                     </select>
                                 </div>
                                     <div class="width-87" id="districtSelectDiv">
-                                    <select id="districtSelect" name="applicant.companyDistrict">
+                                    <select id="companyDistrictSelect" name="applicant.companyDistrict">
                                         <option value='1'>东城区</option>
                                         <option value='2'>西城区</option>
                                         <option value='3'>崇文区</option>
@@ -245,7 +245,7 @@
     <!-- /CONTENT SECTION -->
 
     <jsp:include page='footer.jsp'/>
-    <script data-main="js/app/pages/project-application" src="content/static/js/lib/require-2.1.15.js"></script>
+    <script data-main="js/app/pages/project-application" src="js/lib/require-2.1.15.min.js"></script>
 
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

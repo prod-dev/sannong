@@ -48,7 +48,7 @@
 <!-- /CONTENT SECTION -->
 
 <jsp:include page='footer.jsp'/>
-<script data-main="js/app/pages/project-landing" src="content/static/js/lib/require-2.1.15.js"></script>
+<script data-main="js/app/pages/project-landing" src="js/lib/require-2.1.15.min.js"></script>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

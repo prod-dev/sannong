@@ -16,7 +16,7 @@ requirejs.config({
         "ajaxHandler" : "app/modules/ajax-handler",
         "questionnaire": "app/modules/questionnaire",
         "formValidator": "app/modules/form-validator",
-        "region": "app/modules/region",
+        "selector": "app/modules/selector",
         "additionalMethods": "app/modules/additional-methods",
         "login": "app/modules/login",
         "clickHandler": "app/modules/click-handler",
@@ -70,9 +70,9 @@ requirejs.config({
             deps :['jquery', 'validate'],
             exports : "formValidator"
         },
-        "region": {
+        "selector": {
             deps :['jquery'],
-            exports : "region"
+            exports : "selector"
         },
         "login": {
             deps :['jquery'],

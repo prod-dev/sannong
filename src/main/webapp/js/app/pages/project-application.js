@@ -4,23 +4,22 @@
 
 require(['../main'], function () {
     require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'login', 'validate', 'ajaxHandler',
-            'questionnaire', 'jqueryForm', 'formValidator', 'region', 'additionalMethods'],
+            'questionnaire', 'jqueryForm', 'formValidator', 'selector', 'additionalMethods'],
         function($, bootstrap, handlebars, sannong, login, validate, ajaxHandler,
-                 questionnaire, jqueryForm, formValidator, region, additionalMethods) {
+                 questionnaire, jqueryForm, formValidator, selector, additionalMethods) {
 
             "use strict";
 
             var projectApplication = {};
+
             projectApplication.Model = {};
+
             projectApplication.View = {
                 cellphone: $("#projectAppForm_cellphone"),
                 cellphoneError: $("#cellphone-error"),
                 validationCode: $("#projectAppForm_validationCode"),
                 validationCodeError: $("#validationCode-error"),
-                projectApplicationFormSubmit: $("#projectAppForm_submit")
-            };
-
-            projectApplication.Controller = {
+                projectApplicationFormSubmit: $("#projectAppForm_submit"),
                 showUniqueCellphoneError: function(message) {
                     var errorLabel = '<label id="projectAppForm_cellphone-error" class="error" for="cellphone" style="display: inline-block;">' + message + '</label>';
                     projectApplication.View.cellphoneError.remove();
@@ -36,7 +35,7 @@ require(['../main'], function () {
                     projectApplication.View.validationCode.addClass("error");
                 },
                 showValidationCodeMessage: function(message) {
-                    projectApplication.Controller.showValidationCodeError(message);
+                    projectApplication.View.showValidationCodeError(message);
                 },
                 enableSubmitButton: function() {
                     projectApplication.View.projectApplicationFormSubmit.removeClass("disabled");
@@ -44,25 +43,11 @@ require(['../main'], function () {
                 disableSubmitButton: function() {
                     projectApplication.View.projectApplicationFormSubmit.addClass("disabled");
                 }
+
             };
 
-            function addEventListener() {
-                $("#provinceSelect").change(function() {
-                    ajaxHandler.sendRequest({
-                        url: 'getCities',
-                        type: 'POST',
-                        data: {'provinceIndex': $("#projectAppForm_provinceSelect").val()},
-                        success: function(data){
-                            region.View.addCityOptions("#projectAppForm_citySelect", data);
-                        },
-                        fail: function(data){
-                        }
-                    });
-
-                });
-
-
-                $("#projectAppForm_validationBtn").click(function() {
+            projectApplication.Controller = {
+                sendValidationCodeClicked: function(){
                     if ($("#projectAppForm_validationBtn").hasClass("disabled")){
                         return;
                     }
@@ -74,34 +59,32 @@ require(['../main'], function () {
                             success: function (response) {
                                 if (response.statusCode < 2000) {
                                     additionalMethods.updateTimeLabel("#projectAppForm_validationBtn", "验证码");
-                                    projectApplication.Controller.enableSubmitButton();
+                                    projectApplication.View.enableSubmitButton();
                                     $("#projectAppForm_validationBtn").addClass("disabled");
                                     $("#projectAppForm_validationCode").removeAttr("disabled");
-                                    projectApplication.Controller.showValidationCodeMessage(response.statusDescription);
+                                    projectApplication.View.showValidationCodeMessage(response.statusDescription);
                                 } else {
                                     $("#projectAppForm_validationBtn").removeClass("disabled");
                                     $("#projectAppForm_validationCode").attr({disabled: "disabled"});
-                                    projectApplication.Controller.disableSubmitButton();
+                                    projectApplication.View.disableSubmitButton();
                                     if (response.statusCode == 2012){
-                                        projectApplication.Controller.showUniqueCellphoneError(response.statusDescription);
+                                        projectApplication.View.showUniqueCellphoneError(response.statusDescription);
                                     }else{
-                                        projectApplication.Controller.showValidationCodeError(response.statusDescription);
+                                        projectApplication.View.showValidationCodeError(response.statusDescription);
                                     }
                                 }
                             },
                             fail: function (response) {
                                 $("#projectAppForm_validationBtn").removeClass("disabled");
                                 $("#projectAppForm_validationCode").removeAttr("disabled");
-                                projectApplication.Controller.disableSubmitButton();
-                                projectApplication.Controller.showValidationCodeError("验证码发送失败");
+                                projectApplication.View.disableSubmitButton();
+                                projectApplication.View.showValidationCodeError("验证码发送失败");
                             }
 
                         });
                     }
-                });
-
-
-                $("#projectAppForm_submit").click(function (event) {
+                },
+                projectAppFormSubmitClicked: function(){
                     if ($("#projectAppForm_submit").hasClass("disabled") == true) { return;}
 
                     if (formValidator.getValidator("#projectAppForm").form() == true){
@@ -118,22 +101,35 @@ require(['../main'], function () {
                                 if (response.statusCode < 2000) {
                                     $("#projectAppModelTrigger").click();
                                 } else{
-                                    projectApplication.Controller.showValidationCodeError(response.statusDescription);
+                                    projectApplication.View.showValidationCodeError(response.statusDescription);
                                 }
                             },
                             fail: function (response) {
-                                projectApplication.Controller.showValidationCodeError(response.statusDescription);
+                                projectApplication.View.showValidationCodeError(response.statusDescription);
                             }
                         });
                     }
+                },
+                confirmedSubmitClicked: function(){
+                    $("#projectAppForm").submit();
+                }
+            };
+
+            function registerEventListener() {
+                $("#projectAppForm_validationBtn").click(function(){
+                    projectApplication.Controller.sendValidationCodeClicked();
                 });
 
-                $("#confirmedSubmit").click(function (event) {
-                    $("#projectAppForm").submit();
+                $("#projectAppForm_submit").click(function () {
+                    projectApplication.Controller.projectAppFormSubmitClicked();
+                });
+
+                $("#confirmedSubmit").click(function () {
+                    projectApplication.Controller.confirmedSubmitClicked();
                 });
             }
 
-
+            /*
             projectApplication.select = function(select){
                 $(select).each(function(){
                     var selectName = $(this).attr("name");
@@ -188,12 +184,12 @@ require(['../main'], function () {
                                 success: function(data){
                                     $("#wrap_citySelect").remove();
                                     $("#citySelectDiv").html('<select id="citySelect" name="applicant.companyCity" class="select-hidden"></select>');
-                                    region.View.addCityOptions("#citySelect", data.cities);
+                                    selector.View.addCityOptions("#citySelect", data.cities);
                                     projectApplication.select('select[id=citySelect]');
 
                                     $("#wrap_districtSelect").remove();
                                     $("#districtSelectDiv").html('<select id="districtSelect" name="applicant.companyDistrict" class="select-hidden"></select>');
-                                    region.View.addDistrictOptions("#districtSelect", data.districts);
+                                    selector.View.addDistrictOptions("#districtSelect", data.districts);
                                     projectApplication.select('select[id=districtSelect]');
 
                                 },
@@ -210,7 +206,7 @@ require(['../main'], function () {
                                 success: function(data){
                                     $("#wrap_districtSelect").remove();
                                     $("#districtSelectDiv").html('<select id="districtSelect" name="applicant.companyDistrict" class="select-hidden"></select>');
-                                    region.View.addDistrictOptions("#districtSelect", data);
+                                    selector.View.addDistrictOptions("#districtSelect", data);
                                     projectApplication.select('select[id=districtSelect]');
                                 },
                                 fail: function(data){
@@ -229,12 +225,12 @@ require(['../main'], function () {
                 });
 
             }
-
+            */
 
             $(function() {
-                projectApplication.select('select');
+                selector.initSelect('select');
                 questionnaire.showQuestionnaire();
-                addEventListener();
+                registerEventListener();
             });
 
     sannong.ProjectApplication = projectApplication;

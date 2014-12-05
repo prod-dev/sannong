@@ -3,9 +3,9 @@
  */
 
 define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator',
-        'additionalMethods', 'pagination', 'region', 'jqueryForm', 'userProfile'],
+        'additionalMethods', 'pagination', 'selector', 'jqueryForm', 'userProfile'],
         function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator,
-                 additionalMethods, pagination, region, jqueryForm, userProfile) {
+                 additionalMethods, pagination, selector, jqueryForm, userProfile) {
 
             "use strict";
             var searchParams = "";
@@ -126,13 +126,13 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                                 $(viewName).empty();
                                 $(viewName).append(html);
 
-                                region.View.addCityOptions(viewName + " #citySelect", response.models.cities);
-                                region.View.addDistrictOptions(viewName + " #districtSelect", response.models.districts);
-                                region.View.selectOption(viewName + " #provinceSelect", response.models.userProfile.companyProvince);
-                                region.View.selectOption(viewName + " #citySelect", response.models.userProfile.companyCity);
-                                region.View.selectOption(viewName + " #districtSelect", response.models.userProfile.companyDistrict);
+                                selector.View.addCityOptions(viewName + " #citySelect", response.models.cities);
+                                selector.View.addDistrictOptions(viewName + " #districtSelect", response.models.districts);
+                                selector.View.selectOption(viewName + " #provinceSelect", response.models.userProfile.companyProvince);
+                                selector.View.selectOption(viewName + " #citySelect", response.models.userProfile.companyCity);
+                                selector.View.selectOption(viewName + " #districtSelect", response.models.userProfile.companyDistrict);
 
-                                region.select('select', {
+                                selector.initSelect('select', {
                                     provinceOption: {
                                         value: response.models.userProfile.companyProvince,
                                         text: $("#provinceSelect option:selected").text()
