@@ -48,15 +48,4 @@ public class ValidationService implements IValidationService {
             return true;
         }
     }
-
-    public boolean validateUserNameAvailable(String userName) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("userName", userName);
-        List<User> users = userRepository.getUserByCondition(map);
-        if (users.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
 }

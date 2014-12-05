@@ -7,6 +7,4 @@ public interface IValidationService {
     public boolean validateUniqueCellphone(String cellphone);
 
     public boolean validateValidationCode(String cellphone, String validationCode);
-
-    public boolean validateUserNameAvailable(String userName);
 }

@@ -75,12 +75,12 @@ define(['jquery', 'sannong'], function($, sannong) {
     };
 
     ClickHandler.init = function () {
-        ClickHandler.registerHandler();
+        //ClickHandler.registerHandler();
         //ClickHandler.addHandler('sideBarClickHandler', ClickHandler.callbacks.sideBarClickHandler);
     };
 
     $(function() {
-        ClickHandler.init();
+        //ClickHandler.init();
     });
 
     sannong.ClickHandler = ClickHandler;

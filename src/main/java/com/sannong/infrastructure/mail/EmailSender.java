@@ -7,6 +7,7 @@ import jodd.mail.SimpleAuthenticator;
 import jodd.mail.SmtpServer;
 import org.apache.log4j.Logger;
 
+// TODO: this class was deprecated, will be deleted soon.
 public class EmailSender {
     private static final Logger logger = Logger.getLogger(EmailSender.class);
 
