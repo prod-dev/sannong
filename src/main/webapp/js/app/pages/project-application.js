@@ -47,7 +47,7 @@ require(['../main'], function () {
             };
 
             projectApplication.Controller = {
-                sendValidationCodeClicked: function(){
+                handleValidationCodeClick: function(){
                     if ($("#projectAppForm_validationBtn").hasClass("disabled")){
                         return;
                     }
@@ -84,7 +84,7 @@ require(['../main'], function () {
                         });
                     }
                 },
-                projectAppFormSubmitClicked: function(){
+                handleFormSubmit: function(){
                     if ($("#projectAppForm_submit").hasClass("disabled") == true) { return;}
 
                     if (formValidator.getValidator("#projectAppForm").form() == true){
@@ -110,122 +110,24 @@ require(['../main'], function () {
                         });
                     }
                 },
-                confirmedSubmitClicked: function(){
+                handleConfirmedSubmit: function(){
                     $("#projectAppForm").submit();
                 }
             };
 
             function registerEventListener() {
                 $("#projectAppForm_validationBtn").click(function(){
-                    projectApplication.Controller.sendValidationCodeClicked();
+                    projectApplication.Controller.handleValidationCodeClick();
                 });
 
                 $("#projectAppForm_submit").click(function () {
-                    projectApplication.Controller.projectAppFormSubmitClicked();
+                    projectApplication.Controller.handleFormSubmit();
                 });
 
                 $("#confirmedSubmit").click(function () {
-                    projectApplication.Controller.confirmedSubmitClicked();
+                    projectApplication.Controller.handleConfirmedSubmit();
                 });
             }
-
-            /*
-            projectApplication.select = function(select){
-                $(select).each(function(){
-                    var selectName = $(this).attr("name");
-                    var selectId =  $(this).attr("id");
-                    var $this = $(this), numberOfOptions = $(this).children('option').length;
-
-                    $this.addClass('select-hidden');
-                    $this.wrap('<div class="select" id="wrap_' + selectId + '"></div>');
-                    $this.after('<div class="select-styled selected_'+selectName+'"></div>');
-
-
-                    var $styledSelect = $this.next('div.select-styled');
-                    $styledSelect.text($this.children('option').eq(0).text());
-
-                    var styledSelectRel = $this.children('option').eq(0).val();
-                    $styledSelect.attr("rel", styledSelectRel);
-
-                    var $list = $('<ul />', {'class': 'select-options option_'+selectName+''}).insertAfter($styledSelect);
-
-                    for (var i = 0; i < numberOfOptions; i++) {
-                        $('<li />', {
-                            text: $this.children('option').eq(i).text(),
-                            rel: $this.children('option').eq(i).val()
-                        }).appendTo($list);
-                    }
-
-                    var $listItems = $list.children('li');
-
-                    $styledSelect.click(function(e) {
-                        e.stopPropagation();
-                        $('div.select-styled.active').each(function(){
-                            $(this).removeClass('active').next('ul.select-options').hide();
-                        });
-                        $(this).toggleClass('active').next('ul.select-options').slideToggle(200);
-                    });
-
-                    $listItems.click(function(e) {
-                        e.stopPropagation();
-                        $styledSelect.text($(this).text()).removeClass('active');
-                        var selectedRel = $(this).attr('rel');
-                        $styledSelect.attr("rel", selectedRel);
-                        $this.val($(this).attr('rel'));
-                        //alert($(this).text());
-                        $list.hide();
-                        //console.log($this.val());
-                        if ($this.attr("id") == "provinceSelect"){
-                            $("#provinceSelect").val(parseInt(selectedRel, 10));
-                            ajaxHandler.sendRequest({
-                                url: 'getCitiesWithDistricts',
-                                type: 'POST',
-                                data: {'provinceIndex': $("#provinceSelect").val()},
-                                success: function(data){
-                                    $("#wrap_citySelect").remove();
-                                    $("#citySelectDiv").html('<select id="citySelect" name="applicant.companyCity" class="select-hidden"></select>');
-                                    selector.View.addCityOptions("#citySelect", data.cities);
-                                    projectApplication.select('select[id=citySelect]');
-
-                                    $("#wrap_districtSelect").remove();
-                                    $("#districtSelectDiv").html('<select id="districtSelect" name="applicant.companyDistrict" class="select-hidden"></select>');
-                                    selector.View.addDistrictOptions("#districtSelect", data.districts);
-                                    projectApplication.select('select[id=districtSelect]');
-
-                                },
-                                fail: function(data){
-                                }
-                            });
-
-                        }else if ($this.attr("id") == "citySelect"){
-                            $("#citySelect").val(parseInt(selectedRel, 10));
-                            ajaxHandler.sendRequest({
-                                url: 'getDistricts',
-                                type: 'POST',
-                                data: {'cityIndex': $("#citySelect").val()},
-                                success: function(data){
-                                    $("#wrap_districtSelect").remove();
-                                    $("#districtSelectDiv").html('<select id="districtSelect" name="applicant.companyDistrict" class="select-hidden"></select>');
-                                    selector.View.addDistrictOptions("#districtSelect", data);
-                                    projectApplication.select('select[id=districtSelect]');
-                                },
-                                fail: function(data){
-                                }
-                            });
-                        }else if($this.attr("id") == "districtSelect"){
-                            $("#districtSelect").val(parseInt(selectedRel, 10));
-                        }
-                    });
-
-                    $(document).click(function() {
-                        $styledSelect.removeClass('active');
-                        $list.hide();
-                    });
-
-                });
-
-            }
-            */
 
             $(function() {
                 selector.initSelect('select');

@@ -23,7 +23,7 @@ require(['../main'], function () {
                 $("#userManagementTab").click(function(){
                     var currentEditUser = userManagement.Model.currentEditUser;
                     if ( currentEditUser != ""){
-                        userProfile.Controller.emptyUserProfileView();
+                        userProfile.View.emptyUserProfileView();
                         userManagement.editUserProfile(currentEditUser);
                     }
                 });
@@ -32,7 +32,7 @@ require(['../main'], function () {
                 });
                 $("#userProfileTab").click(function(){
                     userManagement.View.emptyUserProfileEditView();
-                    userProfile.show();
+                    userProfile.Controller.showUserProfileView("", "#userProfileView");
                 });
                 $("#userPasswordTab").click(function(){
 
