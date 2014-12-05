@@ -6,8 +6,8 @@
  */
 
 require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'sannong', 'login', 'formValidator', 'additionalMethods', 'forgotPassword'],
-        function($, bootstrap, sannong, login, formValidator, additionalMethods, forgotPassword) {
+    require(['jquery', 'bootstrap', 'sannong', 'login', 'formValidator', 'additionalMethods'],
+        function($, bootstrap, sannong, login, formValidator, additionalMethods) {
 
             "use strict";
 

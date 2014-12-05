@@ -21,7 +21,6 @@ requirejs.config({
         "login": "app/modules/login",
         "clickHandler": "app/modules/click-handler",
         "userManagement": "app/modules/user-management",
-        "forgotPassword": "app/modules/forgot-password",
         "userApplicationForm": "app/modules/user-application-form",
         "userPassword": "app/modules/user-password",
         "userProfile": "app/modules/user-profile"
@@ -86,10 +85,6 @@ requirejs.config({
         "userManagement": {
             deps :['jquery'],
             exports : "userManagement"
-        },
-        "forgotPassword": {
-            deps :['jquery'],
-            exports : "forgotPassword"
         },
         "userApplicationForm": {
             deps :['jquery'],

@@ -2,67 +2,132 @@
  * Created by Bright Huang on 11/5/14.
  */
 
-define(['jquery', 'sannong', 'ajaxHandler', 'formValidator'], function($, sannong, ajaxHandler, formValidator) {
+define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValidator', 'additionalMethods'],
+    function($, bootstrap, sannong, validate, ajaxHandler, formValidator, additionalMethods) {
 
-    "use strict";
+        "use strict";
 
-    var login = {};
+        var login = {};
+        login.View = {};
 
-    function showLoginError(message){
-        $('#loginErrorMsg').remove();
-        $('#loginErrorContainer').append('<span id="loginErrorMsg">' + message + '</span>');
-    }
+        function showLoginError(message){
+            $('#loginErrorMsg').remove();
+            $('#loginErrorContainer').append('<span id="loginErrorMsg">' + message + '</span>');
+        }
 
-    function addEventListener(){
+        function showError(message){
+            $('#forgotPasswordErrorMsg').remove();
+            $('#forgotPasswordErrorContainer').append('<span id="forgotPasswordErrorMsg">' + message + '</span>');
+        }
 
-        $('.radioCustom input').click(function () {
-            $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
-            $(this).parent(".radioCustom").addClass("radioCustom-checked");
-        });
-
-        $('.checkboxCustom').click(function () {
-            $(this).toggleClass('checkboxCustom-checked');
-            var $checkbox = $(this).find(':checkbox');
-            $checkbox.attr('checked', !$checkbox.attr('checked'));
-        });
-
-        $('#forgotPasswordLink').click(function () {
-            $('#loginModalCloseBtn').click();
-        });
+        function showMessage(message){
+            showError(message);
+        }
 
 
-        $("#loginFormSubmit").click(function () {
-            var validator = formValidator.getValidator("#loginForm");
+        function addEventListener(){
 
-            if (validator.form() == true){
-                ajaxHandler.sendRequest({
-                    type: "POST",
-                    url: "j_spring_security_check",
-                    dataType: "json",
-                    data: {
-                        j_password: $("#j_password").val(),
-                        j_username: $("#j_username").val()
-                    },
-                    success: function (response) {
-                        if (response.statusCode < 2000) {
-                            window.location.href = response.models.redirect;
-                        } else {
-                            showLoginError(response.statusDescription);
+            $('.radioCustom input').click(function () {
+                $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
+                $(this).parent(".radioCustom").addClass("radioCustom-checked");
+            });
+
+            $('.checkboxCustom').click(function () {
+                $(this).toggleClass('checkboxCustom-checked');
+                var $checkbox = $(this).find(':checkbox');
+                $checkbox.attr('checked', !$checkbox.attr('checked'));
+            });
+
+            $('#forgotPasswordLink').click(function () {
+                $('#loginModalCloseBtn').click();
+            });
+
+
+            $("#loginFormSubmit").click(function () {
+                var validator = formValidator.getValidator("#loginForm");
+
+                if (validator.form() == true){
+                    ajaxHandler.sendRequest({
+                        type: "POST",
+                        url: "j_spring_security_check",
+                        dataType: "json",
+                        data: {
+                            j_password: $("#j_password").val(),
+                            j_username: $("#j_username").val()
+                        },
+                        success: function (response) {
+                            if (response.statusCode < 2000) {
+                                window.location.href = response.models.redirect;
+                            } else {
+                                showLoginError(response.statusDescription);
+                            }
+                        },
+                        fail: function (response) {
+                            showLoginError("提交请求失败");
                         }
-                    },
-                    fail: function (response) {
-                        showLoginError("提交请求失败");
-                    }
-                });
-            }
+                    });
+                }
+            });
+
+            $("#forgotPasswordForm_sendNewPasswordBtn").click(function(element){
+                var validator = formValidator.getValidator("#forgotPasswordForm");
+                validator.resetForm();
+                var realNameValid = validator.element($("#forgotPasswordForm_realName"));
+                var cellphoneValid = validator.element($("#forgotPasswordForm_cellphone"));
+                if ((cellphoneValid == true) && (realNameValid == true)){
+                    ajaxHandler.sendRequest({
+                        url: 'forgot-password/sendNewPasswordMessage',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            cellphone: $("#forgotPasswordForm_cellphone").val(),
+                            realName: $("#forgotPasswordForm_realName").val()
+                        },
+                        success: function(response){
+                            if (response.statusCode < 2000){
+                                showMessage(response.statusDescription)
+                                additionalMethods.updateTimeLabel("#forgotPasswordForm_sendNewPasswordBtn", "密码");
+                            }else{
+                                showError(response.statusDescription)
+                            }
+                        },
+                        fail: function(response){
+                            showError("发送新密码失败")
+                        }
+                    });
+                }
+            });
+
+            $("#forgotPasswordFormSubmit").click(function () {
+                if (formValidator.getValidator("#forgotPasswordForm").form() == true){
+                    ajaxHandler.sendRequest({
+                        type: "POST",
+                        url: "j_spring_security_check",
+                        dataType: "json",
+                        data: {
+                            j_username: $("#forgotPasswordForm_cellphone").val(),
+                            j_password: $("#forgotPasswordForm_password").val()
+                        },
+                        success: function (response) {
+                            if (response.statusCode < 2000) {
+                                window.location.href = response.models.redirect;
+                            } else {
+                                showError(response.statusDescription);
+                            }
+                        },
+                        fail: function (response) {
+                            showError("提交请求失败");
+                        }
+                    });
+                }
+            });
+        }
+
+        $(function() {
+            addEventListener();
         });
-    }
 
-    $(function() {
-        addEventListener();
-    });
-
-    sannong.Login = login;
-    return login;
+        sannong.Login = login;
+        return login;
 
 });
