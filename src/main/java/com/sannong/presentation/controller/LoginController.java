@@ -120,12 +120,23 @@ public class LoginController {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("cellphone", cellphone);
         paramMap.put("realName", realName);
+        paramMap1.put("cellphone", cellphone);
+        paramMap2.put("realName", realName);
 
         List<User> users = userService.getUserByCondition(paramMap);
+        List<User> users1 = userService.getUserByCondition(paramMap1);
+        List<User> users2 = userService.getUserByCondition(paramMap2);
+
         if (users.isEmpty()) {
-            return new Response(
-                    ResponseStatus.NAME_OR_CELLPHONE_NOT_FOUND.getStatusCode(),
-                    ResponseStatus.NAME_OR_CELLPHONE_NOT_FOUND.getStatusDescription());
+           if(!users1.isEmpty() && !users2.isEmpty()){
+        	return new Response(
+                        ResponseStatus.NAME_OR_CELLPHONE_MISMATCH.getStatusCode(),
+                        ResponseStatus.NAME_OR_CELLPHONE_MISMATCH.getStatusDescription());     
+           }else{
+        	return new Response(
+                        ResponseStatus.NAME_OR_CELLPHONE_NOT_FOUND.getStatusCode(),
+                        ResponseStatus.NAME_OR_CELLPHONE_NOT_FOUND.getStatusDescription());
+        	}
         } else {
             User user = users.get(0);
             if (!(user.getCellphone().equals(cellphone) && user.getRealName().equals(realName))) {
