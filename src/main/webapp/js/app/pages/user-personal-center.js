@@ -4,11 +4,11 @@
 require(['../main'], function () {
     require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler',
             'formValidator', 'additionalMethods', 'pagination', 'selector', 'jqueryForm',
-            'questionnaire', 'login', 'clickHandler', 'userManagement', 'userApplicationForm',
+            'questionnaire', 'login', 'eventHandler', 'userManagement', 'userApplicationForm',
             'userProfile', 'userPassword'],
         function($, bootstrap, handlebars, sannong, validate, ajaxHandler,
                  formValidator, additionalMethods, pagination, selector, jqueryForm,
-                 questionnaire, login, clickHandler, userManagement, userApplicationForm,
+                 questionnaire, login, eventHandler, userManagement, userApplicationForm,
                  userProfile, userPassword) {
 
             "use strict";
@@ -27,19 +27,14 @@ require(['../main'], function () {
                         userManagement.editUserProfile(currentEditUser);
                     }
                 });
-                $("#userAppFormTab").click(function(){
-
-                });
                 $("#userProfileTab").click(function(){
                     userManagement.View.emptyUserProfileEditView();
                     userProfile.Controller.showUserProfileView("", "#userProfileView");
                 });
-                $("#userPasswordTab").click(function(){
-
-                });
             }
 
             $(function() {
+                eventHandler.registerEventListener();
                 userPersonalCenter.init();
             })
 

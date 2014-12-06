@@ -43,6 +43,8 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
 
             };
 
+            // TODO: Made this function to public because it need to be called from user-management.jsp directly,
+            // TODO: We need to move to script from jsp to this file, and then move this function to Controller.
             userManagement.editUserProfile = function(userName){
                 userManagement.Model.currentEditUser = userName;
                 userManagement.View.showUserProfileEditView();

@@ -110,7 +110,7 @@
             <div class="row">
               <aside class="userFormCol-1">新手机号码</aside>
               <aside class="userFormCol-right"><input type="text" class="width-281" id="newCellphone"  name="newCellphone" placeholder="新手机号码"></aside>
-              <a href="javascript:void(0)" class="btn btn-default" role="button" id="validationCodeBtn" name="validationCodeBtn">获取验证码</a>
+              <a href="javascript:void(0)" class="btn btn-default meta-event-source" role="button" id="validationCodeBtn" name="validationCodeBtn" meta-event-handler="userProfile:handleValidationCodeClicked">获取验证码</a>
             </div>
             <div class="row">
               <aside class="userFormCol-1">验证码</aside>
@@ -124,7 +124,7 @@
         </sec:authorize>
         <div class="row">
             <span>
-          <input type="button" id="userProfileSubmit" value="提交"/>
+          <input type="button" id="userProfileSubmit" value="提交" class="meta-event-source" meta-event-handler="userProfile:handleFormSubmit"/>
           <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
             <a href="#" id="userProfileCancel" class="white-bt hidden">返回</a>
           </sec:authorize>
