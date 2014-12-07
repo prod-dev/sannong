@@ -1296,13 +1296,21 @@ width:100%;
 	min-height:inherit !important;
 	padding:15px 30px 0 !important;
 }
-input.model-input-75, input.model-input {
+input.model-input {
+	line-height:45px;
+	border-radius:30px;
+	padding:0 20px;
+	width:100% !important;
+    height:47px !important;
+}
+input.model-input-75{
 	line-height:45px;
 	border-radius:30px;
 	padding:0 20px;
 	width:75% !important;
-    height:47px !important;
+	height:47px !important;
 }
+
 .modal-body input.model-input-75 {
 	border-radius:30px 0 0 30px;
 	border-right:0;

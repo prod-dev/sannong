@@ -84,9 +84,6 @@
                     <input id="forgotPasswordFormSubmit" type="button" value="登录" class="orange-bt"/>
                 </form>
             </div>
-            <div class="modal-footer">
-                <a href="project-landing">返回首页</a>
-            </div>
         </div>
     </div>
 </div>
