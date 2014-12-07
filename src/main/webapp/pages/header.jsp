@@ -51,8 +51,8 @@
                 </div>
                 <div class="modal-body">
                     <form id="loginForm" role="form" action="j_spring_security_check" method="POST">
-                        <span class="errorMsg" id="loginErrorContainer"><span id="loginErrorMsg"></span></span>
-                        <input type="text" id="j_username" name='j_username' placeholder="用户名/电话号码" class="model-input" />
+                        <span class="errorMsg" id="loginErrorContainer"></span>
+                        <input type="text" id="j_username" name='j_username' placeholder="手机号码" class="model-input" />
                         <input type="password" id="j_password" name='j_password' placeholder="密码" class="model-input" />
                         <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span>
                         <a href="#" class="leftBorderLink" id="forgotPasswordLink" data-toggle="modal" data-target="#forgotPasswordModel">忘记密码</a>
@@ -75,11 +75,11 @@
             </div>
             <div class="modal-body">
                 <form id="forgotPasswordForm" role="form" action="j_spring_security_check" method="POST">
-                    <span class="errorMsg" id="forgotPasswordErrorContainer"><span id="forgotPasswordErrorMsg"></span></span>
+                    <span class="errorMsg" id="forgotPasswordErrorContainer"></span></span>
                     <input type="text" name="realName" id="forgotPasswordForm_realName" placeholder="姓名" class="model-input" />
                     <input type="text" name='j_username' id="forgotPasswordForm_cellphone" placeholder="手机号码" class="model-input-75" />
                     <a href="#" id="forgotPasswordForm_sendNewPasswordBtn" class="white-bt">获取新密码</a>
-                    <input type="text" name="j_password" id="forgotPasswordForm_password" placeholder="新密码" class="model-input margin-top-15" />
+                    <input type="password" name="j_password" id="forgotPasswordForm_password" placeholder="新密码" class="model-input margin-top-15" />
                     <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span>
                     <input id="forgotPasswordFormSubmit" type="button" value="登录" class="orange-bt"/>
                 </form>

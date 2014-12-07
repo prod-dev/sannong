@@ -10,8 +10,8 @@ define(['jquery', 'sannong'], function($, sannong) {
 
     formValidator.getLoginValidator = function(formName){
         var validator = $(formName).validate({
+            errorElement:"em",
             rules: {
-
                 j_username: {
                     required: true,
                     isCellphone: true
@@ -23,12 +23,11 @@ define(['jquery', 'sannong'], function($, sannong) {
             },
             messages: {
                 j_username: {
-                    required: "必填",
-                    remote: "姓名或手机号码不存在",
+                    required: "手机号码不能为空",
                     isCellphone: "请正确填写您的手机号码"
                 },
                 j_password: {
-                    required: "必填",
+                    required: "密码不能为空",
                     minlength: $.validator.format("密码不能小于{0}个字符")
                 }
             },
@@ -37,14 +36,56 @@ define(['jquery', 'sannong'], function($, sannong) {
             errorPlacement:function(error,element) {
                 error.insertAfter(element);
             },
-            errorContainer: "#errorMsgContainer",
-            errorLabelContainer: $("#errorMsgContainer"),
+            errorContainer: "span.errorMsg",
+            errorLabelContainer: $("#loginForm span.errorMsg"),
+            wrapper: "span",
             submitHandler:function(form){
                 form.submit();
             }
         });
         return validator;
+    }
 
+    formValidator.getForgotPasswordValidator = function(formName){
+        var validator = $(formName).validate({
+            errorElement:"em",
+            rules: {
+                realName: {
+                    required: true
+                },
+                j_username: {
+                    required: true,
+                    isCellphone: true
+                },
+                j_password: {
+                    required: true,
+                    minlength: 6
+                }
+            },
+            messages: {
+                realName: {required: "姓名不能为空"},
+                j_username: {
+                    required: "手机号码不能为空",
+                    isCellphone: "请正确填写您的手机号码"
+                },
+                j_password: {
+                    required: "密码不能为空",
+                    minlength: $.validator.format("密码不能小于{0}个字符")
+                }
+            },
+            success: function(label) {
+            },
+            errorPlacement:function(error,element) {
+                error.insertAfter(element);
+            },
+            errorContainer: "span.errorMsg",
+            errorLabelContainer: $("#forgotPasswordForm span.errorMsg"),
+            wrapper: "span",
+            submitHandler:function(form){
+                form.submit();
+            }
+        });
+        return validator;
     }
 
     formValidator.getValidator = function(formName){

@@ -44,8 +44,8 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
 
 
             $("#loginFormSubmit").click(function () {
-                var validator = formValidator.getValidator("#loginForm");
-
+                var validator = formValidator.getLoginValidator("#loginForm");
+                validator.resetForm();
                 if (validator.form() == true){
                     ajaxHandler.sendRequest({
                         type: "POST",
@@ -70,7 +70,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
             });
 
             $("#forgotPasswordForm_sendNewPasswordBtn").click(function(element){
-                var validator = formValidator.getValidator("#forgotPasswordForm");
+                var validator = formValidator.getForgotPasswordValidator("#forgotPasswordForm");
                 validator.resetForm();
                 var realNameValid = validator.element($("#forgotPasswordForm_realName"));
                 var cellphoneValid = validator.element($("#forgotPasswordForm_cellphone"));
@@ -99,7 +99,9 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
             });
 
             $("#forgotPasswordFormSubmit").click(function () {
-                if (formValidator.getValidator("#forgotPasswordForm").form() == true){
+                var validator = formValidator.getForgotPasswordValidator("#forgotPasswordForm");
+                validator.resetForm();
+                if (validator.form() == true){
                     ajaxHandler.sendRequest({
                         type: "POST",
                         url: "j_spring_security_check",
