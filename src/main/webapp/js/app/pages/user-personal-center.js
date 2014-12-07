@@ -24,7 +24,7 @@ require(['../main'], function () {
                     var currentEditUser = userManagement.Model.currentEditUser;
                     if ( currentEditUser != ""){
                         userProfile.View.emptyUserProfileView();
-                        userManagement.editUserProfile(currentEditUser);
+                        userManagement.Controller.editUserProfile(currentEditUser);
                     }
                 });
                 $("#userProfileTab").click(function(){

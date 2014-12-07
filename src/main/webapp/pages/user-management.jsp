@@ -32,7 +32,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<a href="javascript:void(0)" class="btn btn-success" id="exportCSV">确定</a>
+					<a href="javascript:void(0)" class="btn btn-success meta-event-source" meta-event-handler="userManagement:exportCSV" id="exportCSV">确定</a>
 				</div>
 			</div>
 		</div>
@@ -107,7 +107,7 @@
 						<option value="">县/市辖区</option>
 					</select>
 				</div>
-				<a id="retrieve" href="javascript:void(0);" class="glyphicon glyphicon-search"></a>
+				<a id="retrieve" href="javascript:void(0);" class="glyphicon glyphicon-search meta-event-source" meta-event-handler="userManagement:retrieve"></a>
 			</div>
 		</div>
 
@@ -125,12 +125,11 @@
 			</li>
 		</ul>
 		<ul id="pagination" class="customPagination">
-			<li><a id="previous" href="javascript:void(0);" class="bt back"></a>
+			<li><a id="previous" href="javascript:void(0);" class="bt back meta-event-source" meta-event-handler="userManagement-previous"></a>
 			</li>
 			<li><label id="currentPage">1</label>/<label id="totalPage">6</label>
 			</li>
-			<li><a id="next" href="javascript:void(0);"
-				class="bt next activeBt"></a>
+			<li><a id="next" href="javascript:void(0);" class="bt next activeBt meta-event-source" meta-event-handler="userManagement-next"></a>
 			</li>
 		</ul>
 		<input type="hidden" id="cellphone">
@@ -150,21 +149,15 @@
 		</div>
 
 		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a id="q1"
-				href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集</a></li>
-			<li role="presentation"><a id="q2" href="javascript:void(0)"
-				role="tab" data-toggle="tab">问卷题集二</a></li>
-			<li role="presentation"><a id="q3" href="javascript:void(0)"
-				role="tab" data-toggle="tab">问卷题集三</a></li>
-			<li role="presentation"><a id="q4" href="javascript:void(0)"
-				role="tab" data-toggle="tab">问卷题集四</a></li>
-			<li role="presentation"><a id="q5" href="javascript:void(0)"
-				role="tab" data-toggle="tab">问卷题集五</a></li>
+			<li role="presentation" class="active"><a id="q1" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q1">问卷题集</a></li>
+			<li role="presentation"><a id="q2" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q2">问卷题集二</a></li>
+			<li role="presentation"><a id="q3" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q3">问卷题集三</a></li>
+			<li role="presentation"><a id="q4" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q4">问卷题集四</a></li>
+			<li role="presentation"><a id="q5" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q5">问卷题集五</a></li>
 		</ul>
 		<div class="tab-content">
 			<ul class="steps">
-				<li class="active"><span class="no">1</span> <span
-					class="stepHeading">问卷题集-</span>
+				<li class="active"><span class="no">1</span> <span class="stepHeading">问卷题集-</span>
 				</li>
 				<li><span class="no">2</span> <span class="stepHeading">问卷题集-</span>
 				</li>
@@ -193,8 +186,8 @@
 			</ul>
 		</div>
 		<br>
-		<button class="orange-bt-small" id="cancel">取消</button>
-		<button class="orange-bt-small" id="update">更新</button>
+		<button class="orange-bt-small meta-event-source" meta-event-handler="userManagement:cancel" id="cancel">取消</button>
+		<button class="orange-bt-small meta-event-source" meta-event-handler="userManagement:update" id="update">更新</button>
 		<!-- Button trigger modal -->
 		<button type="button" id="myModalTrigger" class="btn btn-primary"
 			data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
@@ -212,7 +205,7 @@
 					<div class="modal-footer">
 						<button id="return" type="button" class="btn btn-default"
 							data-dismiss="modal">返回</button>
-						<button type="submit" id="submit" class="btn btn-success">提交</button>
+						<button type="submit" id="submit" class="btn btn-success meta-event-source" meta-event-handler="userManagement:submit">提交</button>
 					</div>
 				</div>
 			</div>
@@ -230,8 +223,8 @@
                 <div class="col-medium">{{mailbox}}</div>
                 <div class="col-small">
                   <span class="bts">
-                    <a href="javascript:void(0);" class="edit" onclick="Sannong.UserManagement.editUserProfile('{{userName}}')">Edit</a>
-                    <a href="javascript:void(0);" class="help" onclick="Sannong.UserManagement.showQuestionnaireAnswers(1,'{{cellphone}}')">Help</a>
+                    <a href="javascript:void(0);" class="edit" onclick="Sannong.UserManagement.Controller.editUserProfile('{{userName}}')">Edit</a>
+                    <a href="javascript:void(0);" class="help" onclick="Sannong.UserManagement.Controller.showQuestionnaireAnswers(1,'{{cellphone}}')">Help</a>
                   </span>
                 </div>
            </li>
