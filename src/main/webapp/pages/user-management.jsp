@@ -125,11 +125,11 @@
 			</li>
 		</ul>
 		<ul id="pagination" class="customPagination">
-			<li><a id="previous" href="javascript:void(0);" class="bt back meta-event-source" meta-event-handler="userManagement-previous"></a>
+			<li><a id="previous" href="javascript:void(0);" class="bt back meta-event-source" meta-event-handler="userManagement:previous"></a>
 			</li>
 			<li><label id="currentPage">1</label>/<label id="totalPage">6</label>
 			</li>
-			<li><a id="next" href="javascript:void(0);" class="bt next activeBt meta-event-source" meta-event-handler="userManagement-next"></a>
+			<li><a id="next" href="javascript:void(0);" class="bt next activeBt meta-event-source" meta-event-handler="userManagement:next"></a>
 			</li>
 		</ul>
 		<input type="hidden" id="cellphone">
