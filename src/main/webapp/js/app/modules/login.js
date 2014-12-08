@@ -45,7 +45,6 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
 
             $("#loginFormSubmit").click(function () {
                 var validator = formValidator.getLoginValidator("#loginForm");
-                validator.resetForm();
                 if (validator.form() == true){
                     ajaxHandler.sendRequest({
                         type: "POST",
@@ -71,7 +70,6 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
 
             $("#forgotPasswordForm_sendNewPasswordBtn").click(function(element){
                 var validator = formValidator.getForgotPasswordValidator("#forgotPasswordForm");
-                validator.resetForm();
                 var realNameValid = validator.element($("#forgotPasswordForm_realName"));
                 var cellphoneValid = validator.element($("#forgotPasswordForm_cellphone"));
                 if ((cellphoneValid == true) && (realNameValid == true)){
@@ -100,7 +98,6 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
 
             $("#forgotPasswordFormSubmit").click(function () {
                 var validator = formValidator.getForgotPasswordValidator("#forgotPasswordForm");
-                validator.resetForm();
                 if (validator.form() == true){
                     ajaxHandler.sendRequest({
                         type: "POST",
