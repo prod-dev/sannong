@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Benefitting Agriculture - User Management List Page</title>
 </head>
@@ -113,12 +113,12 @@
 
 		<ul class="umListGrid">
 			<li class="head">
-				<div class="col-small">姓名</div>
-				<div class="col-small">注册日期</div>
-				<div class="col-small">手机号码</div>
-				<div class="col-large">工作单位</div>
-				<div class="col-small">职位</div>
-				<div class="col-medium">电子邮箱</div>
+				<div class="col-small"><a id="usersTitleName">姓名</a></div>
+				<div class="col-small"><a id="usersTitleCreateDate">注册日期</a></div>
+				<div class="col-small"><a id="usersTitleCellphone">手机号码</a></div>
+				<div class="col-large"><a id="userTitleCompany">工作单位</a></div>
+				<div class="col-small"><a id="usersTitleJobTitle">职位</a></div>
+				<div class="col-medium"><a id="usersTitleMailbox">电子邮箱</a></div>
 				<div class="col-small"></div></li>
 			<li>
 				<div id="userList"></div>
