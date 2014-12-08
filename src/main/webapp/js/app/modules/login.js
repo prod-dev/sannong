@@ -52,7 +52,9 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         dataType: "json",
                         data: {
                             j_password: $("#j_password").val(),
-                            j_username: $("#j_username").val()
+                            j_username: $("#j_username").val(),
+                            _spring_security_remember_me: $("#_spring_security_remember_me").val()
+
                         },
                         success: function (response) {
                             if (response.statusCode < 2000) {
@@ -105,7 +107,8 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         dataType: "json",
                         data: {
                             j_username: $("#forgotPasswordForm_cellphone").val(),
-                            j_password: $("#forgotPasswordForm_password").val()
+                            j_password: $("#forgotPasswordForm_password").val(),
+                            _spring_security_remember_me: $("#forgotPasswordForm_spring_security_remember_me").val()
                         },
                         success: function (response) {
                             if (response.statusCode < 2000) {

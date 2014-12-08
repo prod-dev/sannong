@@ -54,7 +54,7 @@
                         <span class="errorMsg" id="loginErrorContainer"></span>
                         <input type="text" id="j_username" name='j_username' placeholder="手机号码" class="model-input" />
                         <input type="password" id="j_password" name='j_password' placeholder="密码" class="model-input" />
-                        <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span>
+                        <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me' id="_spring_security_remember_me"/>自动登录</span>
                         <a href="#" class="leftBorderLink" id="forgotPasswordLink" data-toggle="modal" data-target="#forgotPasswordModel">忘记密码</a>
                         <input id="loginFormSubmit" type="button" value="登录" class="orange-bt"/>
                     </form>
@@ -80,7 +80,7 @@
                     <input type="text" name='j_username' id="forgotPasswordForm_cellphone" placeholder="手机号码" class="model-input-75" />
                     <a href="#" id="forgotPasswordForm_sendNewPasswordBtn" class="white-bt">获取新密码</a>
                     <input type="password" name="j_password" id="forgotPasswordForm_password" placeholder="新密码" class="model-input margin-top-15" />
-                    <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me'/>自动登录</span>
+                    <span class="checkboxCustom"><input type="checkbox" name='_spring_security_remember_me' id="forgotPasswordForm_spring_security_remember_me"/>自动登录</span>
                     <input id="forgotPasswordFormSubmit" type="button" value="登录" class="orange-bt"/>
                 </form>
             </div>

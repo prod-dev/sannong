@@ -87,7 +87,24 @@
                  <b:property name="defaultFailureUrl" value="/login-failure" />
                  <b:property name="useForward" value="true" />
              </b:bean>
-     </b:property>
+        </b:property>
+
+        <b:property name="rememberMeServices" ref="rememberMeServices"/>
+    </b:bean>
+
+    <b:bean id="tokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl">
+        <b:property name="dataSource" ref="dataSource"/>
+        <b:property name="createTableOnStartup" value="false"/>
+    </b:bean>
+
+    <b:bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+        <b:property name="dataSource" ref="dataSource"/>
+    </b:bean>
+
+    <b:bean id="rememberMeServices" class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
+        <b:property name="userDetailsService" ref="userDetailsService"/>
+        <b:property name="tokenRepository" ref="tokenRepository"/>
+        <b:property name="key" value="spring-security-private-key"/>
     </b:bean>
 
     <!--   事件监听:实现了 ApplicationListener监听接口，包括AuthenticationCredentialsNotFoundEvent 事件，
@@ -100,11 +117,8 @@
 
     <b:bean id="webexpressionHandler"
             class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
-    <!--
-    <b:bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
-        <b:property name="dataSource" ref="dataSource"/>
-    </b:bean>
-    -->
+
+
 </b:beans>
 
 

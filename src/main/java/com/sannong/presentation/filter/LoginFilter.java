@@ -6,7 +6,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,5 +47,10 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         }
 
         return authentication;
+    }
+
+    public void setRememberMeServices(RememberMeServices rememberMeServices) {
+
+        super.setRememberMeServices(rememberMeServices);
     }
 }

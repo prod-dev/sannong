@@ -59,17 +59,6 @@ define(['jquery', 'sannong'], function($, sannong) {
         $(document).on('click', eventHandler.eventSource, function (event) {
             eventHandler.publish(event);
         });
-        /*
-         $(document).on({
-         click: function (event) {
-         userPersonalCenter.dispatch(event);
-
-         },
-         change: function(event){
-
-         }
-         });
-         */
     };
 
     eventHandler.subscribe = function (name, callback) {
