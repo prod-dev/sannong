@@ -4,9 +4,11 @@
 
 require(['../main'], function () {
     require(['jquery', 'bootstrap', 'handlebars', 'sannong', 'login', 'validate', 'ajaxHandler',
-            'questionnaire', 'jqueryForm', 'formValidator', 'selector', 'additionalMethods'],
+            'questionnaire', 'jqueryForm', 'formValidator', 'selector', 'additionalMethods',
+            'custom', 'html5shiv', 'respond'],
         function($, bootstrap, handlebars, sannong, login, validate, ajaxHandler,
-                 questionnaire, jqueryForm, formValidator, selector, additionalMethods) {
+                 questionnaire, jqueryForm, formValidator, selector, additionalMethods,
+                 custom, html5shiv, respond) {
 
             "use strict";
 

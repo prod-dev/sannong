@@ -23,7 +23,15 @@ requirejs.config({
         "userManagement": "app/modules/user-management",
         "userApplicationForm": "app/modules/user-application-form",
         "userPassword": "app/modules/user-password",
-        "userProfile": "app/modules/user-profile"
+        "userProfile": "app/modules/user-profile",
+        "custom": "app/modules/custom",
+        "slider": "app/modules/slider",
+        "html5shiv": "lib/html5shiv.min",
+        "jcarouselResponsive": "lib/jcarousel.responsive",
+        "jqueryJcarousel": "lib/jquery.jcarousel.min",
+        "npm": "lib/npm",
+        "owlCarousel": "lib/owl.carousel",
+        "respond": "lib/respond.min"
     },
     shim: {
         'bootstrap' : {
@@ -97,6 +105,38 @@ requirejs.config({
         "userProfile": {
             deps :['jquery'],
             exports : "userProfile"
+        },
+        "custom": {
+            deps :['jquery'],
+            exports : "custom"
+        },
+        "slider": {
+            deps :['jquery'],
+            exports : "slider"
+        },
+        "html5shiv": {
+            deps :['jquery'],
+            exports : "html5shiv"
+        },
+        "jcarouselResponsive": {
+            deps :['jquery'],
+            exports : "jcarouselResponsive"
+        },
+        "jqueryJcarousel": {
+            deps :['jquery'],
+            exports : "jqueryJcarousel"
+        },
+        "npm": {
+            deps :['jquery'],
+            exports : "npm"
+        },
+        "owlCarousel": {
+            deps :['jquery'],
+            exports : "owlCarousel"
+        },
+        "respond": {
+            deps :['jquery'],
+            exports : "respond"
         }
     }
 });

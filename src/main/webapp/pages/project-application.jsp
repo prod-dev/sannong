@@ -246,15 +246,5 @@
 
     <jsp:include page='footer.jsp'/>
     <script data-main="js/app/pages/project-application" src="js/lib/require-2.1.15.min.js"></script>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-
-    <script src="js/custom.js"></script>
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.min.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
     </body>
 </html>

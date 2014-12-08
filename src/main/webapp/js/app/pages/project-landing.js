@@ -6,8 +6,10 @@
  */
 
 require(['../main'], function () {
-    require(['jquery', 'bootstrap', 'sannong', 'login', 'formValidator', 'additionalMethods'],
-        function($, bootstrap, sannong, login, formValidator, additionalMethods) {
+    require(['jquery', 'bootstrap', 'sannong', 'login', 'formValidator', 'additionalMethods',
+            'custom', 'html5shiv', 'respond'],
+        function($, bootstrap, sannong, login, formValidator, additionalMethods,
+                 custom, html5shiv, respond) {
 
             "use strict";
 
