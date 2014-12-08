@@ -6,6 +6,12 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
 
     "use strict";
 
+    if(!String.prototype.trim){
+    	String.prototype.trim = function() {
+    		return this.replace(/(^\s*)|(\s*$)/g, "");
+    	}
+    }
+    
     var questionnaire = {};
 
     questionnaire.showQuestionnaire = function(){
@@ -38,9 +44,10 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 	}
                 	$("#questionnaire").append(html);
                 }
-
+                
                 $("#questionnaire").find(".checkboxCustom").each(function(){
                     var checkbox = $(this).text();
+                    
                     if (checkbox.trim() == ""){
                         $(this).remove();
                     }
