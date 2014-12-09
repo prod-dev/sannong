@@ -536,13 +536,21 @@ a:hover h4 {
 .userForm .white-bt, .projectAppForm .white-bt {
 	margin-top:-7px;
 }
-.userForm #userProfileCancel.white-bt{
+.userForm #userProfileCancel.white-bt, #cancel.white-bt{
 	height: 38px;
 	padding: 0 40px;
 	border:1px solid #d7dde1;
 	outline: none;
 	margin-left: 18px;
 	margin-top: 15px;
+}
+#update.orange-bt-small{
+    height: 38px;
+    padding: 0 40px;
+    border:1px solid #e6552e;
+    outline: none;
+    margin-left: 18px;
+    margin-top: 15px;
 }
 
 .projectAppForm .white-bt {

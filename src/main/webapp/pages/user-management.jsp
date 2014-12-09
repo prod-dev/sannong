@@ -186,7 +186,7 @@
 			</ul>
 		</div>
 		<br>
-		<button class="orange-bt-small meta-event-source" meta-event-handler="userManagement:cancel" id="cancel">取消</button>
+        <a href="#" class="white-bt meta-event-source" meta-event-handler="userManagement:cancel" id="cancel">取消</a>
 		<button class="orange-bt-small meta-event-source" meta-event-handler="userManagement:update" id="update">更新</button>
 		<!-- Button trigger modal -->
 		<button type="button" id="myModalTrigger" class="btn btn-primary"
