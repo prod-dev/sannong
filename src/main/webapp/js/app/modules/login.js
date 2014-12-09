@@ -30,17 +30,17 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
             $('.radioCustom input').click(function () {
                 $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
                 $(this).parent(".radioCustom").addClass("radioCustom-checked");
-            });
+            })
 
             $('.checkboxCustom').click(function () {
                 $(this).toggleClass('checkboxCustom-checked');
                 var $checkbox = $(this).find(':checkbox');
                 $checkbox.attr('checked', !$checkbox.attr('checked'));
-            });
+            })
 
             $('#forgotPasswordLink').click(function () {
                 $('#loginModalCloseBtn').click();
-            });
+            })
 
 
             $("#loginFormSubmit").click(function () {
@@ -53,7 +53,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         data: {
                             j_password: $("#j_password").val(),
                             j_username: $("#j_username").val(),
-                            _spring_security_remember_me: $("#_spring_security_remember_me").val()
+                            _spring_security_remember_me: $("#_spring_security_remember_me").prop("checked")
 
                         },
                         success: function (response) {
@@ -68,7 +68,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         }
                     });
                 }
-            });
+            })
 
             $("#forgotPasswordForm_sendNewPasswordBtn").click(function(element){
                 var validator = formValidator.getForgotPasswordValidator("#forgotPasswordForm");
@@ -96,7 +96,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         }
                     });
                 }
-            });
+            })
 
             $("#forgotPasswordFormSubmit").click(function () {
                 var validator = formValidator.getForgotPasswordValidator("#forgotPasswordForm");
@@ -108,7 +108,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         data: {
                             j_username: $("#forgotPasswordForm_cellphone").val(),
                             j_password: $("#forgotPasswordForm_password").val(),
-                            _spring_security_remember_me: $("#forgotPasswordForm_spring_security_remember_me").val()
+                            _spring_security_remember_me: $("#forgotPasswordForm_spring_security_remember_me").prop("checked")
                         },
                         success: function (response) {
                             if (response.statusCode < 2000) {
@@ -122,7 +122,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         }
                     });
                 }
-            });
+            })
         }
 
         $(function() {

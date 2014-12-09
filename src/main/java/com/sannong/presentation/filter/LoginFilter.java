@@ -53,4 +53,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         super.setRememberMeServices(rememberMeServices);
     }
+
+    public RememberMeServices getRememberMeServices() {
+        return super.getRememberMeServices();
+    }
 }

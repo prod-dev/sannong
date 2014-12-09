@@ -44,7 +44,10 @@
         <!-- admin enabled="true"></admin -->
         <sec:intercept-url pattern="/user-management" access="ROLE_ADMIN"/>
 
-        <custom-filter before="FORM_LOGIN_FILTER" ref="loginFilter" />
+        <!--
+        <sec:custom-filter before="FORM_LOGIN_FILTER" ref="loginFilter" />
+        -->
+        <sec:custom-filter before="FORM_LOGIN_FILTER" ref="loginFilter" />
 
         <sec:form-login login-page="/project-landing"
                     authentication-failure-url="/login-failure"
