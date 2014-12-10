@@ -64,7 +64,8 @@
         </div>
 
         <div id="buttonGroup" class="float-right step-1-bts">
-          <button class="orange-bt-small" type="button" id="save">保存</button>
+          <%--<button class="white-bt" type="button" id="save">暂存</button>--%>
+          <a href="#" class="white-bt" type="button" id="save">暂存</a>
           <button class="orange-bt-small" type="button" id="questionnaireSubmit">提交</button>
         </div>
       </div>
@@ -78,10 +79,10 @@
                      <h4 class="modal-title" id="myModalLabel">提示</h4>
                  </div>
                  <div class="modal-body">提交后即不可以再修改。如要修改，需要电话联系我们的工作人员。你确定提交吗？</div>
-                 <div class="modal-footer">
-                     <button id="return" type="button" class="btn btn-default" data-dismiss="modal">返回</button>
-                     <button type="submit" id="dialogSubmit" class="btn btn-success">提交</button>
-                 </div>
+                  <div class="buttonsRow">
+                     <button id="return" type="button" class="white-bt" data-dismiss="modal">返回</button>
+                     <button type="submit" id="dialogSubmit" class="orange-bt">提交</button>
+                  </div>
             </div>
         </div>
       </div>

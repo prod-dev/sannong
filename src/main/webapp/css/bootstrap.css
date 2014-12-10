@@ -6911,8 +6911,7 @@ a.leftBorderLink {
 .buttonsRow .white-bt {
 	display:inline-block;
 	float:none;
-	border-radius: 40px;	
-	display: inline-block;
+	border-radius: 40px;
 	font-size: 32px;
 	padding: 5px 40px;	
 }

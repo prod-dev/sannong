@@ -110,7 +110,7 @@
             <div class="row">
               <aside class="userFormCol-1">新手机号码</aside>
               <aside class="userFormCol-right"><input type="text" class="width-281" id="newCellphone"  name="newCellphone" placeholder="新手机号码"></aside>
-              <a href="javascript:void(0)" class="btn btn-default meta-event-source" role="button" id="validationCodeBtn" name="validationCodeBtn" meta-event-handler="userProfile:handleValidationCodeClicked">获取验证码</a>
+              <a href="javascript:void(0)" class="white-bt meta-event-source" role="button" id="validationCodeBtn" name="validationCodeBtn" meta-event-handler="userProfile:handleValidationCodeClicked">获取验证码</a>
             </div>
             <div class="row">
               <aside class="userFormCol-1">验证码</aside>

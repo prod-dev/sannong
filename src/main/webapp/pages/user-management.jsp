@@ -30,9 +30,9 @@
 						aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabelTitle">确定导出问卷调查结果?</h4>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-					<a href="javascript:void(0)" class="btn btn-success meta-event-source" meta-event-handler="userManagement:exportCSV" id="exportCSV">确定</a>
+				<div class="buttonsRow">
+					<button type="button" class="white-bt" data-dismiss="modal">取消</button>
+					<a href="javascript:void(0)" class="orange-bt meta-event-source" meta-event-handler="userManagement:exportCSV" id="exportCSV">确定</a>
 				</div>
 			</div>
 		</div>
@@ -202,10 +202,9 @@
 						<h4 class="modal-title" id="myModalLabel">提示</h4>
 					</div>
 					<div class="modal-body">你确认要更新调查问卷答案和状态吗？</div>
-					<div class="modal-footer">
-						<button id="return" type="button" class="btn btn-default"
-							data-dismiss="modal">返回</button>
-						<button type="submit" id="submit" class="btn btn-success meta-event-source" meta-event-handler="userManagement:submit">提交</button>
+					<div class="buttonsRow">
+						<button id="return" type="button" class="white-bt" data-dismiss="modal">返回</button>
+						<button type="submit" id="submit" class="orange-bt meta-event-source" meta-event-handler="userManagement:submit">提交</button>
 					</div>
 				</div>
 			</div>

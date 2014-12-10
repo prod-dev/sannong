@@ -380,12 +380,12 @@ input[type="button"], .orange-bt-small{
 	outline: none;
 }
 
-.buttonsRow button[type=submit].orange-bt, button[type=button].white-bt{
+.buttonsRow button[type=submit].orange-bt, button[type=button].white-bt, #exportCSV{
 	line-height:38px;
 	font-size:20px;
 	margin: 5px;
+    outline: none;
 }
-
 .orange-bt-small {
 	padding:0 27px;
 }
@@ -535,6 +535,10 @@ a:hover h4 {
 }
 .userForm .white-bt, .projectAppForm .white-bt {
 	margin-top:-7px;
+}
+.userForm #validationCodeBtn.white-bt {
+    margin-top:-3px;
+    margin-left:3px;
 }
 .userForm #userProfileCancel.white-bt, #cancel.white-bt{
 	height: 38px;
