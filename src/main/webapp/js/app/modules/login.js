@@ -11,13 +11,15 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
         login.View = {};
 
         function showLoginError(message){
-            $('#loginErrorMsg').remove();
-            $('#loginErrorContainer').append('<span id="loginErrorMsg">' + message + '</span>');
+            $('#loginForm .errorMsg span').remove();
+            $('#loginErrorContainer').append('<span><em id="loginError" class="error" style="display: inline;">' + message + '</em></span>');
+            $('#loginForm .errorMsg').show();
         }
 
         function showError(message){
-            $('#forgotPasswordErrorMsg').remove();
-            $('#forgotPasswordErrorContainer').append('<span id="forgotPasswordErrorMsg">' + message + '</span>');
+            $('#forgotPasswordForm .errorMsg span').remove();
+            $('#forgotPasswordErrorContainer').append('<span><em id="forgotPasswordError" class="error" style="display: inline;">' + message + '</em></span>');
+            $('#forgotPasswordForm .errorMsg').show();
         }
 
         function showMessage(message){
