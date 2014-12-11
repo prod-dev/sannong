@@ -6912,6 +6912,7 @@ a.leftBorderLink {
 	display:inline-block;
 	float:none;
 	border-radius: 40px;
+	display:inline-block;
 	font-size: 32px;
 	padding: 5px 40px;	
 }
