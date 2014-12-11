@@ -84,7 +84,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
             });
             
             $(function() {
-                questionnaire.showQuestions(1);
+                // questionnaire.showQuestions(1);
             });
 
             sannong.UserApplicationForm = userApplicationForm;
