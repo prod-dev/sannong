@@ -64,8 +64,8 @@ public class ProjectApplicationController {
         return new ModelAndView(PROJECT_APPLICATION_COMPLETION_PAGE, models);
     }
 
-    @RequestMapping(value = "apply", method = RequestMethod.POST)
-    public ModelAndView apply(@ModelAttribute("projectAppForm") Application application) throws Exception {
+    @RequestMapping(value = "makeApplication", method = RequestMethod.POST)
+    public ModelAndView makeApplication(@ModelAttribute("projectAppForm") Application application) throws Exception {
 
         projectService.projectApplication(application);
         return new ModelAndView(PROJECT_APPLICATION_COMPLETION_PAGE);
