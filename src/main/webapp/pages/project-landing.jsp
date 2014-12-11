@@ -37,7 +37,7 @@
               <hr/>
               <a href="project-application" class="orange-bt">项目申请</a>
               <ul>
-                <li><a href="faq">有更多问题？请看</a></li>
+                <li>有更多问题？请看</li>
                 <li><a href="faq">常见问题</a></li>
               </ul>
             </span>

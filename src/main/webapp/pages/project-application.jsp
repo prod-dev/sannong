@@ -27,7 +27,7 @@
             <div class="row">
                 <span class="col-sm-9 rightBorder equalCol">
                     <h3 class="borderBottom">申报项目</h3>
-                    <form class="projectAppForm" id="projectAppForm" role="form" action="apply" method="post">
+                    <form class="projectAppForm" id="projectAppForm" role="form" action="makeApplication" method="post">
                         <ul>
                             <div id="questionnaire">
                                 <script id="question-template-radio" type="text/x-handlebars-template">
@@ -72,7 +72,7 @@
                         <div class="row">
                             <aside class="userFormCol-1">单位地址</aside>
                             <aside class="userFormCol-right">
-                                <div class="width-87" id="provinceSelectDiv">
+                                <div class="width-162" id="provinceSelectDiv">
                                     <select id="companyProvinceSelect" name="applicant.companyProvince">
                                         <option value="1">北京市</option>
                                         <option value="2">天津市</option>
@@ -110,13 +110,13 @@
                                         <option value="34">澳门特别行政区</option>
                                     </select>
                                 </div>
-                                <div class="width-87" id="citySelectDiv">
+                                <div class="width-162" id="citySelectDiv">
                                     <select id="companyCitySelect" name="applicant.companyCity">
                                         <option value="1">市辖区</option>
                                         <option value="2">县</option>
                                     </select>
                                 </div>
-                                    <div class="width-87" id="districtSelectDiv">
+                                    <div class="width-162" id="districtSelectDiv">
                                     <select id="companyDistrictSelect" name="applicant.companyDistrict">
                                         <option value='1'>东城区</option>
                                         <option value='2'>西城区</option>
@@ -136,7 +136,7 @@
                                         <option value='16'>平谷区</option>
                                     </select>
                                 </div>
-                                <input type="text" class="width-273" id="projectAppForm_jobAddress" name="applicant.companyAddress">
+                                <input type="text" class="width-281" id="projectAppForm_jobAddress" name="applicant.companyAddress">
                             </aside>
                         </div>
                         <div class="row">
