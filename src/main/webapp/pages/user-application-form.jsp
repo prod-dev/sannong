@@ -18,11 +18,11 @@
 <body>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a id="userApplicationQ1" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集</a></li>
-      <li role="presentation"><a id="userApplicationQ2" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集二</a></li>
-      <li role="presentation"><a id="userApplicationQ3" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集三</a></li>
-      <li role="presentation"><a id="userApplicationQ4" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集四</a></li>
-      <li role="presentation"><a id="userApplicationQ5" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集五</a></li>
+      <li role="presentation" class="active"><a id="q1" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集</a></li>
+      <li role="presentation"><a id="q2" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集二</a></li>
+      <li role="presentation"><a id="q3" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集三</a></li>
+      <li role="presentation"><a id="q4" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集四</a></li>
+      <li role="presentation"><a id="q5" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集五</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -64,7 +64,8 @@
         </div>
 
         <div id="buttonGroup" class="float-right step-1-bts">
-          <button class="orange-bt-small" type="button" id="save">保存</button>
+          <%--<button class="white-bt" type="button" id="save">暂存</button>--%>
+          <a href="#" class="white-bt" type="button" id="save">暂存</a>
           <button class="orange-bt-small" type="button" id="questionnaireSubmit">提交</button>
         </div>
       </div>
@@ -78,10 +79,10 @@
                      <h4 class="modal-title" id="myModalLabel">提示</h4>
                  </div>
                  <div class="modal-body">提交后即不可以再修改。如要修改，需要电话联系我们的工作人员。你确定提交吗？</div>
-                 <div class="modal-footer">
-                     <button id="return" type="button" class="btn btn-default" data-dismiss="modal">返回</button>
-                     <button type="submit" id="dialogSubmit" class="btn btn-success">提交</button>
-                 </div>
+                  <div class="buttonsRow">
+                     <button id="return" type="button" class="white-bt" data-dismiss="modal">返回</button>
+                     <button type="submit" id="dialogSubmit" class="orange-bt">提交</button>
+                  </div>
             </div>
         </div>
       </div>
