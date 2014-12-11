@@ -24,7 +24,7 @@
 
     <select id="getSmsByCellphoneAndValidationCode" parameterType="Sms" resultMap="smsMap">
         <![CDATA[
-        	select * from sms where cellphone = #{cellphone} and sms_validation_code = #{smsValidationCode} and sms_status = 0
+        	select * from sms where cellphone = #{cellphone} and sms_status = 0	and send_time >= DATE_SUB(NOW(),INTERVAL 1 MINUTE)
         ]]>
     </select>
      

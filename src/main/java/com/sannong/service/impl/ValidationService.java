@@ -40,9 +40,10 @@ public class ValidationService implements IValidationService {
     public boolean validateValidationCode(String cellphone, String validationCode) {
         SMS sms = new SMS();
         sms.setCellphone(cellphone);
-        sms.setSmsValidationCode(validationCode);
         List<SMS> smsList = smsRepository.getSmsByCellphoneAndValidationCode(sms);
         if (smsList.isEmpty()) {
+            return false;
+        } else if(!smsList.get(0).getSmsValidationCode().equals(validationCode)){
             return false;
         } else {
             return true;
