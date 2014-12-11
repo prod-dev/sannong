@@ -329,7 +329,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             }
         });
 
-    };
+    }
 
     sannong.Questionnaire = questionnaire;
     return questionnaire;
