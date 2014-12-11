@@ -36,6 +36,9 @@ require(['../main'], function () {
             $(function() {
                 eventHandler.registerEventListener();
                 userPersonalCenter.init();
+                 if ($("#userAppFormTab").length > 0){
+                    questionnaire.showQuestions(1);
+                }
             })
 
             sannong.UserPersonalCenter = userPersonalCenter;
