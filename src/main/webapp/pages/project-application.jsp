@@ -151,7 +151,7 @@
                             <aside class="userFormCol-1">手机号码</aside>
                             <aside class="userFormCol-right">
                                 <input type="text" class="width-281" id="projectAppForm_cellphone" name="applicant.cellphone">
-                                <a class="white-bt" role="button" id="projectAppForm_validationBtn" name="validationBtn">获取验证码</a>
+                                <a href="javascript:void(0)" class="white-bt" role="button" id="projectAppForm_validationBtn" name="validationBtn">获取验证码</a>
                             </aside>
                         </div>
                         <div class="row">
