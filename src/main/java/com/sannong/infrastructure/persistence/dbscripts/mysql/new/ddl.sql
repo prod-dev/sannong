@@ -253,7 +253,7 @@ ALTER TABLE `sannong`.`comments`
 ADD CONSTRAINT `fk_comments_username`
   FOREIGN KEY (`username`)
   REFERENCES `sannong`.`users` (`username`)
-  ON DELETE NO ACTION
+  ON DELETE NO ACTION;
 
 ALTER TABLE `sannong`.`users`
 CHANGE COLUMN `company` `company` VARCHAR(45) NOT NULL ,

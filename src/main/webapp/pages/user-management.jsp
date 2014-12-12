@@ -119,7 +119,7 @@
 				<div class="col-large">工作单位</div>
 				<div class="col-small">职位</div>
 				<div class="col-medium">电子邮箱</div>
-				<div class="col-small"></li>
+				<div class="col-small"></div>
 			<li>
 				<div id="userList"></div>
 			</li>
