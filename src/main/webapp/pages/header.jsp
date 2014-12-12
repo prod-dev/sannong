@@ -17,12 +17,18 @@
       <div class="row">
           <span class="col-sm-12">
               <ul>
-                    <sec:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
-                        <li><a href="#" data-toggle="modal" data-target="#LoginModel">登录</a></li>
-                    </sec:authorize>
-                    <sec:authorize access="(hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')) and isAuthenticated()">
+                  <sec:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN">
+                    <li><a href="#" data-toggle="modal" data-target="#LoginModel">登录</a></li>
+                  </sec:authorize>
+                  <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
+                      <li><a href="user-personal-center">我的项目</a></li>
+                  </sec:authorize>
+                  <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+                      <li><a href="user-personal-center">用户管理</a></li>
+                  </sec:authorize>
+                  <sec:authorize access="(hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')) and isAuthenticated()">
                       <li><a href="j_spring_security_logout">退出</a></li>
-                    </sec:authorize>
+                  </sec:authorize>
               </ul>
             </span>
       </div>
