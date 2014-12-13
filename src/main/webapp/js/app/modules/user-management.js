@@ -75,11 +75,10 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         saveOrSubmit = answerStatusStr.substring(1, 2);
 
                     // about when admin can update user's questionnaire
-                    if (parseInt(questionnaireNo) > latestQuestionnaireNo ||
-                        ((parseInt(questionnaireNo) == latestQuestionnaireNo) && saveOrSubmit == 0)){
-                        $("#update").attr("disabled", "disabled");
+                    if(parseInt(questionnaireNo) > latestQuestionnaireNo){
+                    	$("#update").hide();
                     }else{
-                        $("#update").attr("disabled", false);
+                    	$("#update").show();
                     }
 
                     if (data.applicant != null) {
