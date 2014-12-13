@@ -172,7 +172,7 @@
 				<form id="answerForm" role="form" action="updateAnswersAndComment"
 					method="post">
 					<div id="questionList"></div>
-					<div id="questionnaireStatus">
+					<div id="questionnaireStatus1">
 						状态
 						<textarea class="form-control" name="comment.content" rows="3"
 							placeholder="如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员"

@@ -48,7 +48,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     $("#user-management-title").hide();
                     $("#userManagementTable").hide();
                     $("#questionnaireTable").show();
-                    $("#questionnaireStatus").show();
+                    $("#questionnaireStatus1").show();
 
                     if ($("#questionnaireTable").show()) {
                         $("#questionList").empty();
@@ -186,19 +186,19 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     }
                     if (data.comment != null && data.comment.content != null){
                         var comment = data.comment.content;
-                        $("#questionnaireStatus").children().val("");
-                        $("#questionnaireStatus").children().attr("placeholder",comment);
+                        $("#questionnaireStatus1").children().val("");
+                        $("#questionnaireStatus1").children().attr("placeholder",comment);
 
-                        if($("#questionnaireStatus").hide()){
-                            $("#questionnaireStatus").show();
+                        if($("#questionnaireStatus1").hide()){
+                            $("#questionnaireStatus1").show();
                         }
                     } else if (answerString == null || answerString == ""){
-                        $("#questionnaireStatus").hide();
+                        $("#questionnaireStatus1").hide();
                     } else {
-                        if($("#questionnaireStatus")){
-                            $("#questionnaireStatus").children().val("");
-                            $("#questionnaireStatus").children().attr("placeholder","如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
-                            $("#questionnaireStatus").show();
+                        if($("#questionnaireStatus1")){
+                            $("#questionnaireStatus1").children().val("");
+                            $("#questionnaireStatus1").children().attr("placeholder","如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
+                            $("#questionnaireStatus1").show();
                         }
                     }
 
