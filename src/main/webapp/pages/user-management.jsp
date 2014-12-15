@@ -149,11 +149,11 @@
 		</div>
 
 		<ul class="nav nav-tabs" role="tablist" id="questionnaireTab">
-			<li role="presentation" class="active"><a id="q1" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q1">问卷题集</a></li>
-			<li role="presentation"><a id="q2" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q2">问卷题集二</a></li>
-			<li role="presentation"><a id="q3" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q3">问卷题集三</a></li>
-			<li role="presentation"><a id="q4" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q4">问卷题集四</a></li>
-			<li role="presentation"><a id="q5" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q5">问卷题集五</a></li>
+			<li role="presentation" class="active"><a id="uq1" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q1">问卷题集</a></li>
+			<li role="presentation"><a id="uq2" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q2">问卷题集二</a></li>
+			<li role="presentation"><a id="uq3" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q3">问卷题集三</a></li>
+			<li role="presentation"><a id="uq4" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q4">问卷题集四</a></li>
+			<li role="presentation"><a id="uq5" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q5">问卷题集五</a></li>
 		</ul>
 		<div class="tab-content">
 			<ul class="steps">
