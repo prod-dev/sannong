@@ -148,7 +148,7 @@
 			<div style="float:left">的调查问卷答案</div>
 		</div>
 
-		<ul class="nav nav-tabs" role="tablist">
+		<ul class="nav nav-tabs" role="tablist" id="questionnaireTab">
 			<li role="presentation" class="active"><a id="q1" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q1">问卷题集</a></li>
 			<li role="presentation"><a id="q2" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q2">问卷题集二</a></li>
 			<li role="presentation"><a id="q3" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q3">问卷题集三</a></li>
