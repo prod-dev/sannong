@@ -20,7 +20,6 @@ require(['../main'], function () {
                 cellphone: $("#projectAppForm_cellphone"),
                 cellphoneError: $("#cellphone-error"),
                 validationCode: $("#projectAppForm_validationCode"),
-                validationCodeError: $("#validationCode-error"),
                 projectApplicationFormSubmit: $("#projectAppForm_submit"),
                 showUniqueCellphoneError: function(message) {
                     var errorLabel = '<label id="projectAppForm_cellphone-error" class="error" for="cellphone" style="display: inline-block;">' + message + '</label>';
@@ -30,11 +29,19 @@ require(['../main'], function () {
                     projectApplication.View.cellphone.addClass("error");
                 },
                 showValidationCodeError: function(message) {
-                    var errorLabel = '<label id="projectAppForm_validationCode-error" class="error" for="validation" style="display: inline-block;">' + message + '</label>';
-                    projectApplication.View.validationCodeError.remove();
+                    var errorLabel = '<label id="projectAppForm_validationCode-error" class="error" for="projectAppForm_validationCode">' + message + '</label>';
                     projectApplication.View.validationCode.removeClass("error");
-                    projectApplication.View.validationCode.after(errorLabel);
+                    projectApplication.View.validationCode.removeAttr("aria-invalid");
+
+                    if ( $("#projectAppForm_validationCode-error") !== undefined){
+                        $("#projectAppForm_validationCode-error").text(message);
+                    }else{
+                        projectApplication.View.validationCode.after(errorLabel);
+                    }
                     projectApplication.View.validationCode.addClass("error");
+                    projectApplication.View.validationCode.attr("aria-invalid", "true");
+                    projectApplication.View.validationCode.attr("style", "display: inline-block");
+
                 },
                 showValidationCodeMessage: function(message) {
                     projectApplication.View.showValidationCodeError(message);
@@ -53,6 +60,8 @@ require(['../main'], function () {
                     if ($("#projectAppForm_validationBtn").hasClass("disabled")){
                         return;
                     }
+                    //projectApplication.View.showValidationCodeError("test");
+
                     if (formValidator.getValidator("#projectAppForm").form() == true) {
                         ajaxHandler.sendRequest({
                             url: 'project-application/sendValidationCode',

@@ -157,9 +157,7 @@
                         <div class="row">
                             <aside class="userFormCol-1">验证码</aside>
                             <aside class="userFormCol-right">
-                                <div class="width-87">
-                                    <input type="text" id="projectAppForm_validationCode" name="sms.smsValidationCode"/>
-                                </div>
+                                <input type="text" class="width-87" id="projectAppForm_validationCode" name="sms.smsValidationCode"/>
                             </aside>
                         </div>
                         <div class="row">

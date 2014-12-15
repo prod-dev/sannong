@@ -50,7 +50,7 @@
             <span class="stepHeading">问卷题集五</span>
           </li>
         </ul>
-        <div id="submitStatus" class="brown-bg">项目状态：<div>请完成所有问卷调查，然后我们的工作人员会第一时间联系您。</div></div>
+        <div id="submitStatus" class="brown-bg">项目状态：<span>请完成所有问卷调查，然后我们的工作人员会第一时间联系您。</span></div>
         <ul class="step-1-listing">
             <form id="answerForm" class="projectAppForm" role="form" action="updateAnswersAndComment" method="post">
                 <div id="questionnaire"></div>

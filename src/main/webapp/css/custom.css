@@ -516,6 +516,13 @@ a:hover h4 {
 	width:87px;
 	margin:0 10px 0 0;
 }
+
+.projectAppForm .width-87 {
+	float:left;
+	width:87px;
+	margin:0 10px 0 0;
+}
+
 .width-162 {
 	float:left;
 	width:162px;

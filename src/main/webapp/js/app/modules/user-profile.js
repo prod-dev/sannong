@@ -72,7 +72,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 if (validator === undefined){return;}
                 if (validator.form() == true){
                     $("#userProfileForm").ajaxSubmit(function(message) {
-                        $("#userProfileSubmit").after('<label id="jobTitle-error" class="error" for="jobTitle">已保存</label>');
+                        $("#userProfileSubmit").after('<label id="userProfileSubmit-error" class="error" style="margin-top: 23px;">已保存</label>');
                         return false;
                     });
                 }
