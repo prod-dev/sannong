@@ -75,11 +75,12 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         saveOrSubmit = answerStatusStr.substring(1, 2);
 
                     // about when admin can update user's questionnaire
-                    if (parseInt(questionnaireNo) > latestQuestionnaireNo ||
-                        ((parseInt(questionnaireNo) == latestQuestionnaireNo) && saveOrSubmit == 0)){
-                        $("#update").attr("disabled", "disabled");
+                    if(parseInt(questionnaireNo) > latestQuestionnaireNo){
+                        $("#update").removeClass("orange-bt-small").addClass("gray-bt-small");
+                        $("#update").attr("disabled",true);
                     }else{
-                        $("#update").attr("disabled", false);
+                        $("#update").removeClass("gray-bt-small").addClass("orange-bt-small");
+                        $("#update").attr("disabled",false);
                     }
 
                     if (data.applicant != null) {
