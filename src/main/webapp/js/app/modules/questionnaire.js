@@ -228,6 +228,12 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 disableAnswerOptions = true;
                 questionnaire.View.disableSaveButtons();
                 questionnaire.View.disableSubsequentTab(latestQuestionnaireNo + 1);
+            }else if (currentQuestionnaireNo == (latestQuestionnaireNo + 1) && stageOrCommit == 1){
+                disableAnswerOptions = false;
+                questionnaire.View.enableSaveButtons();
+                questionnaire.View.disableSubsequentTab(currentQuestionnaireNo + 1);
+            }else{
+                return;
             }
 
             questionnaire.View.renderQuestionnaireView(data);

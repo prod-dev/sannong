@@ -169,9 +169,10 @@
 				</li>
 			</ul>
 			<ul class="step-1-listing">
-				<form id="answerForm" role="form" action="updateAnswersAndComment"
-					method="post">
-					<div id="questionList"></div>
+				<form id="answerForm" role="form" action="updateAnswersAndComment" method="post">
+					<div id="questionnaire">
+						<!-- Fill in template here -->
+					</div>
 					<div id="questionnaireStatus">
 						状态
 						<textarea class="form-control" name="comment.content" rows="3"
@@ -180,8 +181,8 @@
 					</div>
 					<input type="hidden" name="questionnaireNo" id="questionnaireNo">
 					<input type="hidden" name="applicant.userName" id="userName">
-					<input type="hidden" name="application.applicationId"
-						id="applicationId">
+					<input type="hidden" name="application.applicationId" id="applicationId">
+					<input type="hidden" name="answerStatus" id="answerStatus" >
 				</form>
 			</ul>
 		</div>

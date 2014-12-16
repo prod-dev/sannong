@@ -1,8 +1,8 @@
 /**
  * Created by Bright Huang on 11/6/14.
  */
-define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire', 'jqueryForm'],
-        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire, jqueryForm) {
+define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additionalMethods', 'questionnaire', 'jqueryForm', 'eventHandler'],
+        function($, bootstrap, sannong, validate, formValidator, additionalMethods, questionnaire, jqueryForm, eventHandler) {
 
             "use strict";
 
@@ -34,54 +34,74 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                 }
             }
 
-            $("#dialogSubmit").click(function(event){
-                $("#answerForm").ajaxSubmit(function(message) {
-                    if (message.result == true){
-                        $("#return").click();
+            userApplicationForm.Controller = {
+                stage: function(){
+                    submitForm(0);
+                },
+                submitForm: function(){
+                    submitForm(1);
 
-                        //更新成功重新加载questionnaire and answer
-                        var questionnaireNo = $("#questionnaireNo").val();
-                        questionnaire.Controller.showQuestionnaireAnswers(questionnaireNo);
-                        
-                        //show comment
-                        $("#questionnaireStatus").children().text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
-                        $("#questionnaireStatus").show();
-                    }else{
-                    	if ($("#save-success") != null){
-                            $("#save-success").remove();
+                },
+                confirmSubmit: function(){
+                    $("#answerForm").ajaxSubmit(function(message) {
+                        if (message.result == true){
+                            $("#return").click();
+
+                            //更新成功重新加载questionnaire and answer
+                            var questionnaireNo = $("#questionnaireNo").val();
+                            questionnaire.Controller.showQuestionnaireAnswers(questionnaireNo);
+
+                            //show comment
+                            $("#questionnaireStatus").children().text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
+                            $("#questionnaireStatus").show();
+                        }else{
+                            if ($("#save-success") != null){
+                                $("#save-success").remove();
+                            }
+                            if ($("#update-error") != null){
+                                $("#update-error").remove();
+                            }
+                            $("#questionnaireSubmit").after('<label id="update-error" class="error" for="jobTitle">更新失败</label>');
                         }
-                    	if ($("#update-error") != null){
-                            $("#update-error").remove();
-                        }
-                        $("#questionnaireSubmit").after('<label id="update-error" class="error" for="jobTitle">更新失败</label>');
-                    }
-                });
-                return false;
-            });
+                    });
+                    return false;
+                },
+                q1: function(){
+                    questionnaire.Controller.showQuestionnaireAnswers(1);
+                },
+                q2: function(){
+                    questionnaire.Controller.showQuestionnaireAnswers(2);
+                },
+                q3: function(){
+                    questionnaire.Controller.showQuestionnaireAnswers(3);
+                },
+                q4: function(){
+                    questionnaire.Controller.showQuestionnaireAnswers(4);
+                },
+                q5: function(){
+                    questionnaire.Controller.showQuestionnaireAnswers(5);
+                }
+            };
 
-            $("#save").click(function(){
-                submitForm(0);
-            });
+            function subscribeEvent(){
+                eventHandler.subscribe("userApplicationForm:save", userApplicationForm.Controller.stage);
+                eventHandler.subscribe("userApplicationForm:submit", userApplicationForm.Controller.submitForm);
+                eventHandler.subscribe("userApplicationForm:confirmSubmit", userApplicationForm.Controller.confirmSubmit);
 
-            $("#questionnaireSubmit").click(function(){
-                submitForm(1);
-            });
+                eventHandler.subscribe("userApplicationForm:q1", userApplicationForm.Controller.q1);
+                eventHandler.subscribe("userApplicationForm:q2", userApplicationForm.Controller.q2);
+                eventHandler.subscribe("userApplicationForm:q3", userApplicationForm.Controller.q3);
+                eventHandler.subscribe("userApplicationForm:q4", userApplicationForm.Controller.q4);
+                eventHandler.subscribe("userApplicationForm:q5", userApplicationForm.Controller.q5);
+            }
 
-            $("#q1").click(function(){
-                questionnaire.Controller.showQuestionnaireAnswers(1);
-            });
-            $("#q2").click(function(){
-                questionnaire.Controller.showQuestionnaireAnswers(2);
-            });
-            $("#q3").click(function(){
-                questionnaire.Controller.showQuestionnaireAnswers(3);
-            });
-            $("#q4").click(function(){
-                questionnaire.Controller.showQuestionnaireAnswers(4);
-            });
-            $("#q5").click(function(){
-                questionnaire.Controller.showQuestionnaireAnswers(5);
-            });
+
+            /*************************
+             * DOM ready function
+             ************************/
+            $(function() {
+                subscribeEvent();
+            })
 
 
             sannong.UserApplicationForm = userApplicationForm;

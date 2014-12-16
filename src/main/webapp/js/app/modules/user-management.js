@@ -178,6 +178,10 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 },
                 update: function () {
                     if (formValidator.getValidator("#answerForm").form() == true){
+                        var questionnaireNo = $("#questionnaireNo").val();
+                        var answerStatus = questionnaireNo + "1";
+                        $("#answerStatus").val(answerStatus);
+
                         $("#myModalTrigger").click();
                     }
                 },
@@ -346,6 +350,9 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         data : "questionnaireNo=" + questionnaireNo + "&cellphone=" + userCellphone,
                         success : function(data) {
                             userManagement.View.renderQuestionnaireView(questionnaireNo, data);
+                        },
+                        fail: function(data){
+
                         }
                     });
                 }

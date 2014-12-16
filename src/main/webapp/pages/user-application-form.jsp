@@ -18,11 +18,11 @@
 <body>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a id="q1" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集一</a></li>
-      <li role="presentation"><a id="q2" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集二</a></li>
-      <li role="presentation"><a id="q3" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集三</a></li>
-      <li role="presentation"><a id="q4" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集四</a></li>
-      <li role="presentation"><a id="q5" href="javascript:void(0)" role="tab" data-toggle="tab">问卷题集五</a></li>
+      <li role="presentation" class="active"><a id="q1" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userApplicationForm:q1">问卷题集一</a></li>
+      <li role="presentation"><a id="q2" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userApplicationForm:q2">问卷题集二</a></li>
+      <li role="presentation"><a id="q3" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userApplicationForm:q3">问卷题集三</a></li>
+      <li role="presentation"><a id="q4" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userApplicationForm:q4">问卷题集四</a></li>
+      <li role="presentation"><a id="q5" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userApplicationForm:q5">问卷题集五</a></li>
     </ul>
 
     <!-- Tab panes -->
@@ -65,8 +65,8 @@
 
         <div id="buttonGroup" class="float-right step-1-bts">
           <%--<button class="white-bt" type="button" id="save">暂存</button>--%>
-          <a href="javascript:void(0);" class="white-bt" type="button" id="save">暂存</a>
-          <button class="orange-bt-small" type="button" id="questionnaireSubmit">提交</button>
+          <a href="javascript:void(0);" class="white-bt meta-event-source" type="button" id="save"  meta-event-handler="userApplicationForm:save">暂存</a>
+          <button class="orange-bt-small meta-event-source" type="button" id="questionnaireSubmit" meta-event-handler="userApplicationForm:submit">提交</button>
         </div>
       </div>
       <!-- Button trigger modal -->
@@ -81,7 +81,7 @@
                  <div class="modal-body">提交后即不可以再修改。如要修改，需要电话联系我们的工作人员。你确定提交吗？</div>
                   <div class="buttonsRow">
                      <button id="return" type="button" class="white-bt" data-dismiss="modal">返回</button>
-                     <button type="submit" id="dialogSubmit" class="orange-bt">提交</button>
+                     <button type="submit" id="dialogSubmit" class="orange-bt meta-event-source" meta-event-handler="userApplicationForm:confirmSubmit">提交</button>
                   </div>
             </div>
         </div>
