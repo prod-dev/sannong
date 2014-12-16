@@ -37,7 +37,7 @@ require(['../main'], function () {
                 eventHandler.registerEventListener();
                 userPersonalCenter.init();
                  if ($("#userAppFormTab").length > 0){
-                    questionnaire.showQuestions(1);
+                    questionnaire.Controller.showQuestionnaireAnswers(1);
                 }
             })
 

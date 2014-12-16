@@ -142,7 +142,7 @@ require(['../main'], function () {
 
             $(function() {
                 selector.initSelect('select');
-                questionnaire.showQuestionnaire();
+                questionnaire.Controller.showProjectQuestionnaire();
                 registerEventListener();
             });
 

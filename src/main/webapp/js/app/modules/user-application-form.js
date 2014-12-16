@@ -41,7 +41,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
 
                         //更新成功重新加载questionnaire and answer
                         var questionnaireNo = $("#questionnaireNo").val();
-                        questionnaire.showQuestions(questionnaireNo);
+                        questionnaire.Controller.showQuestionnaireAnswers(questionnaireNo);
                         
                         //show comment
                         $("#questionnaireStatus").children().text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
@@ -68,24 +68,21 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
             });
 
             $("#q1").click(function(){
-                questionnaire.showQuestions(1);
+                questionnaire.Controller.showQuestionnaireAnswers(1);
             });
             $("#q2").click(function(){
-                questionnaire.showQuestions(2);
+                questionnaire.Controller.showQuestionnaireAnswers(2);
             });
             $("#q3").click(function(){
-                questionnaire.showQuestions(3);
+                questionnaire.Controller.showQuestionnaireAnswers(3);
             });
             $("#q4").click(function(){
-                questionnaire.showQuestions(4);
+                questionnaire.Controller.showQuestionnaireAnswers(4);
             });
             $("#q5").click(function(){
-                questionnaire.showQuestions(5);
+                questionnaire.Controller.showQuestionnaireAnswers(5);
             });
-            
-            $(function() {
-                // questionnaire.showQuestions(1);
-            });
+
 
             sannong.UserApplicationForm = userApplicationForm;
             return userApplicationForm;
