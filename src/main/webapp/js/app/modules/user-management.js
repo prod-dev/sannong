@@ -3,18 +3,22 @@
  */
 
 define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler', 'formValidator',
-        'additionalMethods', 'pagination', 'selector', 'jqueryForm', 'eventHandler'],
+        'additionalMethods', 'pagination', 'selector', 'jqueryForm', 'eventHandler', 'questionnaire'],
         function($, bootstrap, handlebars, sannong, validate, ajaxHandler, formValidator,
-                 additionalMethods, pagination, selector, jqueryForm, eventHandler) {
+                 additionalMethods, pagination, selector, jqueryForm, eventHandler, questionnaire) {
 
             "use strict";
             var searchParams = "";
             var userManagement = {};
 
+
             userManagement.Model = {
                 currentEditUser: ""
             };
 
+            /***********************************************
+             *  View
+             ***********************************************/
             userManagement.View = {
                 userProfileEditView: $("#userProfileEditView"),
                 questionnaireTable: $("#questionnaireTable"),
@@ -68,119 +72,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         $(".error").empty();
                     }
                 },
-                renderQuestionnaireView: function(questionnaireNo, data){
-                    var answerStatus = data.answerStatus,
-                        answerStatusStr = answerStatus.toString(),
-                        latestQuestionnaireNo = parseInt(answerStatusStr.substring(0, 1)),
-                        saveOrSubmit = answerStatusStr.substring(1, 2);
-
-                    // about when admin can update user's questionnaire
-                    if (parseInt(questionnaireNo) > latestQuestionnaireNo ||
-                        ((parseInt(questionnaireNo) == latestQuestionnaireNo) && saveOrSubmit == 0)){
-                        $("#update").attr("disabled", "disabled");
-                    }else{
-                        $("#update").attr("disabled", false);
-                    }
-
-                    if (data.applicant != null) {
-                        $("#userName").val(data.applicant.userName);
-                        $("#userRealName").text(data.applicant.realName);
-                        $("#userTextShow").show();
-                    }
-
-                    //fill out questionnaire
-                    var handleCheckbox = handlebars.compile($("#question-template-checkbox").html()),
-                        handleRadio = handlebars.compile($("#question-template-radio").html()),
-                        questionObject = null,
-                        html = null;
-
-                    $("#questionnaire").empty();
-
-                    for (var i = 0; i < data.questions.length; i++){
-                        handlebars.registerHelper("fromOne",function(){
-                            return i+1;
-                        });
-                        handlebars.registerHelper("fromZero",function(){
-                            return i;
-                        });
-
-                        questionObject = data.questions[i];
-                        if (questionObject.isSingle == 1){
-                            html = handleRadio(questionObject);
-                        }else{
-                            html = handleCheckbox(questionObject);
-                        }
-                        $("#questionList").append(html);
-                    }
-
-                    //remove extra checkbox and radio button
-                    $("#questionnaireTable").find(".checkboxCustom").each(function(){
-                        var checkbox = $(this).text();
-                        if (checkbox.trim() == ""){
-                            $(this).remove();
-                        }
-                    });
-                    $("#questionnaireTable").find(".radioCustom").each(function(){
-                        var radio = $(this).text();
-                        if (radio.trim() == ""){
-                            $(this).remove();
-                        }
-                    });
-
-                    $('.radioCustom input').click(function () {
-                        $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
-                        $(this).parent(".radioCustom").addClass("radioCustom-checked");
-                    });
-
-                    $('.checkboxCustom').click(function () {
-                        $(this).toggleClass('checkboxCustom-checked');
-                        var $checkbox = $(this).find(':checkbox');
-                        $checkbox.attr('checked', !$checkbox.attr('checked'));
-                    });
-
-                    // fill out answers in questionnaire relatively
-                    var answerString = "";
-                    switch (parseInt(questionnaireNo)){
-                        case 1 :
-                            answerString = data.questionnaire1Answers;
-                            break;
-                        case 2 :
-                            answerString = data.questionnaire2Answers;
-                            break;
-                        case 3 :
-                            answerString = data.questionnaire3Answers;
-                            break;
-                        case 4 :
-                            answerString = data.questionnaire4Answers;
-                            break;
-                        case 5 :
-                            answerString = data.questionnaire5Answers;
-                            break;
-                    }
-
-                    if (answerString != "" && answerString != null){
-                        var answer = answerString.split(";");
-                        var singleAnswer = "";
-
-                        for (var i = 0;i < answer.length;i++){
-                            var $_radiosOrCheckboxs = $(".J_group_choice").eq(i).find("input");
-                            $_radiosOrCheckboxs.each(function(){
-                                singleAnswer = answer[i].split(",");
-                                for (var j = 0;j < singleAnswer.length;j++){
-                                    if($(this).val()===singleAnswer[j]){
-                                        if ($(this).parent(".radioCustom")){
-                                            $(this).parent(".radioCustom").addClass("radioCustom-checked");
-                                        }
-                                        if ($(this).parent(".checkboxCustom")){
-                                            $(this).parent(".checkboxCustom").toggleClass("checkboxCustom-checked");
-                                            $(this).attr("checked", "checked");
-                                        }
-                                    }
-                                }
-                            });
-                        }
-                    }
-
+                renderQuestionnaireComments: function(data, answerString){
                     //comment service
                     if ($("#applicationId")){
                         $("#applicationId").val(data.application.applicationId);
@@ -203,9 +95,41 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         }
                     }
 
+                },
+                renderQuestionnaireView: function(questionnaireNo, data){
+                    var answerStatus = data.answerStatus,
+                        answerStatusStr = answerStatus.toString(),
+                        latestQuestionnaireNo = parseInt(answerStatusStr.substring(0, 1)),
+                        saveOrSubmit = answerStatusStr.substring(1, 2);
+
+                    // about when admin can update user's questionnaire
+                    if (parseInt(questionnaireNo) > latestQuestionnaireNo ||
+                        ((parseInt(questionnaireNo) == latestQuestionnaireNo) && saveOrSubmit == 0)){
+                        $("#update").attr("disabled", "disabled");
+                    }else{
+                        $("#update").attr("disabled", false);
+                    }
+
+                    if (data.applicant != null) {
+                        $("#userName").val(data.applicant.userName);
+                        $("#userRealName").text(data.applicant.realName);
+                        $("#userTextShow").show();
+                    }
+
+                    questionnaire.View.renderQuestionnaireView(data);
+
+                    var answerString = questionnaire.getAnswers(questionnaireNo, data);
+                    questionnaire.View.fillAnswers(questionnaireNo, answerString, false);
+
+                    userManagement.View.renderQuestionnaireComments(data, answerString);
                 }
 
             };
+
+
+            /**********************************************************
+             *  Controller
+             **********************************************************/
 
             userManagement.Controller = {
                 retrieve: function() {
@@ -429,9 +353,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
 
 
             /************************************************************
-             *
              * Private functions
-             *
              ************************************************************/
             function show(currentPageIndex) {
                 var parameter = "pageIndex=" + currentPageIndex;
@@ -494,9 +416,9 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
             }
 
 
-            /**
+            /*************************
              * DOM ready function
-             */
+             ************************/
             $(function() {
                 init();
                 show(1);

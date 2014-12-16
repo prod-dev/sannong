@@ -14,6 +14,28 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
     
     var questionnaire = {};
 
+    questionnaire.getAnswers = function(questionnaireNo, data){
+        var answerString = "";
+        switch (questionnaireNo){
+            case 1 :
+                answerString = data.questionnaire1Answers;
+                break;
+            case 2 :
+                answerString = data.questionnaire2Answers;
+                break;
+            case 3 :
+                answerString = data.questionnaire3Answers;
+                break;
+            case 4 :
+                answerString = data.questionnaire4Answers;
+                break;
+            case 5 :
+                answerString = data.questionnaire5Answers;
+                break;
+        }
+        return answerString;
+    }
+
     questionnaire.View = {
         resetQuestionnaireView: function(questionnaireNo){
             if ($("#q" + questionnaireNo).parent().hasClass("disabled")) {
@@ -47,14 +69,15 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 })
             }
         },
-        renderProjectQuestionnaireView: function(data){
+        renderQuestionnaireView: function(data){
             //fill out questionnaire
-            var handleCheckbox = handlebars.compile($("#question-template-checkbox").html());
-            var handleRadio = handlebars.compile($("#question-template-radio").html());
-            var questionObject = null;
-            var html = null;
+            var handleCheckbox = handlebars.compile($("#question-template-checkbox").html()),
+                handleRadio = handlebars.compile($("#question-template-radio").html()),
+                questionObject = null,
+                html = null;
 
             $("#questionnaire").empty();
+
             for (var i = 0; i < data.questions.length; i++){
                 handlebars.registerHelper("fromOne",function(){
                     return i+1;
@@ -74,7 +97,6 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
 
             $("#questionnaire").find(".checkboxCustom").each(function(){
                 var checkbox = $(this).text();
-
                 if (checkbox.trim() == ""){
                     $(this).remove();
                 }
@@ -99,165 +121,34 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             });
 
         },
-        renderQuestionnaireAnswers: function(questionnaireNo, data){
-            //判断哪些选项卡不可用
-            var answerStatus = data.answerStatus;
-            var answerStatusStr =  answerStatus.toString();
-            var latestQuestionnaireNo = parseInt(answerStatusStr.substring(0,1));
-            var saveOrSubmit = answerStatusStr.substring(1,2);
-            var currentQuestionnaireNo = questionnaireNo;
-            var radioStatus = 1;  //1:submit 0:save 默认提交状态，radio不可用
-
-            if (currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0){
-                radioStatus = 0;
-
-                //当前选项卡中的button enabled
-                $("#save").attr("disabled",false);
-                $("#questionnaireSubmit").attr("disabled",false);
-
-                //之后选项卡不可用
-                if (currentQuestionnaireNo != 5){
-                    var nextQuestionnaireNo = currentQuestionnaireNo + 1;
-                    for (var i=nextQuestionnaireNo;i<6;i++){
-                        if ($("#q" + i).parent().hasClass("active")){
-                            $("#q" + i).parent().removeClass("active").addClass("disabled");
-                        }else{
-                            $("#q" + i).parent().addClass("disabled");
-                        }
-                    }
-                }
-            }else if(currentQuestionnaireNo < latestQuestionnaireNo && saveOrSubmit == 0){
-                radioStatus = 1;
-
-                //当前选项卡中的button disabled
-                $("#save").attr("disabled","disabled");
-                $("#questionnaireSubmit").attr("disabled","disabled");
-
-                //大于latestQuestionnaireNo之后的选项卡不可用
-                if (latestQuestionnaireNo != 5){
-                    var nextQuestionnaireNo = latestQuestionnaireNo + 1;
-                    for (var i=nextQuestionnaireNo;i<6;i++){
-                        if ($("#q" + i).parent().hasClass("active")){
-                            $("#q" + i).parent().removeClass("active").addClass("disabled");
-                        }else{
-                            $("#q" + i).parent().addClass("disabled");
-                        }
-                    }
-                }
-            }else if (currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 1){
-                radioStatus = 1;
-
-                //当前选项卡中的button disabled
-                $("#save").attr("disabled","disabled");
-                $("#questionnaireSubmit").attr("disabled","disabled");
-
-                //下一个选项卡可用
-                if ($("#q" + (currentQuestionnaireNo + 1).toString()).parent().hasClass("disabled")){
-                    $("#q" + (currentQuestionnaireNo + 1).toString()).parent().removeClass("disabled");
-                }
-
-                //之后第二个开始不可用
-                if (latestQuestionnaireNo < 4){
-                    var nextQuestionnaireNo = parseInt(latestQuestionnaireNo) + 2;
-                    for (var i=nextQuestionnaireNo;i<6;i++){
-                        if ($("#q" + i).parent().hasClass("active")){
-                            $("#q" + i).parent().removeClass("active").addClass("disabled");
-                        }else{
-                            $("#q" + i).parent().addClass("disabled");
-                        }
-                    }
-                }
-            }else if(currentQuestionnaireNo < latestQuestionnaireNo && saveOrSubmit == 1){
-                radioStatus = 1;
-
-                //当前选项卡中的button disabled
-                $("#save").attr("disabled","disabled");
-                $("#questionnaireSubmit").attr("disabled","disabled");
-
-                //大于latestQuestionnaireNo(之后+1)的选项卡不可用
-                if (latestQuestionnaireNo != 5){
-                    var nextQuestionnaireNo = latestQuestionnaireNo + 2;
-                    if (nextQuestionnaireNo <= 6){
-                        for (var i=nextQuestionnaireNo;i<6;i++){
-                            if ($("#q" + i).parent().hasClass("active")){
-                                $("#q" + i).parent().removeClass("active").addClass("disabled");
-                            }else{
-                                $("#q" + i).parent().addClass("disabled");
-                            }
-                        }
-                    }
-                }
-            }
-
-            //fill out questionnaire
-            var handleCheckbox = handlebars.compile($("#question-template-checkbox").html());
-            var handleRadio = handlebars.compile($("#question-template-radio").html());
-            var questionObject = null;
-            var html = null;
-
-            $("#questionnaire").empty();
-            for (var i = 0; i < data.questions.length; i++){
-                handlebars.registerHelper("fromOne",function(){
-                    return i+1;
-                });
-                handlebars.registerHelper("fromZero",function(){
-                    return i;
-                });
-
-                questionObject = data.questions[i];
-                if (questionObject.isSingle == 1){
-                    html = handleRadio(questionObject);
+        disableSubsequentTab: function(nextQuestionnaireNo){
+            //之后选项卡不可用
+            for (var i = nextQuestionnaireNo; i < 6; i++){
+                if ($("#q" + i).parent().hasClass("active")){
+                    $("#q" + i).parent().removeClass("active").addClass("disabled");
                 }else{
-                    html = handleCheckbox(questionObject);
+                    $("#q" + i).parent().addClass("disabled");
                 }
-                $("#questionnaire").append(html);
+            }
+        },
+        enableSaveButtons: function(){
+            //当前选项卡中的button enabled
+            $("#save").attr("disabled",false);
+            $("#questionnaireSubmit").attr("disabled",false);
+        },
+        disableSaveButtons: function(){
+            //当前选项卡中的button disabled
+            $("#save").attr("disabled","disabled");
+            $("#questionnaireSubmit").attr("disabled","disabled");
+        },
+        enableNextTab: function(currentQuestionnaireNo){
+            //下一个选项卡可用
+            if ($("#q" + (currentQuestionnaireNo + 1).toString()).parent().hasClass("disabled")){
+                $("#q" + (currentQuestionnaireNo + 1).toString()).parent().removeClass("disabled");
             }
 
-            //remove extra checkbox and radio button
-            $("#questionnaire").find(".checkboxCustom").each(function(){
-                var checkbox = $(this).text();
-                if (checkbox.trim() == ""){
-                    $(this).remove();
-                }
-            });
-            $("#questionnaire").find(".radioCustom").each(function(){
-                var radio = $(this).text();
-                if (radio.trim() == ""){
-                    $(this).remove();
-                }
-            });
-
-            $('.radioCustom input').click(function () {
-                $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
-                $(this).parent(".radioCustom").addClass("radioCustom-checked");
-            });
-
-            $('.checkboxCustom').click(function () {
-                $(this).toggleClass('checkboxCustom-checked');
-                var $checkbox = $(this).find(':checkbox');
-                $checkbox.attr('checked', !$checkbox.attr('checked'));
-            });
-
-            //fill out answers in questionnaire relatively
-            var answerString = "";
-            switch (questionnaireNo){
-                case 1 :
-                    answerString = data.questionnaire1Answers;
-                    break;
-                case 2 :
-                    answerString = data.questionnaire2Answers;
-                    break;
-                case 3 :
-                    answerString = data.questionnaire3Answers;
-                    break;
-                case 4 :
-                    answerString = data.questionnaire4Answers;
-                    break;
-                case 5 :
-                    answerString = data.questionnaire5Answers;
-                    break;
-            }
-
+        },
+        fillAnswers: function(questionnaireNo, answerString, disableAnswerOptions){
             if (answerString != "" && answerString != null){
                 var answer = answerString.split(";");
                 var singleAnswer = "";
@@ -265,7 +156,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 for (var i = 0;i < answer.length;i++){
                     var $_radios = $(".J_group_choice").eq(i).find("input");
                     $_radios.each(function(){
-                        if (radioStatus == 1){
+                        if (disableAnswerOptions == true){
                             $(this).attr("disabled","disabled");
                         }
                         singleAnswer = answer[i].split(",");
@@ -283,7 +174,8 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                     });
                 }
             }
-            //comment service
+        },
+        renderQuestionnaireComments: function(currentQuestionnaireNo, latestQuestionnaireNo, data, stageOrCommit, answerString, answerStatusStr){
             if (data.comment != null && data.comment.content != null){
                 var comment = data.comment.content;
                 if($("#questionnaireStatus")){
@@ -294,7 +186,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 $("#questionnaireStatus").hide();
             } else{
                 if($("#questionnaireStatus")){
-                    if (!(currentQuestionnaireNo == latestQuestionnaireNo && saveOrSubmit == 0)){
+                    if (!(currentQuestionnaireNo == latestQuestionnaireNo && stageOrCommit == 0)){
                         $("#questionnaireStatus").text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
                         $("#questionnaireStatus").show();
                     }else {
@@ -305,8 +197,47 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             if (answerStatusStr == "51"){
                 $("#submitStatus").children().text("您的申请正在审核中。请保存手机畅通，我们的工作人员会尽快联系您。");
             }
-
             $("#submitStatus").show();
+        },
+        renderQuestionnaireAnswers: function(questionnaireNo, data){
+            // answerStatus: 10, 11, 20, 21, 30, 31, 40, 41, 50, 51
+            // the first digit represent questionnaire page number, it indicates how many questionnaire were done.
+            // the second digit represent questionnaire completion status, 0 means temporarily saved, 1 means questionnaire was finished.
+            var answerStatus = data.answerStatus,
+                answerStatusStr =  answerStatus.toString(),
+                latestQuestionnaireNo = parseInt(answerStatusStr.substring(0,1), 10),
+                stageOrCommit = answerStatusStr.substring(1,2),//stage: 问卷暂存, commit: 问卷提交
+                currentQuestionnaireNo = questionnaireNo,
+                disableAnswerOptions = true;
+
+            if (currentQuestionnaireNo == latestQuestionnaireNo && stageOrCommit == 0){         // 当前页面是填写的最大问卷, 暂存状态
+                disableAnswerOptions = false;
+                questionnaire.View.enableSaveButtons();
+                questionnaire.View.disableSubsequentTab(currentQuestionnaireNo + 1);
+            }else if(currentQuestionnaireNo < latestQuestionnaireNo && stageOrCommit == 0){     // 当前页面小于填写的最大问卷, 暂存状态
+                disableAnswerOptions = true;
+                questionnaire.View.disableSaveButtons();
+                questionnaire.View.disableSubsequentTab(latestQuestionnaireNo + 1);
+            }else if (currentQuestionnaireNo == latestQuestionnaireNo && stageOrCommit == 1){   // 当前页面是填写的最大问卷, 提交状态
+                disableAnswerOptions = true;
+                questionnaire.View.disableSaveButtons();
+                questionnaire.View.enableNextTab(currentQuestionnaireNo);
+                //之后第二个开始不可用
+                questionnaire.View.disableSubsequentTab(currentQuestionnaireNo + 2);
+            }else if(currentQuestionnaireNo < latestQuestionnaireNo && stageOrCommit == 1){     // 当前页面小于填写的最大问卷, 提交状态
+                disableAnswerOptions = true;
+                questionnaire.View.disableSaveButtons();
+                questionnaire.View.disableSubsequentTab(latestQuestionnaireNo + 1);
+            }
+
+            questionnaire.View.renderQuestionnaireView(data);
+
+            var answerString = questionnaire.getAnswers(questionnaireNo, data);
+            questionnaire.View.fillAnswers(questionnaireNo, answerString, disableAnswerOptions);
+
+            questionnaire.View.renderQuestionnaireComments(currentQuestionnaireNo, latestQuestionnaireNo, data,
+                stageOrCommit, answerString, answerStatusStr);
+
         }
     };
 
@@ -318,7 +249,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 url: 'questionAndAnswer',
                 data: "questionnaireNo=1&flag=1",
                 success: function(data) {
-                    questionnaire.View.renderProjectQuestionnaireView(data);
+                    questionnaire.View.renderQuestionnaireView(data);
                 }
             });
         },
@@ -337,11 +268,8 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                     questionnaire.View.renderQuestionnaireAnswers(questionnaireNo, data);
                 }
             });
-
         }
-
     };
-
 
     sannong.Questionnaire = questionnaire;
     return questionnaire;

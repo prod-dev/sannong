@@ -8,7 +8,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
 
             var userApplicationForm = {};
 
-            userApplicationForm.submitForm = function (saveOrSubmit){
+            function submitForm(saveOrSubmit){
                 if (formValidator.getValidator("#answerForm").form() == true){
                     var questionnaireNo = $("#questionnaireNo").val();
                     var answerStatus = questionnaireNo + saveOrSubmit;
@@ -60,11 +60,11 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
             });
 
             $("#save").click(function(){
-                userApplicationForm.submitForm(0);
+                submitForm(0);
             });
 
             $("#questionnaireSubmit").click(function(){
-                userApplicationForm.submitForm(1);
+                submitForm(1);
             });
 
             $("#q1").click(function(){

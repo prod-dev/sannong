@@ -65,7 +65,7 @@
 
         <div id="buttonGroup" class="float-right step-1-bts">
           <%--<button class="white-bt" type="button" id="save">暂存</button>--%>
-          <a href="#" class="white-bt" type="button" id="save">暂存</a>
+          <a href="javascript:void(0);" class="white-bt" type="button" id="save">暂存</a>
           <button class="orange-bt-small" type="button" id="questionnaireSubmit">提交</button>
         </div>
       </div>
