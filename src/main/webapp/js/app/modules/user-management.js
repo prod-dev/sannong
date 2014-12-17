@@ -324,6 +324,8 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     var userCellphone = cellphone;
                     if (userCellphone != "") {
                         $("#cellphone").val(userCellphone);
+
+                        // clean questionnaire comments
                         $("#commentContent").val("");
                     } else {
                         userCellphone = $("#cellphone").val();

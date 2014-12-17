@@ -176,7 +176,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             }
         },
         renderQuestionnaireComments: function(data, answerStatus){
-            if (data.comment != null && data.comment.content != null){
+            if (data.comment != null && data.comment.content != null && data.comment.content != ""){
                 var comment = data.comment.content;
                 if($("#questionnaireStatus")){
                     $("#questionnaireStatus").text(comment);

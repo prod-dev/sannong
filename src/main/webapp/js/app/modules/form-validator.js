@@ -104,7 +104,6 @@ define(['jquery', 'sannong'], function($, sannong) {
                 "answers[10]": "required",
                 "answers[11]": "required",
                 "answers[12]": "required",
-                "comment.content": "required",
                 "applicant.realName": "required",
                 "applicant.jobTitle": "required",
                 "applicant.company": "required",
