@@ -33,15 +33,19 @@ $(document).ready(function(){
 		$("nav ul").slideToggle();
 	});	
 });
+
 $(window).resize(function(){
 	colHeight();
 });
 
 
-
-
-
-window.log=function(){log.history=log.history||[];log.history.push(arguments);if(this.console){console.log(Array.prototype.slice.call(arguments))}};
+window.log=function(){
+    log.history=log.history||[];
+    log.history.push(arguments);
+    if(this.console){
+        console.log(Array.prototype.slice.call(arguments))
+    }
+};
 
 /*!
  * jQuery plug-in to turn bootstrap tabbed navigation into responsive tabbed navigation

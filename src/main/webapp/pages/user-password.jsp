@@ -12,9 +12,11 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <!--
   <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Benefitting Agriculture - End User Profile</title>
+  -->
 </head>
 <body>
     <h3>更新密码</h3>

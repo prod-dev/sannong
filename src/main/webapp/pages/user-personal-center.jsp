@@ -13,8 +13,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    -->
     <title>Benefitting Agriculture - Personal Center</title>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/lib/html5shiv.min.js"></script>
+    <script src="js/lib/respond.min.js"></script>
+    <![endif]-->
+
 
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
     <link href="css/custom.css" rel="stylesheet" type="text/css">
@@ -84,5 +95,8 @@
 <jsp:include page='footer.jsp'/>
 
 <script data-main="js/app/pages/user-personal-center" src="js/lib/require-2.1.15.min.js"></script>
+<!--
+<script src="js/app/modules/custom.js"></script>
+-->
 </body>
 </html>
