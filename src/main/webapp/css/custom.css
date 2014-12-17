@@ -371,6 +371,21 @@ input[type="button"], .orange-bt-small{
 	text-shadow:2px 2px 2px #db391c;
 	outline:none;
 }
+.gray-bt-small{
+    color:darkgray;
+    background: lightgray;
+    float:left;
+    font-size:18px;
+    line-height:38px;
+    height:38px;
+    padding:0 40px;
+    border-radius:30px;
+    text-shadow:2px 2px 2px #c0c0c0;
+    outline:none;
+    border:1px solid #c0c0c0;
+    margin-left: 18px;
+    margin-top: 15px;
+}
 
 .projectAppForm input[type="button"].disabled{
 	color:darkgray;

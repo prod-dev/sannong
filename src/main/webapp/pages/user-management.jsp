@@ -147,12 +147,12 @@
 			<div style="float:left">的调查问卷答案</div>
 		</div>
 
-		<ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a id="q1" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q1">问卷题集一</a></li>
-			<li role="presentation"><a id="q2" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q2">问卷题集二</a></li>
-			<li role="presentation"><a id="q3" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q3">问卷题集三</a></li>
-			<li role="presentation"><a id="q4" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q4">问卷题集四</a></li>
-			<li role="presentation"><a id="q5" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q5">问卷题集五</a></li>
+		<ul class="nav nav-tabs" role="tablist" id="questionnaireTab">
+			<li role="presentation" class="active"><a id="userManagementQ1" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q1">问卷题集一</a></li>
+			<li role="presentation"><a id="userManagementQ2" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q2">问卷题集二</a></li>
+			<li role="presentation"><a id="userManagementQ3" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q3">问卷题集三</a></li>
+			<li role="presentation"><a id="userManagementQ4" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q4">问卷题集四</a></li>
+			<li role="presentation"><a id="userManagementQ5" href="javascript:void(0)" role="tab" data-toggle="tab" class="meta-event-source" meta-event-handler="userManagement:q5">问卷题集五</a></li>
 		</ul>
 		<div class="tab-content">
 			<ul class="steps">
