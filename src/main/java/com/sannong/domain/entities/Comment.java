@@ -20,7 +20,6 @@ public class Comment implements Serializable{
 	}
 	
 	private int commentId;
-	private int questionnaireNo;
 	private String content;
 	private Timestamp createTime;
 	
@@ -29,12 +28,6 @@ public class Comment implements Serializable{
 	}
 	public void setCommentId(int commentId) {
 		this.commentId = commentId;
-	}
-	public int getQuestionnaireNo() {
-		return questionnaireNo;
-	}
-	public void setQuestionnaireNo(int questionnaireNo) {
-		this.questionnaireNo = questionnaireNo;
 	}
 	public String getContent() {
 		return content;

@@ -175,29 +175,20 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 }
             }
         },
-        renderQuestionnaireComments: function(currentQuestionnaireNo, latestQuestionnaireNo, data, stageOrCommit, answerString, answerStatusStr){
+        renderQuestionnaireComments: function(data, answerStatus){
             if (data.comment != null && data.comment.content != null){
                 var comment = data.comment.content;
                 if($("#questionnaireStatus")){
                     $("#questionnaireStatus").text(comment);
                     $("#questionnaireStatus").show();
                 }
-            } else if (answerString == null || answerString == ""){
-                $("#questionnaireStatus").hide();
+            } else if (answerStatus == 51){
+                $("#questionnaireStatus").text("您的申请正在审核中。请保存手机畅通，我们的工作人员会尽快联系您。");
+                $("#questionnaireStatus").show();
             } else{
-                if($("#questionnaireStatus")){
-                    if (!(currentQuestionnaireNo == latestQuestionnaireNo && stageOrCommit == 0)){
-                        $("#questionnaireStatus").text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
-                        $("#questionnaireStatus").show();
-                    }else {
-                        $("#questionnaireStatus").hide();
-                    }
-                }
+                $("#questionnaireStatus").text("请完成所有问卷调查，然后我们的工作人员会第一时间联系您。");
+                $("#questionnaireStatus").show();
             }
-            if (answerStatusStr == "51"){
-                $("#submitStatus").children().text("您的申请正在审核中。请保存手机畅通，我们的工作人员会尽快联系您。");
-            }
-            $("#submitStatus").show();
         },
         renderQuestionnaireAnswers: function(questionnaireNo, data){
             // answerStatus: 10, 11, 20, 21, 30, 31, 40, 41, 50, 51
@@ -241,8 +232,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             var answerString = questionnaire.getAnswers(questionnaireNo, data);
             questionnaire.View.fillAnswers(questionnaireNo, answerString, disableAnswerOptions);
 
-            questionnaire.View.renderQuestionnaireComments(currentQuestionnaireNo, latestQuestionnaireNo, data,
-                stageOrCommit, answerString, answerStatusStr);
+            questionnaire.View.renderQuestionnaireComments(data, answerStatus);
 
         }
     };

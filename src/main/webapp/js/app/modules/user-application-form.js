@@ -51,9 +51,6 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                             var questionnaireNo = $("#questionnaireNo").val();
                             questionnaire.Controller.showQuestionnaireAnswers(questionnaireNo);
 
-                            //show comment
-                            $("#questionnaireStatus").children().text("如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
-                            $("#questionnaireStatus").show();
                         }else{
                             if ($("#save-success") != null){
                                 $("#save-success").remove();

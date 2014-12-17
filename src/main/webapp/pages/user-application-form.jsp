@@ -50,7 +50,7 @@
             <span class="stepHeading">问卷题集五</span>
           </li>
         </ul>
-        <div id="submitStatus" class="brown-bg">项目状态：<span>请完成所有问卷调查，然后我们的工作人员会第一时间联系您。</span></div>
+        <div id="submitStatus" class="brown-bg">项目状态：<span id="questionnaireStatus"></span></div>
         <ul class="step-1-listing">
             <form id="answerForm" class="projectAppForm" role="form" action="updateAnswersAndComment" method="post">
                 <div id="questionnaire"></div>
@@ -58,11 +58,7 @@
                 <input type="hidden" name="questionnaireNo" id="questionnaireNo" >
             </form>
         </ul>
-        <div id="questionnaireStatus" class="light-gray-txt" style="display:none">
-          如果需要修改问卷调查的答案，请致电免费电话
-          400-XXXX-XXXX联系我们的工作人员
-        </div>
-
+          <div><span>如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员。</span></div>
         <div id="buttonGroup" class="float-right step-1-bts">
           <%--<button class="white-bt" type="button" id="save">暂存</button>--%>
           <a href="javascript:void(0);" class="white-bt meta-event-source" type="button" id="save"  meta-event-handler="userApplicationForm:save">暂存</a>

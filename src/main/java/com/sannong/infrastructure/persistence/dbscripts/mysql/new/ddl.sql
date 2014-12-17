@@ -262,3 +262,7 @@ CHANGE COLUMN `company_city` `company_city` BIGINT(20) NOT NULL ,
 CHANGE COLUMN `company_district` `company_district` BIGINT(20) NOT NULL ,
 CHANGE COLUMN `company_address` `company_address` VARCHAR(45) NOT NULL ,
 CHANGE COLUMN `job_title` `job_title` VARCHAR(45) NOT NULL ;
+
+ALTER TABLE `sannong`.`comments`
+DROP COLUMN `questionnaire_number`;
+

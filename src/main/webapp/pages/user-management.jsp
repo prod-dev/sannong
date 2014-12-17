@@ -142,8 +142,7 @@
 
 	<div id="questionnaireTable" style="display:none">
 
-		<div id="userTextShow"
-			style="display:none; float:right; text-align:right">
+		<div id="userTextShow" style="display:none; float:right; text-align:right">
 			<div style="float:left;color:#F75000" id="userRealName"></div>
 			<div style="float:left">的调查问卷答案</div>
 		</div>
@@ -169,15 +168,14 @@
 				</li>
 			</ul>
 			<ul class="step-1-listing">
+				<div id="submitStatus" class="brown-bg">项目状态：<span id="questionnaireStatus"></span></div>
+
 				<form id="answerForm" role="form" action="updateAnswersAndComment" method="post">
 					<div id="questionnaire">
 						<!-- Fill in template here -->
 					</div>
-					<div id="questionnaireStatus">
-						状态
-						<textarea class="form-control" name="comment.content" rows="3"
-							placeholder="如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员"
-							autofocus></textarea>
+					<div id="questionnaireComment">更改状态:
+						<textarea class="form-control" name="comment.content" rows="3" id="commentContent" autofocus></textarea>
 					</div>
 					<input type="hidden" name="questionnaireNo" id="questionnaireNo">
 					<input type="hidden" name="applicant.userName" id="userName">
@@ -190,10 +188,8 @@
         <a href="#" class="white-bt meta-event-source" meta-event-handler="userManagement:cancel" id="cancel">取消</a>
 		<button class="orange-bt-small meta-event-source" meta-event-handler="userManagement:update" id="update">更新</button>
 		<!-- Button trigger modal -->
-		<button type="button" id="myModalTrigger" class="btn btn-primary"
-			data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
-		<div class="modal fade in" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
+		<button type="button" id="myModalTrigger" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none">提交</button>
+		<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -229,32 +225,32 @@
                 </div>
            </li>
         {{/each}}
-</script>
+	</script>
 
-	<script id="question-template-checkbox"
-		type="text/x-handlebars-template">
-    <li class="J_group_choice">
-      {{fromOne}}. {{questionContent}}
-      <div class="checkboxRow">
-          <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:a"><label>{{option1}}</label></span>
-          <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:b"><label>{{option2}}</label></span>
-          <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:c"><label>{{option3}}</label></span>
-          <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:d"><label>{{option4}}</label></span>
-          <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:e"><label>{{option5}}</label></span>
-      </div>
-    </li>
-  </script>
+	<script id="question-template-checkbox" type="text/x-handlebars-template">
+		<li class="J_group_choice">
+		  {{fromOne}}. {{questionContent}}
+		  <div class="checkboxRow">
+			  <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:a"><label>{{option1}}</label></span>
+			  <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:b"><label>{{option2}}</label></span>
+			  <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:c"><label>{{option3}}</label></span>
+			  <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:d"><label>{{option4}}</label></span>
+			  <span class="checkboxCustom"><input type="checkbox" name="answers[{{fromZero}}]" value="{{questionId}}:e"><label>{{option5}}</label></span>
+		  </div>
+		</li>
+  	</script>
+
 	<script id="question-template-radio" type="text/x-handlebars-template">
-    <li class="J_group_choice">
-      {{fromOne}}. {{questionContent}}
-      <div class="radioRow">
-        <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:a"><label>{{option1}}</label></span>
-        <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:b"><label>{{option2}}</label></span>
-        <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:c"><label>{{option3}}</label></span>
-        <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:d"><label>{{option4}}</label></span>
-        <span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:e"><label>{{option5}}</label></span>
-      </div>
-    </li>
-  </script>
+		<li class="J_group_choice">
+		  {{fromOne}}. {{questionContent}}
+		  <div class="radioRow">
+			<span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:a"><label>{{option1}}</label></span>
+			<span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:b"><label>{{option2}}</label></span>
+			<span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:c"><label>{{option3}}</label></span>
+			<span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:d"><label>{{option4}}</label></span>
+			<span class="radioCustom"><input type="radio" name="answers[{{fromZero}}]" value="{{questionId}}:e"><label>{{option5}}</label></span>
+		  </div>
+		</li>
+  	</script>
 </body>
 </html>

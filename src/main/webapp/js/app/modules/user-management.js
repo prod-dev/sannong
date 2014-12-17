@@ -72,28 +72,12 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         $(".error").empty();
                     }
                 },
-                renderQuestionnaireComments: function(data, answerString){
+                renderQuestionnaireComments: function(data, answerStatus){
                     //comment service
                     if ($("#applicationId")){
                         $("#applicationId").val(data.application.applicationId);
                     }
-                    if (data.comment != null && data.comment.content != null){
-                        var comment = data.comment.content;
-                        $("#questionnaireStatus").children().val("");
-                        $("#questionnaireStatus").children().attr("placeholder",comment);
-
-                        if($("#questionnaireStatus").hide()){
-                            $("#questionnaireStatus").show();
-                        }
-                    } else if (answerString == null || answerString == ""){
-                        $("#questionnaireStatus").hide();
-                    } else {
-                        if($("#questionnaireStatus")){
-                            $("#questionnaireStatus").children().val("");
-                            $("#questionnaireStatus").children().attr("placeholder","如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员");
-                            $("#questionnaireStatus").show();
-                        }
-                    }
+                    questionnaire.View.renderQuestionnaireComments(data, answerStatus);
 
                 },
                 renderQuestionnaireView: function(questionnaireNo, data){
@@ -121,7 +105,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     var answerString = questionnaire.getAnswers(questionnaireNo, data);
                     questionnaire.View.fillAnswers(questionnaireNo, answerString, false);
 
-                    userManagement.View.renderQuestionnaireComments(data, answerString);
+                    userManagement.View.renderQuestionnaireComments(data, answerStatus);
                 }
 
             };
@@ -340,6 +324,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     var userCellphone = cellphone;
                     if (userCellphone != "") {
                         $("#cellphone").val(userCellphone);
+                        $("#commentContent").val("");
                     } else {
                         userCellphone = $("#cellphone").val();
                     }

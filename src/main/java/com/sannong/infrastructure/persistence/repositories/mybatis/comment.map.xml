@@ -6,13 +6,14 @@
 
     <insert id="addComment" parameterType="Answer" >
     	<![CDATA[
-	    	insert into comments(questionnaire_number,content,application_id,create_time,username) values (#{questionnaireNo},#{comment.content},#{application.applicationId},#{comment.createTime},#{applicant.userName})
+	    	insert into comments(content,application_id,create_time,username)
+	    	values (#{comment.content},#{application.applicationId},#{comment.createTime},#{applicant.userName})
     	]]>
     </insert>
     
     <select id="getCommentByCondition" parameterType="Map" resultType="String">
     	<![CDATA[
-	    	SELECT c.content FROM comments c where c.username = #{userName} and c.questionnaire_number = #{questionnaireNo}
+	    	SELECT c.content FROM comments c where c.username = #{userName}
             order by c.create_time desc limit 0,1
     	]]>
     </select>
