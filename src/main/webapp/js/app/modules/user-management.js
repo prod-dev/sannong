@@ -89,8 +89,10 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     // about when admin can update user's questionnaire
                     if (parseInt(questionnaireNo) > latestQuestionnaireNo ||
                         ((parseInt(questionnaireNo) == latestQuestionnaireNo) && saveOrSubmit == 0)){
-                        $("#update").attr("disabled", "disabled");
+                        $("#update").removeClass("orange-bt-small").addClass("gray-bt-small");
+                        $("#update").attr("disabled",true);
                     }else{
+                        $("#update").removeClass("gray-bt-small").addClass("orange-bt-small");
                         $("#update").attr("disabled", false);
                     }
 

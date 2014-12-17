@@ -4,7 +4,7 @@
 requirejs.config({
     baseUrl : 'js',
     paths: {
-        "jquery" : "lib/jquery-2.1.1.min",
+        "jquery" : "lib/jquery-1.11.1.min",
         "bootstrap" : "lib/bootstrap-3.0.3.min",
         "handlebars": "lib/handlebars-v2.0.0",
         "pagination": "lib/jquery-pagination",
