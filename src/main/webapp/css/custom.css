@@ -731,6 +731,7 @@ h3.borderBottom {
 .checkboxCustom input {
 	/*display:none;*/
 	float:left;
+	background:url(../images/checkbox.png) no-repeat left center;
 	margin:0 0 0 -35px !important;
 	width:27px;
 	height:27px;
@@ -739,9 +740,8 @@ h3.borderBottom {
 }
 
 .checkboxCustom-checked {
-	background:url(../images/checkbox-checked.png) no-repeat	left center;
+	background:url(../images/checkbox-checked.png) no-repeat left center;
 }
-
 
 .tab-content {
 	display:table;
@@ -1455,22 +1455,6 @@ width:100%;
 	}
 }
 
-.checkboxCustom {
-    float:left;
-    background:url(../images/checkbox.png) no-repeat left center;
-    height:26px;
-    cursor:pointer;
-    line-height:26px;
-    padding-left:38px;
-}
-/*
-.checkboxCustom input {
-    display:none;
-}
-*/
-.checkboxCustom-checked {
-    background:url(../images/checkbox-checked.png) no-repeat    left center;
-}
 
 /* tab styles for small screen */
       @media (max-width: 688px) {

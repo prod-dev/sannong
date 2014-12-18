@@ -109,12 +109,12 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 }
             });
 
-            $('.radioCustom input').click(function () {
+            $('#questionnaire .radioCustom input').click(function () {
                 $(this).parents(".radioRow").find(".radioCustom").removeClass("radioCustom-checked");
                 $(this).parent(".radioCustom").addClass("radioCustom-checked");
             });
 
-            $('.checkboxCustom').click(function () {
+            $('#questionnaire .checkboxCustom').click(function () {
                 $(this).toggleClass('checkboxCustom-checked');
                 var $checkbox = $(this).find(':checkbox');
                 $checkbox.attr('checked', !$checkbox.attr('checked'));
