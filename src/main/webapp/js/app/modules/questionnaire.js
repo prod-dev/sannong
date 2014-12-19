@@ -126,6 +126,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 }else{
                     $("#q" + i).parent().addClass("disabled");
                 }
+                $("#q" + i).parent().attr("title","请顺序完成问卷题集");
             }
         },
         enableSaveButtons: function(){
@@ -215,7 +216,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             }else if(currentQuestionnaireNo < latestQuestionnaireNo && stageOrCommit == 1){     // 当前页面小于填写的最大问卷, 提交状态
                 disableAnswerOptions = true;
                 questionnaire.View.disableSaveButtons();
-                questionnaire.View.disableSubsequentTab(latestQuestionnaireNo + 1);
+                questionnaire.View.disableSubsequentTab(latestQuestionnaireNo + 2);
             }else if (currentQuestionnaireNo == (latestQuestionnaireNo + 1) && stageOrCommit == 1){
                 disableAnswerOptions = false;
                 questionnaire.View.enableSaveButtons();
