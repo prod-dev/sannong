@@ -51,13 +51,10 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             $("#save").removeAttr("disabled");
             $("#questionnaireSubmit").removeAttr("disabled");
 
-            if ($("#save-success")){
-                $("#save-success").remove();
-            }
-
-            if ($("#update-success")){
-                $("#update-success").remove();
-            }
+            $("#save-success").remove();
+            $("#save-error").remove();
+            $("#update-success").remove();
+            $("#update-error").remove();
 
             if ($(".steps")){
                 $(".no").each(function(){

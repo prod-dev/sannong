@@ -53,6 +53,8 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     $("#userManagementTable").hide();
                     $("#questionnaireTable").show();
                     $("#questionnaireStatus").show();
+                    $("#update-success").remove();
+                    $("#update-error").remove();
 
                     if ($("#questionnaireTable").show()) {
                         $("#questionList").empty();
@@ -87,8 +89,7 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                         saveOrSubmit = answerStatusStr.substring(1, 2);
 
                     // about when admin can update user's questionnaire
-                    if (parseInt(questionnaireNo) > latestQuestionnaireNo ||
-                        ((parseInt(questionnaireNo) == latestQuestionnaireNo) && saveOrSubmit == 0)){
+                    if (parseInt(questionnaireNo) > latestQuestionnaireNo){
                         $("#update").removeClass("orange-bt-small").addClass("gray-bt-small");
                         $("#update").attr("disabled",true);
                     }else{
@@ -174,9 +175,14 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 submit: function(event){
                     $("#answerForm").ajaxSubmit(function(message) {
                         if (message.result == true){
+                            $("#update-success").remove();
+                            $("#update-error").remove();
                             $("#return").click();
+                            $("#update").after('<label id="update-success" class="update">已更新成功</label>');
                         }else{
-                            alert("更新失败！");
+                            $("#update-success").remove();
+                            $("#update-error").remove();
+                            $("#update").after('<label id="update-error" class="update">更新失败</label>');
                         }
                     });
                     return false;
