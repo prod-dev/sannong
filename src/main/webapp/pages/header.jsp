@@ -21,7 +21,7 @@
                     <li><a href="#" data-toggle="modal" data-target="#LoginModel">登录</a></li>
                   </sec:authorize>
                   <sec:authorize access="hasRole('ROLE_USER') and isAuthenticated()">
-                      <li><a href="user-personal-center">我的项目</a></li>
+                      <li>欢迎<span style="color: red;"><sec:authentication property="name"/></span>&nbsp;&nbsp;<a href="user-personal-center">我的项目</a></li>
                   </sec:authorize>
                   <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
                       <li><a href="user-personal-center">用户管理</a></li>
