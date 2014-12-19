@@ -83,12 +83,9 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 renderQuestionnaireView: function(questionnaireNo, data){
                     var answerStatus = data.answerStatus,
                         answerStatusStr = answerStatus.toString(),
-                        latestQuestionnaireNo = parseInt(answerStatusStr.substring(0, 1)),
-                        saveOrSubmit = answerStatusStr.substring(1, 2);
+                        latestQuestionnaireNo = parseInt(answerStatusStr.substring(0, 1), 10);
 
-                    // about when admin can update user's questionnaire
-                    if (parseInt(questionnaireNo) > latestQuestionnaireNo ||
-                        ((parseInt(questionnaireNo) == latestQuestionnaireNo) && saveOrSubmit == 0)){
+                    if (parseInt(questionnaireNo, 10) > latestQuestionnaireNo){
                         $("#update").removeClass("orange-bt-small").addClass("gray-bt-small");
                         $("#update").attr("disabled",true);
                     }else{
