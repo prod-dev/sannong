@@ -51,13 +51,10 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             $("#save").removeAttr("disabled");
             $("#questionnaireSubmit").removeAttr("disabled");
 
-            if ($("#save-success")){
-                $("#save-success").remove();
-            }
-
-            if ($("#update-success")){
-                $("#update-success").remove();
-            }
+            $("#save-success").remove();
+            $("#save-error").remove();
+            $("#update-success").remove();
+            $("#update-error").remove();
 
             if ($(".steps")){
                 $(".no").each(function(){
@@ -129,17 +126,24 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 }else{
                     $("#q" + i).parent().addClass("disabled");
                 }
+                $("#q" + i).parent().attr("title","请顺序完成问卷题集");
             }
         },
         enableSaveButtons: function(){
             //当前选项卡中的button enabled
             $("#save").attr("disabled",false);
+            $("#save").removeClass("gray-bt-small").addClass("white-bt");
+
             $("#questionnaireSubmit").attr("disabled",false);
+            $("#questionnaireSubmit").removeClass("gray-bt-small").addClass("orange-bt-small");
         },
         disableSaveButtons: function(){
             //当前选项卡中的button disabled
             $("#save").attr("disabled","disabled");
+            $("#save").removeClass("white-bt").addClass("gray-bt-small");
+
             $("#questionnaireSubmit").attr("disabled","disabled");
+            $("#questionnaireSubmit").removeClass("orange-bt-small").addClass("gray-bt-small");
         },
         enableNextTab: function(currentQuestionnaireNo){
             //下一个选项卡可用
@@ -218,7 +222,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             }else if(currentQuestionnaireNo < latestQuestionnaireNo && stageOrCommit == 1){     // 当前页面小于填写的最大问卷, 提交状态
                 disableAnswerOptions = true;
                 questionnaire.View.disableSaveButtons();
-                questionnaire.View.disableSubsequentTab(latestQuestionnaireNo + 1);
+                questionnaire.View.disableSubsequentTab(latestQuestionnaireNo + 2);
             }else if (currentQuestionnaireNo == (latestQuestionnaireNo + 1) && stageOrCommit == 1){
                 disableAnswerOptions = false;
                 questionnaire.View.enableSaveButtons();

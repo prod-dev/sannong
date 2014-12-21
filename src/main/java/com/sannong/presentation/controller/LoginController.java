@@ -16,6 +16,9 @@ import com.sannong.presentation.model.Response;
 import com.sannong.service.ISmsService;
 import com.sannong.service.IUserService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class LoginController {
-	
+	private static final Logger logger = Logger.getLogger(LoginController.class);
     private static final String LOGIN_PAGE = "login";
     private static final String FAQ_PAGE = "faq";
     private static final String USER_PERSONAL_CENTER_PAGE = "user-personal-center";
@@ -84,7 +87,6 @@ public class LoginController {
     Response handleLoginSuccess(HttpServletRequest request) {
         Map<String, Object> models = new HashMap<String, Object>();
         models.put("redirect", USER_PERSONAL_CENTER_PAGE);
-
         return new Response(
                 ResponseStatus.LOGIN_SUCCESS.getStatusCode(),
                 ResponseStatus.LOGIN_SUCCESS.getStatusDescription(),
@@ -148,6 +150,36 @@ public class LoginController {
                         ResponseStatus.SMS_SEND_NEW_PASSWORD_FAILURE.getStatusDescription());
             }
         }
+    }
+
+    @RequestMapping(value = "login/realName", method = RequestMethod.POST)
+    public @ResponseBody Response getRealName(){
+        Map<String, Object> models = new HashMap<String, Object>();
+        Map<String, Object> queryParamMap = new HashMap<String, Object>();
+
+        try {
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                    .getAuthentication().getPrincipal();
+
+            String userName = userDetails.getUsername();
+            String realName = "";
+            queryParamMap.put("userName", userName);
+            List<User> users = userService.getUserByCondition(queryParamMap);
+            if (!users.isEmpty()){
+                User user = users.get(0);
+                realName = user.getRealName();
+            }
+
+            models.put("realName", realName);
+        }catch(Exception ex){
+            logger.error(ex.getMessage());
+            return new Response(ResponseStatus.FAILURE.getStatusCode(),
+                    ResponseStatus.FAILURE.getStatusDescription());
+        }
+
+        return new Response(ResponseStatus.SUCCESS.getStatusCode(),
+                            ResponseStatus.SUCCESS.getStatusDescription(),
+                            models);
     }
 
 }

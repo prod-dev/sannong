@@ -5,3 +5,10 @@ label.error {
     font-weight: bold;
     color: #EA5200;
 }
+
+label.update {
+    margin-left: 18px;
+    margin-top: 25px;
+    font-weight: bold;
+    color: #EA5200;
+ }

@@ -114,6 +114,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate', 'ajaxHandler', 'formValida
                         },
                         success: function (response) {
                             if (response.statusCode < 2000) {
+
                                 window.location.href = response.models.redirect;
                             } else {
                                 showError(response.statusDescription);

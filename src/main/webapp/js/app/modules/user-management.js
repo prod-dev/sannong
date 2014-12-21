@@ -53,6 +53,8 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     $("#userManagementTable").hide();
                     $("#questionnaireTable").show();
                     $("#questionnaireStatus").show();
+                    $("#update-success").remove();
+                    $("#update-error").remove();
 
                     if ($("#questionnaireTable").show()) {
                         $("#questionList").empty();
@@ -171,9 +173,14 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 submit: function(event){
                     $("#answerForm").ajaxSubmit(function(message) {
                         if (message.result == true){
+                            $("#update-success").remove();
+                            $("#update-error").remove();
                             $("#return").click();
+                            $("#update").after('<label id="update-success" class="update">已更新成功</label>');
                         }else{
-                            alert("更新失败！");
+                            $("#update-success").remove();
+                            $("#update-error").remove();
+                            $("#update").after('<label id="update-error" class="update">更新失败</label>');
                         }
                     });
                     return false;

@@ -61,7 +61,10 @@
           <div><span>如果需要修改问卷调查的答案，请致电免费电话400-XXXX-XXXX联系我们的工作人员。</span></div>
         <div id="buttonGroup" class="float-right step-1-bts">
           <%--<button class="white-bt" type="button" id="save">暂存</button>--%>
+              <button class="white-bt meta-event-source" meta-event-handler="userApplicationForm:save" id="save" disabled="disabled">暂存</button>
+              <!--
           <a href="javascript:void(0);" class="white-bt meta-event-source" type="button" id="save"  meta-event-handler="userApplicationForm:save">暂存</a>
+          -->
           <button class="orange-bt-small meta-event-source" type="button" id="questionnaireSubmit" meta-event-handler="userApplicationForm:submit">提交</button>
         </div>
       </div>

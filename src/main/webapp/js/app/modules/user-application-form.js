@@ -18,17 +18,14 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                     	$("#myModalTrigger").click();
                     }else{
                         $("#answerForm").ajaxSubmit(function(message) {
+                            $("#save-success").remove();
+                            $("#save-error").remove();
+
                             if (message.result == true){
                                 $("#return").click();
-                                
-                                if ($("#save-success") != null){
-                                	$("#save-success").remove();
-                                }
-                                
-                                $("#questionnaireSubmit").after('<label id="save-success" class="error" for="jobTitle">已保存</label>');
+                                $("#questionnaireSubmit").after('<label id="save-success" class="error" for="jobTitle">已暂存成功</label>');
                             }else{
-                                $("#questionnaireSubmit").after('<label id="save-error" class="error" for="jobTitle">保存失败</label>');
-                            }
+                                $("#questionnaireSubmit").after('<label id="save-error" class="error" for="jobTitle">暂存失败</label>');                            }
                         });
                     }
                 }
@@ -50,7 +47,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                             //更新成功重新加载questionnaire and answer
                             var questionnaireNo = $("#questionnaireNo").val();
                             questionnaire.Controller.showQuestionnaireAnswers(questionnaireNo);
-
+                            $("#questionnaireSubmit").after('<label id="update-success" class="error" for="jobTitle">已提交成功</label>');
                         }else{
                             if ($("#save-success") != null){
                                 $("#save-success").remove();
@@ -58,7 +55,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                             if ($("#update-error") != null){
                                 $("#update-error").remove();
                             }
-                            $("#questionnaireSubmit").after('<label id="update-error" class="error" for="jobTitle">更新失败</label>');
+                            $("#questionnaireSubmit").after('<label id="update-error" class="error" for="jobTitle">提交失败</label>');
                         }
                     });
                     return false;
