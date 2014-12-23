@@ -20,7 +20,7 @@ public enum ResponseStatus {
     PASSWORD_MISMATCH(2002, "密码不正确"),
     OLD_PASSWORD_MISMATCH(2003, "旧密码不匹配"),
     CONFIRMED_PASSWORD_MISMATCH(2004, "新密码与确认密码不匹配"),
-    LOGIN_FAILURE(2005, "登录失败"),
+    LOGIN_FAILURE(2005, "用户名或密码错误"),
     CAPTCHA_INCORRECT(2006, "验证码不正确"),
     NEW_PASSWORD_INCORRECT(2007, "新密码不正确"),
     NAME_MISMATCH(2008, "姓名不匹配"),
