@@ -47,7 +47,7 @@ define(['jquery', 'bootstrap', 'sannong', 'validate',  'formValidator', 'additio
                             //更新成功重新加载questionnaire and answer
                             var questionnaireNo = $("#questionnaireNo").val();
                             questionnaire.Controller.showQuestionnaireAnswers(questionnaireNo);
-                            $("#questionnaireSubmit").after('<label id="update-success" class="error" for="jobTitle">已提交成功</label>');
+                            $("#questionnaireSubmit").after('<label id="update-success" class="success" for="jobTitle">已提交成功</label>');
                         }else{
                             if ($("#save-success") != null){
                                 $("#save-success").remove();
