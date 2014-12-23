@@ -42,7 +42,7 @@
 		<div class="searchRow">
 			<div class="left">
 				<label>查询条件</label>
-				<div class="width-137">
+				<div class="width-97">
 					<select id="searchKey" name="searchKey">
 						<option value="姓名">姓名</option>
 						<option value="手机号">手机号</option>
@@ -52,7 +52,7 @@
 						<option value="单位地址">单位地址</option>
 					</select>
 				</div>
-				<div class="width-152">
+				<div class="width-200">
 					<input id="searchValue" name="searchValue" type="text">
 				</div>
 			</div>

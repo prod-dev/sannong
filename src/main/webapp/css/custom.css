@@ -860,7 +860,7 @@ h3.borderBottom {
 	font-weight:normal;
 	width:76px;
 }
-.width-71, .width-137, .width-47, .width-152, .width-65 {
+.width-71, .width-137, .width-47, .width-152, .width-65 ,.width-97 ,.width-200{
 	float:left;
 	width:71px;
 }
@@ -872,6 +872,15 @@ h3.borderBottom {
 .width-152 {
 	width:152px;
 }
+
+.width-97{
+    width:97px;
+}
+
+.width-200{
+    width:200px;
+}
+
 .width-137 {
 	width:137px;
 }
