@@ -127,6 +127,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                     $("#q" + i).parent().addClass("disabled");
                 }
                 $("#q" + i).parent().attr("title","请顺序完成问卷题集");
+                $("#q" + i).removeAttr("data-toggle").removeClass("meta-event-source");
             }
         },
         enableSaveButtons: function(){
@@ -149,6 +150,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             //下一个选项卡可用
             if ($("#q" + (currentQuestionnaireNo + 1).toString()).parent().hasClass("disabled")){
                 $("#q" + (currentQuestionnaireNo + 1).toString()).parent().removeClass("disabled");
+                $("#q" + (currentQuestionnaireNo + 1).toString()).attr("data-toggle","tab").addClass("meta-event-source");
             }
 
         },
