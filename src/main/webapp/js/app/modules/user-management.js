@@ -163,9 +163,9 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                 },
                 update: function () {
                     if (formValidator.getValidator("#answerForm").form() == true){
-                        var questionnaireNo = $("#questionnaireNo").val();
-                        var answerStatus = questionnaireNo + "1";
-                        $("#answerStatus").val(answerStatus);
+                        //var questionnaireNo = $("#questionnaireNo").val();
+                        //var answerStatus = questionnaireNo + "1";
+                        //$("#answerStatus").val(answerStatus);
 
                         $("#myModalTrigger").click();
                     }
