@@ -126,9 +126,10 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
                 }else{
                     $("#q" + i).parent().addClass("disabled");
                 }
-                $("#q" + i).parent().attr("title","请顺序完成问卷题集");
                 $("#q" + i).removeAttr("data-toggle").removeClass("meta-event-source");
+                $("#q" + i).parent().attr("data-toggle","tooltip").attr("title","请顺序完成问卷题集");
             }
+            $("[data-toggle='tooltip']").tooltip();
         },
         enableSaveButtons: function(){
             //当前选项卡中的button enabled
@@ -151,6 +152,7 @@ define(['jquery', 'sannong', 'handlebars'], function($, sannong, handlebars) {
             if ($("#q" + (currentQuestionnaireNo + 1).toString()).parent().hasClass("disabled")){
                 $("#q" + (currentQuestionnaireNo + 1).toString()).parent().removeClass("disabled");
                 $("#q" + (currentQuestionnaireNo + 1).toString()).attr("data-toggle","tab").addClass("meta-event-source");
+                $("#q" + (currentQuestionnaireNo + 1).toString()).parent().removeAttr("data-toggle").removeAttr("title").removeAttr("data-original-title");
             }
 
         },
