@@ -160,6 +160,8 @@ define(['jquery', 'bootstrap', 'handlebars', 'sannong', 'validate', 'ajaxHandler
                     $("#userManagementTable").show();
                     $("#searchBar").show();
                     $("#user-management-title").show();
+                    $("#questionnaireTab li").removeClass("active")
+                    $("#questionnaireTab li:first-child").addClass("active");
                 },
                 update: function () {
                     if (formValidator.getValidator("#answerForm").form() == true){
