@@ -180,7 +180,9 @@
 					<input type="hidden" name="questionnaireNo" id="questionnaireNo">
 					<input type="hidden" name="applicant.userName" id="userName">
 					<input type="hidden" name="application.applicationId" id="applicationId">
+					<!--
 					<input type="hidden" name="answerStatus" id="answerStatus" >
+					-->
 				</form>
 			</ul>
 		</div>

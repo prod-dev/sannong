@@ -32,7 +32,7 @@
 	        <if test="questionnaire5Answers != null">  
 	            questionnaire5_answers = #{questionnaire5Answers},  
 	        </if>
-	         <if test="answerStatus != null">  
+			<if test="answerStatus != null and answerStatus != 0" >
 	            answer_status = #{answerStatus}  
 	        </if>
    	    </set>  
