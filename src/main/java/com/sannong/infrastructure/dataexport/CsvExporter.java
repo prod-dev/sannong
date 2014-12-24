@@ -59,7 +59,7 @@ public class CsvExporter {
 
 		for (User userRow : users) {
 			String Baseinfo = i + "," + userRow.getRealName() + ","
-					+ userRow.getCellphone() + "," + userRow.getCompany() + ",";
+					+ "=\"" + userRow.getCellphone() + "\"" + "," + userRow.getCompany() + ",";
 			StringBuffer answerRow = new StringBuffer();
 			String dataRow = "";
 
