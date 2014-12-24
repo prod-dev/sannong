@@ -52,7 +52,7 @@
 						<option value="单位地址">单位地址</option>
 					</select>
 				</div>
-				<div class="width-200">
+				<div class="width-152">
 					<input id="searchValue" name="searchValue" type="text">
 				</div>
 			</div>
