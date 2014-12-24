@@ -20,7 +20,7 @@ public enum ResponseStatus {
     PASSWORD_MISMATCH(2002, "密码不正确"),
     OLD_PASSWORD_MISMATCH(2003, "旧密码不匹配"),
     CONFIRMED_PASSWORD_MISMATCH(2004, "新密码与确认密码不匹配"),
-    LOGIN_FAILURE(2005, "用户名或密码错误"),
+    LOGIN_FAILURE(2005, "登录失败"),
     CAPTCHA_INCORRECT(2006, "验证码不正确"),
     NEW_PASSWORD_INCORRECT(2007, "新密码不正确"),
     NAME_MISMATCH(2008, "姓名不匹配"),
@@ -29,7 +29,8 @@ public enum ResponseStatus {
     SMS_SEND_NEW_PASSWORD_FAILURE(2011, "新密码发送失败"),
     CELLPHONE_NOT_UNIQUE(2012, "手机号码已存在"),
     SMS_SEND_CAPTCHA_FAILURE(2013, "验证码发送失败"),
-    CELLPHONE_IS_NULL(2014, "手机号码为空");
+    CELLPHONE_IS_NULL(2014, "手机号码为空"),
+    USERNAME_OR_PASSWORD_ERROR(2015, "用户名或密码错误");
 
     private int statusCode;
     private String statusDescription;
