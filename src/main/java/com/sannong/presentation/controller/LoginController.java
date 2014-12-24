@@ -103,8 +103,8 @@ public class LoginController {
     public @ResponseBody
     Response handleLoginFailure(HttpServletRequest request) {
         return new Response(
-                ResponseStatus.LOGIN_FAILURE.getStatusCode(),
-                ResponseStatus.LOGIN_FAILURE.getStatusDescription());
+                ResponseStatus.USERNAME_OR_PASSWORD_ERROR.getStatusCode(),
+                ResponseStatus.USERNAME_OR_PASSWORD_ERROR.getStatusDescription());
     }
 
     /**
