@@ -21,6 +21,11 @@
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
         <link href="css/custom.css" rel="stylesheet" type="text/css">
         <link href="css/validation.css" rel="stylesheet">
+        <!--[if IE 8]>
+        <link href="css/ie8.css" rel="stylesheet" type="text/css">
+        <![endif]-->
+
+
 	</head>
 
 	<body>
@@ -254,8 +259,5 @@
 
     <jsp:include page='footer.jsp'/>
     <script data-main="js/app/pages/project-application" src="js/lib/require-2.1.15.min.js"></script>
-    <!--
-    <script src="js/app/modules/custom.js"></script>
-    -->
-    </body>
+ </body>
 </html>
