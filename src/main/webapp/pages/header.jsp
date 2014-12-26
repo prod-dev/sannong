@@ -9,6 +9,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
 <html>
+<head>
+    <!-- 模拟ie9及以下浏览器输入框内容提示-->
+    <link href="css/ie.css" rel="stylesheet" type="text/css">
+</head>
 <body>
 <!-- HEADER -->
 <header>
@@ -102,4 +106,6 @@
 <!-- /Forgot Password Modal -->
 
 </body>
+<!-- 模拟ie9及以下浏览器输入框内容提示-->
+<script src="js/app/modules/ie.js"></script>
 </html>

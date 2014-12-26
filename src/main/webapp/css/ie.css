@@ -1,0 +1,28 @@
+label.hint{
+    position: absolute;
+    display: inline;
+    color: #8c8c8c;
+    cursor: text;
+    margin: 5px 0 0 8px;
+    z-index: 1;
+}
+label.hint.j_username-hint {
+    top: 19px;
+    left: 65px;
+}
+label.hint.j_password-hint {
+    top: 81px;
+    left: 65px;
+}
+label.hint.forgotPasswordForm_realName-hint {
+    top: 19px;
+    left: 65px;
+}
+label.hint.forgotPasswordForm_cellphone-hint {
+    top: 81px;
+    left: 65px;
+}
+label.hint.forgotPasswordForm_password-hint {
+    top: 143px;
+    left: 65px;
+}
