@@ -711,7 +711,7 @@ h3.borderBottom {
 .radioCustom label {
 	font-weight:normal !important;
 	margin:0 !important;
-    white-space: nowrap \0;
+    white-space: nowrap;
 }
 .projectAppForm .radioRow {
 	margin-top:25px;
@@ -743,7 +743,7 @@ h3.borderBottom {
 	cursor:pointer;
 }
 .checkboxCustom label {
-    white-space: nowrap \0;
+    white-space: nowrap;
 }
 
 .checkboxCustom-checked {
