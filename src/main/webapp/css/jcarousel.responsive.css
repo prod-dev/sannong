@@ -1,12 +1,12 @@
 .jcarousel-wrapper {
     margin: 20px auto;
     position: relative;
-      /*  -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 0 2px #999;
-    -moz-box-shadow: 0 0 2px #999;
-    box-shadow: 0 0 2px #999;*/
+    /*  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 0 2px #999;
+  -moz-box-shadow: 0 0 2px #999;
+  box-shadow: 0 0 2px #999;*/
 }
 
 /** Carousel **/
@@ -28,7 +28,7 @@
 .jcarousel li {
     width: 300px;
     float: left;
-    
+
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -50,7 +50,7 @@
     width: 30px;
     height: 50px;
     /*text-align: center;*/
-	color: #2f800b;
+    color: #2f800b;
     /*background: #4E443C;
     
     text-decoration: none;
@@ -66,20 +66,20 @@
 
 .jcarousel-control-prev {
     left: -75px;
-	background:url(../images/slider-arrow-left.png) center no-repeat;
+    background:url(../images/slider-arrow-left.png) center no-repeat;
 }
 .jcarousel-control-prev:hover {
-text-decoration:none;
-color:#2f800b;
+    text-decoration:none;
+    color:#2f800b;
 }
 
 .jcarousel-control-next {
     right: -75px;
-	background:url(../images/slider-arrow-right.png) no-repeat center;
+    background:url(../images/slider-arrow-right.png) no-repeat center;
 }
 .jcarousel-control-next:hover {
-text-decoration:none;
-color:#2f800b;
+    text-decoration:none;
+    color:#2f800b;
 }
 
 /** Carousel Pagination **/
